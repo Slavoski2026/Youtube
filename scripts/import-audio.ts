@@ -7,10 +7,12 @@
  *   npm run import-audio -- --audio "<content_url>" --out sfx/<slug>.mp3
  *     -> public/sfx/<slug>.mp3 (or music/...)
  *
+ * --audio and --words accept URLs or local file paths (e.g. files uploaded into the session).
+ *
  * The words file is an ElevenLabs Scribe word list: `{ text, type, start, end }` in seconds,
  * as a bare list, `{ words }` or `{ transcripts: [{ words }] }`. Spacing and audio events are skipped.
  */
-import { mkdirSync, writeFileSync } from "node:fs";
+import { copyFileSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 import type { Caption } from "@remotion/captions";
 import { parseMedia } from "@remotion/media-parser";
@@ -28,11 +30,25 @@ const flag = (name: string) => {
 
 const PUBLIC = resolve(import.meta.dirname, "..", "public");
 
-const download = async (url: string, out: string) => {
-  const res = await fetch(url);
-  if (!res.ok) throw new Error(`Download failed (${res.status}): ${url.slice(0, 80)}…`);
+const isUrl = (s: string) => /^https?:\/\//.test(s);
+
+/** Downloads a URL, or copies a local file (e.g. an uploaded mp3), to `out`. */
+const download = async (src: string, out: string) => {
   mkdirSync(dirname(out), { recursive: true });
+  if (!isUrl(src)) {
+    copyFileSync(src, out);
+    return;
+  }
+  const res = await fetch(src);
+  if (!res.ok) throw new Error(`Download failed (${res.status}): ${src.slice(0, 80)}…`);
   writeFileSync(out, Buffer.from(await res.arrayBuffer()));
+};
+
+const readJson = async (src: string): Promise<unknown> => {
+  if (!isUrl(src)) return JSON.parse(readFileSync(src, "utf8"));
+  const res = await fetch(src);
+  if (!res.ok) throw new Error(`Words download failed (${res.status})`);
+  return res.json();
 };
 
 const extractWords = (json: unknown): ScribeWord[] => {
@@ -73,9 +89,7 @@ const main = async () => {
 
   const mp3 = join(PUBLIC, "voiceover", `${name}.mp3`);
   await download(audio, mp3);
-  const res = await fetch(wordsUrl);
-  if (!res.ok) throw new Error(`Words download failed (${res.status})`);
-  const words = scribeToCaptions(extractWords(await res.json()));
+  const words = scribeToCaptions(extractWords(await readJson(wordsUrl)));
 
   const { durationInSeconds } = await parseMedia({
     src: mp3,
