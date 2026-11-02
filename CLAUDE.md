@@ -79,7 +79,7 @@ Use one bold geometric sans (e.g. Montserrat/Poppins 800 from `public/fonts/`, l
 1. **Cold open / title card** (0–4 s): a space shot of Earth plus the scenario object, title lockup, narration hook ("What if the Moon suddenly started…").
 2. **Numbered chapters** `01 … NN`, each with a short ALL-CAPS name (`A CHANGING SKY`, `EARTH UNDER STRESS`, `THE SKY FALLS`). The chapter label in the lockup updates on the cut into each chapter.
 3. Escalation: each chapter is worse than the last; alternate street-level hero shots with wide city/aerial shots and space diagrams.
-4. **Ending:** the resolution, then an end card (`SLAVOSKI` plus a teaser for the next "What if").
+4. **Ending:** the resolution, then an end card (`SLAVOSKI` plus `A COSMIC WHAT IF`). **No next-episode teaser** unless the user asks for one.
 
 Store chapters in the episode's `timeline.ts` as `{ n, title, at }` keyed to narration word times.
 
@@ -145,7 +145,7 @@ Objects must never pass into each other on screen. This applies to disaster scen
 | `city.tsx` | `Building` (seeded windows, a `tilt`/`collapse` amount), `CityBlock` (a seeded layout with clear lanes), `Road`, `Lamp`, `PineTree`, `Car` |
 | `space.tsx` | `FacetedMoon`, `FacetedEarth` (with atmosphere), `Stars`, `OrbitPath` (dotted line) |
 | `fx.tsx` | `Meteor` (tapered emissive trail plus rock), `Fireball`, `SmokeCluster`, `LavaCrack` (glowing ribbon), `Debris`, `Shockwave`, screen shake |
-| `Overlays.tsx` | `BrandLockup` (SLAVOSKI plus chapter label), `TitleCard`, `EndCard`, optional "REAL PHYSICS" / "DRAMATISED" / "HYPOTHESIS" tags |
+| `Overlays.tsx` | `BrandLockup` (SLAVOSKI plus chapter label), `TitleCard`, `EndCard` (no teaser), optional "REAL PHYSICS" / "DRAMATISED" / "HYPOTHESIS" tags |
 | `WordCaptions.tsx` | Captions in the house style (cream active word, amber keywords from a per-episode `KEYWORDS` list) |
 | `timeline.ts` | Chapters `{ n, title, at }`, a `useTime()`/`shotAt()` helper to key shots to word times, and remapping of captions when pauses are trimmed |
 | `Soundtrack.tsx` | Voice, music cues per act with `duck()`, SFX hits |

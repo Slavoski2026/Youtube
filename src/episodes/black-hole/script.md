@@ -2,7 +2,7 @@
 
 - **Slug:** `black-hole` · **ElevenLabs flow:** `slavoski - black-hole` · **Voice:** Mark - Natural Conversations
 - **Narration:** ~225 words, ~1,250 characters, about 80–85 s
-- **Status:** awaiting the user's approval. No credits spent yet.
+- **Status:** narration approved (the user changed only the end card). No credits spent yet. The voiceover is waiting on the ElevenLabs connector.
 
 ## Title card
 - `SLAVOSKI`
@@ -29,7 +29,7 @@
 | 09 | WHAT'S LEFT | Earth becomes a glowing disk of rock and gas, swirling around a marble. Swallowing it all could take millions of years. | HYPOTHESIS |
 | — | *(outro, end card)* | The good news? The closest black hole we know of is about fifteen hundred light-years away. For now, the Moon keeps its job. | — |
 
-**End card teaser (proposal):** "NEXT: WHAT IF THE SUN WENT OUT?"
+**End card:** `SLAVOSKI` plus `A COSMIC WHAT IF`. No next-episode teaser (the user's choice).
 
 ## Episode-specific overlays
 - **Countdown HUD** from chapter 03 on: `IMPACT IN 3D 10H 22M` plus a distance readout (`384,400 KM`). Both tick down and speed up toward the end.
