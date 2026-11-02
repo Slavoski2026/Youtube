@@ -58,7 +58,7 @@ Mood arc: start cool and clean (deep navy, crisp stars), and as the scenario esc
 - Soft shadows on (`shadows="percentage"`).
 
 ### The hero
-- Recurring character (name TBD; define the look once in `src/slavoski/hero.ts`):
+- The recurring hero is **Slavoski**, named after the channel. Define the look once in `src/slavoski/hero.ts` (export `SLAVOSKI`):
   - **Head:** faceted low-poly head (warm tan skin), dark-brown blocky hair cap, big white square eyes with dark pupils, a block nose, a small dark rectangular mouth that changes shape.
   - **Body:** box torso in an **orange zip jacket** (`#E8862A` lit) with a thin cream zipper strip, box arms with faceted fists, **dark-blue jeans** (box legs), white/light-grey block sneakers.
 - Proportions: a large head (~⅓ of body height), chunky limbs. Expressions do the comedy: wide eyes plus an open mouth for alarm, arms out to balance during quakes, looking up at the sky.
@@ -90,7 +90,7 @@ Store chapters in the episode's `timeline.ts` as `{ n, title, at }` keyed to nar
 1. **Script:** write the narration split into chapters (number plus title per chapter) and get the user's OK before spending credits.
 2. **Voiceover** (on one flow per episode):
    1. `creative_create_flow` named `slavoski - <episode slug>`, then pass its `flow_id` to every call below.
-   2. `creative_list_voices` to pick a voice that fits (or use the user's choice). Once a channel voice is chosen, record it here and reuse it every episode.
+   2. **Channel narrator voice: "Mark - Natural Conversations".** Use it for every episode unless the user asks for a different one. Find it with `creative_list_voices`. The first time it's used, write its voice ID here so later episodes can skip the lookup.
    3. `creative_generate_speech` with the narration. The user picks a take in the speech view; if they don't, use the first completed one. If they switch voice in the view, that starts new takes; read their `session_ids` with `read_widget_context` instead of generating again.
    4. `creative_get_flow_run_status` with the take's `session_ids` returns each take's `content_url` (a signed link, valid about 2 hours).
    5. Transcribe that exact take: `creative_attach_reference_file` with the `content_url`, then `creative_transcribe_audio` with `connect_from` set to the returned node. When it finishes, `creative_get_flow_run_status` returns `transcripts[0].words` and `transcripts[0].words_download_url`.
@@ -141,7 +141,7 @@ Objects must never pass into each other on screen. This applies to disaster scen
 |---|---|
 | `palette.ts` | The colour tokens above |
 | `Stage.tsx` | A canvas with the night lighting rig, fog, stars, vignette, and a declarative camera (position, look-at, optional `up` roll, `shake`) |
-| `rig/Hero.tsx`, `hero.ts` | The posable low-poly hero (`walkPose`, `mergePose`, expressions, `handPosition()`), plus the IK and clipping tools above |
+| `rig/Hero.tsx`, `hero.ts` | Slavoski, the posable low-poly hero (`walkPose`, `mergePose`, expressions, `handPosition()`), plus the IK and clipping tools above |
 | `city.tsx` | `Building` (seeded windows, a `tilt`/`collapse` amount), `CityBlock` (a seeded layout with clear lanes), `Road`, `Lamp`, `PineTree`, `Car` |
 | `space.tsx` | `FacetedMoon`, `FacetedEarth` (with atmosphere), `Stars`, `OrbitPath` (dotted line) |
 | `fx.tsx` | `Meteor` (tapered emissive trail plus rock), `Fireball`, `SmokeCluster`, `LavaCrack` (glowing ribbon), `Debris`, `Shockwave`, screen shake |
