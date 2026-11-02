@@ -10,7 +10,7 @@ This repo makes **SLAVOSKI** videos: vertical (9:16) narrated shorts in the seri
 | Timeline, captions, audio mixing, rendering to video | **Remotion** (`remotion`, `@remotion/captions`, `@remotion/media`) |
 | Voiceover, sound effects, music, transcription | **ElevenLabs MCP**: the hosted "ElevenLabs" connector (`creative_*` tools). There is no SDK and no API key in this project. |
 
-> **Repo status:** the repo started empty. Paths below under `src/slavoski/`, `scripts/` and `public/` are the **planned layout**. When a section names a file that doesn't exist yet, build it there the first time it's needed (and update this file if the name or API changes). Never claim a helper exists without checking.
+> **Repo status:** the Remotion project and the shared kit in `src/slavoski/` exist (see "Shared kit" below). Still **to build** when first needed: `scripts/pacing.ts`, `scripts/shorts.ts`, `scripts/export-srt.ts` and the `{"clipCheck":true}` logging mode. Never claim a helper exists without checking; update this file when a name or API changes.
 
 ---
 
@@ -65,14 +65,14 @@ Mood arc: start cool and clean (deep navy, crisp stars), and as the scenario esc
 - The hero is our POV anchor: show the scenario from street level through them, then cut to wide/aerial/space shots for scale.
 
 ### On-screen typography (overlays in HTML over the canvas)
-Use one bold geometric sans (e.g. Montserrat/Poppins 800 from `public/fonts/`, loaded via `staticFile()`).
-- **Brand lockup, top-left, every shot:** `SLAVOSKI` in white, bold, tracked wide (~0.3em), ~34 px. Under it, the chapter label `07  /  THE SKY FALLS` in grey-white (≈60% opacity), regular weight, tracked ~0.12em, ~26 px. Chapter number is two digits.
+The house typeface is **DejaVu Sans** (Bold for titles and captions), bundled in `public/fonts/` and loaded by `loadHouseFonts()` (`src/slavoski/fonts.ts`); the reference frames use it. Sizes below are measured from the references, in 1080×1920 pixels.
+- **Brand lockup, top-left, every shot:** `SLAVOSKI` in white, bold, tracked wide (0.32em), 28 px, top-left at (87, 86). Under it, the chapter label `07  /  THE SKY FALLS` in grey-white (≈60% opacity), regular weight, tracked 0.12em, 21 px. Chapter number is two digits.
 - **Title card (opens the episode, over the space shot):**
   - `SLAVOSKI`
   - `A COSMIC WHAT IF`
   - `HYPOTHETICAL SCENARIO  /  NOT TO SCALE` (small, dim)
-  - Big two-line title, ~100 px heavy caps: line 1 white (`WHAT IF THE`), line 2 **brand amber** (`MOON FELL?`).
-- **Captions:** one to three words per page, centred, ~70 px heavy rounded sans, white with a dark outline plus a soft drop shadow. The **currently spoken word turns cream** (`#F6EBC4`); **key words** (the scenario's nouns and verbs: *impacts*, *Moon*, *tides*…) are set in **brand amber**. Caption band centre at **~74% of frame height**.
+  - Big title, 76 px bold caps, starting at y ≈ 218: line 1 white (`WHAT IF THE`), line 2 **brand amber** (`MOON FELL?`). A long title can add a smaller third line (~46 px).
+- **Captions:** one to three words per page, centred, 54 px DejaVu Sans Bold, white with a dark outline plus a soft drop shadow. The **currently spoken word turns cream** (`#F6EBC4`); **key words** (the scenario's nouns and verbs: *impacts*, *Moon*, *tides*…) are set in **brand amber**. Caption band centre at **~74% of frame height**.
 - Keep heads and faces **above ~62%** of the frame so captions never cover a face; captions may cross torsos and legs.
 
 ### Episode structure
@@ -97,7 +97,10 @@ Store chapters in the episode's `timeline.ts` as `{ n, title, at }` keyed to nar
    6. Import both before the links expire: `npm run import-voiceover -- --name <slug> --audio "<content_url>" --words "<words_download_url>"`. This writes `public/voiceover/<slug>.mp3` and `public/voiceover/<slug>.json` (a `VoiceoverManifest` with word captions).
 3. **Sound effects and music** only if the piece needs them (rumbles, impacts, whooshes, a low cinematic bed): `creative_generate_in_flow` with `node_type` `sfx` or `music` (check `creative_get_flow_node_types` for current models). Get the `content_url` from `creative_get_flow_run_status`, then `npm run import-audio -- --audio "<url>" --out sfx/<slug>.mp3` (or `music/<slug>.mp3`).
 4. Create `src/episodes/<slug>/` (`<Name>.tsx`, `timeline.ts`, `props.tsx`), built on the shared kit in `src/slavoski/`. Register it in `src/Root.tsx` with `calculateMetadata={voiceoverMetadata<Props>(FPS)}` so its length follows the voiceover.
-5. Check the work with `npm run typecheck`, then render stills of key frames: `npm run still -- <Id> out/<name>.png --frame=<n>`. Look at them before doing a full render. Always check the title card plus one frame per chapter.
+5. Check the work with `npm run typecheck`, then review stills before any full render. Always check the title card plus every shot:
+   - `npx remotion bundle src/index.ts --out-dir=build`
+   - `npx tsx scripts/shot-frames.ts <slug>` lists every shot with its length (flags shots over ~4 s); `--frames` prints mid-shot frames.
+   - `npx tsx scripts/contact-sheet.ts <Id> "<frames>" 0.3 out/sheet.png` renders them in one browser session and tiles them with frame numbers.
 6. Render the video: `npm run render -- <Id> out/<name>.mp4`. The user can preview interactively with `npm run dev` (Remotion Studio).
 7. Export subtitles: `npx tsx scripts/export-srt.ts <slug>`.
 
@@ -135,22 +138,30 @@ Objects must never pass into each other on screen. This applies to disaster scen
 - In 9:16 the horizontal field of view is only ~23° at fov 40. **Lay space diagrams out vertically** (Moon above, Earth below, like the title card) and keep Earth (radius 3) at 20+ units from the camera.
 - Aim wide street shots low so the hero's head stays above the caption band; aerial city shots look down at ~35–50°.
 
-## Shared kit (`src/slavoski/`): build once, reuse every episode
+## Shared kit (`src/slavoski/`): built, reuse every episode
 
 | File | Contents |
 |---|---|
 | `palette.ts` | The colour tokens above |
-| `Stage.tsx` | A canvas with the night lighting rig, fog, stars, vignette, and a declarative camera (position, look-at, optional `up` roll, `shake`) |
-| `rig/Hero.tsx`, `hero.ts` | Slavoski, the posable low-poly hero (`walkPose`, `mergePose`, expressions, `handPosition()`), plus the IK and clipping tools above |
+| `Stage.tsx` | A shot: sky gradient, canvas with the house lighting per mood (`night`/`dust`/`space`, plus a `dust` blend), fog, stars, vignette, declarative camera (position, target, `up`, `fov`) with seeded `shake`; also `project()` (pin HTML labels to 3D points) and `lerpCam()` |
+| `rig/Hero.tsx`, `hero.ts` | Slavoski, the posable low-poly hero: `REST`, `walkPose`, `mergePose`, `lerpPose`, expressions (neutral, alarm, smile, worried, awe, relief), `handPosition()`, `headPosition()`, `armJoints`/`legJoints`, `reach()` (numeric IK), `groundedBob()`, `selfClipping()`. Head radius 0.68, torso half-depth 0.36, height ≈ 4.2. |
 | `city.tsx` | `Building` (seeded windows, a `tilt`/`collapse` amount), `CityBlock` (a seeded layout with clear lanes), `Road`, `Lamp`, `PineTree`, `Car` |
-| `space.tsx` | `FacetedMoon`, `FacetedEarth` (with atmosphere), `Stars`, `OrbitPath` (dotted line) |
-| `fx.tsx` | `Meteor` (tapered emissive trail plus rock), `Fireball`, `SmokeCluster`, `LavaCrack` (glowing ribbon), `Debris`, `Shockwave`, screen shake |
-| `Overlays.tsx` | `BrandLockup` (SLAVOSKI plus chapter label), `TitleCard`, `EndCard` (no teaser), optional "REAL PHYSICS" / "DRAMATISED" / "HYPOTHESIS" tags |
+| `space.tsx` | `FacetedMoon`, `FacetedEarth` (atmosphere rim, clouds, tidal `stretch`, `heat`), `OrbitPath` (dotted), `BlackHole` (core plus dashed marker ring), `AccretionDisk` |
+| `fx.tsx` | `Meteor` (tapered trail plus rock), `Fireball`, `SmokeCluster`, `LavaCrack`, `Shockwave`, `Debris` (comes to rest on the ground), `FloodWater`, `Volcano` |
+| `materials.tsx`, `noise.ts` | `Flat` (flat-shaded Lambert) and `Glow` (unlit emissive); seeded `noise1`/`noise3`/`fbm3`, `shake`, `ease` |
+| `Overlays.tsx` | `BrandLockup` (SLAVOSKI plus chapter label), `TitleCard`, `EndCard` (no teaser), `Tag` ("REAL PHYSICS" / "DRAMATISED" / "HYPOTHESIS"), `Readout` (HUD value), `CardLine` (info card) |
 | `WordCaptions.tsx` | Captions in the house style (cream active word, amber keywords from a per-episode `KEYWORDS` list) |
-| `timeline.ts` | Chapters `{ n, title, at }`, a `useTime()`/`shotAt()` helper to key shots to word times, and remapping of captions when pauses are trimmed |
+| `timeline.ts` | `NarrationBlock`s (one per chapter), `estimateManifest()` (script-based timing until the voiceover exists), `blockTimes()`, `wordAt()`, `shotAt()`, `useTime()` |
 | `Soundtrack.tsx` | Voice, music cues per act with `duck()`, SFX hits |
 
+Episodes:
+- `src/episodes/black-hole/` ("What If a Black Hole Appeared Next to Earth?", `BlackHole` composition, ep. 1). Approved script in `script.md`, narration blocks in `narration.ts`, real free-fall numbers in `physics.ts`, 35 shots in `shots.tsx` (each shot is a cue phrase plus a function of local time), episode props in `props.tsx` (`Marble`, `Binoculars`, `Arrow`, `DashedLine`, `Observatory`, `LensStars`, `EarthBreakup`, `CoastSet`). Until `public/voiceover/black-hole.json` exists it renders with estimated timing and a red "ANIMATIC" badge; importing the voiceover re-times every shot automatically.
+
 Lessons (carry forward):
+- This cloud container has no GPU: render with `--gl=swangle` (`angle` fails to create a WebGL context here). On a machine with a GPU, `angle` from `remotion.config.ts` is right.
+- Pass `fog={false}` for sky objects (the Moon) so they don't fade into the sky colour. Give the Moon a little emissive so it reads light grey, not blue.
+- In a 9:16 street shot, put the camera ~20 units from the hero (hero ≈ 25% of the frame height, as in the references). Closer than ~12 units crops him.
+- Keep tilted buildings safe by capping the lean by height (`tiltAway()` in the black-hole shots) and leaning neighbours in a block away from each other.
 - To fit a take that ran long, shorten the pauses between sentences rather than speeding up the voice, then remap the word times.
 - Use one continuous narration take from 0:00, with one scene per chapter and shots keyed to word times inside it.
 - At true scale, sky objects look flat and dull from the ground. Exaggerate the size (the Moon fills the sky behind the hero) and keep facets and value contrast strong. We are "NOT TO SCALE" by design.
@@ -172,9 +183,11 @@ Lessons (carry forward):
 | Command | What it does |
 |---|---|
 | `npm run dev` | Remotion Studio (live preview, props editor) |
-| `npm run render -- <Id> out/<file>.mp4` | Render a composition to video |
+| `npm run render -- <Id> out/<file>.mp4` | Render a composition to video (add `--gl=swangle` in the GPU-less cloud container; `--scale=0.5` for quick previews) |
 | `npm run still -- <Id> out/<file>.png --frame=<n>` | Render a single frame |
 | `npm run typecheck` | `tsc --noEmit` |
+| `npx tsx scripts/shot-frames.ts <slug> [--frames]` | Shot list with lengths / mid-shot frames |
+| `npx tsx scripts/contact-sheet.ts <Id> "<frames>" [scale] [out]` | Render many frames into one tiled contact sheet (needs `build/` from `npx remotion bundle`) |
 | `npm run import-voiceover` / `import-audio` | Save ElevenLabs MCP output into `public/` (see `scripts/import-audio.ts`) |
 
 All `@remotion/*` packages must stay on the exact same version as `remotion`. Upgrade them together with `npx remotion upgrade`.
