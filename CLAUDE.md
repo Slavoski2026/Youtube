@@ -90,7 +90,7 @@ Store chapters in the episode's `timeline.ts` as `{ n, title, at }` keyed to nar
 1. **Script:** write the narration split into chapters (number plus title per chapter) and get the user's OK before spending credits.
 2. **Voiceover** (on one flow per episode):
    1. `creative_create_flow` named `slavoski - <episode slug>`, then pass its `flow_id` to every call below.
-   2. **Channel narrator voice: "Mark - Natural Conversations".** Use it for every episode unless the user asks for a different one. Find it with `creative_list_voices`. The first time it's used, write its voice ID here so later episodes can skip the lookup.
+   2. **Channel narrator voice: "Mark - Natural Conversations", voice ID `UgBBYS2sOqTuMpoF3BR0`**, model `eleven_v4`. Use it for every episode unless the user asks for a different one. The user prefers **1 take** (`generations_count: 1`) to save credits.
    3. `creative_generate_speech` with the narration. The user picks a take in the speech view; if they don't, use the first completed one. If they switch voice in the view, that starts new takes; read their `session_ids` with `read_widget_context` instead of generating again.
    4. `creative_get_flow_run_status` with the take's `session_ids` returns each take's `content_url` (a signed link, valid about 2 hours).
    5. Transcribe that exact take: `creative_attach_reference_file` with the `content_url`, then `creative_transcribe_audio` with `connect_from` set to the returned node. When it finishes, `creative_get_flow_run_status` returns `transcripts[0].words` and `transcripts[0].words_download_url`.

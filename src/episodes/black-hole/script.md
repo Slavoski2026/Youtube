@@ -2,7 +2,7 @@
 
 - **Slug:** `black-hole` · **ElevenLabs flow:** `slavoski - black-hole` · **Voice:** Mark - Natural Conversations
 - **Narration:** ~225 words, ~1,250 characters, about 80–85 s
-- **Status:** narration approved (the user changed only the end card). No credits spent yet. The voiceover is waiting on the ElevenLabs connector.
+- **Status:** voiceover recorded (1 take, Mark - Natural Conversations, eleven_v4, 81.3 s) on ElevenLabs flow `gt4nBgLG3EZRSX0sG7rd`, transcribed with Scribe, imported to `public/voiceover/black-hole.*`. Spent about 1,257 credits (speech) + 448 (transcription).
 
 ## Title card
 - `SLAVOSKI`
