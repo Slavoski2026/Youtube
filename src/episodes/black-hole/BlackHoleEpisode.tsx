@@ -48,7 +48,7 @@ const sfxCues = (words: VoiceoverManifest["words"], blocks: ReturnType<typeof sc
   const c8 = blocks.find((b) => b.id === "c8")!;
   return [
     { src: "sfx/impact-boom.mp3", at: 0.05, volume: 0.9 },
-    { src: "sfx/impact-boom.mp3", at: at("Impact", -LEAD), volume: 1.4 },
+    { src: "sfx/impact-boom.mp3", at: at("Impact", -LEAD), volume: 1.1 },
     { src: "sfx/moon-whoosh.mp3", at: at("gets flung", -0.35), volume: 0.5 },
     // The rumble clip is ~1 s: chain overlapping copies under "The ground itself bends … Volcanoes wake up".
     ...Array.from({ length: 6 }, (_, i) => ({ src: "sfx/quake-rumble.mp3", at: ground + i * 0.8, volume: 0.42 })),
