@@ -175,6 +175,10 @@ Lessons (carry forward):
 
 ## ElevenLabs credits
 
+- **The user is cost-conscious.** Always price with `estimate_only` first and offer the cheap option. Measured costs: narration about 15 credits per second of speech per take (81 s ≈ 1,257); Scribe transcription ≈ 450 per 80 s; a sound effect ≈ 17 credits each (estimates say 50); a full-length music bed ≈ 1,500 (estimate). Default to **1 variation** for everything.
+- Sound effects through `creative_generate_in_flow` ignore a duration written in the prompt and come back 1–3 s long. For a longer bed (a quake rumble), chain overlapping copies in `Soundtrack` rather than paying to regenerate.
+- An audio-only check render (`--codec=mp3`) still renders every frame: add `--scale=0.1` so it's fast.
+
 - Every generation and transcription spends the user's ElevenLabs credits. Don't regenerate audio that already exists unless its text or prompt changed. Use `estimate_only` and confirm with the user before long or bulk generations.
 - Never call a generation tool twice to retry: each call is charged. On failure, read the error with `creative_get_flow_run_status` and report it.
 

@@ -9,7 +9,7 @@ import type { VoiceoverManifest, VoiceoverProps } from "../../lib/voiceover";
 import { loadHouseFonts } from "../../slavoski/fonts";
 import { clamp01, ease } from "../../slavoski/noise";
 import { BrandLockup, EndCard, Readout, Tag, TitleCard } from "../../slavoski/Overlays";
-import { Soundtrack } from "../../slavoski/Soundtrack";
+import { Soundtrack, type Sfx } from "../../slavoski/Soundtrack";
 import { blockTimes, estimateManifest, shotAt, wordAt } from "../../slavoski/timeline";
 import { WordCaptions } from "../../slavoski/WordCaptions";
 import { BLOCKS, KEYWORDS, SLUG, TAGS, TITLE } from "./narration";
@@ -40,6 +40,28 @@ export const schedule = (words: VoiceoverManifest["words"]) => {
   return { blocks, shots };
 };
 
+/** Sound effects keyed to narration words, so they stay in sync if the voiceover changes. */
+const sfxCues = (words: VoiceoverManifest["words"], blocks: ReturnType<typeof schedule>["blocks"]): Sfx[] => {
+  const at = (phrase: string, offset = 0) => Math.max(0, wordAt(words, phrase, 0, -1) + offset);
+  const ground = at("The ground", -0.12);
+  const outro = blocks[blocks.length - 1];
+  const c8 = blocks.find((b) => b.id === "c8")!;
+  return [
+    { src: "sfx/impact-boom.mp3", at: 0.05, volume: 0.9 },
+    { src: "sfx/impact-boom.mp3", at: at("Impact", -LEAD), volume: 1.4 },
+    { src: "sfx/moon-whoosh.mp3", at: at("gets flung", -0.35), volume: 0.5 },
+    // The rumble clip is ~1 s: chain overlapping copies under "The ground itself bends … Volcanoes wake up".
+    ...Array.from({ length: 6 }, (_, i) => ({ src: "sfx/quake-rumble.mp3", at: ground + i * 0.8, volume: 0.42 })),
+    { src: "sfx/impact-boom.mp3", at: at("Volcanoes", -0.1), volume: 1.0 },
+    ...Array.from({ length: 4 }, (_, i) => ({ src: "sfx/quake-rumble.mp3", at: c8.start - LEAD + i * 0.85, volume: 0.32 })),
+    { src: "sfx/planet-breakup.mp3", at: at("ripped", -0.1), volume: 0.6 },
+    { src: "sfx/end-sting.mp3", at: outro.end + 0.5, volume: 0.8 },
+  ].filter((x) => x.at >= 0);
+};
+
+/** Narration gain: the take measures about −26 LUFS; +4 dB keeps its peaks under 0 dBFS. */
+const VOICE_VOLUME = 1.6;
+
 export const BlackHoleEpisode: React.FC<BlackHoleProps> = ({ manifest }) => {
   const frame = useCurrentFrame();
   const { fps, durationInFrames } = useVideoConfig();
@@ -48,6 +70,7 @@ export const BlackHoleEpisode: React.FC<BlackHoleProps> = ({ manifest }) => {
   const words = m.words;
 
   const { blocks, shots } = useMemo(() => schedule(words), [words]);
+  const sfx = useMemo(() => (m.estimated ? [] : sfxCues(words, blocks)), [words, blocks, m.estimated]);
 
   const { shot, local, next } = shotAt(shots, t);
   const block = blocks[shot.block];
@@ -98,7 +121,7 @@ export const BlackHoleEpisode: React.FC<BlackHoleProps> = ({ manifest }) => {
 
       <WordCaptions words={words} keywords={KEYWORDS} />
       {frame >= endCardFrame - 2 ? <EndCard startFrame={endCardFrame} /> : null}
-      <Soundtrack voice={m.audio} words={words} />
+      <Soundtrack voice={m.audio} words={words} sfx={sfx} voiceVolume={VOICE_VOLUME} />
       {m.estimated ? <EstimatedBadge fade={ease(1 - (frame - (durationInFrames - 30)) / 30)} /> : null}
     </AbsoluteFill>
   );

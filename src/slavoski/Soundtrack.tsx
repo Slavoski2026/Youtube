@@ -26,11 +26,13 @@ export const Soundtrack: React.FC<{
   words: Caption[];
   music?: string | null;
   sfx?: Sfx[];
-}> = ({ voice, words, music, sfx = [] }) => {
+  /** Narration gain (1 = as recorded). */
+  voiceVolume?: number;
+}> = ({ voice, words, music, sfx = [], voiceVolume = 1 }) => {
   const { fps } = useVideoConfig();
   return (
     <>
-      {voice ? <Audio src={staticFile(voice)} /> : null}
+      {voice ? <Audio src={staticFile(voice)} volume={voiceVolume} /> : null}
       {music ? <Audio src={staticFile(music)} volume={(f) => duck(words, f / fps)} /> : null}
       {sfx.map((s, i) => (
         <Sequence key={i} from={Math.round(s.at * fps)} layout="none">
