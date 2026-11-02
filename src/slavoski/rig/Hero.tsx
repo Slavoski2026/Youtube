@@ -151,7 +151,7 @@ export const heroParts = (pose: Pose, look: HeroLook = SLAVOSKI): Part[] => {
     const kneeM = chain(hip, T(0, -d.thigh, 0), R(knee, 0, 0));
     add(`${side}Shin`, "box", look.jeans, chain(kneeM, T(0, -d.shin / 2, 0), S(d.legW * 0.96, d.shin + 0.04, d.legD * 0.96)));
     const ankle = chain(kneeM, T(0, -d.shin, 0), R(-knee + pitch, 0, -sx * roll));
-    add(`${side}Shoe`, "box", look.shoe, chain(ankle, T(0, -0.07, 0.1), S(0.5, 0.27, 0.78)));
+    add(`${side}Shoe`, "box", look.shoe, chain(ankle, T(0, -0.015, 0.1), S(0.5, 0.27, 0.78)));
   }
 
   // Torso
@@ -254,6 +254,58 @@ export const legJoints = (pose: Pose, side: "l" | "r", position?: V3, yaw?: numb
     knee: partCenter(pose, `${side}Shin`, root, [0, 0.5, 0]),
     ankle: partCenter(pose, `${side}Shoe`, root, [0, 0.26, -0.13]),
   };
+};
+
+/**
+ * Bends an arm so the fist centre lands on `target` (hero-root space unless position/yaw given),
+ * by numeric search over shoulder pitch/roll and elbow bend, rejecting poses that clip the head
+ * or torso. Returns the new pose and the remaining error (world units).
+ */
+export const reach = (
+  pose: Pose,
+  side: "l" | "r",
+  target: V3,
+  opts: { position?: V3; yaw?: number } = {},
+): { pose: Pose; error: number } => {
+  const sk = side === "l" ? "lShoulder" : "rShoulder";
+  const ek = side === "l" ? "lElbow" : "rElbow";
+  const tgt = new THREE.Vector3(...target);
+  const cost = (p: Pose) => {
+    const h = new THREE.Vector3(...handPosition(p, side, opts.position, opts.yaw));
+    const clip = selfClipping(p).filter((x) => x.startsWith(side)).length;
+    const [, roll] = p[sk] as [number, number];
+    return h.distanceTo(tgt) + clip * 10 + Math.abs(roll) * 0.02; // prefer natural, low-roll solutions
+  };
+  let best = { ...pose };
+  let bestC = cost(best);
+  // coarse grid
+  for (let pi = -0.5; pi <= 3.0; pi += 0.25)
+    for (let ro = -0.3; ro <= 2.6; ro += 0.2)
+      for (let el = 0; el <= 2.4; el += 0.2) {
+        const p = { ...pose, [sk]: [pi, ro], [ek]: el } as Pose;
+        const c = cost(p);
+        if (c < bestC) {
+          best = p;
+          bestC = c;
+        }
+      }
+  // refine
+  let step = 0.1;
+  for (let it = 0; it < 60 && step > 0.004; it++) {
+    let improved = false;
+    for (const [dp, dr, de] of [[1, 0, 0], [-1, 0, 0], [0, 1, 0], [0, -1, 0], [0, 0, 1], [0, 0, -1]]) {
+      const [p0, r0] = best[sk] as [number, number];
+      const p = { ...best, [sk]: [p0 + dp * step, r0 + dr * step], [ek]: Math.max(0, (best[ek] as number) + de * step) } as Pose;
+      const c = cost(p);
+      if (c < bestC) {
+        best = p;
+        bestC = c;
+        improved = true;
+      }
+    }
+    if (!improved) step /= 2;
+  }
+  return { pose: best, error: bestC };
 };
 
 /** The bob that puts the lowest shoe sole on the floor (use for crouches and landings). */

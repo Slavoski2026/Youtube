@@ -170,6 +170,25 @@ export const Stage: React.FC<StageProps> = ({
   );
 };
 
+/** Project a world point to pixel coordinates for a given camera (to pin HTML labels to 3D points). */
+export const project = (p: V3, cam: CameraSpec, width: number, height: number): { x: number; y: number } => {
+  const c = new THREE.PerspectiveCamera(cam.fov ?? 40, width / height, 0.1, 3000);
+  c.position.set(...cam.position);
+  c.up.set(...(cam.up ?? [0, 1, 0]));
+  c.lookAt(...cam.target);
+  c.updateMatrixWorld();
+  const v = new THREE.Vector3(...p).project(c);
+  return { x: ((v.x + 1) / 2) * width, y: ((1 - v.y) / 2) * height };
+};
+
+/** Ease between two camera specs. */
+export const lerpCam = (a: CameraSpec, b: CameraSpec, t: number): CameraSpec => {
+  const k = Math.max(0, Math.min(1, t));
+  const s = k * k * (3 - 2 * k);
+  const L = (x: V3, y: V3): V3 => [x[0] + (y[0] - x[0]) * s, x[1] + (y[1] - x[1]) * s, x[2] + (y[2] - x[2]) * s];
+  return { position: L(a.position, b.position), target: L(a.target, b.target), fov: (a.fov ?? 40) + ((b.fov ?? 40) - (a.fov ?? 40)) * s, up: a.up };
+};
+
 export const Vignette: React.FC<{ strength?: number }> = ({ strength = 0.55 }) => (
   <AbsoluteFill
     style={{

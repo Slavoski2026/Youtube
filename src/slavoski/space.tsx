@@ -118,7 +118,7 @@ export const FacetedEarth: React.FC<EarthProps> = ({
       const land = fbm3(seed, n.x * 1.5 + 10, n.y * 1.5, n.z * 1.5, 4);
       const dry = fbm3(`${seed}dry`, n.x * 2.4, n.y * 2.4 + 5, n.z * 2.4, 3);
       const j = 1 + (random(`${seed}j${i}`) - 0.5) * 0.12;
-      if (Math.abs(n.y) > 0.9) return ice.clone().multiplyScalar(j);
+      if (Math.abs(n.y) > 0.93) return ice.clone().multiplyScalar(j);
       if (land > 0.53) {
         const lat = Math.abs(n.y);
         const isDry = dry > 0.5 && lat < 0.55;

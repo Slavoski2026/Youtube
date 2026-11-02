@@ -18,17 +18,18 @@ export const useTime = () => {
 
 /**
  * Estimated word timing from the script (used until the real voiceover is imported):
- * ~2.75 words/s, longer words take longer, pauses after sentences and between blocks.
+ * ~2.9 words/s on average (calibrated to ~155 wpm narration), longer words take longer,
+ * pauses after sentences and between blocks.
  */
 export const estimateManifest = (slug: string, blocks: NarrationBlock[], opts: { start?: number; wps?: number } = {}): VoiceoverManifest => {
-  const wps = opts.wps ?? 2.75;
+  const wps = opts.wps ?? 2.9;
   let t = opts.start ?? 0.4;
   const words: Caption[] = [];
   blocks.forEach((b, bi) => {
     const tokens = b.text.split(/\s+/).filter(Boolean);
     tokens.forEach((tok) => {
       const syll = Math.max(1, Math.round(norm(tok).length / 3.2));
-      const dur = (0.55 + syll * 0.45) / wps;
+      const dur = (0.45 + syll * 0.4) / wps / 1.25;
       words.push({
         text: (words.length === 0 ? "" : " ") + tok,
         startMs: Math.round(t * 1000),
@@ -37,7 +38,7 @@ export const estimateManifest = (slug: string, blocks: NarrationBlock[], opts: {
         confidence: null,
       });
       t += dur;
-      if (/[.?!]$/.test(tok)) t += 0.32;
+      if (/[.?!]$/.test(tok)) t += 0.28;
       else if (/[,:;]$/.test(tok)) t += 0.14;
     });
     if (bi < blocks.length - 1) t += 0.25;
