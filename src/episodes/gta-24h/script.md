@@ -3,7 +3,7 @@
 - **Slug:** `gta-24h` · **Voice:** Mark - Natural Conversations (`UgBBYS2sOqTuMpoF3BR0`), eleven_v4, 1 take
 - **User's full script:** 271 words, 1,717 characters, about **104 s** (over our 90 s max), ≈ 1,720 credits + ≈ 600 transcription
 - **Trimmed version below:** 192 words, 1,125 characters, about **75 s**, ≈ 1,125 credits + ≈ 420 transcription
-- **Status:** awaiting the user's choice (trimmed or full) and an OK on the visual approach. No credits spent.
+- **Status:** approved: trimmed script, our own visual style. The user asked for "a TV with gameplay": Slavoski's TV shows **our own** low-poly open-world chase (sunset neon, palm trees), never real GTA footage (Rockstar's copyright). Voiceover generated on ElevenLabs flow `ogm8A3bhkHQURo8SYDRW` (1,133 credits).
 
 ## Title card
 `WHAT IF YOU` (white) / `PLAYED GTA 6` (amber) / `FOR 24 HOURS?` (white, smaller)
