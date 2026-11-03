@@ -143,19 +143,25 @@ Objects must never pass into each other on screen. This applies to disaster scen
 | File | Contents |
 |---|---|
 | `palette.ts` | The colour tokens above |
-| `Stage.tsx` | A shot: sky gradient, canvas with the house lighting per mood (`night`/`dust`/`space`, plus a `dust` blend), fog, stars, vignette, declarative camera (position, target, `up`, `fov`) with seeded `shake`; also `project()` (pin HTML labels to 3D points) and `lerpCam()` |
-| `rig/Hero.tsx`, `hero.ts` | Slavoski, the posable low-poly hero: `REST`, `walkPose`, `mergePose`, `lerpPose`, expressions (neutral, alarm, smile, worried, awe, relief), `handPosition()`, `headPosition()`, `armJoints`/`legJoints`, `reach()` (numeric IK), `groundedBob()`, `selfClipping()`. Head radius 0.68, torso half-depth 0.36, height ≈ 4.2. |
-| `city.tsx` | `Building` (seeded windows, a `tilt`/`collapse` amount), `CityBlock` (a seeded layout with clear lanes), `Road`, `Lamp`, `PineTree`, `Car` |
-| `space.tsx` | `FacetedMoon`, `FacetedEarth` (atmosphere rim, clouds, tidal `stretch`, `heat`), `OrbitPath` (dotted), `BlackHole` (core plus dashed marker ring), `AccretionDisk` |
+| `Stage.tsx` | A shot: sky gradient, canvas with the house lighting per mood (`night`/`dust`/`space`/`dawn`/`storm`, plus a `dust` blend and a `light` multiplier, e.g. 0.3 to see a planet's night side), fog, stars, vignette, declarative camera (position, target, `up`, `fov`) with seeded `shake`; also `project()` (pin HTML labels to 3D points) and `lerpCam()` |
+| `rig/Hero.tsx`, `hero.ts` | Slavoski, the posable low-poly hero: `REST`, `walkPose`, `mergePose`, `lerpPose`, expressions (neutral, alarm, smile, worried, awe, relief), `handPosition()`, `headPosition()`, `armJoints`/`legJoints`, `reach()` (numeric IK), `groundedBob()`, `selfClipping()`; `ghost` (see-through observer) and `vanish` (flash and shrink to nothing) modes. Head radius 0.68, torso half-depth 0.36, height ≈ 4.2. |
+| `city.tsx` | `Building` (seeded windows, `tilt`, `sink`, `power` blackout, `decay` with broken windows, ivy and roof plants), `StreetSet` (`lampsOn`, `modify`) and `CityGrid` (roads every `block`; with an even `blocks` count a road runs through x = 0, otherwise block centres sit there), `Road`, `Lamp` (`on`, `lean`), `PineTree`, `Car` (`rust`, `crumple`, `tilt`, `moss`; `CAR_HALF_LENGTH` for contact points), `Plane`, `PowerStation` |
+| `nature.tsx` | `GrassTufts` (growth 0..1, over an area or along points), `Bush`, `LeafyTree`, `GroundCover`, `Rain`, `LightningBolt` |
+| `animals.tsx` | `Animal` (dog, deer, fox, wolf): one low-poly quadruped rig with `walk` phase, `headPitch` (graze) and `sit` |
+| `space.tsx` | `FacetedMoon`, `FacetedEarth` (atmosphere rim, clouds, tidal `stretch`, `heat`, `cityLights` 0..1), `OrbitPath` (dotted), `BlackHole` (core plus dashed marker ring), `AccretionDisk` |
 | `fx.tsx` | `Meteor` (tapered trail plus rock), `Fireball`, `SmokeCluster`, `LavaCrack`, `Shockwave`, `Debris` (comes to rest on the ground), `FloodWater`, `Volcano` |
 | `materials.tsx`, `noise.ts` | `Flat` (flat-shaded Lambert) and `Glow` (unlit emissive); seeded `noise1`/`noise3`/`fbm3`, `shake`, `ease` |
-| `Overlays.tsx` | `BrandLockup` (SLAVOSKI plus chapter label), `TitleCard`, `EndCard` (no teaser), `Tag` ("REAL PHYSICS" / "DRAMATISED" / "HYPOTHESIS"), `Readout` (HUD value), `CardLine` (info card) |
+| `Overlays.tsx` | `BrandLockup` (SLAVOSKI plus chapter label), `TitleCard`, `EndCard` (no teaser), `Tag` ("REAL PHYSICS" / "DRAMATISED" / "HYPOTHESIS" / "EXPERT ESTIMATE"), `Readout` (HUD value), `CardLine` (info card) |
 | `WordCaptions.tsx` | Captions in the house style (cream active word, amber keywords from a per-episode `KEYWORDS` list) |
-| `timeline.ts` | `NarrationBlock`s (one per chapter), `estimateManifest()` (script-based timing until the voiceover exists), `blockTimes()`, `wordAt()`, `shotAt()`, `useTime()` |
+| `timeline.ts` | `NarrationBlock`s (one per chapter), `estimateManifest()` (script-based timing until the voiceover exists), `blockTimes()`, `wordAt()`, `shotAt()`, `scheduleShots()` (cued shots → flat time-sorted list; use it for new episodes), `useTime()` |
 | `Soundtrack.tsx` | Voice, music cues per act with `duck()`, SFX hits |
 
 Episodes:
 - `src/episodes/black-hole/` ("What If a Black Hole Appeared Next to Earth?", `BlackHole` composition, ep. 1). Approved script in `script.md`, narration blocks in `narration.ts`, real free-fall numbers in `physics.ts`, 35 shots in `shots.tsx` (each shot is a cue phrase plus a function of local time), episode props in `props.tsx` (`Marble`, `Binoculars`, `Arrow`, `DashedLine`, `Observatory`, `LensStars`, `EarthBreakup`, `CoastSet`). Until `public/voiceover/black-hole.json` exists it renders with estimated timing and a red "ANIMATIC" badge; importing the voiceover re-times every shot automatically.
+
+- `src/episodes/no-humans/` ("What If Every Human on Earth Suddenly Disappeared?", `NoHumans` composition, ep. 2). Trimmed script (the user asked for a trim after pricing). Slavoski vanishes in the cold open and returns as a see-through ghost observer. A "TIME WITHOUT HUMANS" clock jumps per chapter (seconds → 24 hours → … → 10,000 years). Moods move from night to dawn as nature takes over. 35 shots; sound effects reused from ep. 1 at no cost.
+- Reuse the sound effects in `public/sfx/` across episodes before generating new ones.
+- `scripts/shot-frames.ts` needs each new episode added to its `EPISODES` map.
 
 Lessons (carry forward):
 - This cloud container has no GPU: render with `--gl=swangle` (`angle` fails to create a WebGL context here). On a machine with a GPU, `angle` from `remotion.config.ts` is right.
