@@ -363,8 +363,43 @@ export const Hero: React.FC<{
   scale?: number;
   look?: HeroLook;
   castShadow?: boolean;
-}> = ({ pose = REST, position = [0, 0, 0], yaw = 0, scale = 1, look = SLAVOSKI, castShadow = true }) => {
+  /** 0 = solid. >0 = see-through "ghost" Slavoski at this opacity (tinted pale blue, no shadow). */
+  ghost?: number;
+  /** 0..1 vanish: flash white and shrink to nothing (use with VanishPuff). */
+  vanish?: number;
+}> = ({ pose = REST, position = [0, 0, 0], yaw = 0, scale = 1, look = SLAVOSKI, castShadow = true, ghost = 0, vanish = 0 }) => {
   const parts = useMemo(() => heroParts(pose, look), [pose, look]);
+  if (vanish >= 1) return null;
+  const ghostTint = (c: string) => new THREE.Color(c).lerp(new THREE.Color(P.ghost), 0.65).getStyle();
+  const flash = (c: string) => new THREE.Color(c).lerp(new THREE.Color("#FFFFFF"), Math.min(1, vanish * 2)).getStyle();
+  // Vanish shrinks toward the chest (not the feet), so nothing flattens onto the ground.
+  const shrink = Math.max(0.001, 1 - Math.max(0, vanish - 0.3) / 0.7);
+  if (ghost > 0) {
+    return (
+      <group position={position} rotation={[0, yaw, 0]} scale={scale}>
+        {parts.map((p) => (
+          <mesh key={p.name} geometry={geoms[p.kind]} matrix={p.matrix} matrixAutoUpdate={false} renderOrder={10}>
+            <meshBasicMaterial color={ghostTint(p.color)} transparent opacity={ghost} depthWrite={false} toneMapped={false} fog={false} />
+          </mesh>
+        ))}
+      </group>
+    );
+  }
+  if (vanish > 0) {
+    return (
+      <group position={position} rotation={[0, yaw, 0]} scale={scale}>
+        <group position={[0, 2.4, 0]} scale={[shrink * (1 + vanish * 0.1), shrink * (1 + vanish * 0.25), shrink * (1 + vanish * 0.1)]}>
+          <group position={[0, -2.4, 0]}>
+            {parts.map((p) => (
+              <mesh key={p.name} geometry={geoms[p.kind]} matrix={p.matrix} matrixAutoUpdate={false}>
+                <meshBasicMaterial color={flash(p.color)} toneMapped={false} transparent opacity={1 - Math.max(0, vanish - 0.6) / 0.4} />
+              </mesh>
+            ))}
+          </group>
+        </group>
+      </group>
+    );
+  }
   return (
     <group position={position} rotation={[0, yaw, 0]} scale={scale}>
       {parts.map((p) => (

@@ -1,6 +1,7 @@
 import React from "react";
 import { Composition } from "remotion";
 import { BlackHoleEpisode, estimatedBlackHole, type BlackHoleProps } from "./episodes/black-hole/BlackHoleEpisode";
+import { NoHumansEpisode, estimatedNoHumans, type NoHumansProps } from "./episodes/no-humans/NoHumansEpisode";
 import { voiceoverMetadata } from "./lib/voiceover";
 import { StyleCheck, type StyleCheckProps } from "./StyleCheck";
 
@@ -19,6 +20,16 @@ export const RemotionRoot: React.FC = () => (
       height={HEIGHT}
       defaultProps={{ voiceover: "black-hole" } as BlackHoleProps}
       calculateMetadata={voiceoverMetadata<BlackHoleProps>(FPS, { tailSeconds: 2.5, fallback: estimatedBlackHole })}
+    />
+    <Composition
+      id="NoHumans"
+      component={NoHumansEpisode}
+      durationInFrames={FPS * 90}
+      fps={FPS}
+      width={WIDTH}
+      height={HEIGHT}
+      defaultProps={{ voiceover: "no-humans" } as NoHumansProps}
+      calculateMetadata={voiceoverMetadata<NoHumansProps>(FPS, { tailSeconds: 2.6, fallback: estimatedNoHumans })}
     />
     <Composition
       id="StyleCheck"

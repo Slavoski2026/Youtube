@@ -9,10 +9,23 @@ import type { VoiceoverManifest } from "../src/lib/voiceover";
 
 const FPS = 30;
 const slug = process.argv[2] ?? "black-hole";
+const EPISODES: Record<string, () => Promise<{ schedule: (w: VoiceoverManifest["words"]) => { shots: { at: number; name: string }[] }; estimated: () => VoiceoverManifest }>> = {
+  "black-hole": async () => {
+    const ep = await import("../src/episodes/black-hole/BlackHoleEpisode");
+    return { schedule: ep.schedule, estimated: ep.estimatedBlackHole };
+  },
+  "no-humans": async () => {
+    const ep = await import("../src/episodes/no-humans/NoHumansEpisode");
+    return { schedule: ep.schedule, estimated: ep.estimatedNoHumans };
+  },
+};
+
 const main = async () => {
-  const ep = await import("../src/episodes/black-hole/BlackHoleEpisode");
+  const load = EPISODES[slug];
+  if (!load) throw new Error(`Unknown episode "${slug}". Known: ${Object.keys(EPISODES).join(", ")}`);
+  const ep = await load();
   const file = resolve(import.meta.dirname, "..", "public", "voiceover", `${slug}.json`);
-  const m: VoiceoverManifest = existsSync(file) ? JSON.parse(readFileSync(file, "utf8")) : ep.estimatedBlackHole();
+  const m: VoiceoverManifest = existsSync(file) ? JSON.parse(readFileSync(file, "utf8")) : ep.estimated();
   const { shots } = ep.schedule(m.words);
   const rows = shots.map((s, i) => {
     const end = i + 1 < shots.length ? shots[i + 1].at : m.durationInSeconds + 2.5;

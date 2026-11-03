@@ -6,7 +6,7 @@ import * as THREE from "three";
 import { shake, type V3 } from "./noise";
 import { P } from "./palette";
 
-export type Mood = "night" | "dust" | "space";
+export type Mood = "night" | "dust" | "space" | "dawn" | "storm";
 
 export type CameraSpec = {
   position: V3;
@@ -20,6 +20,8 @@ const SKY: Record<Mood, { sky: string; glow: string }> = {
   night: { sky: P.nightSky, glow: P.nightSkyGlow },
   dust: { sky: P.dustSky, glow: P.dustSkyGlow },
   space: { sky: P.space, glow: P.spaceGlow },
+  dawn: { sky: P.dawnSky, glow: P.dawnGlow },
+  storm: { sky: P.stormSky, glow: P.stormGlow },
 };
 
 const CameraRig: React.FC<CameraSpec & { offset: V3 }> = ({ position, target, up, fov, offset }) => {
@@ -67,26 +69,29 @@ export const Stars: React.FC<{ count?: number; radius?: number; seed?: string; s
   );
 };
 
-const Lights: React.FC<{ mood: Mood; keyDir?: V3; shadowSize?: number; shadows: boolean }> = ({
+const Lights: React.FC<{ mood: Mood; keyDir?: V3; shadowSize?: number; shadows: boolean; scale?: number }> = ({
   mood,
   keyDir,
   shadowSize = 40,
   shadows,
+  scale = 1,
 }) => {
   const cfg = {
     night: { hs: "#C4CCFF", hg: "#2E2840", hi: 2.4, dc: "#D6DCFF", di: 1.4, dir: [-0.5, 1, 0.45] as V3 },
     dust: { hs: "#E6C2C4", hg: "#3A2A30", hi: 2.2, dc: "#FFC59A", di: 1.15, dir: [0.6, 0.8, 0.4] as V3 },
     space: { hs: "#D6E0FF", hg: "#1C1830", hi: 1.4, dc: "#FFFFFF", di: 2.2, dir: [-0.7, 0.5, 0.6] as V3 },
+    dawn: { hs: "#CFE0F0", hg: "#3A3440", hi: 2.5, dc: "#FFD2A8", di: 1.7, dir: [0.75, 0.38, -0.55] as V3 },
+    storm: { hs: "#9FB0C8", hg: "#202430", hi: 2.0, dc: "#B8C6E0", di: 0.9, dir: [-0.3, 1, 0.3] as V3 },
   }[mood];
   const d = keyDir ?? cfg.dir;
   const len = Math.hypot(...d);
   const dist = 60;
   return (
     <>
-      <hemisphereLight args={[cfg.hs, cfg.hg, cfg.hi]} />
+      <hemisphereLight args={[cfg.hs, cfg.hg, cfg.hi * scale]} />
       <directionalLight
         color={cfg.dc}
-        intensity={cfg.di}
+        intensity={cfg.di * Math.max(scale, 0.6)}
         position={[(d[0] / len) * dist, (d[1] / len) * dist, (d[2] / len) * dist]}
         castShadow={shadows}
         shadow-mapSize={[2048, 2048]}
@@ -118,6 +123,8 @@ export type StageProps = {
   shadowSize?: number;
   /** 0..1 blend of the sky toward the dusty disaster sky. */
   dust?: number;
+  /** Ambient light multiplier (e.g. 0.3 to see a planet's night side). */
+  light?: number;
   children: React.ReactNode;
   /** HTML overlays drawn above the canvas but under the vignette. */
   overlay?: React.ReactNode;
@@ -137,6 +144,7 @@ export const Stage: React.FC<StageProps> = ({
   shadows = true,
   shadowSize,
   dust = 0,
+  light = 1,
   children,
   overlay,
 }) => {
@@ -147,9 +155,17 @@ export const Stage: React.FC<StageProps> = ({
   const glow = dust > 0 ? mixHex(base.glow, P.dustSkyGlow, dust) : base.glow;
   const offset = shake(shakeSeed, frame / fps, shakeAmp);
   const lightMood: Mood = mood === "night" && dust > 0.5 ? "dust" : mood;
+  const fogColor = mood === "dawn" ? mixHex(sky, glow, 0.6) : sky;
 
   return (
-    <AbsoluteFill style={{ background: `radial-gradient(ellipse 85% 60% at 50% 42%, ${glow} 0%, ${sky} 70%)` }}>
+    <AbsoluteFill
+      style={{
+        background:
+          mood === "dawn"
+            ? `linear-gradient(180deg, ${sky} 0%, ${sky} 22%, ${mixHex(sky, glow, 0.55)} 52%, ${glow} 78%, ${glow} 100%)`
+            : `radial-gradient(ellipse 85% 60% at 50% 42%, ${glow} 0%, ${sky} 70%)`,
+      }}
+    >
       <ThreeCanvas
         width={width}
         height={height}
@@ -159,9 +175,9 @@ export const Stage: React.FC<StageProps> = ({
         camera={{ fov: camera.fov ?? 40, near: 0.1, far: 3000, position: camera.position }}
       >
         <CameraRig {...camera} offset={offset} />
-        {fog ? <fog attach="fog" args={[sky, fog[0], fog[1]]} /> : null}
-        <Lights mood={lightMood} keyDir={keyDir} shadows={shadows} shadowSize={shadowSize} />
-        {stars ? <Stars opacity={mood === "space" ? 0.8 : 0.55 * (1 - dust * 0.6)} /> : null}
+        {fog ? <fog attach="fog" args={[fogColor, fog[0], fog[1]]} /> : null}
+        <Lights mood={lightMood} keyDir={keyDir} shadows={shadows} shadowSize={shadowSize} scale={light} />
+        {stars && mood !== "storm" ? <Stars opacity={mood === "space" ? 0.8 : mood === "dawn" ? 0.25 : 0.55 * (1 - dust * 0.6)} /> : null}
         {children}
       </ThreeCanvas>
       {overlay}

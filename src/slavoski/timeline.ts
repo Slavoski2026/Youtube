@@ -98,3 +98,24 @@ export const shotAt = <S extends { at: number }>(shots: S[], t: number): { shot:
   const next = index + 1 < shots.length ? shots[index + 1].at : Infinity;
   return { shot, index, local: t - shot.at, next };
 };
+
+/** A shot keyed to a narration phrase: `cue` (searched from its block's start) or null for the block start. */
+export type CuedShot<F> = { cue: string | null; fn: F };
+
+/**
+ * Turns per-block cued shots into one flat, time-sorted shot list.
+ * Each block's scene starts `lead` seconds before its first word (J-cut); the first block starts at 0.
+ */
+export const scheduleShots = <F,>(words: Caption[], blocks: NarrationBlock[], shots: Record<string, CuedShot<F>[]>, lead = 0.12) => {
+  const times = blockTimes(words, blocks);
+  const flat: { at: number; fn: F; block: number; name: string }[] = [];
+  times.forEach((b, bi) => {
+    const sceneStart = bi === 0 ? 0 : b.start - lead;
+    (shots[b.id] ?? []).forEach((s, si) => {
+      const at = s.cue ? wordAt(words, s.cue, b.start, sceneStart) - lead : sceneStart;
+      flat.push({ at: Math.max(sceneStart, at), fn: s.fn, block: bi, name: `${b.id}.${si}` });
+    });
+  });
+  flat.sort((a, b) => a.at - b.at);
+  return { blocks: times, shots: flat };
+};

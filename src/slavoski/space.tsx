@@ -95,6 +95,8 @@ export type EarthProps = {
   stretchDir?: V3;
   /** 0..1 cracks glowing (lava lines between facets): rendered as a darkening + emissive shell. */
   heat?: number;
+  /** 0..1 share of city lights on (amber dots on land). Light the planet from behind to see them. */
+  cityLights?: number;
 };
 
 export const FacetedEarth: React.FC<EarthProps> = ({
@@ -107,7 +109,32 @@ export const FacetedEarth: React.FC<EarthProps> = ({
   stretch = 0,
   stretchDir = [0, 1, 0],
   heat = 0,
+  cityLights = 0,
 }) => {
+  const lightSites = useMemo(() => {
+    const g = new THREE.IcosahedronGeometry(radius * 1.004, detail);
+    const pos = g.getAttribute("position");
+    const out: { p: THREE.Vector3; thr: number }[] = [];
+    const a = new THREE.Vector3(), b = new THREE.Vector3(), c = new THREE.Vector3();
+    for (let f = 0; f < pos.count / 3; f++) {
+      a.fromBufferAttribute(pos, f * 3);
+      b.fromBufferAttribute(pos, f * 3 + 1);
+      c.fromBufferAttribute(pos, f * 3 + 2);
+      const cen = a.clone().add(b).add(c).divideScalar(3);
+      const n = cen.clone().normalize();
+      const land = fbm3(seed, n.x * 1.5 + 10, n.y * 1.5, n.z * 1.5, 4);
+      if (land > 0.53 && Math.abs(n.y) < 0.85 && random(`${seed}city${f}`) < 0.45) out.push({ p: cen, thr: random(`${seed}cthr${f}`) });
+    }
+    return out;
+  }, [radius, detail, seed]);
+  const lq = Math.round(cityLights * 40) / 40;
+  const lightGeom = useMemo(() => {
+    if (lq <= 0) return null;
+    const on = lightSites.filter((l) => l.thr < lq);
+    const g = new THREE.BufferGeometry();
+    g.setAttribute("position", new THREE.Float32BufferAttribute(on.flatMap((l) => [l.p.x, l.p.y, l.p.z]), 3));
+    return g;
+  }, [lightSites, lq]);
   const geom = useMemo(() => {
     const g = new THREE.IcosahedronGeometry(radius, detail);
     const ocean = new THREE.Color(P.ocean);
@@ -161,6 +188,11 @@ export const FacetedEarth: React.FC<EarthProps> = ({
               <mesh geometry={geom} castShadow receiveShadow>
                 <Flat color={heat > 0 ? new THREE.Color("#ffffff").lerp(new THREE.Color("#7a4a3a"), heat * 0.6).getStyle() : "#ffffff"} vertexColors />
               </mesh>
+              {lightGeom ? (
+                <points geometry={lightGeom}>
+                  <pointsMaterial color={P.windowLit} size={4.5} sizeAttenuation={false} fog={false} toneMapped={false} />
+                </points>
+              ) : null}
               {cloudGeom ? (
                 <mesh geometry={cloudGeom}>
                   <Flat color={P.ice} opacity={0.92} side={THREE.DoubleSide} />

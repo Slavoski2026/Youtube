@@ -7,6 +7,24 @@ export const P = {
   spaceGlow: "#1A1838",
   dustSky: "#44383F",
   dustSkyGlow: "#5E4B55",
+  /** Dawn: used when nature takes over (ep. 2 onward). */
+  dawnSky: "#1F3550",
+  dawnGlow: "#D9926A",
+  stormSky: "#1A2230",
+  stormGlow: "#36465A",
+
+  // Nature
+  grass: "#4F8F4A",
+  grassLight: "#79B35C",
+  leaf: "#3E7D45",
+  leafDark: "#2C5E3A",
+  moss: "#5E8A4C",
+  bark: "#5A3A28",
+  rust: "#8A4A2C",
+  stone: "#B8AE98",
+  stoneDark: "#857C6A",
+  sediment: "#6B5A45",
+  ghost: "#A8DEFF",
 
   // City
   bldgNavy: "#1D274B",
