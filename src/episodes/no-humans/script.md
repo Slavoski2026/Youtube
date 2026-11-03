@@ -1,9 +1,25 @@
-# What If Every Human on Earth Suddenly Disappeared? — script (draft 1, the user's text)
+# What If Every Human on Earth Suddenly Disappeared? — script (approved)
 
 - **Slug:** `no-humans` · **ElevenLabs flow:** `slavoski - no-humans` · **Voice:** Mark - Natural Conversations (`UgBBYS2sOqTuMpoF3BR0`), eleven_v4, 1 take
 - **Narration:** 255 words, ~1,740 characters, about 90 s at Mark's pace (2.87 words/s in ep. 1)
 - **Estimated cost:** speech ≈ 1,370 credits + transcription ≈ 500. Run `estimate_only` before generating.
-- **Status:** awaiting the user's approval of the chapter split and the open questions below. No credits spent.
+- **Status:** approved: ghost-Slavoski plan and the tunnel fix. The full script priced at 1,752 credits, so the user asked for a trim; the **trimmed draft below (~1,370 characters, ~72 s) is awaiting the user's "go"**. No credits spent yet (ElevenLabs flow `c7VtsIOTW2dXbmgliki7` created, empty).
+
+## Trimmed draft (pending approval)
+
+| # | Narration |
+|---|---|
+| — | What if every single human on Earth suddenly disappeared? Not died. Not evacuated. Just vanished. |
+| 01 | Within seconds, chaos would erupt. Millions of cars would crash into buildings and each other. Planes would keep flying on autopilot, but many would eventually crash. |
+| 02 | After twenty-four hours, parts of the world would go dark. Power stations would shut down, and entire cities would lose electricity. |
+| 03 | After one week, underground tunnels would already be flooded. Pets would struggle to survive, while wild animals explored empty streets. |
+| 04 | After one month, nature would start reclaiming our cities. Grass would push through cracks in the pavement, and plants would spread across roads. |
+| 05 | After one year, many cities would look completely different, as storms, floods, and plants slowly tear them apart. |
+| 06 | Fast-forward one hundred years. Forests would spread through abandoned neighbourhoods. Roads would crumble, and some buildings would collapse. Animals would roam where millions of people once lived. |
+| 07 | After thousands of years, most of what we built would vanish beneath plants and sediment. But some monuments, and our plastic, could last thousands of years longer. |
+| 08 | And here's the strangest part. The Earth wouldn't stop spinning. The oceans wouldn't stop moving. And life would go on without us. Because humanity needs Earth to survive… but Earth doesn't need humanity. |
+
+The original (approved, untrimmed) chapter table follows for reference.
 
 ## Title card
 - `SLAVOSKI` / `A COSMIC WHAT IF` / `HYPOTHETICAL SCENARIO  /  NOT TO SCALE`
@@ -11,14 +27,14 @@
 
 ## Narration by chapter
 
-The user's text, unchanged except for the one suggested fix marked ✎.
+The user's text, unchanged except the tunnel line (approved fix).
 
 | # | Chapter | Clock | Narration | Tag |
 |---|---|---|---|---|
 | — | *(cold open)* | 0 s | What if every single human on Earth suddenly disappeared? Not died. Not evacuated. Just vanished in an instant. | — |
 | 01 | INSTANT CHAOS | seconds | Within seconds, chaos would erupt. Millions of cars would lose their drivers, crashing into buildings, barriers, and each other. Planes would continue flying on autopilot, but without pilots, many would eventually crash. | DRAMATISED |
 | 02 | LIGHTS OUT | 24 hours | After twenty-four hours, parts of the world would begin going dark. Power stations would shut down, electrical grids would fail, and entire cities would lose electricity. | EXPERT ESTIMATE |
-| 03 | THE FLOOD BELOW | 1 week | After one week, underground tunnels would ~~begin flooding~~ ✎ *already be flooded* as pumping systems stopped working. Pets trapped inside homes would struggle to survive, while wild animals would begin exploring abandoned streets. | EXPERT ESTIMATE |
+| 03 | THE FLOOD BELOW | 1 week | After one week, underground tunnels would already be flooded as pumping systems stopped working. Pets trapped inside homes would struggle to survive, while wild animals would begin exploring abandoned streets. | EXPERT ESTIMATE |
 | 04 | NATURE MOVES IN | 1 month | After one month, nature would slowly start reclaiming our cities. Grass would grow through cracks in the pavement. Plants would spread across roads, and buildings would begin deteriorating without maintenance. | EXPERT ESTIMATE |
 | 05 | CITIES CHANGE | 1 year | After one year, many cities would look completely different. Flooding, storms, and vegetation would gradually damage the structures we once depended on. | EXPERT ESTIMATE |
 | 06 | THE WILD RETURNS | 100 years | But fast-forward one hundred years. Forests would be spreading through abandoned neighbourhoods. Roads would be crumbling, and some buildings would have collapsed. Animals would roam through places once filled with millions of people. | EXPERT ESTIMATE |
@@ -39,7 +55,7 @@ The user's text, unchanged except for the one suggested fix marked ✎.
 - **1 month / 1 year / 100 years:** fine, matches common projections. Weeds in cracks within weeks; freeze–thaw, rust and rot in years; forests and roof and building collapses within a century.
 - **Thousands of years:** fine. Plastics can last hundreds to thousands of years; stone monuments (pyramids, Mount Rushmore) far longer.
 
-## Open questions for the user
-1. **Slavoski is human, so he vanishes too.** Proposal: he blinks out mid-step in the cold open (his phone clatters to the street, a gag), then appears in later chapters as a see-through "ghost" observer so he can still react. Or: no hero after the cold open, and a left-behind pet (his cat or dog) carries the street shots in chapters 03–04.
-2. **The tunnel fix ✎:** accept it or keep the original wording.
-3. **Length (~90 s):** fine as is (the top of our 60–90 s range), or trim.
+## Decisions (approved)
+1. **Slavoski vanishes too:** he blinks out mid-step in the cold open (his phone clatters to the street), then appears in later chapters as a see-through "ghost" observer who reacts to everything.
+2. **Tunnel line:** use the fix ("would already be flooded").
+3. **Length:** keep ~90 s.
