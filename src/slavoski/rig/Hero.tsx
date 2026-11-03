@@ -181,7 +181,8 @@ export const heroParts = (pose: Pose, look: HeroLook = SLAVOSKI): Part[] => {
   add("lEar", "ear", look.skin, chain(head, T(0.66, -0.02, -0.02)));
   add("rEar", "ear", look.skin, chain(head, T(-0.66, -0.02, -0.02)));
   // Hair: cap, back, fringe, sideburns
-  add("hairCap", "box", look.hair, chain(head, T(0, 0.5, -0.06), R(-0.1, 0, 0), S(1.26, 0.3, 1.24)));
+  // Cap top sits above the head's crown (radius 0.68 × 1.06 ≈ 0.72), so no skin shows through on top.
+  add("hairCap", "box", look.hair, chain(head, T(0, 0.58, -0.04), R(-0.1, 0, 0), S(1.32, 0.36, 1.3)));
   add("hairBack", "box", look.hair, chain(head, T(0, 0.12, -0.5), S(1.24, 0.7, 0.36)));
   add("hairFringe", "box", look.hair, chain(head, T(0.1, 0.43, 0.5), R(0.35, 0, -0.1), S(0.9, 0.2, 0.28)));
   add("lSideburn", "box", look.hair, chain(head, T(0.6, 0.18, 0.05), S(0.16, 0.42, 0.5)));

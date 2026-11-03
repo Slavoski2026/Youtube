@@ -97,7 +97,9 @@ export const Bicycle: React.FC<{ position: V3; yaw?: number; spin?: number }> = 
  * A police officer pedalling a bicycle. Legs stay at x = ±0.3, beside the wheel plane (x = 0),
  * so they never pass through the wheels; the pelvis sits on the saddle.
  */
-export const CopOnBike: React.FC<{ position: V3; yaw?: number; pedal: number }> = ({ position, yaw = 0, pedal }) => {
+/** Rider scale: the hero rig is a 4.2-unit cartoon; at 0.46 a rider on a bike is a little taller than a car (≈1.45). */
+export const COP_SCALE = 0.46;
+export const CopOnBike: React.FC<{ position: V3; yaw?: number; pedal: number; scale?: number }> = ({ position, yaw = 0, pedal, scale = COP_SCALE }) => {
   const s = Math.sin(pedal * Math.PI * 2);
   const pose = mergePose(REST, {
     lean: 0.45,
@@ -119,7 +121,7 @@ export const CopOnBike: React.FC<{ position: V3; yaw?: number; pedal: number }> 
   const tiltX = pose.lean - pose.headPitch; // head's total forward pitch
   const cap: V3 = [head[0], head[1] + Math.cos(tiltX) * 0.62, head[2] + Math.sin(tiltX) * 0.62];
   return (
-    <group position={position} rotation={[0, yaw, 0]}>
+    <group position={position} rotation={[0, yaw, 0]} scale={scale}>
       <Bicycle position={[0, 0, 0]} spin={pedal * 4} />
       <Hero pose={seated} position={[0, 0, BIKE.saddleZ]} look={POLICE_OFFICER} />
       <mesh position={cap} rotation={[tiltX, 0, 0]} castShadow>
@@ -131,11 +133,12 @@ export const CopOnBike: React.FC<{ position: V3; yaw?: number; pedal: number }> 
 };
 
 /** In-game HUD (our own design): wanted stars, mission line, and big status banners. */
-export const GameHud: React.FC<{ stars?: number; mission?: string; banner?: string; bannerColor?: string; scanlines?: boolean }> = ({
+export const GameHud: React.FC<{ stars?: number; mission?: string; banner?: string; bannerColor?: string; bannerY?: number; scanlines?: boolean }> = ({
   stars = 0,
   mission,
   banner,
   bannerColor = "#FF4FA0",
+  bannerY = 820,
   scanlines = true,
 }) => (
   <AbsoluteFill style={{ pointerEvents: "none", fontFamily: FONT }}>
@@ -162,7 +165,7 @@ export const GameHud: React.FC<{ stars?: number; mission?: string; banner?: stri
       </div>
     ) : null}
     {banner ? (
-      <div style={{ position: "absolute", top: 820, width: "100%", textAlign: "center" }}>
+      <div style={{ position: "absolute", top: bannerY, width: "100%", textAlign: "center" }}>
         <span
           style={{
             display: "inline-block",

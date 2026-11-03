@@ -5,7 +5,7 @@
  */
 import React from "react";
 import { AbsoluteFill, random, useVideoConfig } from "remotion";
-import { Building, Car, CAR_HALF_LENGTH, CityGrid, Lamp, type BuildingSpec } from "../../slavoski/city";
+import { Building, Car, CAR_HALF_LENGTH, CityGrid, StreetSet, type BuildingSpec } from "../../slavoski/city";
 import { FONT } from "../../slavoski/fonts";
 import { Fireball, SmokeCluster } from "../../slavoski/fx";
 import { SLAVOSKI, SLAVOSKI_TIRED } from "../../slavoski/hero";
@@ -96,7 +96,7 @@ const PALMS: { p: V3; h: number; seed: string }[] = (() => {
 
 const GameWorld: React.FC<{ palms?: boolean }> = ({ palms = true }) => (
   <>
-    <CityGrid seed="vice" blocks={4} modify={pastel} />
+    <CityGrid seed="vice" blocks={6} modify={pastel} />
     {palms ? PALMS.map((pl) => <PalmTree key={pl.seed} position={pl.p} height={pl.h} seed={pl.seed} />) : null}
   </>
 );
@@ -114,16 +114,40 @@ const GameStage: React.FC<{ cam: CameraSpec; night?: boolean; size?: { width: nu
   </Stage>
 );
 
-/** The player's pink supercar driving down the x = 0 road toward −Z. */
-const chaseCam = (z: number): CameraSpec => ({ position: [0.6, 4.6, z + 12], target: [1.0, 1.0, z - 6] });
+/**
+ * A long palm-lined boulevard (road along Z, 260 units of buildings) for every driving shot, so the
+ * end of the map never comes into view. Palms are only built near the camera (`nearZ`) to keep it light.
+ */
+const BLVD_LENGTH = 260;
+const GameBoulevard: React.FC<{ nearZ: number; night?: boolean }> = ({ nearZ, night }) => {
+  const palms: { p: V3; h: number; seed: string }[] = [];
+  for (let i = 0; i < BLVD_LENGTH / 11; i++) {
+    for (const side of [1, -1]) {
+      const z = (side > 0 ? -3.5 : 2) - i * 11; // between the street lamps
+      if (z > nearZ + 30 || z < nearZ - 140) continue;
+      palms.push({ p: [side * 4.8, 0.12, z], h: 5.8 + random(`bp${side}${i}`) * 1.8, seed: `bp${side}${i}` });
+    }
+  }
+  return (
+    <>
+      <StreetSet seed="viceblvd" length={BLVD_LENGTH} cars={false} trees={false} modify={pastel} lampsOn={night ?? true} />
+      {palms.map((pl) => (
+        <PalmTree key={pl.seed} position={pl.p} height={pl.h} seed={pl.seed} />
+      ))}
+    </>
+  );
+};
 
-/** A generic driving feed for the TV (16:9). */
-const driveFeed = (t: number, night = false) => (size: { width: number; height: number }) => {
-  const z = 20 - ((t * 16) % 44);
+/** The player's pink supercar driving down the boulevard's right lane toward −Z. */
+const chaseCam = (z: number): CameraSpec => ({ position: [0.5, 4.4, z + 12], target: [1.2, 1.0, z - 6] });
+
+/** A driving feed for the TV (16:9), from the shot's own clock so the car never jumps back. */
+const driveFeed = (lt: number, night = false, speed = 14) => (size: { width: number; height: number }) => {
+  const z = 4 - lt * speed;
   return (
     <GameStage cam={{ ...chaseCam(z), fov: 30 }} night={night} size={size}>
-      <GameWorld />
-      <Car position={[1.7, 0, z]} yaw={Math.PI} color={GAME_PINK} sporty />
+      <GameBoulevard nearZ={z} night={night} />
+      <Car position={[1.75, 0, z]} yaw={Math.PI} color={GAME_PINK} sporty />
     </GameStage>
   );
 };
@@ -136,8 +160,8 @@ const TIRED = (blink = 0.45) => sittingPose({ lean: 0.15, expression: "worried",
 
 // ---------------------------------------------------------------- COLD OPEN
 
-const coldRoom: ShotFn = ({ lt, t }) => (
-  <RoomShot cam={lerpCam(TVVIEW, { position: [1.0, 7.2, 8.2], target: [0.8, 1.4, -1.5] }, lt / 5)} hours={0} pose={HYPED} feed={driveFeed(t)} />
+const coldRoom: ShotFn = ({ lt }) => (
+  <RoomShot cam={lerpCam(TVVIEW, { position: [1.0, 7.2, 8.2], target: [0.8, 1.4, -1.5] }, lt / 5)} hours={0} pose={HYPED} feed={driveFeed(lt)} />
 );
 
 const coldFace: ShotFn = ({ lt }) => (
@@ -145,34 +169,35 @@ const coldFace: ShotFn = ({ lt }) => (
 );
 
 const coldUnstoppable: ShotFn = ({ lt }) => {
-  const z = 18 - lt * 18;
+  const z = 4 - lt * 18;
   const drift = Math.sin(lt * 3) * 0.35;
   return (
     <AbsoluteFill>
       <GameStage cam={chaseCam(z)}>
-        <GameWorld />
-        <Car position={[1.7 + drift * 0.6, 0, z]} yaw={Math.PI + drift} color={GAME_PINK} sporty />
-        <Car position={[1.7, 0, z + 24]} yaw={Math.PI} color="#FFFFFF" police t={lt} />
+        <GameBoulevard nearZ={z} />
+        <Car position={[1.75 + drift * 0.6, 0, z]} yaw={Math.PI + drift} color={GAME_PINK} sporty />
+        <Car position={[1.75, 0, z + 24]} yaw={Math.PI} color="#FFFFFF" police t={lt} />
       </GameStage>
       <GameHud stars={2} banner={lt > 0.4 ? "UNSTOPPABLE" : undefined} bannerColor="#2FE0D0" />
     </AbsoluteFill>
   );
 };
 
-/** One police car pulls up beside the player's car, which has already stalled against a lamp post. */
+/**
+ * The player's car has spun out and stalled (smoking bonnet); one police car pulls up in the other lane.
+ * Spun 0.35 rad, the pink car spans x ≈ 0.7–3.1: clear of the kerb (3.5) and of the police lane (≤ −0.95).
+ */
 const coldBeat: ShotFn = ({ lt }) => {
-  const lampZ = -6;
-  const carZ = lampZ + 0.1 + CAR_HALF_LENGTH; // front bumper just touching the lamp post
+  const carZ = -6;
   const copZ = Math.max(carZ + 0.3, carZ + 14 - lt * 10);
   const cam = lerpCam({ position: [0.2, 4.6, carZ + 11], target: [1.0, 1, carZ] }, { position: [0.2, 4.4, carZ + 9.5], target: [1.0, 1, carZ] }, lt / 3);
   return (
     <AbsoluteFill>
       <GameStage cam={cam}>
-        <GameWorld />
-        <Lamp position={[1.7, 0, lampZ - 0.1]} lean={0.15} />
-        <Car position={[1.7, 0, carZ]} yaw={Math.PI} color={GAME_PINK} sporty crumple={0.6} />
-        <SmokeCluster position={[1.7, 0.6, lampZ + 0.4]} progress={0.4 + lt * 0.15} radius={0.8} count={5} rise={1.2} seed="cb" />
-        <Car position={[-1.7, 0, copZ]} yaw={Math.PI} color="#FFFFFF" police t={lt} />
+        <GameBoulevard nearZ={carZ} />
+        <Car position={[1.9, 0, carZ]} yaw={Math.PI + 0.35} color={GAME_PINK} sporty crumple={0.3} lights={false} />
+        <SmokeCluster position={[1.4, 0.7, carZ - 1.3]} progress={0.4 + lt * 0.15} radius={0.7} count={5} rise={1.2} seed="cb" />
+        <Car position={[-1.75, 0, copZ]} yaw={Math.PI} color="#FFFFFF" police t={lt} />
       </GameStage>
       <GameHud stars={1} banner={lt > 1.6 ? "MISSION FAILED" : undefined} bannerColor="#FF4A4A" />
     </AbsoluteFill>
@@ -357,7 +382,7 @@ const c3Crashed: ShotFn = ({ lt }) => {
 // ---------------------------------------------------------------- 04 MIDNIGHT MISTAKES
 
 const c4Night: ShotFn = ({ lt, t }) => (
-  <RoomShot cam={lerpCam(TVVIEW, { position: [1.0, 7.2, 8.3], target: [0.8, 1.4, -1.5] }, lt / 2.5)} hours={12} pose={TIRED(0.4)} cans={8} waterBottle pizza feed={driveFeed(t, true)} />
+  <RoomShot cam={lerpCam(TVVIEW, { position: [1.0, 7.2, 8.3], target: [0.8, 1.4, -1.5] }, lt / 2.5)} hours={12} pose={TIRED(0.4)} cans={8} waterBottle pizza feed={driveFeed(lt, true, 10)} />
 );
 
 const c4Walls: ShotFn = ({ lt }) => {
@@ -404,21 +429,24 @@ const c4Turns: ShotFn = ({ lt }) => {
   );
 };
 
-/** The cop on a bicycle rolls up beside the stalled supercar (separate lanes: bike x = −0.6, car x = 1.7). */
+/**
+ * The cop on a bicycle (real scale: a bit taller than the car) rolls up beside the stalled supercar.
+ * Separate lanes: the bike at x = 0.15 (about ±0.5 wide), the car at x = 1.75 (0.95–2.55).
+ */
 const c4Bike: ShotFn = ({ lt }) => {
   const carZ = -4;
-  const stopZ = carZ + 0.5;
-  const bz = Math.min(stopZ, -16 + lt * 6.5);
-  const pedal = bz < stopZ ? lt * 1.4 : 1.4 * ((stopZ + 16) / 6.5);
+  const stopZ = carZ + 0.4;
+  const bz = Math.min(stopZ, -14 + lt * 5.5);
+  const pedal = bz < stopZ ? lt * 1.6 : 1.6 * ((stopZ + 14) / 5.5);
   return (
     <AbsoluteFill>
-      <GameStage night cam={lerpCam({ position: [-1.5, 3.6, carZ + 10], target: [0.4, 1.6, carZ - 1] }, { position: [-1.5, 3.5, carZ + 8.8], target: [0.4, 1.6, carZ - 0.5] }, lt / 2.5)}>
-        <GameWorld />
-        <Car position={[1.7, 0, carZ]} yaw={Math.PI} color={GAME_PINK} sporty crumple={0.5} lights={false} />
-        <SmokeCluster position={[1.7, 0.6, carZ - 1.2]} progress={0.5} radius={0.7} count={4} rise={1} seed="bk" />
-        <CopOnBike position={[-0.6, 0, bz]} pedal={pedal} />
+      <GameStage night cam={lerpCam({ position: [-1.4, 2.3, carZ + 8], target: [0.9, 0.9, carZ - 1.5] }, { position: [-1.3, 2.2, carZ + 7], target: [0.9, 0.9, carZ - 1] }, lt / 2.5)}>
+        <GameBoulevard nearZ={carZ} night />
+        <Car position={[1.75, 0, carZ]} yaw={Math.PI} color={GAME_PINK} sporty crumple={0.5} lights={false} />
+        <SmokeCluster position={[1.75, 0.6, carZ - 1.2]} progress={0.5} radius={0.6} count={4} rise={0.9} seed="bk" />
+        <CopOnBike position={[0.15, 0, bz]} pedal={pedal} />
       </GameStage>
-      <GameHud stars={1} banner={bz >= stopZ ? "CAUGHT BY A BICYCLE" : undefined} />
+      <GameHud stars={1} banner={bz >= stopZ ? "CAUGHT BY A BICYCLE" : undefined} bannerY={430} />
     </AbsoluteFill>
   );
 };
@@ -431,14 +459,14 @@ const c5Burning: ShotFn = ({ lt }) => (
 
 const c5Focus: ShotFn = ({ lt }) => {
   const blur = 1 + 6 * ease(lt / 1.8);
-  const z = 14 - lt * 8;
+  const z = 4 - lt * 8;
   const wobble = Math.sin(lt * 2.5) * 0.25;
   return (
     <AbsoluteFill>
       <AbsoluteFill style={{ filter: `blur(${blur}px)` }}>
         <GameStage night cam={chaseCam(z)}>
-          <GameWorld />
-          <Car position={[1.7 + wobble, 0, z]} yaw={Math.PI + wobble * 0.3} color={GAME_PINK} sporty />
+          <GameBoulevard nearZ={z} night />
+          <Car position={[1.75 + wobble, 0, z]} yaw={Math.PI + wobble * 0.3} color={GAME_PINK} sporty />
         </GameStage>
       </AbsoluteFill>
       <AbsoluteFill style={{ background: `radial-gradient(ellipse 60% 45% at 50% 48%, rgba(0,0,0,0) 40%, rgba(0,0,0,${0.3 + 0.4 * ease(lt / 1.8)}) 100%)` }} />
@@ -468,7 +496,7 @@ const c5Easy: ShotFn = ({ lt }) => {
 // ---------------------------------------------------------------- 06 GAME OVER
 
 const c6Day: ShotFn = ({ lt, t }) => (
-  <RoomShot cam={lerpCam(TVVIEW, { position: [1.0, 7.2, 8.3], target: [0.8, 1.4, -1.5] }, lt / 2.5)} hours={24} pose={TIRED(0.6)} tired cans={15} waterBottle pizza feed={driveFeed(t * 0.4)} />
+  <RoomShot cam={lerpCam(TVVIEW, { position: [1.0, 7.2, 8.3], target: [0.8, 1.4, -1.5] }, lt / 2.5)} hours={24} pose={TIRED(0.6)} tired cans={15} waterBottle pizza feed={driveFeed(lt, false, 5)} />
 );
 
 const c6Sleep: ShotFn = ({ lt }) => {
