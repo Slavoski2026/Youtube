@@ -68,6 +68,8 @@ export const KEYWORDS = [
   "reactions",
   "water.",
   "hundred",
+  "300",
+  "VI",
   "midnight",
   "night.",
   "walls,",

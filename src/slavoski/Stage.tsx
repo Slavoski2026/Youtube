@@ -125,6 +125,10 @@ export type StageProps = {
   dust?: number;
   /** Ambient light multiplier (e.g. 0.3 to see a planet's night side). */
   light?: number;
+  /** Canvas size override (default: the video size), e.g. a 16:9 TV feed inside a 9:16 frame. */
+  size?: { width: number; height: number };
+  /** Skip the vignette (screen feeds). */
+  vignette?: boolean;
   children: React.ReactNode;
   /** HTML overlays drawn above the canvas but under the vignette. */
   overlay?: React.ReactNode;
@@ -145,10 +149,15 @@ export const Stage: React.FC<StageProps> = ({
   shadowSize,
   dust = 0,
   light = 1,
+  size,
+  vignette = true,
   children,
   overlay,
 }) => {
-  const { width, height, fps } = useVideoConfig();
+  const video = useVideoConfig();
+  const { fps } = video;
+  const width = size?.width ?? video.width;
+  const height = size?.height ?? video.height;
   const frame = useCurrentFrame();
   const base = SKY[mood];
   const sky = dust > 0 ? mixHex(base.sky, P.dustSky, dust) : base.sky;
@@ -181,7 +190,7 @@ export const Stage: React.FC<StageProps> = ({
         {children}
       </ThreeCanvas>
       {overlay}
-      <Vignette />
+      {vignette ? <Vignette /> : null}
     </AbsoluteFill>
   );
 };

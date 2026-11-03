@@ -192,7 +192,7 @@ export const heroParts = (pose: Pose, look: HeroLook = SLAVOSKI): Part[] => {
   const faceZ = 0.625;
   const eyeH = 0.26 * e.eyeH * (1 - pose.blink * 0.85);
   for (const sx of [1, -1]) {
-    add(sx > 0 ? "lEye" : "rEye", "box", P.eyeWhite, chain(head, T(sx * 0.21, 0.1, faceZ), S(0.22, eyeH, 0.06)));
+    add(sx > 0 ? "lEye" : "rEye", "box", look.eyeWhite ?? P.eyeWhite, chain(head, T(sx * 0.21, 0.1, faceZ), S(0.22, eyeH, 0.06)));
     if (pose.blink < 0.6) {
       add(
         sx > 0 ? "lPupil" : "rPupil",

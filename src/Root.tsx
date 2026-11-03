@@ -2,6 +2,7 @@ import React from "react";
 import { Composition } from "remotion";
 import { BlackHoleEpisode, estimatedBlackHole, type BlackHoleProps } from "./episodes/black-hole/BlackHoleEpisode";
 import { NoHumansEpisode, estimatedNoHumans, type NoHumansProps } from "./episodes/no-humans/NoHumansEpisode";
+import { GtaEpisode, estimatedGta, type GtaProps } from "./episodes/gta-24h/GtaEpisode";
 import { voiceoverMetadata } from "./lib/voiceover";
 import { StyleCheck, type StyleCheckProps } from "./StyleCheck";
 
@@ -30,6 +31,16 @@ export const RemotionRoot: React.FC = () => (
       height={HEIGHT}
       defaultProps={{ voiceover: "no-humans" } as NoHumansProps}
       calculateMetadata={voiceoverMetadata<NoHumansProps>(FPS, { tailSeconds: 2.6, fallback: estimatedNoHumans })}
+    />
+    <Composition
+      id="Gta24h"
+      component={GtaEpisode}
+      durationInFrames={FPS * 80}
+      fps={FPS}
+      width={WIDTH}
+      height={HEIGHT}
+      defaultProps={{ voiceover: "gta-24h" } as GtaProps}
+      calculateMetadata={voiceoverMetadata<GtaProps>(FPS, { tailSeconds: 2.6, fallback: estimatedGta })}
     />
     <Composition
       id="StyleCheck"

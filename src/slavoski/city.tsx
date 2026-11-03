@@ -252,7 +252,12 @@ export const Car: React.FC<{
   tilt?: [number, number];
   /** 0..1 moss and plants on the roof and bonnet. */
   moss?: number;
-}> = ({ position, yaw = 0, color = P.carRed, lights = true, rust = 0, crumple = 0, tilt = [0, 0], moss = 0 }) => {
+  /** Police car: white doors and a roof lightbar flashing with `t` (seconds). */
+  police?: boolean;
+  t?: number;
+  /** Low, wide sports-car proportions (same length, so CAR_HALF_LENGTH still holds). */
+  sporty?: boolean;
+}> = ({ position, yaw = 0, color = P.carRed, lights = true, rust = 0, crumple = 0, tilt = [0, 0], moss = 0, police = false, t = 0, sporty = false }) => {
   const wheel = 0.32;
   const body = rust > 0 ? new THREE.Color(color).lerp(new THREE.Color(P.rust), rust * 0.75).getStyle() : color;
   const cabin = rust > 0 ? new THREE.Color(P.bldgNavy).lerp(new THREE.Color("#2A2420"), rust).getStyle() : P.bldgNavy;
@@ -266,10 +271,33 @@ export const Car: React.FC<{
         <boxGeometry args={[1.5, 0.62 - crumple * 0.08, len]} />
         <Flat color={body} />
       </mesh>
-      <mesh position={[0, wheel + 0.86, -0.2]} castShadow>
-        <boxGeometry args={[1.3, 0.5, 1.6]} />
+      <mesh position={[0, wheel + (sporty ? 0.72 : 0.86), sporty ? -0.35 : -0.2]} castShadow>
+        <boxGeometry args={[1.3, sporty ? 0.34 : 0.5, sporty ? 1.3 : 1.6]} />
         <Flat color={cabin} />
       </mesh>
+      {police ? (
+        <>
+          <mesh position={[0, wheel + 0.34, 0.1]} castShadow>
+            <boxGeometry args={[1.52, 0.3, 1.4]} />
+            <Flat color="#F2F2F2" />
+          </mesh>
+          {[-0.32, 0.32].map((x, i) => {
+            const on = Math.floor(t * 6) % 2 === i;
+            return (
+              <mesh key={x} position={[x, wheel + 1.18, -0.2]}>
+                <boxGeometry args={[0.5, 0.14, 0.3]} />
+                <Glow color={i === 0 ? (on ? "#FF3040" : "#401018") : on ? "#3080FF" : "#101840"} fog={false} />
+              </mesh>
+            );
+          })}
+        </>
+      ) : null}
+      {sporty ? (
+        <mesh position={[0, wheel + 0.66, -1.45]} castShadow>
+          <boxGeometry args={[1.4, 0.06, 0.3]} />
+          <Flat color={cabin} />
+        </mesh>
+      ) : null}
       {moss > 0 ? (
         <mesh position={[0, wheel + 1.12 + 0.06 * moss, -0.2]} castShadow>
           <boxGeometry args={[1.32 * moss, 0.14, 1.62 * moss]} />

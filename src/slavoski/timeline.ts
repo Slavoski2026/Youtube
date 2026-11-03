@@ -48,11 +48,12 @@ export const estimateManifest = (slug: string, blocks: NarrationBlock[], opts: {
 
 /**
  * Finds where each narration block starts in the (real or estimated) word list by matching
- * its first words in order. Robust to small transcription differences.
+ * its first words in order, then ends each block just before the next one starts.
+ * Robust to transcription differences in word count (e.g. "three hundred" transcribed as "300").
  */
 export const blockTimes = (words: Caption[], blocks: NarrationBlock[]) => {
   const W = words.map((w) => norm(w.text));
-  const out: { id: string; chapter: Chapter | null; start: number; end: number; firstWord: number; lastWord: number }[] = [];
+  const starts: number[] = [];
   let cursor = 0;
   blocks.forEach((b) => {
     const toks = b.text.split(/\s+/).map(norm).filter(Boolean);
@@ -66,18 +67,22 @@ export const blockTimes = (words: Caption[], blocks: NarrationBlock[]) => {
       if (hits >= Math.min(2, probe.length)) found = i;
     }
     if (found < 0) found = Math.min(cursor, W.length - 1);
-    const last = Math.min(W.length - 1, found + toks.length - 1);
-    out.push({
+    starts.push(found);
+    // Skip most of this block before looking for the next one (blocks are never shorter than ~60% of their words).
+    cursor = found + Math.max(1, Math.floor(toks.length * 0.6));
+  });
+  return blocks.map((b, i) => {
+    const first = starts[i];
+    const last = i + 1 < starts.length ? Math.max(first, starts[i + 1] - 1) : W.length - 1;
+    return {
       id: b.id,
       chapter: b.chapter,
-      start: words[found].startMs / 1000,
+      start: words[first].startMs / 1000,
       end: words[last].endMs / 1000,
-      firstWord: found,
+      firstWord: first,
       lastWord: last,
-    });
-    cursor = last + 1;
+    };
   });
-  return out;
 };
 
 /** Time (s) a word/phrase is spoken, searching from `fromSec`. Returns `fallback` if not found. */

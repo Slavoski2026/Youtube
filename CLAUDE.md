@@ -148,10 +148,11 @@ Objects must never pass into each other on screen. This applies to disaster scen
 | `city.tsx` | `Building` (seeded windows, `tilt`, `sink`, `power` blackout, `decay` with broken windows, ivy and roof plants), `StreetSet` (`lampsOn`, `modify`) and `CityGrid` (roads every `block`; with an even `blocks` count a road runs through x = 0, otherwise block centres sit there), `Road`, `Lamp` (`on`, `lean`), `PineTree`, `Car` (`rust`, `crumple`, `tilt`, `moss`; `CAR_HALF_LENGTH` for contact points), `Plane`, `PowerStation` |
 | `nature.tsx` | `GrassTufts` (growth 0..1, over an area or along points), `Bush`, `LeafyTree`, `GroundCover`, `Rain`, `LightningBolt` |
 | `animals.tsx` | `Animal` (dog, deer, fox, wolf): one low-poly quadruped rig with `walk` phase, `headPitch` (graze) and `sit` |
+| `room.tsx` | `GamingRoom` (couch, TV, wall clock and window sky that follow `hours` since noon, side table with cans, water bottle, phone), `SEAT`/`SEAT_YAW`, `sittingPose()`, `controllerAt()`, `Controller`, `tvScreenRect()` (projected TV screen, used to overlay a live game feed rendered by a second `Stage` with `size`) |
 | `space.tsx` | `FacetedMoon`, `FacetedEarth` (atmosphere rim, clouds, tidal `stretch`, `heat`, `cityLights` 0..1), `OrbitPath` (dotted), `BlackHole` (core plus dashed marker ring), `AccretionDisk` |
 | `fx.tsx` | `Meteor` (tapered trail plus rock), `Fireball`, `SmokeCluster`, `LavaCrack`, `Shockwave`, `Debris` (comes to rest on the ground), `FloodWater`, `Volcano` |
 | `materials.tsx`, `noise.ts` | `Flat` (flat-shaded Lambert) and `Glow` (unlit emissive); seeded `noise1`/`noise3`/`fbm3`, `shake`, `ease` |
-| `Overlays.tsx` | `BrandLockup` (SLAVOSKI plus chapter label), `TitleCard`, `EndCard` (no teaser), `Tag` ("REAL PHYSICS" / "DRAMATISED" / "HYPOTHESIS" / "EXPERT ESTIMATE"), `Readout` (HUD value), `CardLine` (info card) |
+| `Overlays.tsx` | `BrandLockup` (SLAVOSKI plus chapter label), `TitleCard`, `EndCard` (no teaser), `Tag` ("REAL PHYSICS" / "DRAMATISED" / "HYPOTHESIS" / "EXPERT ESTIMATE" / "REAL SCIENCE"), `Readout` (HUD value), `CardLine` (info card) |
 | `WordCaptions.tsx` | Captions in the house style (cream active word, amber keywords from a per-episode `KEYWORDS` list) |
 | `timeline.ts` | `NarrationBlock`s (one per chapter), `estimateManifest()` (script-based timing until the voiceover exists), `blockTimes()`, `wordAt()`, `shotAt()`, `scheduleShots()` (cued shots → flat time-sorted list; use it for new episodes), `useTime()` |
 | `Soundtrack.tsx` | Voice, music cues per act with `duck()`, SFX hits |
@@ -160,6 +161,7 @@ Episodes:
 - `src/episodes/black-hole/` ("What If a Black Hole Appeared Next to Earth?", `BlackHole` composition, ep. 1). Approved script in `script.md`, narration blocks in `narration.ts`, real free-fall numbers in `physics.ts`, 35 shots in `shots.tsx` (each shot is a cue phrase plus a function of local time), episode props in `props.tsx` (`Marble`, `Binoculars`, `Arrow`, `DashedLine`, `Observatory`, `LensStars`, `EarthBreakup`, `CoastSet`). Until `public/voiceover/black-hole.json` exists it renders with estimated timing and a red "ANIMATIC" badge; importing the voiceover re-times every shot automatically.
 
 - `src/episodes/no-humans/` ("What If Every Human on Earth Suddenly Disappeared?", `NoHumans` composition, ep. 2). Trimmed script (the user asked for a trim after pricing). Slavoski vanishes in the cold open and returns as a see-through ghost observer. A "TIME WITHOUT HUMANS" clock jumps per chapter (seconds → 24 hours → … → 10,000 years). Moods move from night to dawn as nature takes over. 35 shots; sound effects reused from ep. 1 at no cost.
+- `src/episodes/gta-24h/` ("What If You Played GTA 6 for 24 Hours Straight?", `Gta24h` composition, ep. 3). Trimmed script. Slavoski in his gaming room; the game on his TV and in full-frame cutaways is **our own** neon low-poly city (palms, pink supercar, police cars, a cop on a bicycle) with our own HUD. **Never real GTA footage, logos, map or HUD** (Rockstar's copyright); the game is named only in the narration and title. HOURS PLAYED readout plus a draining SKILL bar.
 - Reuse the sound effects in `public/sfx/` across episodes before generating new ones.
 - `scripts/shot-frames.ts` needs each new episode added to its `EPISODES` map.
 
@@ -167,6 +169,9 @@ Lessons (carry forward):
 - This cloud container has no GPU: render with `--gl=swangle` (`angle` fails to create a WebGL context here). On a machine with a GPU, `angle` from `remotion.config.ts` is right.
 - Pass `fog={false}` for sky objects (the Moon) so they don't fade into the sky colour. Give the Moon a little emissive so it reads light grey, not blue.
 - In a 9:16 street shot, put the camera ~20 units from the hero (hero ≈ 25% of the frame height, as in the references). Closer than ~12 units crops him.
+- The 9:16 frame is only ~23° wide: to get two things in one shot (the TV and Slavoski), stack them vertically, e.g. a high camera behind the couch with the TV above his head. Never let an HTML overlay (the TV feed) cross a character.
+- In `CityGrid`, keep game and street cameras inside the road corridors (|x| or |z| within 2 of a road line): a camera a few units off a road is inside a building.
+- Scribe writes numbers as digits ("300", "12", "VI"). `blockTimes()` now copes with word-count differences, but add digit forms to `KEYWORDS`.
 - Keep tilted buildings safe by capping the lean by height (`tiltAway()` in the black-hole shots) and leaning neighbours in a block away from each other.
 - To fit a take that ran long, shorten the pauses between sentences rather than speeding up the voice, then remap the word times.
 - Use one continuous narration take from 0:00, with one scene per chapter and shots keyed to word times inside it.
