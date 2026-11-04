@@ -5,6 +5,12 @@ import { NoHumansEpisode, estimatedNoHumans, type NoHumansProps } from "./episod
 import { GtaEpisode, estimatedGta, type GtaProps } from "./episodes/gta-24h/GtaEpisode";
 import { SmartAnimalsEpisode, estimatedSmartAnimals, type SmartAnimalsProps } from "./episodes/smart-animals/SmartAnimalsEpisode";
 import { voiceoverMetadata } from "./lib/voiceover";
+import { withDetail } from "./slavoski/detail";
+
+// Ep. 1–3 were published at the original "low" detail; ep. 4 onward use the "mid" default.
+const BlackHoleLow = withDetail("low", BlackHoleEpisode);
+const NoHumansLow = withDetail("low", NoHumansEpisode);
+const GtaLow = withDetail("low", GtaEpisode);
 import { StyleCheck, type StyleCheckProps } from "./StyleCheck";
 
 export const FPS = 30;
@@ -15,7 +21,7 @@ export const RemotionRoot: React.FC = () => (
   <>
     <Composition
       id="BlackHole"
-      component={BlackHoleEpisode}
+      component={BlackHoleLow}
       durationInFrames={FPS * 90}
       fps={FPS}
       width={WIDTH}
@@ -25,7 +31,7 @@ export const RemotionRoot: React.FC = () => (
     />
     <Composition
       id="NoHumans"
-      component={NoHumansEpisode}
+      component={NoHumansLow}
       durationInFrames={FPS * 90}
       fps={FPS}
       width={WIDTH}
@@ -35,7 +41,7 @@ export const RemotionRoot: React.FC = () => (
     />
     <Composition
       id="Gta24h"
-      component={GtaEpisode}
+      component={GtaLow}
       durationInFrames={FPS * 80}
       fps={FPS}
       width={WIDTH}

@@ -29,8 +29,8 @@ const cap = (text: string, kw: string[] = []) => {
   };
 };
 
-/** `detail` switches the kit geometry level ("low" = ep. 1–3, "mid" = more facets and chamfers). */
-export const StyleCheck: React.FC<StyleCheckProps> = ({ shot, detail = "low" }) => (
+/** `detail` switches the kit geometry level ("mid" = house standard, "low" = ep. 1–3). */
+export const StyleCheck: React.FC<StyleCheckProps> = ({ shot, detail = "mid" }) => (
   <DetailProvider value={detail}>
     <StyleCheckShot shot={shot} />
   </DetailProvider>

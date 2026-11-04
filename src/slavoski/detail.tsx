@@ -1,11 +1,13 @@
 /**
  * Geometry detail level for the whole kit.
  *
- * - "low": the original look (ep. 1–3): sharp boxes, few facets.
- * - "mid": still flat-shaded and faceted, but boxes get a two-facet bevel on every edge and
- *   round things (heads, fists, cylinders, cones, icospheres) get more facets.
+ * - "mid" (the house standard from ep. 4, approved by the user): flat-shaded and faceted, but boxes
+ *   get a two-facet bevel on every edge and round things (heads, fists, cylinders, cones,
+ *   icospheres) get more facets. This is the default.
+ * - "low": the original look of ep. 1–3 (sharp boxes, few facets). Those compositions are pinned
+ *   to it in Root.tsx with `withDetail("low", …)` so re-renders match what was published.
  *
- * Wrap an episode in <DetailProvider value="mid">. `Stage` re-provides it inside the canvas, so
+ * `Stage` re-provides the level inside the canvas, so
  * every kit component reads it with `useDetail()`. Use the `BoxG` / `CylG` / `ConeG` / `IcoG` /
  * `CircleG` geometry elements in place of R3F's `<boxGeometry>` etc. so they follow the level.
  */
@@ -15,7 +17,7 @@ import { RoundedBoxGeometry } from "three/examples/jsm/geometries/RoundedBoxGeom
 
 export type DetailLevel = "low" | "mid";
 
-const DetailContext = createContext<DetailLevel>("low");
+const DetailContext = createContext<DetailLevel>("mid");
 export const DetailProvider = DetailContext.Provider;
 
 export type Detail = {
@@ -38,6 +40,17 @@ export const detailFor = (level: DetailLevel): Detail => {
 };
 
 export const useDetail = (): Detail => detailFor(useContext(DetailContext));
+
+/** Pins a composition to a detail level (ep. 1–3 keep "low"). Call at module level, not in render. */
+export const withDetail = <P extends object>(level: DetailLevel, Component: React.ComponentType<P>): React.FC<P> => {
+  const Wrapped: React.FC<P> = (props) => (
+    <DetailProvider value={level}>
+      <Component {...props} />
+    </DetailProvider>
+  );
+  Wrapped.displayName = `${level}(${Component.displayName ?? Component.name})`;
+  return Wrapped;
+};
 export const useDetailLevel = () => useContext(DetailContext);
 
 // ---------- Chamfered boxes ----------

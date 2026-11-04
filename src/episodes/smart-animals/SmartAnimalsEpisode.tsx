@@ -1,6 +1,6 @@
 /**
  * "What If Every Animal Got As Smart As Us?" — SLAVOSKI, ep. 4. A 60-second Short.
- * First episode at the kit's "mid" detail level (bevelled boxes, more facets).
+ * First episode at the kit's "mid" detail level (bevelled boxes, more facets), now the house default.
  */
 import React, { useMemo } from "react";
 import { AbsoluteFill, useCurrentFrame, useVideoConfig } from "remotion";
