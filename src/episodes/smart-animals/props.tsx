@@ -718,7 +718,7 @@ export const Gate: React.FC<{ position: V3; open?: number; latch?: number }> = (
   </group>
 );
 
-/** A chicken coop on legs with a ramp; the hatch (facing +Z) opens with `hatch` 0..1. */
+/** A chicken coop on legs with a ramp; the hatch door (facing +Z) slides open with `hatch` 0..1. */
 export const Coop: React.FC<{ position: V3; yaw?: number; hatch?: number }> = ({ position, yaw = 0, hatch = 0 }) => (
   <group position={position} rotation={[0, yaw, 0]}>
     {[-1, 1].map((sx) =>
@@ -739,20 +739,19 @@ export const Coop: React.FC<{ position: V3; yaw?: number; hatch?: number }> = ({
         <Flat color="#7A3A34" />
       </mesh>
     ))}
-    {/* hatch opening (dark) and its door flap hinged at the bottom */}
+    {/* hatch opening (dark, x ±0.45, y 1.0–1.9) and its door, which slides sideways along the front
+        wall so nothing sticks out into the chickens' path */}
     <mesh position={[0, 1.45, 1.105]}>
       <boxGeometry args={[0.9, 0.9, 0.02]} />
       <Flat color="#1A1414" />
     </mesh>
-    <group position={[0, 1.0, 1.12]} rotation={[hatch * 1.5, 0, 0]}>
-      <mesh position={[0, 0.45, 0]} castShadow>
-        <BoxG args={[0.96, 0.92, 0.06]} />
-        <Flat color="#A88040" />
-      </mesh>
-    </group>
+    <mesh position={[hatch * 0.9, 1.45, 1.135]} castShadow>
+      <BoxG args={[0.96, 0.96, 0.05]} />
+      <Flat color="#A88040" />
+    </mesh>
     {/* ramp from the hatch sill (y = 1.0) down to the ground at z = +2.4 */}
     <mesh position={[0, 0.5, 1.75]} rotation={[Math.atan2(1.0, 1.3), 0, 0]} castShadow receiveShadow>
-      <BoxG args={[0.8, 0.06, Math.hypot(1.0, 1.3)]} />
+      <BoxG args={[1.0, 0.06, Math.hypot(1.0, 1.3)]} />
       <Flat color="#8A6A44" />
     </mesh>
   </group>

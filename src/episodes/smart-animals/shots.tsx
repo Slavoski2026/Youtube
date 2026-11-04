@@ -549,18 +549,48 @@ const c4Plan: ShotFn = (c) => {
 
 const COOP_POS: V3 = [0, 0, -2];
 
+/**
+ * The breakout. Chickens leave the hatch one at a time, 0.22 s apart (more than a body length at walk
+ * speed), alternating: a walker goes single file down the ramp, a jumper hops forward clear of the wall,
+ * then flaps off to the left or right and lands beside the ramp. More chickens run past the coop in outer lanes (|x| = 2.2, clear of the roof).
+ * Lanes and spacing keep every chicken clear of the coop and of each other.
+ */
+const BREAK = { scale: 0.6, len: 0.72, walk: 3.6, run: 3.2, rampLen: 1.64 };
+
 const c4Breakout: ShotFn = (c) => {
-  const cam = move({ position: [1.4, 1.6, 6.5], target: [0, 1.0, -1.2] }, { position: [1.2, 1.4, 5.8], target: [0, 0.9, -1.0] }, c);
-  const hatch = k01(c.lt, 0, 0.15);
-  const chickens = Array.from({ length: 9 }, (_, i) => {
-    const s = c.lt * 2.6 - i * 0.28 - 0.1; // path length travelled
-    if (s < 0) return null;
-    // Path: hatch sill (z = 1.12, y = 1.0) → down the ramp to (z = 2.4, y = 0) → along the ground toward the camera.
-    const rampLen = 1.64;
-    const lz = s < rampLen ? 1.12 + (s / rampLen) * 1.28 : 2.4 + (s - rampLen);
-    const y = s < rampLen ? 1.0 - (s / rampLen) * 1.0 + 0.04 : 0;
-    const x = (random(`ch${i}`) - 0.5) * (s < rampLen ? 0.4 : 0.6 + (s - rampLen) * 0.8);
-    return <Bird key={i} kind="chicken" position={[COOP_POS[0] + x, y, COOP_POS[2] + lz]} yaw={x * 0.3} scale={0.6} walk={c.lt * 4 + i * 0.3} flap={0.5} flapT={c.t + i * 0.1} face={{ brow: "angry", eyeOpen: 0.8 }} />;
+  const cam = move({ position: [1.2, 2.0, 8.8], target: [0, 0.9, -0.5] }, { position: [1.0, 1.8, 8.0], target: [0, 0.9, -0.5] }, c);
+  const hatch = k01(c.lt, 0, 0.12);
+  const birds: React.ReactNode[] = [];
+  const bird = (key: string, x: number, y: number, z: number, flap: number, i: number) =>
+    birds.push(
+      <Bird key={key} kind="chicken" position={[COOP_POS[0] + x, y, COOP_POS[2] + z]} scale={BREAK.scale} walk={c.lt * 5 + i * 0.3} flap={flap} flapT={c.t + i * 0.13} face={{ brow: "angry", eyeOpen: 0.8 }} />,
+    );
+  for (let k = 0; k < 5; k++) {
+    const dt = c.lt - (0.12 + k * 0.22);
+    if (dt < 0) continue;
+    if (k % 2 === 0) {
+      // walker: sill (z 1.12, y 1.0) → down the ramp → along the ground toward the camera
+      const sDist = dt * BREAK.walk;
+      const onRamp = sDist < BREAK.rampLen;
+      const z = onRamp ? 1.12 + (sDist / BREAK.rampLen) * 1.28 : 2.4 + (sDist - BREAK.rampLen);
+      const y = onRamp ? 1.0 - (sDist / BREAK.rampLen) + 0.04 : 0;
+      bird(`w${k}`, 0, y, z, 0.2, k);
+    } else {
+      // jumper: straight out of the hatch until its tail clears the wall (z ≥ 1.51), then sideways, landing at |x| = 1.5
+      const side = k % 4 === 1 ? -1 : 1;
+      const u = Math.min(1, dt / 0.5);
+      const x = side * 1.5 * Math.sqrt(clamp01((u - 0.28) / 0.72));
+      const y = u < 1 ? 1.04 + 0.5 * Math.sin(Math.PI * u) - 1.04 * u : 0;
+      const z = 1.15 + 1.3 * u + Math.max(0, dt - 0.5) * BREAK.run;
+      bird(`j${k}`, x, y, z, u < 1 ? 1 : 0.3, k);
+    }
+  }
+  // outer lanes: chickens already running past the coop
+  [-2.2, 2.2].forEach((x, li) => {
+    for (let i = 0; i < 6; i++) {
+      const z = -6 + i * 1.3 + li * 0.6 + c.lt * BREAK.run;
+      bird(`o${li}${i}`, x, 0, z, 0.35, i + li * 6);
+    }
   });
   return (
     <Shot mood="night" camera={cam} fog={[30, 120]}>
@@ -569,7 +599,7 @@ const c4Breakout: ShotFn = (c) => {
         <meshLambertMaterial color="#2F5A44" flatShading />
       </mesh>
       <Coop position={COOP_POS} hatch={hatch} />
-      {chickens}
+      {birds}
     </Shot>
   );
 };
