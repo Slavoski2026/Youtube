@@ -20,6 +20,7 @@ Everything that defines the channel lives in this repo: this file, the kit in `s
 2. Read this file, then skim the newest episode folder (currently `src/episodes/gta-24h/`) as the template for the next one: `narration.ts` → `shots.tsx` → `<Name>Episode.tsx`, registered in `src/Root.tsx` and in `scripts/shot-frames.ts`.
 3. Follow the workflow below: script and chapter split → price with `estimate_only` → user OK → 1 take with Mark → Scribe → import → shots → contact sheets → half-res preview → full render on "render it".
 4. Open items: ep. 1 and ep. 2 were rendered before the hair fix (Slavoski's hair now covers his crown). Re-render them if the user asks; it needs no credits.
+5. In progress: ep. 4 `smart-animals` ("What if every animal suddenly became as smart as a human?", a 60 s cut the user approved). Voiceover done on flow `slavoski - smart-animals` (`xmhwa9Kzk294V6oMxz3r`): original take `public/voiceover/smart-animals.take.mp3` (62.8 s), pauses tightened to `smart-animals.mp3` (57.7 s) with `smart-animals.mp3.cuts.json`. Next: Scribe on the original take, import with `--cuts`, then build. The user wants Shorts of 60 s or less.
 
 Working preferences the user has shown: cost-conscious (always quote credits first, offer a trim when a script runs past ~90 s or ~1,400 characters), short replies, previews before finals, our own visual style for anything copyrighted (e.g. games).
 
@@ -184,7 +185,7 @@ Lessons (carry forward):
 - In `CityGrid`, keep game and street cameras inside the road corridors (|x| or |z| within 2 of a road line): a camera a few units off a road is inside a building.
 - Scribe writes numbers as digits ("300", "12", "VI"). `blockTimes()` now copes with word-count differences, but add digit forms to `KEYWORDS`.
 - Keep tilted buildings safe by capping the lean by height (`tiltAway()` in the black-hole shots) and leaning neighbours in a block away from each other.
-- To fit a take that ran long, shorten the pauses between sentences rather than speeding up the voice, then remap the word times.
+- To fit a take that ran long, shorten the pauses between sentences rather than speeding up the voice, then remap the word times: `npx tsx scripts/tighten-pauses.ts --in <take.mp3> --out public/voiceover/<slug>.mp3 --cap 0.22 --keep "<pause start>:<s>,…"` (keep comic beats longer), transcribe the original take, then import with `--audio public/voiceover/<slug>.mp3 --cuts public/voiceover/<slug>.mp3.cuts.json`.
 - Use one continuous narration take from 0:00, with one scene per chapter and shots keyed to word times inside it.
 - At true scale, sky objects look flat and dull from the ground. Exaggerate the size (the Moon fills the sky behind the hero) and keep facets and value contrast strong. We are "NOT TO SCALE" by design.
 - Review loop: `npx remotion bundle --out-dir=build`, then `npx remotion still build <Id> out/x.png --frame=N` per frame; tile stills into contact sheets.
@@ -214,6 +215,7 @@ Lessons (carry forward):
 | `npm run typecheck` | `tsc --noEmit` |
 | `npx tsx scripts/shot-frames.ts <slug> [--frames]` | Shot list with lengths / mid-shot frames |
 | `npx tsx scripts/contact-sheet.ts <Id> "<frames>" [scale] [out]` | Render many frames into one tiled contact sheet (needs `build/` from `npx remotion bundle`) |
-| `npm run import-voiceover` / `import-audio` | Save ElevenLabs MCP output into `public/` (see `scripts/import-audio.ts`) |
+| `npm run import-voiceover` / `import-audio` | Save ElevenLabs MCP output into `public/` (see `scripts/import-audio.ts`; `--cuts` remaps word times after `tighten-pauses`) |
+| `npx tsx scripts/tighten-pauses.ts --in … --out … [--cap] [--keep]` | Shorten the pauses in a take (free) and write a `.cuts.json` for the import |
 
 All `@remotion/*` packages must stay on the exact same version as `remotion`. Upgrade them together with `npx remotion upgrade`.

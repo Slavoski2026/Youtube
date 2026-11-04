@@ -3,6 +3,8 @@
  *
  *   npm run import-voiceover -- --name <slug> --audio "<content_url>" --words "<words_download_url>"
  *     -> public/voiceover/<slug>.mp3 + public/voiceover/<slug>.json (VoiceoverManifest)
+ *   Add `--cuts public/voiceover/<slug>.mp3.cuts.json` (and pass the shortened mp3 as --audio) when the
+ *   pauses were cut with scripts/tighten-pauses.ts: word times from the original take are remapped.
  *
  *   npm run import-audio -- --audio "<content_url>" --out sfx/<slug>.mp3
  *     -> public/sfx/<slug>.mp3 (or music/...)
@@ -88,8 +90,15 @@ const main = async () => {
   if (!name || !wordsUrl) throw new Error("--name and --words are required");
 
   const mp3 = join(PUBLIC, "voiceover", `${name}.mp3`);
-  await download(audio, mp3);
-  const words = scribeToCaptions(extractWords(await readJson(wordsUrl)));
+  // With --cuts (from scripts/tighten-pauses.ts), --audio is the already-shortened local mp3 and
+  // --words were transcribed from the original take: shift each word back by the pauses cut before it.
+  const cutsFile = flag("cuts");
+  const cuts: { at: number; removed: number }[] = cutsFile ? JSON.parse(readFileSync(cutsFile, "utf8")) : [];
+  const remap = (t: number) => t - cuts.filter((c) => c.at < t).reduce((s, c) => s + Math.min(c.removed, t - c.at), 0);
+  if (resolve(audio) !== mp3) await download(audio, mp3);
+  const words = scribeToCaptions(
+    extractWords(await readJson(wordsUrl)).map((w) => ({ ...w, start: remap(w.start), end: remap(w.end) })),
+  );
 
   const { durationInSeconds } = await parseMedia({
     src: mp3,
