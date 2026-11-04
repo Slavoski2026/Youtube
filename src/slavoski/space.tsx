@@ -8,6 +8,7 @@ import * as THREE from "three";
 import { fbm3, type V3 } from "./noise";
 import { P } from "./palette";
 import { Flat, Glow } from "./materials";
+import { IcoG } from "./detail";
 
 const faceColors = (geom: THREE.BufferGeometry, colorOf: (n: THREE.Vector3, i: number) => THREE.Color) => {
   const pos = geom.getAttribute("position");
@@ -200,7 +201,7 @@ export const FacetedEarth: React.FC<EarthProps> = ({
               ) : null}
             </group>
             <mesh scale={1.04}>
-              <icosahedronGeometry args={[radius, 4]} />
+              <IcoG args={[radius, 4]} />
               <RimMaterial color={heat > 0.3 ? "#FF7A2A" : P.atmosphere} power={3.2} intensity={0.75} />
             </mesh>
           </group>
@@ -257,7 +258,7 @@ export const BlackHole: React.FC<{
   return (
     <group position={position}>
       <mesh>
-        <icosahedronGeometry args={[coreRadius, 1]} />
+        <IcoG args={[coreRadius, 1]} />
         <meshBasicMaterial color="#000000" toneMapped={false} />
       </mesh>
       {marker ? (
@@ -322,7 +323,7 @@ export const AccretionDisk: React.FC<{
   return (
     <group position={position} rotation={rotation}>
       <mesh>
-        <icosahedronGeometry args={[inner * 0.35, 1]} />
+        <IcoG args={[inner * 0.35, 1]} />
         <meshBasicMaterial color="#000000" toneMapped={false} />
       </mesh>
       <mesh geometry={ringGeom} rotation={[-Math.PI / 2, 0, 0]}>
@@ -333,7 +334,7 @@ export const AccretionDisk: React.FC<{
         const a = p.a0 + t * w;
         return (
           <mesh key={i} position={[Math.cos(a) * p.r, p.y, Math.sin(a) * p.r]} rotation={[a, a * 0.7, 0]}>
-            <icosahedronGeometry args={[p.s, 0]} />
+            <IcoG args={[p.s, 0]} />
             {p.hot ? <Glow color={P.fire} fog={false} /> : <Flat color={i % 3 === 0 ? P.smoke : "#7A5A48"} />}
           </mesh>
         );

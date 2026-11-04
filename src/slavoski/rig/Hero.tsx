@@ -13,6 +13,7 @@ import type { V3 } from "../noise";
 import { P } from "../palette";
 import { Flat } from "../materials";
 import { SLAVOSKI, type HeroLook } from "../hero";
+import { chamferBox, useDetail } from "../detail";
 
 export type Expression = "neutral" | "alarm" | "smile" | "worried" | "awe" | "relief";
 
@@ -356,6 +357,29 @@ const geoms = {
   neck: new THREE.CylinderGeometry(0.22, 0.24, 0.3, 7),
 };
 
+// "mid" detail: rounder head, fists and ears, and every box part chamfered at its real size.
+const midGeoms = {
+  head: (() => {
+    const g = new THREE.IcosahedronGeometry(DIM.headR, 4);
+    g.scale(1, 1.06, 0.95);
+    return g;
+  })(),
+  fist: new THREE.IcosahedronGeometry(DIM.fistR, 3),
+  ear: new THREE.IcosahedronGeometry(0.13, 2),
+  neck: new THREE.CylinderGeometry(0.22, 0.24, 0.3, 14),
+};
+
+const scaleOf = new THREE.Vector3();
+const drawParts = (parts: Part[], mid: boolean) =>
+  parts.map((p) => {
+    if (!mid) return { ...p, geometry: geoms[p.kind] };
+    if (p.kind !== "box") return { ...p, geometry: midGeoms[p.kind] };
+    // Box parts are unit cubes scaled last in their chain: build the chamfered box at that size instead.
+    scaleOf.setFromMatrixScale(p.matrix);
+    const { x, y, z } = scaleOf;
+    return { ...p, geometry: chamferBox(x, y, z), matrix: p.matrix.clone().multiply(S(1 / x, 1 / y, 1 / z)) };
+  });
+
 export const Hero: React.FC<{
   pose?: Pose;
   position?: V3;
@@ -369,7 +393,8 @@ export const Hero: React.FC<{
   /** 0..1 vanish: flash white and shrink to nothing (use with VanishPuff). */
   vanish?: number;
 }> = ({ pose = REST, position = [0, 0, 0], yaw = 0, scale = 1, look = SLAVOSKI, castShadow = true, ghost = 0, vanish = 0 }) => {
-  const parts = useMemo(() => heroParts(pose, look), [pose, look]);
+  const { mid } = useDetail();
+  const parts = useMemo(() => drawParts(heroParts(pose, look), mid), [pose, look, mid]);
   if (vanish >= 1) return null;
   const ghostTint = (c: string) => new THREE.Color(c).lerp(new THREE.Color(P.ghost), 0.65).getStyle();
   const flash = (c: string) => new THREE.Color(c).lerp(new THREE.Color("#FFFFFF"), Math.min(1, vanish * 2)).getStyle();
@@ -379,7 +404,7 @@ export const Hero: React.FC<{
     return (
       <group position={position} rotation={[0, yaw, 0]} scale={scale}>
         {parts.map((p) => (
-          <mesh key={p.name} geometry={geoms[p.kind]} matrix={p.matrix} matrixAutoUpdate={false} renderOrder={10}>
+          <mesh key={p.name} geometry={p.geometry} matrix={p.matrix} matrixAutoUpdate={false} renderOrder={10}>
             <meshBasicMaterial color={ghostTint(p.color)} transparent opacity={ghost} depthWrite={false} toneMapped={false} fog={false} />
           </mesh>
         ))}
@@ -392,7 +417,7 @@ export const Hero: React.FC<{
         <group position={[0, 2.4, 0]} scale={[shrink * (1 + vanish * 0.1), shrink * (1 + vanish * 0.25), shrink * (1 + vanish * 0.1)]}>
           <group position={[0, -2.4, 0]}>
             {parts.map((p) => (
-              <mesh key={p.name} geometry={geoms[p.kind]} matrix={p.matrix} matrixAutoUpdate={false}>
+              <mesh key={p.name} geometry={p.geometry} matrix={p.matrix} matrixAutoUpdate={false}>
                 <meshBasicMaterial color={flash(p.color)} toneMapped={false} transparent opacity={1 - Math.max(0, vanish - 0.6) / 0.4} />
               </mesh>
             ))}
@@ -406,7 +431,7 @@ export const Hero: React.FC<{
       {parts.map((p) => (
         <mesh
           key={p.name}
-          geometry={geoms[p.kind]}
+          geometry={p.geometry}
           matrix={p.matrix}
           matrixAutoUpdate={false}
           castShadow={castShadow}

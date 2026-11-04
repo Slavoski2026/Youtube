@@ -1,0 +1,1085 @@
+{
+  "slug": "smart-animals",
+  "audio": "voiceover/smart-animals.mp3",
+  "durationInSeconds": 57.73061224489796,
+  "words": [
+    {
+      "text": "What",
+      "startMs": 100,
+      "endMs": 180,
+      "timestampMs": 140,
+      "confidence": null
+    },
+    {
+      "text": " if",
+      "startMs": 240,
+      "endMs": 480,
+      "timestampMs": 360,
+      "confidence": null
+    },
+    {
+      "text": " every",
+      "startMs": 540,
+      "endMs": 880,
+      "timestampMs": 710,
+      "confidence": null
+    },
+    {
+      "text": " animal",
+      "startMs": 980,
+      "endMs": 1300,
+      "timestampMs": 1140,
+      "confidence": null
+    },
+    {
+      "text": " suddenly",
+      "startMs": 1500,
+      "endMs": 1840,
+      "timestampMs": 1670,
+      "confidence": null
+    },
+    {
+      "text": " became",
+      "startMs": 1860,
+      "endMs": 2200,
+      "timestampMs": 2030,
+      "confidence": null
+    },
+    {
+      "text": " as",
+      "startMs": 2240,
+      "endMs": 2400,
+      "timestampMs": 2320,
+      "confidence": null
+    },
+    {
+      "text": " smart",
+      "startMs": 2460,
+      "endMs": 2760,
+      "timestampMs": 2610,
+      "confidence": null
+    },
+    {
+      "text": " as",
+      "startMs": 2800,
+      "endMs": 2860,
+      "timestampMs": 2830,
+      "confidence": null
+    },
+    {
+      "text": " a",
+      "startMs": 2920,
+      "endMs": 2980,
+      "timestampMs": 2950,
+      "confidence": null
+    },
+    {
+      "text": " human?",
+      "startMs": 3060,
+      "endMs": 3440,
+      "timestampMs": 3250,
+      "confidence": null
+    },
+    {
+      "text": " Imagine",
+      "startMs": 3660,
+      "endMs": 3980,
+      "timestampMs": 3820,
+      "confidence": null
+    },
+    {
+      "text": " waking",
+      "startMs": 4080,
+      "endMs": 4320,
+      "timestampMs": 4200,
+      "confidence": null
+    },
+    {
+      "text": " up",
+      "startMs": 4360,
+      "endMs": 4460,
+      "timestampMs": 4410,
+      "confidence": null
+    },
+    {
+      "text": " to",
+      "startMs": 4500,
+      "endMs": 4580,
+      "timestampMs": 4540,
+      "confidence": null
+    },
+    {
+      "text": " a",
+      "startMs": 4620,
+      "endMs": 4760,
+      "timestampMs": 4690,
+      "confidence": null
+    },
+    {
+      "text": " pigeon",
+      "startMs": 4820,
+      "endMs": 5180,
+      "timestampMs": 5000,
+      "confidence": null
+    },
+    {
+      "text": " staring",
+      "startMs": 5340,
+      "endMs": 5680,
+      "timestampMs": 5510,
+      "confidence": null
+    },
+    {
+      "text": " at",
+      "startMs": 5720,
+      "endMs": 5840,
+      "timestampMs": 5780,
+      "confidence": null
+    },
+    {
+      "text": " you.",
+      "startMs": 5900,
+      "endMs": 6000,
+      "timestampMs": 5950,
+      "confidence": null
+    },
+    {
+      "text": " Then",
+      "startMs": 6310,
+      "endMs": 6390,
+      "timestampMs": 6350,
+      "confidence": null
+    },
+    {
+      "text": " it",
+      "startMs": 6410,
+      "endMs": 6510,
+      "timestampMs": 6460,
+      "confidence": null
+    },
+    {
+      "text": " picks",
+      "startMs": 6530,
+      "endMs": 6710,
+      "timestampMs": 6620,
+      "confidence": null
+    },
+    {
+      "text": " up",
+      "startMs": 6750,
+      "endMs": 6830,
+      "timestampMs": 6790,
+      "confidence": null
+    },
+    {
+      "text": " a",
+      "startMs": 6870,
+      "endMs": 6910,
+      "timestampMs": 6890,
+      "confidence": null
+    },
+    {
+      "text": " rock",
+      "startMs": 7030,
+      "endMs": 7350,
+      "timestampMs": 7190,
+      "confidence": null
+    },
+    {
+      "text": " and",
+      "startMs": 7861,
+      "endMs": 7961,
+      "timestampMs": 7911,
+      "confidence": null
+    },
+    {
+      "text": " writes",
+      "startMs": 8080,
+      "endMs": 8340,
+      "timestampMs": 8211,
+      "confidence": null
+    },
+    {
+      "text": " on",
+      "startMs": 8381,
+      "endMs": 8461,
+      "timestampMs": 8421,
+      "confidence": null
+    },
+    {
+      "text": " the",
+      "startMs": 8481,
+      "endMs": 8601,
+      "timestampMs": 8541,
+      "confidence": null
+    },
+    {
+      "text": " pavement.",
+      "startMs": 8660,
+      "endMs": 9141,
+      "timestampMs": 8901,
+      "confidence": null
+    },
+    {
+      "text": " Within",
+      "startMs": 9380,
+      "endMs": 9640,
+      "timestampMs": 9510,
+      "confidence": null
+    },
+    {
+      "text": " minutes,",
+      "startMs": 9700,
+      "endMs": 10060,
+      "timestampMs": 9880,
+      "confidence": null
+    },
+    {
+      "text": " dogs",
+      "startMs": 10340,
+      "endMs": 10680,
+      "timestampMs": 10510,
+      "confidence": null
+    },
+    {
+      "text": " understand",
+      "startMs": 10720,
+      "endMs": 11180,
+      "timestampMs": 10950,
+      "confidence": null
+    },
+    {
+      "text": " every",
+      "startMs": 11440,
+      "endMs": 11700,
+      "timestampMs": 11570,
+      "confidence": null
+    },
+    {
+      "text": " word",
+      "startMs": 11820,
+      "endMs": 12020,
+      "timestampMs": 11920,
+      "confidence": null
+    },
+    {
+      "text": " you",
+      "startMs": 12080,
+      "endMs": 12200,
+      "timestampMs": 12140,
+      "confidence": null
+    },
+    {
+      "text": " say.",
+      "startMs": 12240,
+      "endMs": 12500,
+      "timestampMs": 12370,
+      "confidence": null
+    },
+    {
+      "text": " Cats",
+      "startMs": 12782,
+      "endMs": 13042,
+      "timestampMs": 12912,
+      "confidence": null
+    },
+    {
+      "text": " realise",
+      "startMs": 13102,
+      "endMs": 13462,
+      "timestampMs": 13282,
+      "confidence": null
+    },
+    {
+      "text": " they've",
+      "startMs": 13482,
+      "endMs": 13622,
+      "timestampMs": 13552,
+      "confidence": null
+    },
+    {
+      "text": " had",
+      "startMs": 13662,
+      "endMs": 13862,
+      "timestampMs": 13762,
+      "confidence": null
+    },
+    {
+      "text": " free",
+      "startMs": 13922,
+      "endMs": 14162,
+      "timestampMs": 14042,
+      "confidence": null
+    },
+    {
+      "text": " food",
+      "startMs": 14222,
+      "endMs": 14382,
+      "timestampMs": 14302,
+      "confidence": null
+    },
+    {
+      "text": " and",
+      "startMs": 14402,
+      "endMs": 14482,
+      "timestampMs": 14442,
+      "confidence": null
+    },
+    {
+      "text": " accommodation",
+      "startMs": 14522,
+      "endMs": 15202,
+      "timestampMs": 14862,
+      "confidence": null
+    },
+    {
+      "text": " their",
+      "startMs": 15222,
+      "endMs": 15322,
+      "timestampMs": 15272,
+      "confidence": null
+    },
+    {
+      "text": " entire",
+      "startMs": 15362,
+      "endMs": 15802,
+      "timestampMs": 15582,
+      "confidence": null
+    },
+    {
+      "text": " lives,",
+      "startMs": 15902,
+      "endMs": 16322,
+      "timestampMs": 16112,
+      "confidence": null
+    },
+    {
+      "text": " and",
+      "startMs": 16580,
+      "endMs": 16640,
+      "timestampMs": 16610,
+      "confidence": null
+    },
+    {
+      "text": " an",
+      "startMs": 16680,
+      "endMs": 16840,
+      "timestampMs": 16760,
+      "confidence": null
+    },
+    {
+      "text": " octopus",
+      "startMs": 16920,
+      "endMs": 17420,
+      "timestampMs": 17170,
+      "confidence": null
+    },
+    {
+      "text": " is",
+      "startMs": 17560,
+      "endMs": 17800,
+      "timestampMs": 17680,
+      "confidence": null
+    },
+    {
+      "text": " already",
+      "startMs": 17880,
+      "endMs": 18180,
+      "timestampMs": 18030,
+      "confidence": null
+    },
+    {
+      "text": " planning",
+      "startMs": 18300,
+      "endMs": 18600,
+      "timestampMs": 18450,
+      "confidence": null
+    },
+    {
+      "text": " its",
+      "startMs": 18620,
+      "endMs": 18720,
+      "timestampMs": 18670,
+      "confidence": null
+    },
+    {
+      "text": " escape.",
+      "startMs": 18760,
+      "endMs": 19200,
+      "timestampMs": 18980,
+      "confidence": null
+    },
+    {
+      "text": " After",
+      "startMs": 19463,
+      "endMs": 19643,
+      "timestampMs": 19553,
+      "confidence": null
+    },
+    {
+      "text": " one",
+      "startMs": 19823,
+      "endMs": 20023,
+      "timestampMs": 19923,
+      "confidence": null
+    },
+    {
+      "text": " hour,",
+      "startMs": 20123,
+      "endMs": 20323,
+      "timestampMs": 20223,
+      "confidence": null
+    },
+    {
+      "text": " chimpanzees",
+      "startMs": 20643,
+      "endMs": 21363,
+      "timestampMs": 21003,
+      "confidence": null
+    },
+    {
+      "text": " start",
+      "startMs": 21443,
+      "endMs": 21663,
+      "timestampMs": 21553,
+      "confidence": null
+    },
+    {
+      "text": " organising.",
+      "startMs": 21743,
+      "endMs": 22323,
+      "timestampMs": 22033,
+      "confidence": null
+    },
+    {
+      "text": " Crows",
+      "startMs": 22608,
+      "endMs": 23028,
+      "timestampMs": 22818,
+      "confidence": null
+    },
+    {
+      "text": " become",
+      "startMs": 23068,
+      "endMs": 23428,
+      "timestampMs": 23248,
+      "confidence": null
+    },
+    {
+      "text": " terrifyingly",
+      "startMs": 23588,
+      "endMs": 24328,
+      "timestampMs": 23958,
+      "confidence": null
+    },
+    {
+      "text": " clever.",
+      "startMs": 24368,
+      "endMs": 24688,
+      "timestampMs": 24528,
+      "confidence": null
+    },
+    {
+      "text": " After",
+      "startMs": 24993,
+      "endMs": 25133,
+      "timestampMs": 25063,
+      "confidence": null
+    },
+    {
+      "text": " twenty-four",
+      "startMs": 25233,
+      "endMs": 25673,
+      "timestampMs": 25453,
+      "confidence": null
+    },
+    {
+      "text": " hours,",
+      "startMs": 25753,
+      "endMs": 26033,
+      "timestampMs": 25893,
+      "confidence": null
+    },
+    {
+      "text": " billions",
+      "startMs": 26433,
+      "endMs": 26833,
+      "timestampMs": 26633,
+      "confidence": null
+    },
+    {
+      "text": " of",
+      "startMs": 26873,
+      "endMs": 27013,
+      "timestampMs": 26943,
+      "confidence": null
+    },
+    {
+      "text": " farm",
+      "startMs": 27053,
+      "endMs": 27293,
+      "timestampMs": 27173,
+      "confidence": null
+    },
+    {
+      "text": " animals",
+      "startMs": 27333,
+      "endMs": 27693,
+      "timestampMs": 27513,
+      "confidence": null
+    },
+    {
+      "text": " understand",
+      "startMs": 27733,
+      "endMs": 28133,
+      "timestampMs": 27933,
+      "confidence": null
+    },
+    {
+      "text": " exactly",
+      "startMs": 28233,
+      "endMs": 28913,
+      "timestampMs": 28573,
+      "confidence": null
+    },
+    {
+      "text": " why",
+      "startMs": 28933,
+      "endMs": 29093,
+      "timestampMs": 29013,
+      "confidence": null
+    },
+    {
+      "text": " we",
+      "startMs": 29113,
+      "endMs": 29233,
+      "timestampMs": 29173,
+      "confidence": null
+    },
+    {
+      "text": " keep",
+      "startMs": 29273,
+      "endMs": 29473,
+      "timestampMs": 29373,
+      "confidence": null
+    },
+    {
+      "text": " them,",
+      "startMs": 29532,
+      "endMs": 29672,
+      "timestampMs": 29602,
+      "confidence": null
+    },
+    {
+      "text": " and",
+      "startMs": 29919,
+      "endMs": 30039,
+      "timestampMs": 29979,
+      "confidence": null
+    },
+    {
+      "text": " they're",
+      "startMs": 30079,
+      "endMs": 30259,
+      "timestampMs": 30169,
+      "confidence": null
+    },
+    {
+      "text": " not",
+      "startMs": 30419,
+      "endMs": 30639,
+      "timestampMs": 30529,
+      "confidence": null
+    },
+    {
+      "text": " happy.",
+      "startMs": 30699,
+      "endMs": 31039,
+      "timestampMs": 30869,
+      "confidence": null
+    },
+    {
+      "text": " Cows",
+      "startMs": 31315,
+      "endMs": 31615,
+      "timestampMs": 31465,
+      "confidence": null
+    },
+    {
+      "text": " escape.",
+      "startMs": 31655,
+      "endMs": 32135,
+      "timestampMs": 31895,
+      "confidence": null
+    },
+    {
+      "text": " Pigs",
+      "startMs": 32382,
+      "endMs": 32662,
+      "timestampMs": 32522,
+      "confidence": null
+    },
+    {
+      "text": " open",
+      "startMs": 32782,
+      "endMs": 32982,
+      "timestampMs": 32882,
+      "confidence": null
+    },
+    {
+      "text": " gates.",
+      "startMs": 33102,
+      "endMs": 33462,
+      "timestampMs": 33282,
+      "confidence": null
+    },
+    {
+      "text": " Chickens",
+      "startMs": 33746,
+      "endMs": 34106,
+      "timestampMs": 33926,
+      "confidence": null
+    },
+    {
+      "text": " plan",
+      "startMs": 34206,
+      "endMs": 34406,
+      "timestampMs": 34306,
+      "confidence": null
+    },
+    {
+      "text": " mass",
+      "startMs": 34566,
+      "endMs": 34866,
+      "timestampMs": 34716,
+      "confidence": null
+    },
+    {
+      "text": " breakouts,",
+      "startMs": 34886,
+      "endMs": 35406,
+      "timestampMs": 35146,
+      "confidence": null
+    },
+    {
+      "text": " and",
+      "startMs": 35677,
+      "endMs": 35757,
+      "timestampMs": 35717,
+      "confidence": null
+    },
+    {
+      "text": " rats?",
+      "startMs": 35857,
+      "endMs": 36217,
+      "timestampMs": 36037,
+      "confidence": null
+    },
+    {
+      "text": " Billions",
+      "startMs": 36734,
+      "endMs": 37174,
+      "timestampMs": 36954,
+      "confidence": null
+    },
+    {
+      "text": " of",
+      "startMs": 37234,
+      "endMs": 37314,
+      "timestampMs": 37274,
+      "confidence": null
+    },
+    {
+      "text": " them",
+      "startMs": 37354,
+      "endMs": 37494,
+      "timestampMs": 37424,
+      "confidence": null
+    },
+    {
+      "text": " under",
+      "startMs": 37734,
+      "endMs": 37954,
+      "timestampMs": 37844,
+      "confidence": null
+    },
+    {
+      "text": " our",
+      "startMs": 37994,
+      "endMs": 38154,
+      "timestampMs": 38074,
+      "confidence": null
+    },
+    {
+      "text": " cities,",
+      "startMs": 38194,
+      "endMs": 38574,
+      "timestampMs": 38384,
+      "confidence": null
+    },
+    {
+      "text": " and",
+      "startMs": 38816,
+      "endMs": 38976,
+      "timestampMs": 38896,
+      "confidence": null
+    },
+    {
+      "text": " now",
+      "startMs": 39016,
+      "endMs": 39216,
+      "timestampMs": 39116,
+      "confidence": null
+    },
+    {
+      "text": " they",
+      "startMs": 39256,
+      "endMs": 39356,
+      "timestampMs": 39306,
+      "confidence": null
+    },
+    {
+      "text": " understand",
+      "startMs": 39396,
+      "endMs": 39836,
+      "timestampMs": 39616,
+      "confidence": null
+    },
+    {
+      "text": " electricity.",
+      "startMs": 39916,
+      "endMs": 40656,
+      "timestampMs": 40286,
+      "confidence": null
+    },
+    {
+      "text": " After",
+      "startMs": 40917,
+      "endMs": 41077,
+      "timestampMs": 40997,
+      "confidence": null
+    },
+    {
+      "text": " one",
+      "startMs": 41237,
+      "endMs": 41377,
+      "timestampMs": 41307,
+      "confidence": null
+    },
+    {
+      "text": " week,",
+      "startMs": 41477,
+      "endMs": 41697,
+      "timestampMs": 41587,
+      "confidence": null
+    },
+    {
+      "text": " governments",
+      "startMs": 41997,
+      "endMs": 42397,
+      "timestampMs": 42197,
+      "confidence": null
+    },
+    {
+      "text": " must",
+      "startMs": 42577,
+      "endMs": 42797,
+      "timestampMs": 42687,
+      "confidence": null
+    },
+    {
+      "text": " decide:",
+      "startMs": 42817,
+      "endMs": 43277,
+      "timestampMs": 43047,
+      "confidence": null
+    },
+    {
+      "text": " Should",
+      "startMs": 43533,
+      "endMs": 43753,
+      "timestampMs": 43643,
+      "confidence": null
+    },
+    {
+      "text": " animals",
+      "startMs": 43833,
+      "endMs": 44193,
+      "timestampMs": 44013,
+      "confidence": null
+    },
+    {
+      "text": " have",
+      "startMs": 44233,
+      "endMs": 44393,
+      "timestampMs": 44313,
+      "confidence": null
+    },
+    {
+      "text": " human",
+      "startMs": 44453,
+      "endMs": 44693,
+      "timestampMs": 44573,
+      "confidence": null
+    },
+    {
+      "text": " rights?",
+      "startMs": 44793,
+      "endMs": 45113,
+      "timestampMs": 44953,
+      "confidence": null
+    },
+    {
+      "text": " Some",
+      "startMs": 45476,
+      "endMs": 45656,
+      "timestampMs": 45566,
+      "confidence": null
+    },
+    {
+      "text": " might",
+      "startMs": 45696,
+      "endMs": 45836,
+      "timestampMs": 45766,
+      "confidence": null
+    },
+    {
+      "text": " want",
+      "startMs": 45876,
+      "endMs": 45996,
+      "timestampMs": 45936,
+      "confidence": null
+    },
+    {
+      "text": " peace.",
+      "startMs": 46096,
+      "endMs": 46456,
+      "timestampMs": 46276,
+      "confidence": null
+    },
+    {
+      "text": " Others",
+      "startMs": 46790,
+      "endMs": 47110,
+      "timestampMs": 46950,
+      "confidence": null
+    },
+    {
+      "text": " want",
+      "startMs": 47410,
+      "endMs": 47570,
+      "timestampMs": 47490,
+      "confidence": null
+    },
+    {
+      "text": " revenge.",
+      "startMs": 47610,
+      "endMs": 48190,
+      "timestampMs": 47900,
+      "confidence": null
+    },
+    {
+      "text": " So",
+      "startMs": 48512,
+      "endMs": 48672,
+      "timestampMs": 48592,
+      "confidence": null
+    },
+    {
+      "text": " what",
+      "startMs": 48912,
+      "endMs": 49052,
+      "timestampMs": 48982,
+      "confidence": null
+    },
+    {
+      "text": " happens",
+      "startMs": 49092,
+      "endMs": 49472,
+      "timestampMs": 49282,
+      "confidence": null
+    },
+    {
+      "text": " when",
+      "startMs": 49492,
+      "endMs": 49692,
+      "timestampMs": 49592,
+      "confidence": null
+    },
+    {
+      "text": " we're",
+      "startMs": 49752,
+      "endMs": 49932,
+      "timestampMs": 49842,
+      "confidence": null
+    },
+    {
+      "text": " no",
+      "startMs": 49972,
+      "endMs": 50112,
+      "timestampMs": 50042,
+      "confidence": null
+    },
+    {
+      "text": " longer",
+      "startMs": 50152,
+      "endMs": 50412,
+      "timestampMs": 50282,
+      "confidence": null
+    },
+    {
+      "text": " the",
+      "startMs": 50452,
+      "endMs": 50552,
+      "timestampMs": 50502,
+      "confidence": null
+    },
+    {
+      "text": " smartest",
+      "startMs": 50652,
+      "endMs": 50952,
+      "timestampMs": 50802,
+      "confidence": null
+    },
+    {
+      "text": " species",
+      "startMs": 51052,
+      "endMs": 51372,
+      "timestampMs": 51212,
+      "confidence": null
+    },
+    {
+      "text": " in",
+      "startMs": 51392,
+      "endMs": 51452,
+      "timestampMs": 51422,
+      "confidence": null
+    },
+    {
+      "text": " the",
+      "startMs": 51492,
+      "endMs": 51552,
+      "timestampMs": 51522,
+      "confidence": null
+    },
+    {
+      "text": " room,",
+      "startMs": 51632,
+      "endMs": 51892,
+      "timestampMs": 51762,
+      "confidence": null
+    },
+    {
+      "text": " and",
+      "startMs": 52258,
+      "endMs": 52338,
+      "timestampMs": 52298,
+      "confidence": null
+    },
+    {
+      "text": " your",
+      "startMs": 52358,
+      "endMs": 52478,
+      "timestampMs": 52418,
+      "confidence": null
+    },
+    {
+      "text": " cat",
+      "startMs": 52558,
+      "endMs": 52778,
+      "timestampMs": 52668,
+      "confidence": null
+    },
+    {
+      "text": " looks",
+      "startMs": 52818,
+      "endMs": 52998,
+      "timestampMs": 52908,
+      "confidence": null
+    },
+    {
+      "text": " you",
+      "startMs": 53038,
+      "endMs": 53098,
+      "timestampMs": 53068,
+      "confidence": null
+    },
+    {
+      "text": " dead",
+      "startMs": 53318,
+      "endMs": 53458,
+      "timestampMs": 53388,
+      "confidence": null
+    },
+    {
+      "text": " in",
+      "startMs": 53498,
+      "endMs": 53558,
+      "timestampMs": 53528,
+      "confidence": null
+    },
+    {
+      "text": " the",
+      "startMs": 53598,
+      "endMs": 53678,
+      "timestampMs": 53638,
+      "confidence": null
+    },
+    {
+      "text": " eyes",
+      "startMs": 53758,
+      "endMs": 53998,
+      "timestampMs": 53878,
+      "confidence": null
+    },
+    {
+      "text": " and",
+      "startMs": 54018,
+      "endMs": 54098,
+      "timestampMs": 54058,
+      "confidence": null
+    },
+    {
+      "text": " says,",
+      "startMs": 54218,
+      "endMs": 54538,
+      "timestampMs": 54378,
+      "confidence": null
+    },
+    {
+      "text": " “Right,",
+      "startMs": 54538,
+      "endMs": 55396,
+      "timestampMs": 54967,
+      "confidence": null
+    },
+    {
+      "text": " about",
+      "startMs": 55896,
+      "endMs": 56156,
+      "timestampMs": 56026,
+      "confidence": null
+    },
+    {
+      "text": " that",
+      "startMs": 56216,
+      "endMs": 56316,
+      "timestampMs": 56266,
+      "confidence": null
+    },
+    {
+      "text": " neutering",
+      "startMs": 56536,
+      "endMs": 56896,
+      "timestampMs": 56716,
+      "confidence": null
+    },
+    {
+      "text": " appointment.”",
+      "startMs": 56936,
+      "endMs": 57456,
+      "timestampMs": 57196,
+      "confidence": null
+    }
+  ]
+}

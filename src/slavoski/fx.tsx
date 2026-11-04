@@ -8,6 +8,7 @@ import * as THREE from "three";
 import { clamp01, ease, type V3 } from "./noise";
 import { P } from "./palette";
 import { Flat, Glow } from "./materials";
+import { BoxG, CircleG, CylG, IcoG } from "./detail";
 
 const v = (p: V3) => new THREE.Vector3(...p);
 
@@ -56,11 +57,11 @@ export const Meteor: React.FC<{
         <Flat color="#3A2620" />
       </mesh>
       <mesh>
-        <icosahedronGeometry args={[size * 1.05, 1]} />
+        <IcoG args={[size * 1.05, 1]} />
         <Glow color={P.meteor} opacity={0.55} fog={false} additive />
       </mesh>
       <mesh rotation={[0, random(seed) * 6, 0]}>
-        <icosahedronGeometry args={[size * 0.2, 0]} />
+        <IcoG args={[size * 0.2, 0]} />
         <Glow color={P.fireCore} fog={false} />
       </mesh>
     </group>
@@ -85,13 +86,13 @@ export const Fireball: React.FC<{ position: V3; progress: number; radius?: numbe
         const s = radius * (0.45 + random(`${seed}s${i}`) * 0.3) * grow;
         return (
           <mesh key={i} position={[Math.cos(a) * r, s * 0.6 + random(`${seed}y${i}`) * r * 0.5, Math.sin(a) * r]}>
-            <icosahedronGeometry args={[s, 1]} />
+            <IcoG args={[s, 1]} />
             <Glow color={i % 2 ? P.fire : P.meteor} opacity={fade} />
           </mesh>
         );
       })}
       <mesh position={[0, radius * 0.5 * grow, 0]}>
-        <icosahedronGeometry args={[radius * 0.6 * grow, 1]} />
+        <IcoG args={[radius * 0.6 * grow, 1]} />
         <Glow color={P.fireCore} opacity={fade} />
       </mesh>
     </group>
@@ -118,7 +119,7 @@ export const SmokeCluster: React.FC<{
         const y = s + random(`${seed}y${i}`) * radius * 0.8 + progress * rise * (0.6 + random(`${seed}r${i}`) * 0.6);
         return (
           <mesh key={i} position={[Math.cos(a) * d * (0.5 + g * 0.6), y, Math.sin(a) * d * (0.5 + g * 0.6)]} rotation={[i, i * 2, 0]} castShadow>
-            <icosahedronGeometry args={[s, 1]} />
+            <IcoG args={[s, 1]} />
             <Flat color={i % 3 === 0 ? P.smokeDark : color} />
           </mesh>
         );
@@ -216,7 +217,7 @@ export const Debris: React.FC<{ origin: V3; t: number; count?: number; speed?: n
         const y = Math.max(s / 2, origin[1] + vy * tt - 0.5 * g * tt * tt);
         return (
           <mesh key={i} position={[origin[0] + vx * tt, y, origin[2] + vz * tt]} rotation={[tt * 5 + i, tt * 3, 0]} castShadow>
-            <boxGeometry args={[s, s * 0.8, s * 1.1]} />
+            <BoxG args={[s, s * 0.8, s * 1.1]} />
             <Flat color={color} />
           </mesh>
         );
@@ -260,11 +261,11 @@ export const Volcano: React.FC<{ position: V3; scale?: number; eruption: number;
 }) => (
   <group position={position} scale={scale}>
     <mesh position={[0, 3, 0]} castShadow receiveShadow>
-      <cylinderGeometry args={[1.4, 6, 6, 9, 2]} />
+      <CylG args={[1.4, 6, 6, 9, 2]} />
       <Flat color="#3B3036" />
     </mesh>
     <mesh position={[0, 6.02, 0]} rotation={[-Math.PI / 2, 0, 0]}>
-      <circleGeometry args={[1.3, 9]} />
+      <CircleG args={[1.3, 9]} />
       <Glow color={P.lava} />
     </mesh>
     {eruption > 0
@@ -277,7 +278,7 @@ export const Volcano: React.FC<{ position: V3; scale?: number; eruption: number;
           const h = 6 + (k * 10 - k * k * 9) * eruption * 1.4;
           return (
             <mesh key={i} position={[Math.cos(a) * k * sp, h, Math.sin(a) * k * sp]}>
-              <icosahedronGeometry args={[0.35 * (1 - k * 0.5), 0]} />
+              <IcoG args={[0.35 * (1 - k * 0.5), 0]} />
               <Glow color={i % 2 ? P.lava : P.fire} />
             </mesh>
           );

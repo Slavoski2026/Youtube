@@ -8,6 +8,7 @@ import * as THREE from "three";
 import { clamp01, ease, type V3 } from "./noise";
 import { P } from "./palette";
 import { Flat, Glow } from "./materials";
+import { BoxG, CircleG, CylG, IcoG } from "./detail";
 
 const tmp = new THREE.Object3D();
 const tmpColor = new THREE.Color();
@@ -86,7 +87,7 @@ export const Bush: React.FC<{ position: V3; size?: number; growth?: number; seed
         const r = 0.35 + random(`${seed}r${i}`) * 0.3;
         return (
           <mesh key={i} position={[Math.cos(a) * 0.35 * (i ? 1 : 0), r, Math.sin(a) * 0.35 * (i ? 1 : 0)]} castShadow>
-            <icosahedronGeometry args={[r, 0]} />
+            <IcoG args={[r, 0]} />
             <Flat color={i % 2 ? P.leafDark : color} />
           </mesh>
         );
@@ -109,7 +110,7 @@ export const LeafyTree: React.FC<{ position: V3; scale?: number; growth?: number
   return (
     <group position={position} scale={scale * g} rotation={[0, random(`${seed}y`) * 6, lean]}>
       <mesh position={[0, h / 2, 0]} castShadow>
-        <cylinderGeometry args={[0.14, 0.24, h, 6]} />
+        <CylG args={[0.14, 0.24, h, 6]} />
         <Flat color={P.bark} />
       </mesh>
       {[0, 1, 2].map((i) => (
@@ -118,7 +119,7 @@ export const LeafyTree: React.FC<{ position: V3; scale?: number; growth?: number
           position={[(random(`${seed}x${i}`) - 0.5) * 1.1, h + 0.3 + i * 0.45, (random(`${seed}z${i}`) - 0.5) * 1.1]}
           castShadow
         >
-          <icosahedronGeometry args={[1.05 - i * 0.18, 0]} />
+          <IcoG args={[1.05 - i * 0.18, 0]} />
           <Flat color={i === 1 ? P.leafDark : P.leaf} />
         </mesh>
       ))}
@@ -153,7 +154,7 @@ export const GroundCover: React.FC<{ area: [number, number, number, number]; gro
         if (g <= 0.01) return null;
         return (
           <mesh key={i} position={[p.x, y + i * 0.0004, p.z]} rotation={[-Math.PI / 2, 0, p.rot]} scale={g} receiveShadow>
-            <circleGeometry args={[p.r, 6]} />
+            <CircleG args={[p.r, 6]} />
             <Flat color={p.c} />
           </mesh>
         );
@@ -196,7 +197,7 @@ export const Rain: React.FC<{ center: V3; size?: [number, number, number]; t: nu
   });
   return (
     <instancedMesh ref={ref} args={[undefined, undefined, drops.length]} key={drops.length}>
-      <boxGeometry args={[0.03, 0.9, 0.03]} />
+      <BoxG args={[0.03, 0.9, 0.03]} />
       <meshBasicMaterial color="#B9CCE6" transparent opacity={0.55} depthWrite={false} toneMapped={false} />
     </instancedMesh>
   );
@@ -229,7 +230,7 @@ export const LightningBolt: React.FC<{ top: V3; bottom: V3; flash: number; seed?
     <group>
       {segs.map((s, i) => (
         <mesh key={i} position={s.mid} quaternion={s.q}>
-          <cylinderGeometry args={[0.12, 0.12, s.len, 4]} />
+          <CylG args={[0.12, 0.12, s.len, 4]} />
           <Glow color="#EAF2FF" opacity={clamp01(flash)} fog={false} />
         </mesh>
       ))}

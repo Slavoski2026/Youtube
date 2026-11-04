@@ -14,10 +14,12 @@ import { Hero, mergePose, REST } from "./slavoski/rig/Hero";
 import { FacetedEarth, FacetedMoon, OrbitPath } from "./slavoski/space";
 import { Stage } from "./slavoski/Stage";
 import { WordCaptions } from "./slavoski/WordCaptions";
+import { DetailProvider, type DetailLevel } from "./slavoski/detail";
+import { Bird, Quadruped } from "./slavoski/critters";
 
 loadHouseFonts();
 
-export type StyleCheckProps = { shot: "title" | "street" | "aerial" | "disaster" | "hero" };
+export type StyleCheckProps = { shot: "title" | "street" | "aerial" | "disaster" | "hero" | "critters"; detail?: DetailLevel };
 
 const cap = (text: string, kw: string[] = []) => {
   const toks = text.split(" ");
@@ -27,7 +29,14 @@ const cap = (text: string, kw: string[] = []) => {
   };
 };
 
-export const StyleCheck: React.FC<StyleCheckProps> = ({ shot }) => {
+/** `detail` switches the kit geometry level ("low" = ep. 1–3, "mid" = more facets and chamfers). */
+export const StyleCheck: React.FC<StyleCheckProps> = ({ shot, detail = "low" }) => (
+  <DetailProvider value={detail}>
+    <StyleCheckShot shot={shot} />
+  </DetailProvider>
+);
+
+const StyleCheckShot: React.FC<StyleCheckProps> = ({ shot }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
   const t = frame / fps;
@@ -68,6 +77,23 @@ export const StyleCheck: React.FC<StyleCheckProps> = ({ shot }) => {
         </Stage>
         <BrandLockup chapter={{ n: 2, title: "A CHANGING SKY" }} />
         <WordCaptions words={c.words} />
+      </AbsoluteFill>
+    );
+  }
+
+  if (shot === "critters") {
+    // Detail comparison: Slavoski, a dog, a cat and a pigeon on the street, a car and a lamp nearby.
+    const pose = mergePose(REST, { headPitch: -0.25, headYaw: 0.2, expression: "alarm", lShoulder: [0.35, 0.35], rShoulder: [0.2, 0.2] });
+    return (
+      <AbsoluteFill>
+        <Stage mood="night" camera={{ position: [3.2, 2.5, 12.5], target: [-0.2, 2.3, 0], fov: 40 }} fog={[40, 200]}>
+          <StreetSet seed="ref" />
+          <Hero pose={pose} position={[-0.3, 0.05, 0]} yaw={0.35} />
+          <Quadruped kind="dog" position={[-1.6, 0.05, 2.2]} yaw={0.7} scale={1.5} headPitch={0.35} face={{ look: [0.1, 0.25], brow: "flat" }} wag={0.2} />
+          <Quadruped kind="cat" position={[1.7, 0.05, 1.6]} yaw={-0.6} scale={1.5} sit face={{ look: [0.15, 0], brow: "smug", eyeOpen: 0.55 }} />
+          <Bird kind="pigeon" position={[0.55, 0.05, 3.6]} yaw={0.15} scale={0.85} face={{ look: [0.05, 0], eyeOpen: 1.15 }} pebble />
+        </Stage>
+        <BrandLockup chapter={{ n: 1, title: "THE PIGEON" }} />
       </AbsoluteFill>
     );
   }

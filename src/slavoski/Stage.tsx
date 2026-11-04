@@ -5,6 +5,7 @@ import { AbsoluteFill, useCurrentFrame, useVideoConfig } from "remotion";
 import * as THREE from "three";
 import { shake, type V3 } from "./noise";
 import { P } from "./palette";
+import { DetailProvider, useDetailLevel } from "./detail";
 
 export type Mood = "night" | "dust" | "space" | "dawn" | "storm";
 
@@ -165,6 +166,8 @@ export const Stage: React.FC<StageProps> = ({
   const offset = shake(shakeSeed, frame / fps, shakeAmp);
   const lightMood: Mood = mood === "night" && dust > 0.5 ? "dust" : mood;
   const fogColor = mood === "dawn" ? mixHex(sky, glow, 0.6) : sky;
+  // React context doesn't reliably cross into the R3F canvas: hand the detail level over explicitly.
+  const detail = useDetailLevel();
 
   return (
     <AbsoluteFill
@@ -187,7 +190,7 @@ export const Stage: React.FC<StageProps> = ({
         {fog ? <fog attach="fog" args={[fogColor, fog[0], fog[1]]} /> : null}
         <Lights mood={lightMood} keyDir={keyDir} shadows={shadows} shadowSize={shadowSize} scale={light} />
         {stars && mood !== "storm" ? <Stars opacity={mood === "space" ? 0.8 : mood === "dawn" ? 0.25 : 0.55 * (1 - dust * 0.6)} /> : null}
-        {children}
+        <DetailProvider value={detail}>{children}</DetailProvider>
       </ThreeCanvas>
       {overlay}
       {vignette ? <Vignette /> : null}

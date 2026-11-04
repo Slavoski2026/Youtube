@@ -9,6 +9,7 @@ import * as THREE from "three";
 import type { V3 } from "./noise";
 import { P } from "./palette";
 import { Flat, Glow } from "./materials";
+import { BoxG, ConeG, CylG, IcoG, chamferBox, useDetail } from "./detail";
 
 const BOX = new THREE.BoxGeometry(1, 1, 1);
 const tmp = new THREE.Object3D();
@@ -158,6 +159,21 @@ export const Building: React.FC<BuildingProps> = ({
     }),
     [w, d, seed],
   );
+  const { mid } = useDetail();
+  // "mid" detail: chamfered edges at the real size, a cornice band and a sill under every window.
+  const box = (bw: number, bh: number, bd: number) =>
+    mid ? { geometry: chamferBox(bw, bh, bd), scale: [1, 1, 1] as V3 } : { geometry: BOX, scale: [bw, bh, bd] as V3 };
+  const sills = useMemo(
+    () =>
+      mid
+        ? windows.map((win) => ({
+            pos: [win.pos[0], win.pos[1] - 0.27, win.pos[2]] as V3,
+            size: (win.size[0] > win.size[2] ? [0.5, 0.06, 0.13] : [0.13, 0.06, 0.5]) as V3,
+            color: roofColor,
+          }))
+        : [],
+    [mid, windows, roofColor],
+  );
   // Pivot on the base edge in the direction of the tilt so the building leans without sinking.
   const px = tilt[1] > 0 ? w / 2 : tilt[1] < 0 ? -w / 2 : 0;
   const pz = tilt[0] > 0 ? d / 2 : tilt[0] < 0 ? -d / 2 : 0;
@@ -165,21 +181,22 @@ export const Building: React.FC<BuildingProps> = ({
     <group position={[position[0], position[1] - sink * h, position[2]]} rotation={[0, yaw, 0]}>
       <group position={[px, 0, pz]} rotation={[tilt[0], 0, -tilt[1]]}>
         <group position={[-px, 0, -pz]}>
-          <mesh geometry={BOX} position={[0, h / 2, 0]} scale={[w, h, d]} castShadow receiveShadow>
+          <mesh {...box(w, h, d)} position={[0, h / 2, 0]} castShadow receiveShadow>
             <Flat color={bodyColor} />
           </mesh>
-          <mesh geometry={BOX} position={[0, h + 0.08, 0]} scale={[w - 0.3, 0.16, d - 0.3]} castShadow>
+          {mid ? (
+            <mesh geometry={chamferBox(w + 0.16, 0.24, d + 0.16)} position={[0, h - 0.12, 0]} castShadow>
+              <Flat color={roofColor} />
+            </mesh>
+          ) : null}
+          <mesh {...box(w - 0.3, 0.16, d - 0.3)} position={[0, h + 0.08, 0]} castShadow>
             <Flat color={roofColor} />
           </mesh>
-          <mesh
-            geometry={BOX}
-            position={[rooftop.x, h + 0.16 + 0.35, rooftop.z]}
-            scale={[rooftop.w, 0.7, rooftop.d]}
-            castShadow
-          >
+          <mesh {...box(rooftop.w, 0.7, rooftop.d)} position={[rooftop.x, h + 0.16 + 0.35, rooftop.z]} castShadow>
             <Flat color={roofColor} />
           </mesh>
           <Instances items={rest} />
+          {sills.length ? <Instances items={sills} /> : null}
           {lit.length ? <Instances items={lit} glow /> : null}
           {ivy.length ? <Instances items={ivy} /> : null}
           {dq > 0.45 ? (
@@ -201,12 +218,12 @@ export const PineTree: React.FC<{ position: V3; scale?: number; color?: string; 
 }) => (
   <group position={position} scale={scale} rotation={[0, 0, lean]}>
     <mesh position={[0, 0.5, 0]} castShadow>
-      <boxGeometry args={[0.3, 1, 0.3]} />
+      <BoxG args={[0.3, 1, 0.3]} />
       <Flat color={P.trunk} />
     </mesh>
     {[0, 1, 2].map((i) => (
       <mesh key={i} position={[0, 1.5 + i * 0.95, 0]} castShadow>
-        <coneGeometry args={[1.25 - i * 0.3, 1.9 - i * 0.2, 7]} />
+        <ConeG args={[1.25 - i * 0.3, 1.9 - i * 0.2, 7]} />
         <Flat color={color} />
       </mesh>
     ))}
@@ -222,15 +239,15 @@ export const Lamp: React.FC<{ position: V3; height?: number; yaw?: number; on?: 
 }) => (
   <group position={position} rotation={[0, yaw, lean]}>
     <mesh position={[0, height / 2, 0]} castShadow>
-      <cylinderGeometry args={[0.07, 0.09, height, 6]} />
+      <CylG args={[0.07, 0.09, height, 6]} />
       <Flat color={P.pole} />
     </mesh>
     <mesh position={[0, height + 0.06, 0]}>
-      <boxGeometry args={[0.95, 0.14, 0.42]} />
+      <BoxG args={[0.95, 0.14, 0.42]} />
       <Flat color={P.pole} />
     </mesh>
     <mesh position={[0, height - 0.02, 0]}>
-      <boxGeometry args={[0.85, 0.06, 0.36]} />
+      <BoxG args={[0.85, 0.06, 0.36]} />
       {on ? <Glow color={P.lampGlow} /> : <Flat color="#3A3A40" />}
     </mesh>
   </group>
@@ -268,24 +285,24 @@ export const Car: React.FC<{
       <group rotation={[tilt[0], 0, tilt[1]]}>
       {/* body (faces +z) */}
       <mesh position={[0, wheel + 0.32, -shift]} castShadow receiveShadow>
-        <boxGeometry args={[1.5, 0.62 - crumple * 0.08, len]} />
+        <BoxG args={[1.5, 0.62 - crumple * 0.08, len]} />
         <Flat color={body} />
       </mesh>
       <mesh position={[0, wheel + (sporty ? 0.72 : 0.86), sporty ? -0.35 : -0.2]} castShadow>
-        <boxGeometry args={[1.3, sporty ? 0.34 : 0.5, sporty ? 1.3 : 1.6]} />
+        <BoxG args={[1.3, sporty ? 0.34 : 0.5, sporty ? 1.3 : 1.6]} />
         <Flat color={cabin} />
       </mesh>
       {police ? (
         <>
           <mesh position={[0, wheel + 0.34, 0.1]} castShadow>
-            <boxGeometry args={[1.52, 0.3, 1.4]} />
+            <BoxG args={[1.52, 0.3, 1.4]} />
             <Flat color="#F2F2F2" />
           </mesh>
           {[-0.32, 0.32].map((x, i) => {
             const on = Math.floor(t * 6) % 2 === i;
             return (
               <mesh key={x} position={[x, wheel + 1.18, -0.2]}>
-                <boxGeometry args={[0.5, 0.14, 0.3]} />
+                <BoxG args={[0.5, 0.14, 0.3]} />
                 <Glow color={i === 0 ? (on ? "#FF3040" : "#401018") : on ? "#3080FF" : "#101840"} fog={false} />
               </mesh>
             );
@@ -294,13 +311,13 @@ export const Car: React.FC<{
       ) : null}
       {sporty ? (
         <mesh position={[0, wheel + 0.66, -1.45]} castShadow>
-          <boxGeometry args={[1.4, 0.06, 0.3]} />
+          <BoxG args={[1.4, 0.06, 0.3]} />
           <Flat color={cabin} />
         </mesh>
       ) : null}
       {moss > 0 ? (
         <mesh position={[0, wheel + 1.12 + 0.06 * moss, -0.2]} castShadow>
-          <boxGeometry args={[1.32 * moss, 0.14, 1.62 * moss]} />
+          <BoxG args={[1.32 * moss, 0.14, 1.62 * moss]} />
           <Flat color={P.moss} />
         </mesh>
       ) : null}
@@ -311,7 +328,7 @@ export const Car: React.FC<{
         [-0.72, -1.0],
       ].map(([x, z], i) => (
         <mesh key={i} position={[x, wheel, z]} rotation={[0, 0, Math.PI / 2]} castShadow>
-          <cylinderGeometry args={[wheel, wheel, 0.24, 8]} />
+          <CylG args={[wheel, wheel, 0.24, 8]} />
           <Flat color="#15151C" />
         </mesh>
       ))}
@@ -319,11 +336,11 @@ export const Car: React.FC<{
         ? [0.48, -0.48].map((x) => (
             <React.Fragment key={x}>
               <mesh position={[x, wheel + 0.36, 1.56 - shift * 2]}>
-                <boxGeometry args={[0.32, 0.16, 0.03]} />
+                <BoxG args={[0.32, 0.16, 0.03]} />
                 <Glow color={P.headlight} />
               </mesh>
               <mesh position={[x, wheel + 0.38, -1.56]}>
-                <boxGeometry args={[0.3, 0.12, 0.03]} />
+                <BoxG args={[0.3, 0.12, 0.03]} />
                 <Glow color={P.taillight} />
               </mesh>
             </React.Fragment>
@@ -341,32 +358,32 @@ export const Plane: React.FC<{ position: V3; rotation?: V3; scale?: number; t?: 
   return (
     <group position={position} rotation={rotation} scale={scale}>
       <mesh rotation={[Math.PI / 2, 0, 0]} castShadow>
-        <cylinderGeometry args={[0.55, 0.5, 7, 10]} />
+        <CylG args={[0.55, 0.5, 7, 10]} />
         <Flat color={white} />
       </mesh>
       <mesh position={[0, 0, 3.9]} rotation={[Math.PI / 2, 0, 0]}>
-        <coneGeometry args={[0.55, 1.0, 10]} />
+        <ConeG args={[0.55, 1.0, 10]} />
         <Flat color={white} />
       </mesh>
       <mesh position={[0, 0.05, -3.8]} rotation={[-Math.PI / 2, 0, 0]}>
-        <coneGeometry args={[0.5, 1.2, 10]} />
+        <ConeG args={[0.5, 1.2, 10]} />
         <Flat color={white} />
       </mesh>
       <mesh position={[0, -0.1, 0.3]}>
-        <boxGeometry args={[9, 0.14, 1.5]} />
+        <BoxG args={[9, 0.14, 1.5]} />
         <Flat color="#C3C9D6" />
       </mesh>
       <mesh position={[0, 0.2, -3.6]}>
-        <boxGeometry args={[3.2, 0.1, 0.9]} />
+        <BoxG args={[3.2, 0.1, 0.9]} />
         <Flat color="#C3C9D6" />
       </mesh>
       <mesh position={[0, 1.0, -3.7]}>
-        <boxGeometry args={[0.12, 1.6, 1.1]} />
+        <BoxG args={[0.12, 1.6, 1.1]} />
         <Flat color={P.carTeal} />
       </mesh>
       {[-2.2, 2.2].map((x) => (
         <mesh key={x} position={[x, -0.55, 0.7]} rotation={[Math.PI / 2, 0, 0]}>
-          <cylinderGeometry args={[0.3, 0.32, 1.2, 8]} />
+          <CylG args={[0.3, 0.32, 1.2, 8]} />
           <Flat color="#8E96A6" />
         </mesh>
       ))}
@@ -378,11 +395,11 @@ export const Plane: React.FC<{ position: V3; rotation?: V3; scale?: number; t?: 
         </mesh>
       ))}
       <mesh position={[4.5, -0.1, 0.3]}>
-        <icosahedronGeometry args={[0.12, 0]} />
+        <IcoG args={[0.12, 0]} />
         <Glow color={blink ? "#40FF70" : "#103018"} fog={false} />
       </mesh>
       <mesh position={[-4.5, -0.1, 0.3]}>
-        <icosahedronGeometry args={[0.12, 0]} />
+        <IcoG args={[0.12, 0]} />
         <Glow color={blink ? "#FF4040" : "#301010"} fog={false} />
       </mesh>
     </group>
@@ -413,7 +430,7 @@ export const PowerStation: React.FC<{ position?: V3; on?: number; t?: number }> 
                 const s = (1.2 + k2 * 2.2) * on;
                 return (
                   <mesh key={i} position={[Math.sin(i * 2.1) * 0.6 * k2, 9.5 + k2 * 7, Math.cos(i * 1.7) * 0.6 * k2]}>
-                    <icosahedronGeometry args={[s, 1]} />
+                    <IcoG args={[s, 1]} />
                     <meshLambertMaterial color="#D8DCE6" flatShading transparent opacity={(1 - k2) * 0.85 * on} depthWrite={false} />
                   </mesh>
                 );
@@ -422,28 +439,28 @@ export const PowerStation: React.FC<{ position?: V3; on?: number; t?: number }> 
         </group>
       ))}
       <mesh position={[0, 2.2, 5]} castShadow receiveShadow>
-        <boxGeometry args={[12, 4.4, 5]} />
+        <BoxG args={[12, 4.4, 5]} />
         <Flat color={P.bldgSlate} />
       </mesh>
       {Array.from({ length: 8 }, (_, i) => (
         <mesh key={i} position={[-5 + i * 1.4, 2.6, 7.53]}>
-          <boxGeometry args={[0.7, 0.9, 0.05]} />
+          <BoxG args={[0.7, 0.9, 0.05]} />
           {on > i / 8 ? <Glow color={P.windowLit} /> : <Flat color={P.windowDark} />}
         </mesh>
       ))}
       <mesh position={[5, 5, 4]} castShadow>
-        <cylinderGeometry args={[0.45, 0.6, 10, 8]} />
+        <CylG args={[0.45, 0.6, 10, 8]} />
         <Flat color="#7A7C86" />
       </mesh>
       {/* pylon */}
       <group position={[11, 0, 8]}>
         <mesh position={[0, 5, 0]}>
-          <cylinderGeometry args={[0.12, 0.7, 10, 4]} />
+          <CylG args={[0.12, 0.7, 10, 4]} />
           <Flat color="#3A3F4A" />
         </mesh>
         {[7.5, 9].map((y) => (
           <mesh key={y} position={[0, y, 0]}>
-            <boxGeometry args={[4, 0.15, 0.15]} />
+            <BoxG args={[4, 0.15, 0.15]} />
             <Flat color="#3A3F4A" />
           </mesh>
         ))}
@@ -464,7 +481,7 @@ export const Road: React.FC<{ position?: V3; width?: number; length?: number; ya
   return (
     <group position={position} rotation={[0, yaw, 0]}>
       <mesh position={[0, -0.05, 0]} receiveShadow>
-        <boxGeometry args={[width, 0.1, length]} />
+        <BoxG args={[width, 0.1, length]} />
         <Flat color={P.road} />
       </mesh>
       {dashes
@@ -545,7 +562,7 @@ export const StreetSet: React.FC<{
       {/* curbs */}
       {[1, -1].map((s) => (
         <mesh key={s} position={[s * (roadW / 2 + 1.3), 0.06, -length / 2]} receiveShadow>
-          <boxGeometry args={[2.6, 0.12, length * 2]} />
+          <BoxG args={[2.6, 0.12, length * 2]} />
           <Flat color={P.pavement} />
         </mesh>
       ))}

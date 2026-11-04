@@ -5,6 +5,7 @@
 import React from "react";
 import type { V3 } from "./noise";
 import { Flat } from "./materials";
+import { BoxG, ConeG } from "./detail";
 
 export type AnimalKind = "dog" | "deer" | "fox" | "wolf";
 
@@ -46,41 +47,41 @@ export const Animal: React.FC<{
     <group position={position} rotation={[0, yaw, 0]} scale={scale}>
       <group position={[0, (sit ? hipY * 0.55 : hipY) + bob, 0]} rotation={[bodyPitch, 0, 0]}>
         <mesh position={[0, bh / 2, 0]} castShadow>
-          <boxGeometry args={[bw, bh, bl]} />
+          <BoxG args={[bw, bh, bl]} />
           <Flat color={k.color} />
         </mesh>
         <mesh position={[0, bh * 0.12, 0]} castShadow>
-          <boxGeometry args={[bw * 0.85, bh * 0.25, bl * 0.8]} />
+          <BoxG args={[bw * 0.85, bh * 0.25, bl * 0.8]} />
           <Flat color={k.belly} />
         </mesh>
         {/* tail */}
         <mesh position={[0, bh * 0.8, -bl / 2 - k.tail * 0.4]} rotation={[0.9, 0, 0]} castShadow>
-          <boxGeometry args={[0.1, 0.1, k.tail]} />
+          <BoxG args={[0.1, 0.1, k.tail]} />
           <Flat color={kind === "fox" ? "#F2E6D8" : k.color} />
         </mesh>
         {/* neck + head */}
         <group position={[0, bh * 0.75, bl / 2 - 0.05]} rotation={[-0.6 + (sit ? 0.55 : 0), 0, 0]}>
           <mesh position={[0, k.neck / 2, 0]} castShadow>
-            <boxGeometry args={[k.head[0] * 0.7, k.neck + 0.1, k.head[0] * 0.7]} />
+            <BoxG args={[k.head[0] * 0.7, k.neck + 0.1, k.head[0] * 0.7]} />
             <Flat color={k.color} />
           </mesh>
           <group position={[0, k.neck, 0]} rotation={[0.6 - headPitch, 0, 0]}>
             <mesh position={[0, 0, k.head[2] / 2 - 0.05]} castShadow>
-              <boxGeometry args={k.head} />
+              <BoxG args={k.head} />
               <Flat color={k.color} />
             </mesh>
             <mesh position={[0, -k.head[1] * 0.15, k.head[2] - 0.02]} castShadow>
-              <boxGeometry args={[k.head[0] * 0.55, k.head[1] * 0.5, k.head[2] * 0.4]} />
+              <BoxG args={[k.head[0] * 0.55, k.head[1] * 0.5, k.head[2] * 0.4]} />
               <Flat color={k.belly} />
             </mesh>
             <mesh position={[0, -k.head[1] * 0.05, k.head[2] + 0.07]}>
-              <boxGeometry args={[0.07, 0.06, 0.04]} />
+              <BoxG args={[0.07, 0.06, 0.04]} />
               <Flat color="#1A1414" />
             </mesh>
             {[1, -1].map((sx) => (
               <React.Fragment key={sx}>
                 <mesh position={[sx * k.head[0] * 0.3, k.head[1] * 0.18, k.head[2] * 0.6]}>
-                  <boxGeometry args={[0.05, 0.05, 0.03]} />
+                  <BoxG args={[0.05, 0.05, 0.03]} />
                   <Flat color="#141018" />
                 </mesh>
                 {k.ears !== "none" ? (
@@ -88,18 +89,18 @@ export const Animal: React.FC<{
                     position={[sx * k.head[0] * 0.35, k.head[1] / 2 + (k.ears === "pointy" ? 0.08 : -0.02), k.head[2] * 0.15]}
                     rotation={[0, 0, k.ears === "floppy" ? sx * 0.9 : sx * -0.15]}
                   >
-                    {k.ears === "pointy" ? <coneGeometry args={[0.07, 0.18, 4]} /> : <boxGeometry args={[0.08, 0.2, 0.14]} />}
+                    {k.ears === "pointy" ? <ConeG args={[0.07, 0.18, 4]} /> : <BoxG args={[0.08, 0.2, 0.14]} />}
                     <Flat color={k.color} />
                   </mesh>
                 ) : null}
                 {k.antlers ? (
                   <group position={[sx * 0.1, k.head[1] / 2, 0]} rotation={[0, 0, sx * -0.35]}>
                     <mesh position={[0, 0.25, 0]}>
-                      <boxGeometry args={[0.04, 0.5, 0.04]} />
+                      <BoxG args={[0.04, 0.5, 0.04]} />
                       <Flat color="#D8C8A8" />
                     </mesh>
                     <mesh position={[sx * 0.1, 0.38, 0.06]} rotation={[0, 0, sx * -0.8]}>
-                      <boxGeometry args={[0.035, 0.25, 0.035]} />
+                      <BoxG args={[0.035, 0.25, 0.035]} />
                       <Flat color="#D8C8A8" />
                     </mesh>
                   </group>
@@ -116,7 +117,7 @@ export const Animal: React.FC<{
         return (
           <group key={i} position={[x, sit ? (front ? hipY : hipY * 0.35) : hipY + bob, z * (sit && !front ? 0.6 : 1)]} rotation={[sitting ? -1.4 : swing, 0, 0]}>
             <mesh position={[0, -(sitting ? hipY * 0.35 : hipY) / 2, 0]} castShadow>
-              <boxGeometry args={[k.legW, sitting ? hipY * 0.35 : hipY, k.legW]} />
+              <BoxG args={[k.legW, sitting ? hipY * 0.35 : hipY, k.legW]} />
               <Flat color={k.color} />
             </mesh>
           </group>
