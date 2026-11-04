@@ -17,10 +17,10 @@ This repo makes **SLAVOSKI** videos: vertical (9:16) narrated shorts in the seri
 Everything that defines the channel lives in this repo: this file, the kit in `src/slavoski/`, every episode in `src/episodes/`, and the voiceovers and sound effects in `public/`. Rendered videos in `out/` are **not** in git; the user has downloaded them.
 
 1. `npm ci` (a fresh container has no `node_modules`).
-2. Read this file, then skim the newest episode folder (currently `src/episodes/gta-24h/`) as the template for the next one: `narration.ts` → `shots.tsx` → `<Name>Episode.tsx`, registered in `src/Root.tsx` and in `scripts/shot-frames.ts`.
+2. Read this file, then skim the newest episode folder (currently `src/episodes/smart-animals/`) as the template for the next one: `narration.ts` → `shots.tsx` → `<Name>Episode.tsx`, registered in `src/Root.tsx` and in `scripts/shot-frames.ts`.
 3. Follow the workflow below: script and chapter split → price with `estimate_only` → user OK → 1 take with Mark → Scribe → import → shots → contact sheets → half-res preview → full render on "render it".
 4. Open items: ep. 1 and ep. 2 were rendered before the hair fix (Slavoski's hair now covers his crown). Re-render them if the user asks; it needs no credits.
-5. In progress: ep. 4 `smart-animals` ("What if every animal suddenly became as smart as a human?", a 60 s cut the user approved). Voiceover done on flow `slavoski - smart-animals` (`xmhwa9Kzk294V6oMxz3r`): original take `public/voiceover/smart-animals.take.mp3` (62.8 s), pauses tightened to `smart-animals.mp3` (57.7 s) with `smart-animals.mp3.cuts.json`. Next: Scribe on the original take, import with `--cuts`, then build. The user wants Shorts of 60 s or less.
+5. Ep. 4 `smart-animals` is built (voiceover + captions imported, 39 shots, half-res preview rendered). It is the first episode at the **"mid" detail level**; the user asked for "slightly higher poly" and will decide whether to keep it for future episodes. If they approve, make "mid" the default for new episodes (wrap the composition in `<DetailProvider value="mid">`). The user wants Shorts of **60 s or less**.
 
 Working preferences the user has shown: cost-conscious (always quote credits first, offer a trim when a script runs past ~90 s or ~1,400 characters), short replies, previews before finals, our own visual style for anything copyrighted (e.g. games).
 
@@ -36,6 +36,7 @@ Reference frames: ep. "What if the Moon fell?" — title card, `02 / A CHANGING 
 
 ### Geometry: low-poly, faceted, toy-like
 - **Flat shading everywhere** (`flatShading` on every material). Facets must be visible: that is the look.
+- **Detail level** (`src/slavoski/detail.tsx`): `"low"` is the ep. 1–3 look; `"mid"` (ep. 4 onward, pending the user's final OK) keeps flat shading but gives every box a two-facet bevel at its real size and round parts more facets (hero head icosphere detail 4, cylinders ×2 segments). Wrap the episode in `<DetailProvider value="mid">`; `Stage` passes it into the canvas. In kit code use `BoxG`/`CylG`/`ConeG`/`IcoG`/`CircleG` instead of `<boxGeometry>` etc. so shapes follow the level; for a box drawn with `scale`, use `chamferBox(w, h, d)` at the real size instead (a scaled bevel distorts).
 - Spheres are **icospheres** with visible triangles: Moon `IcosahedronGeometry(r, 3–4)` with per-face grey jitter (light grey to mid-grey, a few darker "maria" clusters); Earth `detail 4–5`, with per-face colours for ocean / green / tan land / white ice, plus a thin translucent atmosphere shell.
 - Buildings are **boxes**: a body, a slightly inset roof slab plus a small rooftop box, and window grids as small inset quads (mix of warm amber lit and pale-blue unlit windows, seeded with `random()`).
 - Trees are **stacked low-poly cones** (teal) on a brown box/cylinder trunk. Street lamps: thin dark pole plus a flat warm-glowing box head. Cars: boxy body plus cabin box, four cylinder wheels, warm headlight quads.
@@ -159,7 +160,9 @@ Objects must never pass into each other on screen. This applies to disaster scen
 | `rig/Hero.tsx`, `hero.ts` | Slavoski, the posable low-poly hero: `REST`, `walkPose`, `mergePose`, `lerpPose`, expressions (neutral, alarm, smile, worried, awe, relief), `handPosition()`, `headPosition()`, `armJoints`/`legJoints`, `reach()` (numeric IK), `groundedBob()`, `selfClipping()`; `ghost` (see-through observer) and `vanish` (flash and shrink to nothing) modes. Head radius 0.68, torso half-depth 0.36, height ≈ 4.2. |
 | `city.tsx` | `Building` (seeded windows, `tilt`, `sink`, `power` blackout, `decay` with broken windows, ivy and roof plants), `StreetSet` (`lampsOn`, `modify`) and `CityGrid` (roads every `block`; with an even `blocks` count a road runs through x = 0, otherwise block centres sit there), `Road`, `Lamp` (`on`, `lean`), `PineTree`, `Car` (`rust`, `crumple`, `tilt`, `moss`; `CAR_HALF_LENGTH` for contact points), `Plane`, `PowerStation` |
 | `nature.tsx` | `GrassTufts` (growth 0..1, over an area or along points), `Bush`, `LeafyTree`, `GroundCover`, `Rain`, `LightningBolt` |
-| `animals.tsx` | `Animal` (dog, deer, fox, wolf): one low-poly quadruped rig with `walk` phase, `headPitch` (graze) and `sit` |
+| `animals.tsx` | `Animal` (dog, deer, fox, wolf): ep. 2's simple quadruped rig with `walk` phase, `headPitch` (graze) and `sit` |
+| `critters.tsx` | Expressive animals with Slavoski-style square eyes, brows (`flat`/`angry`/`worried`/`smug`) and a talking `mouth`: `Quadruped` (dog, cat, cow, pig, rat; `walk`, `rear` onto hind legs with `arms`, `sit`, `wag`), `Bird` (pigeon, crow, chicken; `peck`, `flap`, `pebble`), `Chimp`, `Octopus` (waving arms, `reach`), `ToonEyes`; `quadPaw()` gives a front paw's world position for held props |
+| `detail.tsx` | `DetailProvider` / `useDetail()` and the detail-aware geometry elements (see "Detail level") |
 | `room.tsx` | `GamingRoom` (couch, TV, wall clock and window sky that follow `hours` since noon, side table with cans, water bottle, phone), `SEAT`/`SEAT_YAW`, `sittingPose()`, `controllerAt()`, `Controller`, `tvScreenRect()` (projected TV screen, used to overlay a live game feed rendered by a second `Stage` with `size`) |
 | `space.tsx` | `FacetedMoon`, `FacetedEarth` (atmosphere rim, clouds, tidal `stretch`, `heat`, `cityLights` 0..1), `OrbitPath` (dotted), `BlackHole` (core plus dashed marker ring), `AccretionDisk` |
 | `fx.tsx` | `Meteor` (tapered trail plus rock), `Fireball`, `SmokeCluster`, `LavaCrack`, `Shockwave`, `Debris` (comes to rest on the ground), `FloodWater`, `Volcano` |
@@ -174,6 +177,7 @@ Episodes:
 
 - `src/episodes/no-humans/` ("What If Every Human on Earth Suddenly Disappeared?", `NoHumans` composition, ep. 2). Trimmed script (the user asked for a trim after pricing). Slavoski vanishes in the cold open and returns as a see-through ghost observer. A "TIME WITHOUT HUMANS" clock jumps per chapter (seconds → 24 hours → … → 10,000 years). Moods move from night to dawn as nature takes over. 35 shots; sound effects reused from ep. 1 at no cost.
 - `src/episodes/gta-24h/` ("What If You Played GTA 6 for 24 Hours Straight?", `Gta24h` composition, ep. 3). Trimmed script. Slavoski in his gaming room; the game on his TV and in full-frame cutaways is **our own** neon low-poly city (palms, pink supercar, police cars, a cop on a bicycle) with our own HUD. **Never real GTA footage, logos, map or HUD** (Rockstar's copyright); the game is named only in the narration and title. HOURS PLAYED readout plus a draining SKILL bar.
+- `src/episodes/smart-animals/` ("What If Every Animal Got Smart?", `SmartAnimals` composition, ep. 4). 60 s cut of the user's script (they asked for ≤ 60 s). First "mid" detail episode. A "TIME SINCE THE CHANGE" readout (1 MIN → 1 WEEK). Comic `Bubble`s and a `Pinned` label helper (HTML pinned to 3D points), stroke-drawn `GroundWriting`, instanced `AnimalSea` and `EyesInDark`. Sound effects reused from ep. 1–3.
 - Reuse the sound effects in `public/sfx/` across episodes before generating new ones.
 - `scripts/shot-frames.ts` needs each new episode added to its `EPISODES` map.
 
@@ -189,6 +193,9 @@ Lessons (carry forward):
 - Use one continuous narration take from 0:00, with one scene per chapter and shots keyed to word times inside it.
 - At true scale, sky objects look flat and dull from the ground. Exaggerate the size (the Moon fills the sky behind the hero) and keep facets and value contrast strong. We are "NOT TO SCALE" by design.
 - Review loop: `npx remotion bundle --out-dir=build`, then `npx remotion still build <Id> out/x.png --frame=N` per frame; tile stills into contact sheets.
+- Shot functions are called as plain functions inside the episode component: never call hooks (`useVideoConfig`, …) in them directly. Pass what they need through the shot context (`width`, `height`, `words`), or call hooks inside a real component.
+- Animals at hero scale read best a little bigger than life (dog ×1.35, cat ×1.2–1.5) and with the camera 5–10 units away; closer than ~4 units crops heads in 9:16.
+- Scribe transcription costs about 345 credits per minute of take (estimate_only said ~19, which was wrong).
 
 ## Audio and captions
 
