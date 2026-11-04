@@ -3,6 +3,7 @@ import { Composition } from "remotion";
 import { BlackHoleEpisode, estimatedBlackHole, type BlackHoleProps } from "./episodes/black-hole/BlackHoleEpisode";
 import { NoHumansEpisode, estimatedNoHumans, type NoHumansProps } from "./episodes/no-humans/NoHumansEpisode";
 import { GtaEpisode, estimatedGta, type GtaProps } from "./episodes/gta-24h/GtaEpisode";
+import { SmartAnimalsEpisode, estimatedSmartAnimals, type SmartAnimalsProps } from "./episodes/smart-animals/SmartAnimalsEpisode";
 import { voiceoverMetadata } from "./lib/voiceover";
 import { StyleCheck, type StyleCheckProps } from "./StyleCheck";
 
@@ -41,6 +42,16 @@ export const RemotionRoot: React.FC = () => (
       height={HEIGHT}
       defaultProps={{ voiceover: "gta-24h" } as GtaProps}
       calculateMetadata={voiceoverMetadata<GtaProps>(FPS, { tailSeconds: 2.6, fallback: estimatedGta })}
+    />
+    <Composition
+      id="SmartAnimals"
+      component={SmartAnimalsEpisode}
+      durationInFrames={FPS * 60}
+      fps={FPS}
+      width={WIDTH}
+      height={HEIGHT}
+      defaultProps={{ voiceover: "smart-animals" } as SmartAnimalsProps}
+      calculateMetadata={voiceoverMetadata<SmartAnimalsProps>(FPS, { tailSeconds: 2.2, fallback: estimatedSmartAnimals })}
     />
     <Composition
       id="StyleCheck"

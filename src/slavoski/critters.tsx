@@ -333,6 +333,38 @@ export const Quadruped: React.FC<QuadProps> = ({
   );
 };
 
+/**
+ * World position of a front paw (the paw box centre) for a standing or reared quadruped,
+ * using the same rig maths as `Quadruped` (no walk). `side` 1 = left (+x), -1 = right.
+ * Use it to put held props (a flag, a lever, a gate latch) exactly in the paw.
+ */
+export const quadPaw = (
+  kind: QuadKind,
+  opts: { rear?: number; arms?: [number, number]; position?: V3; yaw?: number; scale?: number },
+  side: 1 | -1,
+): V3 => {
+  const k = QUAD[kind];
+  const { rear = 0, arms = [0.5, 0.5], position = [0, 0, 0], yaw = 0, scale = 1 } = opts;
+  const [bw, , bl] = k.body;
+  const zf = bl / 2 - k.legW * 0.9;
+  const zr = -bl / 2 + k.legW * 0.9;
+  const pitch = -rear * 1.38;
+  const [hy, hz] = rotX(0, zf - zr, pitch);
+  const fy = k.leg + hy;
+  const fz = zr + hz;
+  const reared = rear > 0.5;
+  const angle = reared ? -(side > 0 ? arms[0] : arms[1]) * rear : 0;
+  const len = reared ? k.leg * 0.9 : k.leg;
+  const reach = len - Math.min(0.05, k.legW * 0.4);
+  const [py, pz] = rotX(-reach, 0, angle);
+  const lx = side * (bw / 2 - k.legW / 2);
+  const ly = fy + py;
+  const lz = fz + pz + k.legW * 0.12;
+  const c = Math.cos(yaw);
+  const sn = Math.sin(yaw);
+  return [position[0] + scale * (lx * c + lz * sn), position[1] + scale * ly, position[2] + scale * (-lx * sn + lz * c)];
+};
+
 const Ears: React.FC<{ k: QuadSpec; kind: QuadKind }> = ({ k, kind }) => {
   const [hw, hh, hl] = k.head;
   return (
@@ -616,6 +648,202 @@ export const Bird: React.FC<BirdProps> = ({
             </group>
           </group>
         </group>
+      </group>
+    </group>
+  );
+};
+
+// ---------- Chimp ----------
+export type ChimpProps = {
+  position: V3;
+  yaw?: number;
+  scale?: number;
+  /** Arm pitch forward/up from hanging [left, right] (radians). */
+  arms?: [number, number];
+  /** Arm roll outward [left, right]. */
+  armRoll?: [number, number];
+  elbows?: [number, number];
+  walk?: number;
+  /** Forward lean of the body (radians); 0.5 ≈ knuckle-walking hunch. */
+  lean?: number;
+  headYaw?: number;
+  headPitch?: number;
+  face?: Face;
+};
+
+const CHIMP = { fur: "#3B2A22", furLight: "#56402F", skin: "#C9A27E", skinShade: "#A9825F" };
+
+/** Standing chimp, ≈ 2.5 tall at scale 1 (Slavoski is 4.2). Long arms, big ears, cartoon eyes. */
+export const Chimp: React.FC<ChimpProps> = ({
+  position,
+  yaw = 0,
+  scale = 1,
+  arms = [0.1, 0.1],
+  armRoll = [0.12, 0.12],
+  elbows = [0.2, 0.2],
+  walk = 0,
+  lean = 0.12,
+  headYaw = 0,
+  headPitch = 0,
+  face,
+}) => {
+  const s = Math.sin(walk * Math.PI * 2);
+  const hipY = 0.78 + (walk ? Math.abs(s) * 0.03 : 0);
+  return (
+    <group position={position} rotation={[0, yaw, 0]} scale={scale}>
+      {/* legs */}
+      {[1, -1].map((sx) => (
+        <group key={sx} position={[sx * 0.22, hipY, 0]} rotation={[walk ? 0.45 * s * sx : 0, 0, 0]}>
+          <mesh position={[0, -0.36, 0]} castShadow>
+            <BoxG args={[0.28, 0.74, 0.32]} />
+            <Flat color={CHIMP.fur} />
+          </mesh>
+          <mesh position={[0, -hipY + 0.06, 0.1]} castShadow>
+            <BoxG args={[0.3, 0.12, 0.46]} />
+            <Flat color={CHIMP.skinShade} />
+          </mesh>
+        </group>
+      ))}
+      {/* body leans from the hips */}
+      <group position={[0, hipY - 0.05, 0]} rotation={[lean, 0, 0]}>
+        <mesh position={[0, 0.5, 0]} castShadow receiveShadow>
+          <BoxG args={[0.92, 1.0, 0.62]} />
+          <Flat color={CHIMP.fur} />
+        </mesh>
+        <mesh position={[0, 0.42, 0.29]} castShadow>
+          <BoxG args={[0.56, 0.62, 0.08]} />
+          <Flat color={CHIMP.furLight} />
+        </mesh>
+        {/* arms */}
+        {[1, -1].map((sx, i) => (
+          <group key={sx} position={[sx * 0.56, 0.86, 0]} rotation={[-arms[i], 0, sx * armRoll[i]]}>
+            <mesh position={[0, -0.3, 0]} castShadow>
+              <BoxG args={[0.24, 0.66, 0.26]} />
+              <Flat color={CHIMP.fur} />
+            </mesh>
+            <group position={[0, -0.6, 0]} rotation={[-elbows[i], 0, 0]}>
+              <mesh position={[0, -0.3, 0]} castShadow>
+                <BoxG args={[0.22, 0.62, 0.24]} />
+                <Flat color={CHIMP.fur} />
+              </mesh>
+              <mesh position={[0, -0.66, 0.02]} castShadow>
+                <BoxG args={[0.24, 0.22, 0.26]} />
+                <Flat color={CHIMP.skin} />
+              </mesh>
+            </group>
+          </group>
+        ))}
+        {/* head */}
+        <group position={[0, 1.3, 0.04]} rotation={[-headPitch - lean * 0.8, headYaw, 0, "YXZ"]}>
+          <mesh castShadow>
+            <IcoG args={[0.42, 2]} />
+            <Flat color={CHIMP.fur} />
+          </mesh>
+          <mesh position={[0, -0.02, 0.27]} scale={[0.32, 0.3, 0.16]} castShadow>
+            <IcoG args={[1, 2]} />
+            <Flat color={CHIMP.skin} />
+          </mesh>
+          <mesh position={[0, -0.18, 0.36]} castShadow>
+            <BoxG args={[0.36, 0.22, 0.2]} />
+            <Flat color={CHIMP.skin} />
+          </mesh>
+          <mesh position={[0, -0.12, 0.465]}>
+            <BoxG args={[0.12, 0.04, 0.02]} />
+            <Flat color={CHIMP.skinShade} />
+          </mesh>
+          <mesh position={[0, -0.27 - (face?.mouth ?? 0) * 0.04, 0.44]}>
+            <BoxG args={[0.2, 0.025 + (face?.mouth ?? 0) * 0.08, 0.06]} />
+            <Flat color={P.mouth} />
+          </mesh>
+          <mesh position={[0, 0.16, 0.33]} castShadow>
+            <BoxG args={[0.56, 0.1, 0.16]} />
+            <Flat color={CHIMP.fur} />
+          </mesh>
+          {[1, -1].map((sx) => (
+            <mesh key={sx} position={[sx * 0.43, 0.02, 0]} rotation={[0, 0, Math.PI / 2]} castShadow>
+              <CylG args={[0.13, 0.13, 0.06, 8]} />
+              <Flat color={CHIMP.skin} />
+            </mesh>
+          ))}
+          <group position={[0, 0.04, 0.42]}>
+            <ToonEyes face={face} size={0.11} spacing={0.11} />
+          </group>
+        </group>
+      </group>
+    </group>
+  );
+};
+
+// ---------- Octopus ----------
+export type OctopusProps = {
+  position: V3;
+  yaw?: number;
+  scale?: number;
+  /** Seconds, drives the idle tentacle wave. */
+  t: number;
+  face?: Face;
+  /** Tentacle i reaches up toward +Y (0..1), e.g. to push a tank lid. */
+  reach?: Partial<Record<number, number>>;
+  color?: string;
+};
+
+const Tentacle: React.FC<{ angle: number; t: number; seed: number; reach: number; color: string; under: string }> = ({ angle, t, seed, reach, color, under }) => {
+  const n = 7;
+  const len = 0.16;
+  let node: React.ReactNode = null;
+  for (let i = n - 1; i >= 0; i--) {
+    const r0 = 0.09 * (1 - i / n) + 0.018;
+    const r1 = 0.09 * (1 - (i + 1) / n) + 0.014;
+    const wave = Math.sin(t * 2.2 + seed * 1.7 + i * 0.7) * 0.22;
+    // Idle: arms go out and down from the mantle, then curl up at the tips. Reach: a straight arm
+    // angled out and up past the mantle (toward a tank lid).
+    const curl = i === 0 ? 1.85 : -0.1 - i * 0.04 + wave;
+    const bend = curl + ((i === 0 ? 0.8 : -0.03) - curl) * reach;
+    node = (
+      <group position={[0, i === 0 ? 0 : len, 0]} rotation={[bend, 0, 0]}>
+        <mesh position={[0, len / 2, 0]} castShadow>
+          <CylG args={[r1, r0, len + 0.01, 6]} />
+          <Flat color={i % 2 ? under : color} />
+        </mesh>
+        {node}
+      </group>
+    );
+  }
+  return <group rotation={[0, angle, 0]}>{node}</group>;
+};
+
+/** Octopus ≈ 1.3 tall at scale 1: a big mantle with cartoon eyes and eight waving arms. */
+export const Octopus: React.FC<OctopusProps> = ({ position, yaw = 0, scale = 1, t, face, reach = {}, color = "#C4506A" }) => {
+  const under = "#D9788C";
+  return (
+    <group position={position} rotation={[0, yaw, 0]} scale={scale}>
+      <group position={[0, 0.32, 0]}>
+        {Array.from({ length: 8 }, (_, i) => (
+          <Tentacle key={i} angle={(i / 8) * Math.PI * 2 + 0.2} t={t} seed={i} reach={reach[i] ?? 0} color={color} under={under} />
+        ))}
+      </group>
+      <mesh position={[0, 0.42, 0.04]} scale={[0.36, 0.22, 0.36]} castShadow>
+        <IcoG args={[1, 2]} />
+        <Flat color={color} />
+      </mesh>
+      <group position={[0, 0.78, -0.06]} rotation={[-0.25 + Math.sin(t * 1.3) * 0.04, 0, 0]}>
+        <mesh scale={[0.42, 0.5, 0.46]} castShadow receiveShadow>
+          <IcoG args={[1, 2]} />
+          <Flat color={color} />
+        </mesh>
+        {[
+          [0.2, 0.25, 0.32],
+          [-0.24, 0.12, 0.3],
+          [0.05, 0.4, 0.24],
+        ].map(([x, y, z], i) => (
+          <mesh key={i} position={[x, y, z]}>
+            <IcoG args={[0.05, 0]} />
+            <Flat color={under} />
+          </mesh>
+        ))}
+      </group>
+      <group position={[0, 0.56, 0.4]}>
+        <ToonEyes face={face} size={0.13} spacing={0.15} />
       </group>
     </group>
   );
