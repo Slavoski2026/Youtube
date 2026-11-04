@@ -50,10 +50,15 @@ export const RemotionRoot: React.FC = () => (
       defaultProps={{ voiceover: "gta-24h" } as GtaProps}
       calculateMetadata={voiceoverMetadata<GtaProps>(FPS, { tailSeconds: 2.6, fallback: estimatedGta })}
     />
-    {(["black-hole", "no-humans", "gta-24h"] as const).map((ep) => (
+    {([
+      ["black-hole", "BlackHole"],
+      ["no-humans", "NoHumans"],
+      ["gta-24h", "Gta24h"],
+      ["smart-animals", "SmartAnimals"],
+    ] as const).map(([ep, id]) => (
       <Still
         key={ep}
-        id={`Thumb-${ep === "black-hole" ? "BlackHole" : ep === "no-humans" ? "NoHumans" : "Gta24h"}`}
+        id={`Thumb-${id}`}
         component={Thumbnail}
         width={WIDTH}
         height={HEIGHT}

@@ -7,6 +7,7 @@ import React from "react";
 import { AbsoluteFill } from "remotion";
 import { SHOTS as GTA } from "./episodes/gta-24h/shots";
 import { SHOTS as NH } from "./episodes/no-humans/shots";
+import { SHOTS as SA } from "./episodes/smart-animals/shots";
 import { FONT, loadHouseFonts } from "./slavoski/fonts";
 import { P } from "./slavoski/palette";
 import { AccretionDisk, FacetedEarth } from "./slavoski/space";
@@ -14,7 +15,7 @@ import { Stage } from "./slavoski/Stage";
 
 loadHouseFonts();
 
-export type ThumbProps = { episode: "black-hole" | "no-humans" | "gta-24h" };
+export type ThumbProps = { episode: "black-hole" | "no-humans" | "gta-24h" | "smart-animals" };
 
 type Line = { text: string; color?: string; size?: number };
 const THUMBS: Record<ThumbProps["episode"], { shot: React.ReactNode; lines: Line[]; chip: string; top: number }> = {
@@ -34,6 +35,12 @@ const THUMBS: Record<ThumbProps["episode"], { shot: React.ReactNode; lines: Line
     lines: [{ text: "EVERY HUMAN" }, { text: "VANISHED", color: P.amber, size: 150 }],
     chip: "100 YEARS LATER",
     top: 250,
+  },
+  "smart-animals": {
+    shot: SA.c4[3].fn({ lt: 0.8, dur: 1.4, t: 30.6, words: [], width: 1080, height: 1920 }),
+    lines: [{ text: "EVERY ANIMAL" }, { text: "GOT SMART", color: P.amber, size: 150 }],
+    chip: "AND THEY'RE NOT HAPPY",
+    top: 230,
   },
   "gta-24h": {
     shot: GTA.c5[0].fn({ lt: 2.2, dur: 2.6, t: 48.2 }),
