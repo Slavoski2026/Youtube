@@ -6,7 +6,7 @@ import React, { useLayoutEffect, useMemo, useRef } from "react";
 import { random } from "remotion";
 import * as THREE from "three";
 import { Building } from "../../slavoski/city";
-import { BoxG, ConeG, CylG, IcoG } from "../../slavoski/detail";
+import { BoxG, chamferBox, ConeG, CylG, IcoG } from "../../slavoski/detail";
 import { FONT } from "../../slavoski/fonts";
 import { Flat, Glow } from "../../slavoski/materials";
 import { clamp01, type V3 } from "../../slavoski/noise";
@@ -976,8 +976,156 @@ export const EyesInDark: React.FC<{ count?: number; seed?: string; area: [number
   });
   return (
     <instancedMesh ref={ref} args={[UNIT, undefined, pts.length * 2]}>
-      <meshBasicMaterial color="#F2E6B0" toneMapped={false} />
+      <meshBasicMaterial color="#F2E6B0" toneMapped={false} fog={false} />
     </instancedMesh>
+  );
+};
+
+// ---------------------------------------------------------------- the rat swarm (instanced)
+
+/** One swarm rat in its own space (feet on y = 0, facing +Z), as [part, x, y, z, sx, sy, sz, rotX, rotZ]. */
+type RatPart = "body" | "head" | "snout" | "pink" | "white" | "dark";
+const RAT_PARTS: [RatPart, number, number, number, number, number, number, number, number][] = [
+  ["body", 0, 0.18, 0, 1, 1, 1, 0, 0],
+  ["head", 0, 0.24, 0.3, 1, 1, 1, 0, 0],
+  ["snout", 0, 0.2, 0.46, 0.1, 0.08, 0.1, 0, 0],
+  ["pink", 0, 0.2, 0.515, 0.05, 0.04, 0.02, 0, 0], // nose
+  ["pink", 0.07, 0.34, 0.27, 0.075, 0.08, 0.02, 0, -0.35], // ears
+  ["pink", -0.07, 0.34, 0.27, 0.075, 0.08, 0.02, 0, 0.35],
+  ["white", 0.045, 0.27, 0.42, 0.055, 0.06, 0.02, 0, 0], // eyes
+  ["white", -0.045, 0.27, 0.42, 0.055, 0.06, 0.02, 0, 0],
+  ["dark", 0.045, 0.265, 0.432, 0.026, 0.03, 0.01, 0, 0], // pupils
+  ["dark", -0.045, 0.265, 0.432, 0.026, 0.03, 0.01, 0, 0],
+  ["dark", 0.05, 0.315, 0.43, 0.065, 0.014, 0.012, 0, 0.42], // angry brows
+  ["dark", -0.05, 0.315, 0.43, 0.065, 0.014, 0.012, 0, -0.42],
+];
+const RAT_LEGS: [number, number][] = [
+  [0.09, 0.15],
+  [-0.09, 0.15],
+  [0.09, -0.15],
+  [-0.09, -0.15],
+];
+const RAT_FUR = ["#6E6A72", "#5E5A62", "#7A6A5E", "#64605E", "#6A5E56", "#76727C"];
+
+const ratGeoms = {
+  body: chamferBox(0.24, 0.2, 0.46),
+  head: chamferBox(0.19, 0.17, 0.22),
+};
+
+const m4 = new THREE.Matrix4();
+const part4 = new THREE.Matrix4();
+const q = new THREE.Quaternion();
+const e = new THREE.Euler();
+const v = new THREE.Vector3();
+const sc = new THREE.Vector3();
+
+/**
+ * Hundreds of rats pouring along the sewer toward +Z. Rats run in lanes at one speed per lane,
+ * spaced more than a rat length apart, so they never overlap; each wraps from `zMax` back to `zMin`
+ * (hide the far end in fog, keep the near end behind the camera).
+ */
+export const RatSwarm: React.FC<{
+  t: number;
+  lanes?: number[];
+  zMin?: number;
+  zMax?: number;
+  scale?: number;
+  seed?: string;
+  y?: number;
+}> = ({ t, lanes = [-1.6, -1.15, -0.7, -0.25, 0.2, 0.65, 1.1, 1.55, 2.0], zMin = -30, zMax = 6, scale = 1.55, seed = "swarm", y = 0.1 }) => {
+  const rats = useMemo(() => {
+    const out: { x: number; z0: number; speed: number; phase: number; fur: string; s: number }[] = [];
+    const spacing = 0.95 * scale; // > body + head + tail-root length (≈ 0.75 × scale)
+    const len = zMax - zMin;
+    lanes.forEach((x, li) => {
+      const speed = 2.2 + random(`${seed}v${li}`) * 1.6;
+      const n = Math.floor(len / spacing);
+      for (let i = 0; i < n; i++) {
+        const k = `${seed}${li}:${i}`;
+        out.push({
+          x: x + (random(`${k}x`) - 0.5) * 0.08,
+          z0: i * spacing + (random(`${k}z`) - 0.5) * spacing * 0.2,
+          speed,
+          phase: random(`${k}p`) * 10,
+          fur: RAT_FUR[Math.floor(random(`${k}c`) * RAT_FUR.length)],
+          s: scale * (0.92 + random(`${k}s`) * 0.14),
+        });
+      }
+    });
+    return out;
+  }, [lanes, zMin, zMax, scale, seed]);
+  const refs = {
+    body: useRef<THREE.InstancedMesh>(null),
+    head: useRef<THREE.InstancedMesh>(null),
+    snout: useRef<THREE.InstancedMesh>(null),
+    pink: useRef<THREE.InstancedMesh>(null),
+    white: useRef<THREE.InstancedMesh>(null),
+    dark: useRef<THREE.InstancedMesh>(null),
+  };
+  const per = { body: 1, head: 1, snout: 1, pink: 3 + 4 + 1, white: 2, dark: 4 };
+  useLayoutEffect(() => {
+    const idx: Record<RatPart, number> = { body: 0, head: 0, snout: 0, pink: 0, white: 0, dark: 0 };
+    const put = (kind: RatPart, base: THREE.Matrix4, px: number, py: number, pz: number, sx: number, sy: number, sz: number, rx: number, rz: number, color?: string) => {
+      const mesh = refs[kind].current;
+      if (!mesh) return;
+      e.set(rx, 0, rz);
+      q.setFromEuler(e);
+      part4.compose(v.set(px, py, pz), q, sc.set(sx, sy, sz));
+      mesh.setMatrixAt(idx[kind], m4.copy(base).multiply(part4));
+      if (color) mesh.setColorAt(idx[kind], tmpC.set(color));
+      idx[kind]++;
+    };
+    const len = zMax - zMin;
+    const base = new THREE.Matrix4();
+    for (const r of rats) {
+      const z = zMin + ((((r.z0 + t * r.speed) % len) + len) % len);
+      const step = (t * r.speed) / (0.32 * r.s) + r.phase;
+      const bob = Math.abs(Math.sin(step * Math.PI)) * 0.025;
+      const wiggle = Math.sin(step * 0.5) * 0.12;
+      e.set(0, wiggle, 0);
+      q.setFromEuler(e);
+      base.compose(v.set(r.x, y + bob * r.s, z), q, sc.set(r.s, r.s, r.s));
+      for (const [kind, px, py, pz, sx, sy, sz, rx, rz] of RAT_PARTS) {
+        const fur = kind === "body" || kind === "head" ? r.fur : kind === "snout" ? "#8C8690" : undefined;
+        put(kind, base, px, py, pz, sx, sy, sz, rx, rz, fur);
+      }
+      // tail: a long thin pink box trailing behind, swishing
+      put("pink", base, Math.sin(step * 0.7) * 0.06, 0.13, -0.5, 0.035, 0.035, 0.6, 0.12, 0);
+      // legs scurry in diagonal pairs
+      RAT_LEGS.forEach(([lx, lz], i) => {
+        const swing = Math.sin(step * Math.PI + (i === 0 || i === 3 ? 0 : Math.PI)) * 0.06;
+        put("pink", base, lx, 0.05, lz + swing, 0.05, 0.1, 0.06, 0, 0);
+      });
+    }
+    for (const k of Object.keys(refs) as RatPart[]) {
+      const mesh = refs[k].current;
+      if (!mesh) continue;
+      mesh.instanceMatrix.needsUpdate = true;
+      if (mesh.instanceColor) mesh.instanceColor.needsUpdate = true;
+    }
+  });
+  const n = rats.length;
+  return (
+    <group>
+      <instancedMesh ref={refs.body} args={[ratGeoms.body, undefined, n * per.body]} castShadow>
+        <meshLambertMaterial flatShading />
+      </instancedMesh>
+      <instancedMesh ref={refs.head} args={[ratGeoms.head, undefined, n * per.head]} castShadow>
+        <meshLambertMaterial flatShading />
+      </instancedMesh>
+      <instancedMesh ref={refs.snout} args={[UNIT, undefined, n * per.snout]}>
+        <meshLambertMaterial flatShading />
+      </instancedMesh>
+      <instancedMesh ref={refs.pink} args={[UNIT, undefined, n * per.pink]}>
+        <meshLambertMaterial color="#D9A0AA" flatShading />
+      </instancedMesh>
+      <instancedMesh ref={refs.white} args={[UNIT, undefined, n * per.white]}>
+        <meshBasicMaterial color="#F4F0E6" toneMapped={false} />
+      </instancedMesh>
+      <instancedMesh ref={refs.dark} args={[UNIT, undefined, n * per.dark]}>
+        <meshBasicMaterial color="#141018" toneMapped={false} />
+      </instancedMesh>
+    </group>
   );
 };
 

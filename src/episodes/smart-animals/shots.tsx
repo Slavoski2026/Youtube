@@ -32,6 +32,7 @@ import {
   Chamber,
   Coop,
   EyesInDark,
+  RatSwarm,
   Fence,
   Gate,
   GroundWriting,
@@ -591,14 +592,13 @@ const c5Grate: ShotFn = (c) => {
 };
 
 const c5Eyes: ShotFn = (c) => {
-  const cam = move({ position: [0, 1.6, 4], target: [0, 1.4, -10] }, { position: [0, 1.6, 1.5], target: [0, 1.4, -10] }, c);
+  // A river of rats pours down the sewer toward the camera as it rises and backs away.
+  const cam = move({ position: [0.7, 3.1, 2.6], target: [0, 0.2, -6.5] }, { position: [0.9, 3.7, 4.6], target: [0, 0.2, -6.5] }, c);
   return (
-    <Shot mood="night" camera={cam} fog={[4, 26]} stars={false} light={0.35} shadows={false}>
-      <Tunnel lamps={0} />
-      <EyesInDark count={260} area={[-2.6, 2.6, 0.15, 2.8, -24, -3]} t={c.t} open={k01(c.lt, 0, 1.4)} />
-      {[-1.6, 1.4, -1.9].map((x, i) => (
-        <Quadruped key={i} kind="rat" position={[x, 0.1, -1 - i * 1.4]} yaw={(random(`r${i}`) - 0.5) * 0.8} scale={1.6} face={{ eyeOpen: 1, brow: "angry" }} walk={i === 1 ? c.lt * 3 : 0} />
-      ))}
+    <Shot mood="night" camera={cam} fog={[6, 28]} stars={false} light={0.6} shadows={false}>
+      <Tunnel lamps={1} />
+      <RatSwarm t={c.t} />
+      <EyesInDark count={110} area={[-2.3, 2.3, 0.25, 0.7, -40, -27]} t={c.t} open={1} />
     </Shot>
   );
 };
