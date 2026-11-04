@@ -12,6 +12,17 @@ This repo makes **SLAVOSKI** videos: vertical (9:16) narrated shorts in the seri
 
 > **Repo status:** the Remotion project and the shared kit in `src/slavoski/` exist (see "Shared kit" below). Still **to build** when first needed: `scripts/pacing.ts`, `scripts/shorts.ts`, `scripts/export-srt.ts` and the `{"clipCheck":true}` logging mode. Never claim a helper exists without checking; update this file when a name or API changes.
 
+## Starting a new session (read first)
+
+Everything that defines the channel lives in this repo: this file, the kit in `src/slavoski/`, every episode in `src/episodes/`, and the voiceovers and sound effects in `public/`. Rendered videos in `out/` are **not** in git; the user has downloaded them.
+
+1. `npm ci` (a fresh container has no `node_modules`).
+2. Read this file, then skim the newest episode folder (currently `src/episodes/gta-24h/`) as the template for the next one: `narration.ts` → `shots.tsx` → `<Name>Episode.tsx`, registered in `src/Root.tsx` and in `scripts/shot-frames.ts`.
+3. Follow the workflow below: script and chapter split → price with `estimate_only` → user OK → 1 take with Mark → Scribe → import → shots → contact sheets → half-res preview → full render on "render it".
+4. Open items: ep. 1 and ep. 2 were rendered before the hair fix (Slavoski's hair now covers his crown). Re-render them if the user asks; it needs no credits.
+
+Working preferences the user has shown: cost-conscious (always quote credits first, offer a trim when a script runs past ~90 s or ~1,400 characters), short replies, previews before finals, our own visual style for anything copyrighted (e.g. games).
+
 ---
 
 ## The SLAVOSKI look (house style — hard rules)
