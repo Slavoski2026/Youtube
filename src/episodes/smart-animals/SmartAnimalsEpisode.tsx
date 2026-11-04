@@ -35,18 +35,29 @@ export const SmartAnimalsEpisode: React.FC<SmartAnimalsProps> = ({ manifest }) =
   const block = blocks[shot.block];
 
   const sfx = useMemo<Sfx[]>(() => {
-    // Reuses the sound effects already in public/sfx (no new credits).
+    // Ep. 4's 13 animal effects plus reused ones from ep. 1–3.
     const start = (name: string) => shots.find((x) => x.name === name)?.at ?? -1;
     const last = blocks[blocks.length - 1];
     const cues: Sfx[] = [
       { src: "sfx/moon-whoosh.mp3", at: start("cold.0") + 0.15, volume: 0.35 },
       { src: "sfx/moon-whoosh.mp3", at: start("cold.1") + 0.2, volume: 0.3 },
-      { src: "sfx/moon-whoosh.mp3", at: start("c2.4") + 0.4, volume: 0.25 },
-      { src: "sfx/impact-boom.mp3", at: start("c4.4") + 0.3, volume: 0.7 },
-      { src: "sfx/impact-boom.mp3", at: start("c4.7") + 0.05, volume: 0.45 },
-      { src: "sfx/impact-boom.mp3", at: start("c5.2") + 0.6, volume: 0.6 },
-      { src: "sfx/planet-breakup.mp3", at: start("c5.3") + 0.05, volume: 0.3 },
+      // ep. 4 animal effects (generated for this episode)
+      { src: "sfx/pigeon-coo.mp3", at: start("c1.1") + 0.3, volume: 0.45 },
+      { src: "sfx/pebble-scratch.mp3", at: start("c1.3"), volume: 0.4, duration: 1.35 },
+      { src: "sfx/dog-grumble.mp3", at: start("c2.1") + 1.1, volume: 0.5, duration: 1.5 },
+      { src: "sfx/cat-purr.mp3", at: start("c2.2") + 0.2, volume: 0.8 },
+      { src: "sfx/tank-lid.mp3", at: start("c2.4") + 0.4, volume: 0.5 },
+      { src: "sfx/chimp-hoots.mp3", at: start("c3.1") + 0.3, volume: 0.3 },
+      { src: "sfx/crow-caws.mp3", at: start("c3.3") + 0.3, volume: 0.35 },
+      { src: "sfx/cow-moo.mp3", at: start("c4.3") + 0.1, volume: 0.18 },
+      { src: "sfx/fence-smash.mp3", at: start("c4.4") + 0.28, volume: 0.42 },
+      { src: "sfx/impact-boom.mp3", at: start("c4.4") + 0.3, volume: 0.22 },
+      { src: "sfx/gate-creak.mp3", at: start("c4.5") + 0.1, volume: 0.4, duration: 1.3 },
+      { src: "sfx/chicken-flurry.mp3", at: start("c4.7"), volume: 0.4, duration: 1.3 },
+      { src: "sfx/rat-swarm.mp3", at: start("c5.1"), volume: 0.45 },
+      { src: "sfx/power-down.mp3", at: start("c5.2") + 0.45, volume: 0.5, duration: 3.0, fade: 0.6 },
       { src: "sfx/quake-rumble.mp3", at: start("c6.4") + 0.05, volume: 0.45 },
+      { src: "sfx/cat-purr.mp3", at: start("c7.3"), volume: 0.6, duration: 1.2 },
       { src: "sfx/end-sting.mp3", at: last.end + 0.6, volume: 0.8 },
     ];
     return cues.filter((c) => c.at >= 0);
