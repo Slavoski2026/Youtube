@@ -1,5 +1,5 @@
 import React from "react";
-import { Composition } from "remotion";
+import { Composition, Still } from "remotion";
 import { BlackHoleEpisode, estimatedBlackHole, type BlackHoleProps } from "./episodes/black-hole/BlackHoleEpisode";
 import { NoHumansEpisode, estimatedNoHumans, type NoHumansProps } from "./episodes/no-humans/NoHumansEpisode";
 import { GtaEpisode, estimatedGta, type GtaProps } from "./episodes/gta-24h/GtaEpisode";
@@ -12,6 +12,7 @@ const BlackHoleLow = withDetail("low", BlackHoleEpisode);
 const NoHumansLow = withDetail("low", NoHumansEpisode);
 const GtaLow = withDetail("low", GtaEpisode);
 import { StyleCheck, type StyleCheckProps } from "./StyleCheck";
+import { Thumbnail, type ThumbProps } from "./Thumbnails";
 
 export const FPS = 30;
 export const WIDTH = 1080;
@@ -49,6 +50,16 @@ export const RemotionRoot: React.FC = () => (
       defaultProps={{ voiceover: "gta-24h" } as GtaProps}
       calculateMetadata={voiceoverMetadata<GtaProps>(FPS, { tailSeconds: 2.6, fallback: estimatedGta })}
     />
+    {(["black-hole", "no-humans", "gta-24h"] as const).map((ep) => (
+      <Still
+        key={ep}
+        id={`Thumb-${ep === "black-hole" ? "BlackHole" : ep === "no-humans" ? "NoHumans" : "Gta24h"}`}
+        component={Thumbnail}
+        width={WIDTH}
+        height={HEIGHT}
+        defaultProps={{ episode: ep } as ThumbProps}
+      />
+    ))}
     <Composition
       id="SmartAnimals"
       component={SmartAnimalsEpisode}

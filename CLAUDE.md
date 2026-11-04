@@ -21,6 +21,7 @@ Everything that defines the channel lives in this repo: this file, the kit in `s
 3. Follow the workflow below: script and chapter split → price with `estimate_only` → user OK → 1 take with Mark → Scribe → import → shots → contact sheets → half-res preview → full render on "render it".
 4. Open items: ep. 1 and ep. 2 were rendered before the hair fix (Slavoski's hair now covers his crown). Re-render them if the user asks; it needs no credits.
 5. Ep. 4 `smart-animals` is finished: final render delivered (`out/smart-animals-final.mp4`, 59.9 s, not in git). It introduced the **"mid" detail level**, which the user approved as the new standard. Total ElevenLabs spend for ep. 4: ≈ 1,510 credits (voiceover 944, Scribe 345, 13 sound effects ≈ 217). The user wants Shorts of **60 s or less**.
+6. Thumbnails (Shorts covers, 1080×1920) are `Thumb-<Episode>` stills in `src/Thumbnails.tsx` (a key shot plus a big hook). Render with `npx remotion still build Thumb-<Id> out/thumbs/<id>.png --gl=swangle` and **commit the PNGs to `thumbnails/`** so they're never lost. Make one for every new episode.
 
 Working preferences the user has shown: cost-conscious (always quote credits first, offer a trim when a script runs past ~90 s or ~1,400 characters), short replies, previews before finals, our own visual style for anything copyrighted (e.g. games).
 
