@@ -20,7 +20,7 @@ Everything that defines the channel lives in this repo: this file, the kit in `s
 2. Read this file, then skim the newest episode folder (currently `src/episodes/smart-animals/`) as the template for the next one: `narration.ts` → `shots.tsx` → `<Name>Episode.tsx`, registered in `src/Root.tsx` and in `scripts/shot-frames.ts`.
 3. Follow the workflow below: script and chapter split → price with `estimate_only` → user OK → 1 take with Mark → Scribe → import → shots → contact sheets → half-res preview → full render on "render it".
 4. Open items: ep. 1 and ep. 2 were rendered before the hair fix (Slavoski's hair now covers his crown). Re-render them if the user asks; it needs no credits.
-5. Ep. 4 `smart-animals` is built (voiceover + captions imported, 39 shots, half-res preview rendered). It introduced the **"mid" detail level**, which the user approved as the new standard. The user wants Shorts of **60 s or less**.
+5. Ep. 4 `smart-animals` is finished: final render delivered (`out/smart-animals-final.mp4`, 59.9 s, not in git). It introduced the **"mid" detail level**, which the user approved as the new standard. Total ElevenLabs spend for ep. 4: ≈ 1,510 credits (voiceover 944, Scribe 345, 13 sound effects ≈ 217). The user wants Shorts of **60 s or less**.
 
 Working preferences the user has shown: cost-conscious (always quote credits first, offer a trim when a script runs past ~90 s or ~1,400 characters), short replies, previews before finals, our own visual style for anything copyrighted (e.g. games).
 
@@ -177,7 +177,7 @@ Episodes:
 
 - `src/episodes/no-humans/` ("What If Every Human on Earth Suddenly Disappeared?", `NoHumans` composition, ep. 2). Trimmed script (the user asked for a trim after pricing). Slavoski vanishes in the cold open and returns as a see-through ghost observer. A "TIME WITHOUT HUMANS" clock jumps per chapter (seconds → 24 hours → … → 10,000 years). Moods move from night to dawn as nature takes over. 35 shots; sound effects reused from ep. 1 at no cost.
 - `src/episodes/gta-24h/` ("What If You Played GTA 6 for 24 Hours Straight?", `Gta24h` composition, ep. 3). Trimmed script. Slavoski in his gaming room; the game on his TV and in full-frame cutaways is **our own** neon low-poly city (palms, pink supercar, police cars, a cop on a bicycle) with our own HUD. **Never real GTA footage, logos, map or HUD** (Rockstar's copyright); the game is named only in the narration and title. HOURS PLAYED readout plus a draining SKILL bar.
-- `src/episodes/smart-animals/` ("What If Every Animal Got Smart?", `SmartAnimals` composition, ep. 4). 60 s cut of the user's script (they asked for ≤ 60 s). First "mid" detail episode. A "TIME SINCE THE CHANGE" readout (1 MIN → 1 WEEK). Comic `Bubble`s and a `Pinned` label helper (HTML pinned to 3D points), stroke-drawn `GroundWriting`, instanced `AnimalSea` and `EyesInDark`. Sound effects reused from ep. 1–3.
+- `src/episodes/smart-animals/` ("What If Every Animal Got Smart?", `SmartAnimals` composition, ep. 4). 60 s cut of the user's script (they asked for ≤ 60 s). First "mid" detail episode. A "TIME SINCE THE CHANGE" readout (1 MIN → 1 WEEK). Comic `Bubble`s and a `Pinned` label helper (HTML pinned to 3D points), stroke-drawn `GroundWriting`, instanced `AnimalSea`, `RatSwarm` (hundreds of rats in non-overlapping lanes) and `EyesInDark`. 13 new animal sound effects in `public/sfx/` (pigeon-coo, pebble-scratch, dog-grumble, cat-purr, tank-lid, chimp-hoots, crow-caws, cow-moo, fence-smash, gate-creak, chicken-flurry, rat-swarm, power-down), reusable in later episodes.
 - Reuse the sound effects in `public/sfx/` across episodes before generating new ones.
 - `scripts/shot-frames.ts` needs each new episode added to its `EPISODES` map.
 
@@ -206,7 +206,7 @@ Lessons (carry forward):
 ## ElevenLabs credits
 
 - **The user is cost-conscious.** Always price with `estimate_only` first and offer the cheap option. Measured costs: narration about 15 credits per second of speech per take (81 s ≈ 1,257); Scribe transcription ≈ 450 per 80 s; a sound effect ≈ 17 credits each (estimates say 50); a full-length music bed ≈ 1,500 (estimate). Default to **1 variation** for everything.
-- Sound effects through `creative_generate_in_flow` ignore a duration written in the prompt and come back 1–3 s long. For a longer bed (a quake rumble), chain overlapping copies in `Soundtrack` rather than paying to regenerate.
+- Sound effects through `creative_generate_in_flow` ignore a duration written in the prompt and come back 1–3 s long (occasionally much longer: power-down came back 16 s; cut it with the `duration`/`fade` fields of an `Sfx` cue). They cost 16.7 credits each (estimate says 50). Starting many at once can hit a concurrency limit; the server queues and retries them itself, so don't call again. For a longer bed (a quake rumble), chain overlapping copies in `Soundtrack` rather than paying to regenerate.
 - An audio-only check render (`--codec=mp3`) still renders every frame: add `--scale=0.1` so it's fast.
 
 - Every generation and transcription spends the user's ElevenLabs credits. Don't regenerate audio that already exists unless its text or prompt changed. Use `estimate_only` and confirm with the user before long or bulk generations.
