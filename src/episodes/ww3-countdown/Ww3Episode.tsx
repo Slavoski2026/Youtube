@@ -54,16 +54,24 @@ export const Ww3Episode: React.FC<Ww3Props> = ({ manifest }) => {
   const block = blocks[shot.block];
 
   const sfx = useMemo<Sfx[]>(() => {
-    // Reuses effects already in public/sfx (no new credits).
+    // Ep. 5's four new effects plus ones reused from earlier episodes.
     const start = (name: string) => shots.find((x) => x.name === name)?.at ?? -1;
     const last = blocks[blocks.length - 1];
     const cues: Sfx[] = [
       { src: "sfx/moon-whoosh.mp3", at: start("cold.0") + 0.1, volume: 0.3 },
-      { src: "sfx/power-down.mp3", at: start("c3.0") + 0.4, volume: 0.35, duration: 1.4 },
-      { src: "sfx/quake-rumble.mp3", at: start("c4.0") + 0.5, volume: 0.5 },
-      { src: "sfx/quake-rumble.mp3", at: start("c4.0") + 1.3, volume: 0.45 },
-      { src: "sfx/moon-whoosh.mp3", at: start("c4.0") + 0.7, volume: 0.45 },
-      { src: "sfx/power-down.mp3", at: start("c6.2") - 0.3, volume: 0.3, duration: 0.6 },
+      // ep. 5 effects: alert tone, air-raid siren, jets, static
+      { src: "sfx/phone-alert.mp3", at: start("c1.0") + 0.25, volume: 0.16 },
+      { src: "sfx/phone-alert.mp3", at: start("c1.1"), volume: 0.12 },
+      { src: "sfx/tv-static.mp3", at: start("c3.0") + 0.42, volume: 0.14, duration: 0.6 },
+      { src: "sfx/power-down.mp3", at: start("c3.0") + 0.5, volume: 0.25, duration: 1.2 },
+      { src: "sfx/jet-flyover.mp3", at: start("c4.0") + 0.5, volume: 0.3 },
+      { src: "sfx/jet-flyover.mp3", at: start("c4.0") + 1.1, volume: 0.26 },
+      { src: "sfx/quake-rumble.mp3", at: start("c4.0") + 0.6, volume: 0.4 },
+      { src: "sfx/air-raid-siren.mp3", at: start("c4.1"), volume: 0.2 },
+      { src: "sfx/air-raid-siren.mp3", at: start("c4.1") + 1.9, volume: 0.16, duration: 1.5, fade: 0.5 },
+      { src: "sfx/tv-static.mp3", at: start("c6.2") - 0.3, volume: 0.18, duration: 0.8 },
+      { src: "sfx/phone-alert.mp3", at: start("c7.1"), volume: 0.12 },
+      { src: "sfx/phone-alert.mp3", at: start("c7.2"), volume: 0.16 },
       { src: "sfx/impact-boom.mp3", at: start("c7.6") + 0.15, volume: 0.35 },
       { src: "sfx/end-sting.mp3", at: last.end + 0.6, volume: 0.7 },
     ];

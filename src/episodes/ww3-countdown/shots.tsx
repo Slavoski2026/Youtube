@@ -5,13 +5,14 @@
 import type { Caption } from "@remotion/captions";
 import React from "react";
 import { AbsoluteFill, random } from "remotion";
-import { CityGrid, StreetSet } from "../../slavoski/city";
+import { Car, CityGrid, Lamp, Road, StreetSet } from "../../slavoski/city";
+import { P } from "../../slavoski/palette";
 import { BoxG, IcoG } from "../../slavoski/detail";
 import { FONT } from "../../slavoski/fonts";
 import { crowdLook, suitLook, type HeroLook } from "../../slavoski/hero";
 import { Flat } from "../../slavoski/materials";
 import { clamp01, ease, type V3 } from "../../slavoski/noise";
-import { GamingRoom, SEAT, SEAT_YAW, sittingPose, tvScreenRect } from "../../slavoski/room";
+import { GamingRoom, SEAT, SEAT_YAW, sittingPose, TV } from "../../slavoski/room";
 import { handPosition, headPosition, Hero, mergePose, reach, REST, walkPose, type Pose } from "../../slavoski/rig/Hero";
 import { FacetedEarth } from "../../slavoski/space";
 import { lerpCam, Stage, type CameraSpec } from "../../slavoski/Stage";
@@ -32,6 +33,7 @@ import {
   DeadScreen,
   Departures,
   FuelQueue,
+  fuelStreetModify,
   GANTRY,
   Jet,
   NewsGraphic,
@@ -90,36 +92,35 @@ const PhoneInHand: React.FC<{ pose: Pose; glow: string }> = ({ pose, glow }) => 
   );
 };
 
-/** Big phone close-up in a dark room, an HTML screen pinned to it. `shake` > 0 = vibrating. */
-const PhoneCloseUp: React.FC<{ c: ShotCtx; glow: string; screen: (w: number, h: number) => React.ReactNode; shake?: number }> = ({ c, glow, screen, shake = 0 }) => {
-  const cam = move({ position: [0.05, 2.5, 2.1], target: [0, 2.48, 0] }, { position: [0.03, 2.5, 1.75], target: [0, 2.5, 0] }, c);
+/** Big phone close-up in the bedroom (bed, pillow and poster behind it), an HTML screen pinned to it. */
+const PHONE_CU: V3 = [BED.x - 0.2, 3.0, 0.9];
+const PhoneCloseUp: React.FC<{ c: ShotCtx; glow: string; screen: (w: number, h: number) => React.ReactNode; shake?: number; lamp?: boolean }> = ({ c, glow, screen, shake = 0, lamp = true }) => {
+  const P0 = PHONE_CU;
+  const cam = move({ position: [P0[0] + 0.05, P0[1], P0[2] + 2.1], target: [P0[0], P0[1] - 0.02, P0[2]] }, { position: [P0[0] + 0.03, P0[1], P0[2] + 1.75], target: [P0[0], P0[1], P0[2]] }, c);
   const jitter = shake ? Math.sin(c.t * 80) * 0.012 * shake : 0;
-  const pos: V3 = [jitter, 2.5, 0];
+  const pos: V3 = [P0[0] + jitter, P0[1], P0[2]];
   return (
     <Shot
       mood="night"
       camera={cam}
       fog={false}
       stars={false}
-      light={0.35}
-      shadows={false}
+      light={lamp ? 0.45 : 0.3}
+      shadowSize={8}
       overlay={
-        <OnScreen c={[pos[0], pos[1], PHONE.d / 2 + 0.003]} w={PHONE.screenW} h={PHONE.screenH} cam={cam} width={c.width} height={c.height}>
+        <OnScreen c={[pos[0], pos[1], pos[2] + PHONE.d / 2 + 0.003]} w={PHONE.screenW} h={PHONE.screenH} cam={cam} width={c.width} height={c.height}>
           {screen}
         </OnScreen>
       }
     >
-      <mesh position={[0, 2.5, -3]}>
-        <planeGeometry args={[12, 12]} />
-        <Flat color="#141826" />
-      </mesh>
+      <Bedroom lampOn={lamp} />
       <Phone3D position={pos} glow={glow} />
       {/* the fist holding it from below */}
-      <mesh position={[jitter + 0.04, 2.5 - PHONE.h / 2 - 0.06, 0.02]} scale={[1.1, 0.8, 0.9]}>
+      <mesh position={[pos[0] + 0.04, pos[1] - PHONE.h / 2 - 0.06, pos[2] + 0.02]} scale={[1.1, 0.8, 0.9]}>
         <IcoG args={[0.22, 2]} />
         <Flat color="#D9A27A" />
       </mesh>
-      <pointLight position={[0, 2.5, 1]} color={glow} intensity={4} distance={4} decay={2} />
+      <pointLight position={[pos[0], pos[1], pos[2] + 1]} color={glow} intensity={4} distance={4} decay={2} />
     </Shot>
   );
 };
@@ -213,18 +214,12 @@ const c1Market: ShotFn = (c) => {
 };
 
 const c1Fuel: ShotFn = (c) => {
-  const cam = move({ position: [-7, 9, 14], target: [2, 0, -22] }, { position: [-6.4, 8.6, 12], target: [2, 0, -24] }, c);
+  // High above the road (inside the corridor, |x| < 3), looking down the queue between the buildings.
+  const cam = move({ position: [-1.5, 12, 18], target: [1.7, 0, -22] }, { position: [-1.3, 11.4, 16], target: [1.7, 0, -24] }, c);
   return (
-    <Shot mood="night" camera={cam} fog={[30, 110]} shadowSize={40}>
-      <mesh position={[0, -0.05, -40]} receiveShadow>
-        <boxGeometry args={[120, 0.1, 140]} />
-        <meshLambertMaterial color="#2F3A44" flatShading />
-      </mesh>
-      <mesh position={[0, 0.0, -40]} receiveShadow>
-        <boxGeometry args={[7, 0.06, 140]} />
-        <meshLambertMaterial color="#2A2E3C" flatShading />
-      </mesh>
-      <FuelQueue t={c.t} cars={26} />
+    <Shot mood="night" camera={cam} fog={[40, 140]} shadowSize={40}>
+      <StreetSet seed="fuel" length={120} cars={false} modify={fuelStreetModify} />
+      <FuelQueue t={c.t} cars={30} />
     </Shot>
   );
 };
@@ -270,6 +265,7 @@ const c2Flights: ShotFn = (c) => {
     >
       <Terminal />
       <Hero pose={mergePose(REST, { headPitch: 0.35, expression: "alarm" })} position={[1.6, 0, 2.2]} yaw={Math.PI} />
+      <Hero pose={mergePose(REST, { headPitch: 0.3, expression: "worried" })} position={[-2.5, 0, 0.6]} yaw={Math.PI + 0.15} look={crowdLook(41)} />
       <mesh position={[2.75, 0.5, 2.2]} castShadow>
         <BoxG args={[0.5, 1.0, 0.9]} />
         <Flat color="#5A4A78" />
@@ -284,7 +280,8 @@ const c2Border: ShotFn = (c) => {
     <Shot
       mood="night"
       camera={cam}
-      fog={[30, 120]}
+      fog={[45, 200]}
+      shadowSize={30}
       overlay={
         <OnScreen c={GANTRY.c} w={GANTRY.w} h={GANTRY.h} cam={cam} width={c.width} height={c.height}>
           {(w, h) => <Label w={w} h={h} text="BORDER CLOSED" bg="#0E0606" color="#FF3A2A" size={0.42} />}
@@ -302,14 +299,15 @@ const TVVIEW: CameraSpec = { position: [1.0, 7.5, 9.0], target: [0.8, 1.4, -1.5]
 
 const RoomTV: React.FC<{ c: ShotCtx; pose: Pose; screen: (w: number, h: number) => React.ReactNode; hours?: number }> = ({ c, pose, screen, hours = 10 }) => {
   const cam = lerpCam(TVVIEW, { position: [1.0, 7.2, 8.3], target: [0.8, 1.4, -1.5] }, c.lt / span(c.dur));
-  const rect = tvScreenRect(cam, c.width, c.height);
   return (
     <AbsoluteFill>
       <Stage mood="night" camera={cam} fog={false} stars={false} light={0.4} shadowSize={14}>
         <GamingRoom hours={hours} cans={0} />
         <Hero pose={pose} position={SEAT} yaw={SEAT_YAW} />
       </Stage>
-      <div style={{ position: "absolute", left: rect.x, top: rect.y, width: rect.w, height: rect.h, clipPath: `polygon(${rect.poly})`, overflow: "hidden" }}>{screen(rect.w, rect.h)}</div>
+      <OnScreen c={[TV.center[0], TV.center[1], TV.center[2] + 0.002]} w={TV.w} h={TV.h} cam={cam} width={c.width} height={c.height}>
+        {screen}
+      </OnScreen>
     </AbsoluteFill>
   );
 };
@@ -325,7 +323,7 @@ const c3Offline: ShotFn = (c) => (
 );
 
 const c3Atm: ShotFn = (c) => {
-  const cam = move({ position: [-1.2, 3.1, 7.0], target: [0.6, 2.3, 0.6] }, { position: [-1.0, 3.05, 6.2], target: [0.6, 2.3, 0.6] }, c);
+  const cam = move({ position: [-1.9, 3.5, 10.0], target: [0.4, 2.4, 0.5] }, { position: [-1.7, 3.45, 9.0], target: [0.4, 2.4, 0.5] }, c);
   return (
     <Shot
       mood="night"
@@ -388,12 +386,43 @@ const c4Jets: ShotFn = (c) => {
   );
 };
 
+/**
+ * Siren and warning board both stand on the left pavement (x = -4.6), clear of the road, the runners and
+ * the StreetSet's own trees (z = -1, -17) and lamps (z = -3.5, -14.5).
+ */
+const SIREN_POS: V3 = [-4.6, 0.12, -8.0];
+const SHELTER_BOARD = { c: [-4.6, 4.3, -11.0] as V3, w: 3.2, h: 1.2 };
+
 const c4Siren: ShotFn = (c) => {
-  const cam = move({ position: [1.5, 1.4, 6], target: [0, 5.6, 0] }, { position: [1.3, 1.5, 5.2], target: [0, 5.8, 0] }, c);
+  const cam = move({ position: [-1.8, 1.7, 1.0], target: [-4.3, 4.9, -9.2] }, { position: [-2.0, 1.8, 0.0], target: [-4.3, 5.1, -9.2] }, c);
+  const flash = Math.sin(c.t * 9) > 0;
   return (
-    <Shot mood="night" dust={0.2} camera={cam} fog={[30, 120]}>
+    <Shot
+      mood="night"
+      dust={0.2}
+      camera={cam}
+      fog={[30, 120]}
+      overlay={
+        <OnScreen c={SHELTER_BOARD.c} w={SHELTER_BOARD.w} h={SHELTER_BOARD.h} cam={cam} width={c.width} height={c.height}>
+          {(w, h) => <Label w={w} h={h} text="SEEK SHELTER" bg={flash ? "#B3261E" : "#3A0E0C"} size={0.27} />}
+        </OnScreen>
+      }
+    >
       <StreetSet seed="siren" cars={false} />
-      <Siren position={[0, 0, 0]} t={c.t} />
+      <Siren position={SIREN_POS} t={c.t} />
+      {/* the warning board on its own post */}
+      <mesh position={[SHELTER_BOARD.c[0], 1.95, SHELTER_BOARD.c[2] - 0.15]} castShadow>
+        <BoxG args={[0.2, 3.8, 0.2]} />
+        <Flat color="#2A2A30" />
+      </mesh>
+      <mesh position={[SHELTER_BOARD.c[0], SHELTER_BOARD.c[1], SHELTER_BOARD.c[2] - 0.06]} castShadow>
+        <BoxG args={[SHELTER_BOARD.w + 0.2, SHELTER_BOARD.h + 0.2, 0.1]} />
+        <Flat color="#15161C" />
+      </mesh>
+      {/* people running away down the street, in their own lanes */}
+      {[0, 1, 2].map((i) => (
+        <Hero key={i} pose={mergePose(walkPose(c.lt * 2.6 + i * 0.4, 1.3), { expression: "alarm", lean: 0.2 })} position={[0.2 + i * 1.5, 0, -9 - c.lt * 4.5 - i * 1.8]} yaw={Math.PI} look={crowdLook(50 + i)} />
+      ))}
     </Shot>
   );
 };
@@ -439,16 +468,25 @@ const c5Empty: ShotFn = (c) => {
 
 const c5Shops: ShotFn = (c) => {
   const x = -1.5 + c.lt * 2.2;
-  const cam = { position: [x, 2.6, 9] as V3, target: [x - 0.6, 2.4, 0] as V3 };
+  const cam = { position: [x, 3.4, 14.5] as V3, target: [x - 0.6, 3.0, 0] as V3 };
   return (
     <Shot mood="dawn" dust={0.5} camera={cam} fog={[20, 100]} stars={false}>
-      <mesh position={[0, -0.05, 4]} receiveShadow>
-        <boxGeometry args={[60, 0.1, 14]} />
-        <meshLambertMaterial color="#566270" flatShading />
+      <mesh position={[0, -0.05, 2]} receiveShadow>
+        <boxGeometry args={[60, 0.1, 6]} />
+        <meshLambertMaterial color="#8A8F99" flatShading />
       </mesh>
-      <BoardedShop position={[-5.2, 0, 0]} color="#5A4A78" seed="s1" />
-      <BoardedShop position={[0, 0, 0]} color="#2E5A6A" seed="s2" />
-      <BoardedShop position={[5.2, 0, 0]} color="#566270" seed="s3" />
+      <mesh position={[0, 0.06, 4.9]} receiveShadow>
+        <boxGeometry args={[60, 0.12, 0.3]} />
+        <meshLambertMaterial color="#6A707C" flatShading />
+      </mesh>
+      <Road position={[0, 0.005, 8.6]} width={7} length={60} yaw={Math.PI / 2} />
+      <BoardedShop position={[-5.2, 0, 0]} color="#5A4A78" seed="s1" h={11} />
+      <BoardedShop position={[0, 0, 0]} color="#2E5A6A" seed="s2" h={14} />
+      <BoardedShop position={[5.2, 0, 0]} color="#566270" seed="s3" h={9} />
+      <BoardedShop position={[10.4, 0, 0]} color="#1D274B" seed="s4" h={12} />
+      <Car position={[3.2, 0, 7.0]} yaw={Math.PI / 2 + 0.25} color={P.carRed} lights={false} />
+      <Lamp position={[-2.6, 0, 4.4]} on={false} />
+      <Lamp position={[7.8, 0, 4.4]} on={false} lean={0.08} />
     </Shot>
   );
 };
@@ -563,7 +601,7 @@ const c7Vibrate: ShotFn = (c) => {
 };
 
 const c7Missile: ShotFn = (c) => (
-  <PhoneCloseUp c={c} glow="#B3261E" shake={1} screen={(w, h) => <AlertScreen w={w} h={h} title="EMERGENCY ALERT" body={"INCOMING\nMISSILE\nWARNING"} t={c.t} />} />
+  <PhoneCloseUp c={c} glow="#B3261E" shake={1} lamp={false} screen={(w, h) => <AlertScreen w={w} h={h} title="EMERGENCY ALERT" body={"INCOMING\nMISSILE\nWARNING"} t={c.t} />} />
 );
 
 const faceCam = (dist: number): CameraSpec => {

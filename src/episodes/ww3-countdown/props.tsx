@@ -6,33 +6,21 @@
 import React from "react";
 import { random } from "remotion";
 import * as THREE from "three";
-import { Car, Lamp } from "../../slavoski/city";
+import { Building, Car, Lamp, PineTree, Road, BUILDING_COLORS } from "../../slavoski/city";
 import { BoxG, CylG, IcoG } from "../../slavoski/detail";
 import { FONT } from "../../slavoski/fonts";
 import { Flat, Glow } from "../../slavoski/materials";
 import { clamp01, type V3 } from "../../slavoski/noise";
 import { P } from "../../slavoski/palette";
-import { project, type CameraSpec } from "../../slavoski/Stage";
+import { ScreenHtml } from "../../slavoski/screens";
+import type { CameraSpec } from "../../slavoski/Stage";
 
 // ================================================================ screens (HTML on a 3D rectangle)
 
 /**
- * Projected bounding box + clip polygon of a w×h rectangle centred at `c`: upright facing +Z rotated by
- * `yaw`, or lying flat facing +Y (`flat`, top edge toward −Z, like a phone face-up on a bed).
+ * Renders `children(W, H)` onto a 3D screen rectangle, laid out once at a fixed design size and
+ * perspective-mapped (see kit `screens.tsx`): steady, crisp text however the camera moves.
  */
-export const screenRect = (c: V3, w: number, h: number, cam: CameraSpec, width: number, height: number, yaw = 0, flat = false) => {
-  const cs = Math.cos(yaw);
-  const sn = Math.sin(yaw);
-  const corner = (dx: number, dy: number): V3 => (flat ? [c[0] + dx, c[1], c[2] - dy] : [c[0] + dx * cs, c[1] + dy, c[2] - dx * sn]);
-  const pts = [corner(-w / 2, h / 2), corner(w / 2, h / 2), corner(w / 2, -h / 2), corner(-w / 2, -h / 2)].map((p) => project(p, cam, width, height));
-  const x0 = Math.min(...pts.map((p) => p.x));
-  const x1 = Math.max(...pts.map((p) => p.x));
-  const y0 = Math.min(...pts.map((p) => p.y));
-  const y1 = Math.max(...pts.map((p) => p.y));
-  return { x: x0, y: y0, w: x1 - x0, h: y1 - y0, poly: pts.map((p) => `${p.x - x0}px ${p.y - y0}px`).join(", ") };
-};
-
-/** Renders `children(w, h)` clipped onto a projected 3D screen rectangle. */
 export const OnScreen: React.FC<{
   c: V3;
   w: number;
@@ -43,15 +31,7 @@ export const OnScreen: React.FC<{
   width: number;
   height: number;
   children: (w: number, h: number) => React.ReactNode;
-}> = ({ c, w, h, yaw = 0, flat = false, cam, width, height, children }) => {
-  const r = screenRect(c, w, h, cam, width, height, yaw, flat);
-  if (r.w < 8 || r.h < 8) return null;
-  return (
-    <div style={{ position: "absolute", left: r.x, top: r.y, width: r.w, height: r.h, clipPath: `polygon(${r.poly})`, overflow: "hidden", pointerEvents: "none" }}>
-      {children(r.w, r.h)}
-    </div>
-  );
-};
+}> = (props) => <ScreenHtml {...props} />;
 
 // ================================================================ phone
 
@@ -178,10 +158,15 @@ export const Trolley: React.FC<{ position: V3; yaw?: number }> = ({ position, ya
 
 // ================================================================ fuel station + queue
 
-/** Fuel station canopy over two pumps, by the road at x = 4.5. A long queue of cars on the road (x = 1.7). */
+/**
+ * Fuel station canopy over two pumps beside the road at x = 6.5, z = +6, and a long queue of cars in the
+ * right lane (x = 1.7) facing it (+Z). Pair with a StreetSet (cars off) for the town around it, sinking the
+ * right-hand buildings near the station (see `fuelStreetModify`).
+ */
+export const FUEL_Z = 6;
 export const FuelQueue: React.FC<{ cars?: number; t: number }> = ({ cars = 24, t }) => (
   <group>
-    <group position={[6.5, 0, 0]}>
+    <group position={[6.5, 0, FUEL_Z]}>
       <mesh position={[0, 4.4, 0]} castShadow>
         <BoxG args={[7, 0.5, 5]} />
         <Flat color="#E8E4DA" />
@@ -210,13 +195,29 @@ export const FuelQueue: React.FC<{ cars?: number; t: number }> = ({ cars = 24, t
           </mesh>
         </group>
       ))}
+      {/* price sign on a pylon */}
+      <mesh position={[3.9, 3.0, 3.4]} castShadow>
+        <BoxG args={[0.3, 6, 0.3]} />
+        <Flat color="#2A2A30" />
+      </mesh>
+      <mesh position={[3.9, 6.2, 3.4]} castShadow>
+        <BoxG args={[1.6, 1.4, 0.3]} />
+        <Flat color="#C8372D" />
+      </mesh>
+      <mesh position={[3.9, 6.0, 3.56]}>
+        <planeGeometry args={[1.2, 0.5]} />
+        <Glow color="#E0B04E" />
+      </mesh>
       <pointLight position={[0, 3.8, 0]} color="#FFF2D8" intensity={25} distance={12} decay={2} />
     </group>
     {Array.from({ length: cars }, (_, i) => (
-      <Car key={i} position={[1.7, 0, 3 - i * 3.6]} yaw={Math.PI} color={[P.carRed, P.carTeal, "#E8E4DA", "#566270", "#2A2A30"][i % 5]} lights={Math.floor(t * 2 + i) % 7 !== 0} />
+      <Car key={i} position={[1.7, 0, FUEL_Z - 4 - i * 3.6]} yaw={0} color={[P.carRed, P.carTeal, "#E8E4DA", "#566270", "#2A2A30"][i % 5]} lights={Math.floor(t * 2 + i) % 7 !== 0} />
     ))}
   </group>
 );
+
+/** StreetSet modifier for the fuel shot: sink the right-hand buildings that would stand in the station. */
+export const fuelStreetModify = (spec: { position: V3 }) => (spec.position[0] > 0 && spec.position[2] > -2 ? { sink: 1 } : {});
 
 // ================================================================ city billboard (stock crash)
 
@@ -291,6 +292,31 @@ export const Terminal: React.FC = () => (
         <Flat color="#24748F" />
       </mesh>
     ))}
+    {/* pillars, ceiling light strips, floor stripes, a gate sign */}
+    {[-3.3, 3.3].map((x) => (
+      <mesh key={x} position={[x, 4.5, -2.6]} castShadow>
+        <BoxG args={[0.7, 9, 0.7]} />
+        <Flat color="#C9C2B4" />
+      </mesh>
+    ))}
+    {[-1.5, 1.5].map((x) => (
+      <mesh key={x} position={[x, 8.6, 2]}>
+        <boxGeometry args={[0.3, 0.06, 16]} />
+        <Glow color="#E8F0FF" />
+      </mesh>
+    ))}
+    {[-0.9, 0.9].map((x) => (
+      <mesh key={x} position={[x, 0.006, 2]} rotation={[-Math.PI / 2, 0, 0]}>
+        <planeGeometry args={[0.18, 16]} />
+        <Flat color="#E0B04E" />
+      </mesh>
+    ))}
+    {[-6.5, 6.5].map((x) => (
+      <mesh key={x} position={[x, 4.2, -4.12]}>
+        <planeGeometry args={[3.2, 6]} />
+        <Glow color="#141C34" />
+      </mesh>
+    ))}
     <pointLight position={[0, 7, 2]} color="#F0F4FF" intensity={26} distance={20} decay={2} />
   </group>
 );
@@ -328,14 +354,12 @@ export const Checkpoint: React.FC<{ down: number; t: number }> = ({ down, t }) =
   const red = Math.floor(t * 3) % 2 === 0;
   return (
     <group>
-      <mesh position={[0, -0.05, 0]} receiveShadow>
-        <BoxG args={[60, 0.1, 80]} />
-        <Flat color="#2F5A44" />
+      <mesh position={[0, -0.05, -40]} receiveShadow>
+        <boxGeometry args={[200, 0.1, 200]} />
+        <meshLambertMaterial color="#2F5A44" flatShading />
       </mesh>
-      <mesh position={[0, 0.0, -10]} receiveShadow>
-        <BoxG args={[8, 0.06, 60]} />
-        <Flat color={P.road} />
-      </mesh>
+      <Road position={[0, 0.005, -30]} width={8} length={160} />
+      <BorderLand t={t} />
       {/* booth */}
       <group position={[5.2, 0, 0]}>
         <mesh position={[0, 1.5, 0]} castShadow receiveShadow>
@@ -376,10 +400,11 @@ export const Checkpoint: React.FC<{ down: number; t: number }> = ({ down, t }) =
           ))}
         </group>
       </group>
-      {/* stopped cars */}
-      <Car position={[-1.7, 0, 7]} yaw={Math.PI} color={P.carTeal} />
-      <Car position={[-1.7, 0, 11.2]} yaw={Math.PI} color="#E8E4DA" />
-      <Car position={[1.7, 0, 8.5]} yaw={Math.PI} color={P.carRed} />
+      {/* stopped cars queued back toward the camera */}
+      <Car position={[-1.7, 0, 5.5]} yaw={Math.PI} color={P.carTeal} />
+      <Car position={[-1.7, 0, 9.7]} yaw={Math.PI} color="#E8E4DA" />
+      <Car position={[1.7, 0, 4.2]} yaw={Math.PI} color={P.carRed} />
+      <Car position={[1.7, 0, 8.4]} yaw={Math.PI} color="#566270" />
       {/* sign gantry */}
       {[-4.6, 4.6].map((x) => (
         <mesh key={x} position={[x, 3.4, -4]} castShadow>
@@ -396,6 +421,119 @@ export const Checkpoint: React.FC<{ down: number; t: number }> = ({ down, t }) =
 };
 export const GANTRY = { c: [0, 6.4, -3.83] as V3, w: 5.6, h: 1.1 };
 
+/**
+ * Everything past (and along) the border: a wire fence across the land on both sides of the road
+ * (clear of the booth and gantry), floodlights, the far side's closed booth, a pine forest, rolling hills,
+ * a sleeping town and mountains on the horizon. Seeded, so it is identical every frame.
+ */
+const BorderLand: React.FC<{ t: number }> = () => {
+  const fence: React.ReactNode[] = [];
+  const runs: [number, number][] = [
+    [-4.6, -44],
+    [6.6, 44],
+  ];
+  runs.forEach(([from, to], ri) => {
+    const dir = Math.sign(to - from);
+    const n = Math.floor(Math.abs(to - from) / 2.5);
+    for (let i = 0; i <= n; i++) {
+      fence.push(
+        <mesh key={`p${ri}${i}`} position={[from + dir * i * 2.5, 1.3, -0.6]} castShadow>
+          <BoxG args={[0.14, 2.6, 0.14]} />
+          <Flat color="#4A4E58" />
+        </mesh>,
+      );
+    }
+    [0.6, 1.3, 2.0, 2.5].forEach((y) =>
+      fence.push(
+        <mesh key={`w${ri}${y}`} position={[(from + to) / 2, y, -0.6]}>
+          <boxGeometry args={[Math.abs(to - from), 0.03, 0.03]} />
+          <Flat color="#7A808E" />
+        </mesh>,
+      ),
+    );
+  });
+  const trees: React.ReactNode[] = [];
+  for (let i = 0; i < 70; i++) {
+    const k = `bt${i}`;
+    const side = random(`${k}s`) < 0.5 ? -1 : 1;
+    const x = side * (9 + random(`${k}x`) * 30);
+    const z = -14 - random(`${k}z`) * 34;
+    trees.push(<PineTree key={k} position={[x, 0, z]} scale={1.2 + random(`${k}c`) * 0.9} />);
+  }
+  const town = Array.from({ length: 9 }, (_, i) => {
+    const k = `tw${i}`;
+    const side = i % 2 ? 1 : -1;
+    return (
+      <Building
+        key={k}
+        position={[side * (12 + random(`${k}x`) * 22), 0, -62 - random(`${k}z`) * 10]}
+        w={4 + random(`${k}w`) * 3}
+        d={4}
+        h={6 + random(`${k}h`) * 10}
+        color={BUILDING_COLORS[i % BUILDING_COLORS.length]}
+        seed={k}
+        litRatio={0.35}
+      />
+    );
+  });
+  return (
+    <group>
+      {fence}
+      {/* floodlights along the fence */}
+      {[-9, -22, 9.5, 22].map((x) => (
+        <Lamp key={x} position={[x, 0, -1.6]} height={7} />
+      ))}
+      {/* the far side: a second, closed booth and its lowered barrier */}
+      <group position={[-5.2, 0, -16]}>
+        <mesh position={[0, 1.5, 0]} castShadow receiveShadow>
+          <BoxG args={[2.2, 3, 2.2]} />
+          <Flat color="#C9C2B4" />
+        </mesh>
+        <mesh position={[0, 3.15, 0]} castShadow>
+          <BoxG args={[2.6, 0.3, 2.6]} />
+          <Flat color="#566270" />
+        </mesh>
+        <mesh position={[1.115, 1.9, 0]} rotation={[0, Math.PI / 2, 0]}>
+          <planeGeometry args={[1.6, 0.9]} />
+          <Glow color="#E0B04E" />
+        </mesh>
+      </group>
+      {Array.from({ length: 8 }, (_, i) => (
+        <mesh key={`fb${i}`} position={[-3.6 + i * 0.9 + 0.45, 1.15, -14.6]} castShadow>
+          <BoxG args={[0.9, 0.18, 0.18]} />
+          <Flat color={i % 2 ? "#C8372D" : "#F2EEE6"} />
+        </mesh>
+      ))}
+      {trees}
+      {/* rolling hills */}
+      {[
+        [-28, -52, 16],
+        [24, -56, 18],
+        [-6, -70, 22],
+        [40, -78, 20],
+        [-44, -74, 20],
+      ].map(([x, z, r], i) => (
+        <mesh key={`h${i}`} position={[x, -r * 0.62, z]} scale={[1.4, 1, 1]} receiveShadow>
+          <icosahedronGeometry args={[r, 2]} />
+          <meshLambertMaterial color={i % 2 ? "#24453A" : "#2A4E40"} flatShading />
+        </mesh>
+      ))}
+      {town}
+      {/* mountains */}
+      {[
+        [-40, 34, 24],
+        [-6, 42, 30],
+        [30, 36, 26],
+      ].map(([x, h, r], i) => (
+        <mesh key={`m${i}`} position={[x, h / 2 - 1, -120]}>
+          <coneGeometry args={[r, h, 7]} />
+          <meshLambertMaterial color="#2A3346" flatShading />
+        </mesh>
+      ))}
+    </group>
+  );
+};
+
 // ================================================================ ATM
 
 /** A wall with an ATM (screen centre/size exported), facing +Z. */
@@ -404,13 +542,13 @@ export const ATM = { c: [0, 2.6, 0.27] as V3, w: 0.8, h: 0.62 };
 export const AtmWall: React.FC = () => (
   <group>
     <mesh position={[0, -0.05, 4]} receiveShadow>
-      <BoxG args={[20, 0.1, 16]} />
+      <BoxG args={[40, 0.1, 16]} />
       <Flat color={P.pavement} />
     </mesh>
-    <mesh position={[0, 4, -0.3]} receiveShadow>
-      <BoxG args={[20, 8, 0.6]} />
-      <Flat color={P.bldgSlate} />
-    </mesh>
+    {/* the bank: front face at z = -0.3, the ATM housing sits flush against it */}
+    <Building position={[0, 0, -2.3]} w={12} d={4} h={13} color={P.bldgSlate} seed="bank" litRatio={0.25} />
+    <Building position={[-11, 0, -2.6]} w={8} d={4} h={9} color={P.bldgPurple} seed="bank2" litRatio={0.3} />
+    <Building position={[10.5, 0, -2.6]} w={7} d={4} h={16} color={P.bldgNavy} seed="bank3" litRatio={0.3} />
     <mesh position={[0, 2.2, 0]} castShadow receiveShadow>
       <BoxG args={[1.6, 2.4, 0.5]} />
       <Flat color="#3A3E48" />
@@ -423,7 +561,14 @@ export const AtmWall: React.FC = () => (
       <boxGeometry args={[1.2, 0.3, 0.03]} />
       <Glow color="#24748F" />
     </mesh>
+    {/* street in front: road along X, a parked car, a lamp, a bin */}
+    <Road position={[0, 0.005, 8]} width={7} length={60} yaw={Math.PI / 2} />
+    <Car position={[-3.6, 0, 6.3]} yaw={Math.PI / 2} color={P.carTeal} />
     <Lamp position={[3.2, 0, 1.6]} />
+    <mesh position={[-2.4, 0.5, 0.9]} castShadow>
+      <CylG args={[0.32, 0.28, 1.0, 8]} />
+      <Flat color="#2E5A6A" />
+    </mesh>
   </group>
 );
 
@@ -538,12 +683,10 @@ export const Siren: React.FC<{ position: V3; t: number }> = ({ position, t }) =>
 };
 
 /** A shopfront (facing +Z) with its windows and door boarded up with planks. Width w, ground floor h 3.4. */
-export const BoardedShop: React.FC<{ position: V3; w?: number; color?: string; seed?: string }> = ({ position, w = 5, color = P.bldgPurple, seed = "shop" }) => (
+export const BoardedShop: React.FC<{ position: V3; w?: number; color?: string; seed?: string; h?: number }> = ({ position, w = 5, color = P.bldgPurple, seed = "shop", h = 10 }) => (
   <group position={position}>
-    <mesh position={[0, 4, -0.5]} castShadow receiveShadow>
-      <BoxG args={[w, 8, 1]} />
-      <Flat color={color} />
-    </mesh>
+    {/* the building itself, front face at z = 0, power almost all out */}
+    <Building position={[0, 0, -2]} w={w} d={4} h={h} color={color} seed={seed} power={0.1} />
     <mesh position={[0, 3.7, 0.05]}>
       <boxGeometry args={[w - 0.4, 0.5, 0.1]} />
       <Flat color="#2A2A30" />
@@ -605,6 +748,73 @@ export const SummitHall: React.FC = () => (
       <CylG args={[3.6, 3.6, 1.0, 24, 1, true]} />
       <Flat color="#5A3E2E" />
     </mesh>
+    {/* colonnade and tall night windows around the hall */}
+    {Array.from({ length: 16 }, (_, i) => {
+      const a = (i / 16) * Math.PI * 2;
+      return (
+        <React.Fragment key={i}>
+          <mesh position={[Math.sin(a) * 12.5, 5, Math.cos(a) * 12.5]} castShadow>
+            <CylG args={[0.45, 0.5, 10, 8]} />
+            <Flat color="#C9C2B4" />
+          </mesh>
+          <mesh position={[Math.sin(a + Math.PI / 16) * 13.6, 5.5, Math.cos(a + Math.PI / 16) * 13.6]} rotation={[0, a + Math.PI / 16 + Math.PI, 0]}>
+            <planeGeometry args={[3.6, 8]} />
+            <Glow color="#141C38" />
+          </mesh>
+        </React.Fragment>
+      );
+    })}
+    <mesh position={[0, 5.5, 0]}>
+      <cylinderGeometry args={[14, 14, 11, 32, 1, true]} />
+      <meshLambertMaterial color="#1D274B" flatShading side={THREE.BackSide} />
+    </mesh>
+    <mesh position={[0, 10.2, 0]} rotation={[-Math.PI / 2, 0, 0]}>
+      <ringGeometry args={[5, 5.3, 48]} />
+      <Glow color="#FFE2B8" />
+    </mesh>
+    {/* microphones and name cards in front of every seat */}
+    {Array.from({ length: 8 }, (_, i) => {
+      const a = (i / 8) * Math.PI * 2 + 0.2;
+      const r = 3.55;
+      return (
+        <group key={i} position={[Math.sin(a) * r, 1.2, Math.cos(a) * r]} rotation={[0, a, 0]}>
+          <mesh position={[0.35, 0.25, 0]}>
+            <CylG args={[0.025, 0.04, 0.5, 6]} />
+            <Flat color="#2A2A30" />
+          </mesh>
+          <mesh position={[0.35, 0.52, -0.05]}>
+            <IcoG args={[0.06, 1]} />
+            <Flat color="#15161C" />
+          </mesh>
+          <mesh position={[-0.3, 0.1, 0.05]} rotation={[-0.3, 0, 0]}>
+            <BoxG args={[0.6, 0.2, 0.04]} />
+            <Flat color="#F2EEE6" />
+          </mesh>
+        </group>
+      );
+    })}
+    {/* TV camera rigs at the edge of the floor */}
+    {[
+      [8.5, 6.5],
+      [-8.5, 6.5],
+    ].map(([x, z], i) => (
+      <group key={i} position={[x, 0, z]} rotation={[0, Math.atan2(-x, -z), 0]}>
+        {[0, (2 * Math.PI) / 3, (4 * Math.PI) / 3].map((a) => (
+          <mesh key={a} position={[Math.sin(a) * 0.35, 0.8, Math.cos(a) * 0.35]} rotation={[Math.cos(a) * 0.4, 0, -Math.sin(a) * 0.4]} castShadow>
+            <CylG args={[0.04, 0.04, 1.7, 5]} />
+            <Flat color="#2A2A30" />
+          </mesh>
+        ))}
+        <mesh position={[0, 1.85, 0]} castShadow>
+          <BoxG args={[0.6, 0.5, 1.0]} />
+          <Flat color="#22242E" />
+        </mesh>
+        <mesh position={[0.2, 2.05, -0.3]}>
+          <IcoG args={[0.05, 0]} />
+          <Glow color="#FF3030" />
+        </mesh>
+      </group>
+    ))}
     <pointLight position={[0, 9, 0]} color="#FFE2B8" intensity={40} distance={20} decay={2} />
   </group>
 );
