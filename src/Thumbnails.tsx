@@ -8,6 +8,7 @@ import { AbsoluteFill } from "remotion";
 import { SHOTS as GTA } from "./episodes/gta-24h/shots";
 import { SHOTS as NH } from "./episodes/no-humans/shots";
 import { SHOTS as SA } from "./episodes/smart-animals/shots";
+import { SHOTS as WW3 } from "./episodes/ww3-countdown/shots";
 import { FONT, loadHouseFonts } from "./slavoski/fonts";
 import { P } from "./slavoski/palette";
 import { AccretionDisk, FacetedEarth } from "./slavoski/space";
@@ -15,7 +16,7 @@ import { Stage } from "./slavoski/Stage";
 
 loadHouseFonts();
 
-export type ThumbProps = { episode: "black-hole" | "no-humans" | "gta-24h" | "smart-animals" };
+export type ThumbProps = { episode: "black-hole" | "no-humans" | "gta-24h" | "smart-animals" | "ww3-countdown" };
 
 type Line = { text: string; color?: string; size?: number };
 const THUMBS: Record<ThumbProps["episode"], { shot: React.ReactNode; lines: Line[]; chip: string; top: number }> = {
@@ -40,6 +41,13 @@ const THUMBS: Record<ThumbProps["episode"], { shot: React.ReactNode; lines: Line
     shot: SA.c4[3].fn({ lt: 0.8, dur: 1.4, t: 30.6, words: [], width: 1080, height: 1920 }),
     lines: [{ text: "EVERY ANIMAL" }, { text: "GOT SMART", color: P.amber, size: 150 }],
     chip: "AND THEY'RE NOT HAPPY",
+    top: 230,
+  },
+  "ww3-countdown": {
+    // Everyone running for the shelter: green SHELTER sign, lit doorway, the warden waving them in.
+    shot: WW3.c4[2].fn({ lt: 1.1, dur: 1.8, t: 28.8, words: [], width: 1080, height: 1920 }),
+    lines: [{ text: "WW3 STARTS" }, { text: "IN 7 DAYS", color: P.amber, size: 150 }],
+    chip: "DAY BY DAY",
     top: 230,
   },
   "gta-24h": {

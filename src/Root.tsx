@@ -56,6 +56,7 @@ export const RemotionRoot: React.FC = () => (
       ["no-humans", "NoHumans"],
       ["gta-24h", "Gta24h"],
       ["smart-animals", "SmartAnimals"],
+      ["ww3-countdown", "Ww3Countdown"],
     ] as const).map(([ep, id]) => (
       <Still
         key={ep}
