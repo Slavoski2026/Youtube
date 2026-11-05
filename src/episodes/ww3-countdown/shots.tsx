@@ -5,11 +5,13 @@
 import type { Caption } from "@remotion/captions";
 import React from "react";
 import { AbsoluteFill, random } from "remotion";
-import { Car, CityGrid, Lamp, Road, StreetSet } from "../../slavoski/city";
+import { Car, CityGrid, Lamp, PineTree, Road, StreetSet } from "../../slavoski/city";
 import { P } from "../../slavoski/palette";
 import { BoxG, IcoG } from "../../slavoski/detail";
+import { CanvasPanel } from "../../slavoski/screens";
+import { POLICE_OFFICER } from "../../slavoski/hero";
 import { FONT } from "../../slavoski/fonts";
-import { crowdLook, suitLook, type HeroLook } from "../../slavoski/hero";
+import { crowdLook, suitLook } from "../../slavoski/hero";
 import { Flat } from "../../slavoski/materials";
 import { clamp01, ease, type V3 } from "../../slavoski/noise";
 import { GamingRoom, SEAT, SEAT_YAW, sittingPose, TV } from "../../slavoski/room";
@@ -23,15 +25,18 @@ import {
   AlertScreen,
   ATM,
   AtmWall,
+  CITY,
+  drawCrashChart,
+  drawDepartures,
+  drawLabel,
+  ShelterBunker,
   BILLBOARD,
   Billboard,
   BoardedShop,
   BOARD,
   Checkpoint,
   CLOCK,
-  CrashChart,
   DeadScreen,
-  Departures,
   FuelQueue,
   fuelStreetModify,
   GANTRY,
@@ -40,8 +45,6 @@ import {
   OnScreen,
   PHONE,
   Phone3D,
-  ShelterEntrance,
-  SHELTER_SIGN,
   Siren,
   SummitHall,
   Supermarket,
@@ -58,17 +61,21 @@ const span = (dur: number) => Math.min(Number.isFinite(dur) ? dur : 2.5, 4);
 const move = (a: CameraSpec, b: CameraSpec, c: ShotCtx) => lerpCam(a, b, c.lt / span(c.dur));
 const k01 = (lt: number, a: number, b: number) => ease(clamp01((lt - a) / (b - a)));
 
+/**
+ * A StreetSet scaled ×3.5 so its floors, cars and lamps are in proportion with Slavoski (4.2 tall):
+ * at kit scale he stands four floors high and reads as a giant. Road |x| < 12.25, pavements to 21.35.
+ */
+const BigStreet: React.FC<React.ComponentProps<typeof StreetSet>> = (props) => (
+  <group scale={CITY}>
+    <StreetSet {...props} />
+  </group>
+);
+
 const Shot: React.FC<{ children: React.ReactNode; overlay?: React.ReactNode } & React.ComponentProps<typeof Stage>> = ({ children, overlay, ...stage }) => (
   <AbsoluteFill>
     <Stage {...stage}>{children}</Stage>
     {overlay}
   </AbsoluteFill>
-);
-
-const Label: React.FC<{ w: number; h: number; text: string; bg: string; color?: string; size?: number }> = ({ w, h, text, bg, color = "#FFF", size = 0.55 }) => (
-  <div style={{ width: w, height: h, background: bg, color, fontFamily: FONT, fontWeight: 700, fontSize: h * size, letterSpacing: "0.08em", display: "flex", alignItems: "center", justifyContent: "center", whiteSpace: "nowrap" }}>
-    {text}
-  </div>
 );
 
 /** Slavoski sitting up in bed, legs under the blanket (same rig placement as ep. 4). */
@@ -227,20 +234,12 @@ const c1Fuel: ShotFn = (c) => {
 // ---------------------------------------------------------------- 02 the crash
 
 const c2Market: ShotFn = (c) => {
-  const cam = move({ position: [0.6, 2.6, 13.5], target: [0, 5.2, -2] }, { position: [0.5, 2.6, 12.3], target: [0, 5.3, -2] }, c);
+  const cam = move({ position: [0.6, 2.4, 14.5], target: [0, 6.4, -2] }, { position: [0.5, 2.4, 13.3], target: [0, 6.5, -2] }, c);
   return (
-    <Shot
-      mood="night"
-      camera={cam}
-      fog={[30, 120]}
-      overlay={
-        <OnScreen c={BILLBOARD.c} w={BILLBOARD.w} h={BILLBOARD.h} cam={cam} width={c.width} height={c.height}>
-          {(w, h) => <CrashChart w={w} h={h} k={k01(c.lt, 0.1, 1.8)} />}
-        </OnScreen>
-      }
-    >
-      <StreetSet seed="plaza" cars={false} />
+    <Shot mood="night" camera={cam} fog={[60, 300]} shadowSize={40}>
+      <BigStreet seed="plaza" cars={false} />
       <Billboard />
+      <CanvasPanel position={[BILLBOARD.c[0], BILLBOARD.c[1], BILLBOARD.c[2]]} w={BILLBOARD.w} h={BILLBOARD.h} draw={drawCrashChart(k01(c.lt, 0.1, 1.8))} />
       <Hero pose={mergePose(REST, { headPitch: 0.45, expression: "alarm" })} position={[0.6, 0, 3.4]} yaw={Math.PI} />
       <Hero pose={mergePose(REST, { headPitch: 0.4, expression: "worried" })} position={[-1.6, 0, 4.2]} yaw={Math.PI - 0.2} look={crowdLook(11)} />
       <Hero pose={mergePose(REST, { headPitch: 0.4, expression: "worried" })} position={[2.6, 0, 5.0]} yaw={Math.PI + 0.25} look={crowdLook(4)} />
@@ -249,7 +248,7 @@ const c2Market: ShotFn = (c) => {
 };
 
 const c2Flights: ShotFn = (c) => {
-  const cam = move({ position: [0.6, 3.0, 10.5], target: [0, 4.4, -4] }, { position: [0.5, 3.0, 9.4], target: [0, 4.5, -4] }, c);
+  const cam = move({ position: [0.4, 3.0, 11.5], target: [0, 5.2, -4] }, { position: [0.3, 3.0, 10.4], target: [0, 5.3, -4] }, c);
   return (
     <Shot
       mood="night"
@@ -257,16 +256,12 @@ const c2Flights: ShotFn = (c) => {
       fog={false}
       stars={false}
       light={0.85}
-      overlay={
-        <OnScreen c={BOARD.c} w={BOARD.w} h={BOARD.h} cam={cam} width={c.width} height={c.height}>
-          {(w, h) => <Departures w={w} h={h} k={k01(c.lt, 0, 1.0)} />}
-        </OnScreen>
-      }
     >
       <Terminal />
-      <Hero pose={mergePose(REST, { headPitch: 0.35, expression: "alarm" })} position={[1.6, 0, 2.2]} yaw={Math.PI} />
+      <CanvasPanel position={[BOARD.c[0], BOARD.c[1], BOARD.c[2] + 0.03]} w={BOARD.w} h={BOARD.h} draw={drawDepartures(k01(c.lt, 0, 1.0))} />
+      <Hero pose={mergePose(REST, { headPitch: 0.35, expression: "alarm" })} position={[2.0, 0, 3.4]} yaw={Math.PI} />
       <Hero pose={mergePose(REST, { headPitch: 0.3, expression: "worried" })} position={[-2.5, 0, 0.6]} yaw={Math.PI + 0.15} look={crowdLook(41)} />
-      <mesh position={[2.75, 0.5, 2.2]} castShadow>
+      <mesh position={[3.15, 0.5, 3.4]} castShadow>
         <BoxG args={[0.5, 1.0, 0.9]} />
         <Flat color="#5A4A78" />
       </mesh>
@@ -282,13 +277,9 @@ const c2Border: ShotFn = (c) => {
       camera={cam}
       fog={[45, 200]}
       shadowSize={30}
-      overlay={
-        <OnScreen c={GANTRY.c} w={GANTRY.w} h={GANTRY.h} cam={cam} width={c.width} height={c.height}>
-          {(w, h) => <Label w={w} h={h} text="BORDER CLOSED" bg="#0E0606" color="#FF3A2A" size={0.42} />}
-        </OnScreen>
-      }
     >
       <Checkpoint down={k01(c.lt, 0.05, 0.6)} t={c.t} />
+      <CanvasPanel position={[GANTRY.c[0], GANTRY.c[1], GANTRY.c[2] + 0.01]} w={GANTRY.w} h={GANTRY.h} draw={drawLabel("BORDER CLOSED", "#0E0606", "#FF3A2A", 0.6)} />
     </Shot>
   );
 };
@@ -323,12 +314,13 @@ const c3Offline: ShotFn = (c) => (
 );
 
 const c3Atm: ShotFn = (c) => {
-  const cam = move({ position: [-1.9, 3.5, 10.0], target: [0.4, 2.4, 0.5] }, { position: [-1.7, 3.45, 9.0], target: [0.4, 2.4, 0.5] }, c);
+  const cam = move({ position: [-2.6, 4.2, 12.0], target: [0.5, 3.4, 0.5] }, { position: [-2.4, 4.15, 11.0], target: [0.5, 3.4, 0.5] }, c);
   return (
     <Shot
       mood="night"
       camera={cam}
-      fog={[20, 90]}
+      fog={[40, 220]}
+      shadowSize={30}
       overlay={
         <OnScreen c={ATM.c} w={ATM.w} h={ATM.h} cam={cam} width={c.width} height={c.height}>
           {(w, h) => <DeadScreen w={w} h={h} label={"OUT OF\nSERVICE"} />}
@@ -336,7 +328,7 @@ const c3Atm: ShotFn = (c) => {
       }
     >
       <AtmWall />
-      <Hero pose={mergePose(REST, { expression: "worried", headPitch: -0.05, rShoulder: [0.6, 0.1], rElbow: 0.5 })} position={[1.25, 0, 1.6]} yaw={-2.5} />
+      <Hero pose={mergePose(REST, { expression: "worried", headPitch: -0.05, rShoulder: [0.6, 0.1], rElbow: 0.5 })} position={[2.2, 0, 1.9]} yaw={-2.3} />
     </Shot>
   );
 };
@@ -351,13 +343,13 @@ const callPose = (() => {
 })();
 
 const c3Call: ShotFn = (c) => {
-  const cam = move({ position: [-3.2, 4.2, 9.5], target: [-0.3, 3.4, 0] }, { position: [-2.8, 4.1, 8.4], target: [-0.3, 3.45, 0] }, c);
+  const cam = move({ position: [-1.9, 3.3, 6.2], target: [-0.35, 3.15, 0] }, { position: [-1.7, 3.3, 5.4], target: [-0.35, 3.2, 0] }, c);
   const head = headPosition(callPose, CALL_POS);
   const fist = handPosition(callPose, "r", CALL_POS);
   const phone: V3 = [head[0] - 0.68 - 0.03, fist[1] + 0.18, head[2]];
   return (
-    <Shot mood="night" camera={cam} fog={[20, 100]}>
-      <StreetSet seed="call" />
+    <Shot mood="night" camera={cam} fog={[60, 300]} shadowSize={30}>
+      <BigStreet seed="call" />
       <Hero pose={callPose} position={CALL_POS} />
       <Phone3D position={phone} rotation={[0, -Math.PI / 2, 0]} glow="#8FD0FF" />
     </Shot>
@@ -369,87 +361,113 @@ const c3Nothing: ShotFn = (c) => <PhoneCloseUp c={c} glow="#141826" screen={(w, 
 // ---------------------------------------------------------------- 04 seek shelter
 
 const c4Jets: ShotFn = (c) => {
-  const cam = move({ position: [1.2, 1.7, 10], target: [0, 8.5, -10] }, { position: [1.0, 1.6, 9.0], target: [0, 9.0, -10] }, c);
+  const cam = move({ position: [1.2, 1.7, 10], target: [0, 13, -20] }, { position: [1.0, 1.6, 9.0], target: [0, 14, -20] }, c);
   const jets = [
-    { y: 24, z: -30, d: 0 },
-    { y: 22, z: -34, d: 0.25 },
-    { y: 26, z: -38, d: 0.45 },
+    { y: 66, z: -95, d: 0 },
+    { y: 60, z: -105, d: 0.25 },
+    { y: 72, z: -115, d: 0.45 },
   ];
   return (
-    <Shot mood="night" camera={cam} fog={[40, 160]} shake={c.lt > 0.6 && c.lt < 2.2 ? 0.05 : 0.01}>
-      <StreetSet seed="jets" />
+    <Shot mood="night" camera={cam} fog={[80, 400]} shadowSize={40} shake={c.lt > 0.6 && c.lt < 2.2 ? 0.05 : 0.01}>
+      <BigStreet seed="jets" />
       <Hero pose={mergePose(REST, { headPitch: 0.6, expression: "alarm", lShoulder: [0.3, 0.6], rShoulder: [0.3, 0.6] })} position={[0.2, 0, 1.0]} />
       {jets.map((j, i) => (
-        <Jet key={i} position={[-50 + (c.lt - j.d) * 40, j.y, j.z]} rotation={[0, Math.PI / 2, 0]} scale={1.6} trail={18} />
+        <Jet key={i} position={[-160 + (c.lt - j.d) * 120, j.y, j.z]} rotation={[0, Math.PI / 2, 0]} scale={5} trail={20} />
       ))}
     </Shot>
   );
 };
 
 /**
- * Siren and warning board both stand on the left pavement (x = -4.6), clear of the road, the runners and
- * the StreetSet's own trees (z = -1, -17) and lamps (z = -3.5, -14.5).
+ * Siren and warning board stand on the right pavement (x = 4.6, StreetSet units) in the gap between its
+ * board stands in front of the siren; StreetSet lamps and trees are off here and re-placed out of the line of sight.
  */
-const SIREN_POS: V3 = [-4.6, 0.12, -8.0];
-const SHELTER_BOARD = { c: [-4.6, 4.3, -11.0] as V3, w: 3.2, h: 1.2 };
+const SIREN_POS: V3 = [4.6, 0.12, -12.0];
+const SHELTER_BOARD = { c: [4.4, 3.6, -9.3] as V3, w: 3.0, h: 1.1, yaw: -0.2 };
 
 const c4Siren: ShotFn = (c) => {
-  const cam = move({ position: [-1.8, 1.7, 1.0], target: [-4.3, 4.9, -9.2] }, { position: [-2.0, 1.8, 0.0], target: [-4.3, 5.1, -9.2] }, c);
+  const S = CITY;
+  const cam = move({ position: [1.4 * S, 0.5 * S, 2.0 * S], target: [4.1 * S, 4.6 * S, -13.5 * S] }, { position: [1.25 * S, 0.55 * S, 1.6 * S], target: [4.1 * S, 4.8 * S, -13.5 * S] }, c);
   const flash = Math.sin(c.t * 9) > 0;
   return (
-    <Shot
-      mood="night"
-      dust={0.2}
-      camera={cam}
-      fog={[30, 120]}
-      overlay={
-        <OnScreen c={SHELTER_BOARD.c} w={SHELTER_BOARD.w} h={SHELTER_BOARD.h} cam={cam} width={c.width} height={c.height}>
-          {(w, h) => <Label w={w} h={h} text="SEEK SHELTER" bg={flash ? "#B3261E" : "#3A0E0C"} size={0.27} />}
-        </OnScreen>
-      }
-    >
-      <StreetSet seed="siren" cars={false} />
-      <Siren position={SIREN_POS} t={c.t} />
-      {/* the warning board on its own post */}
-      <mesh position={[SHELTER_BOARD.c[0], 1.95, SHELTER_BOARD.c[2] - 0.15]} castShadow>
-        <BoxG args={[0.2, 3.8, 0.2]} />
-        <Flat color="#2A2A30" />
-      </mesh>
-      <mesh position={[SHELTER_BOARD.c[0], SHELTER_BOARD.c[1], SHELTER_BOARD.c[2] - 0.06]} castShadow>
-        <BoxG args={[SHELTER_BOARD.w + 0.2, SHELTER_BOARD.h + 0.2, 0.1]} />
-        <Flat color="#15161C" />
-      </mesh>
-      {/* people running away down the street, in their own lanes */}
-      {[0, 1, 2].map((i) => (
-        <Hero key={i} pose={mergePose(walkPose(c.lt * 2.6 + i * 0.4, 1.3), { expression: "alarm", lean: 0.2 })} position={[0.2 + i * 1.5, 0, -9 - c.lt * 4.5 - i * 1.8]} yaw={Math.PI} look={crowdLook(50 + i)} />
-      ))}
+    <Shot mood="night" dust={0.2} camera={cam} fog={[80, 400]} shadowSize={60}>
+      <group scale={S}>
+        <StreetSet seed="siren" cars={false} trees={false} lamps={false} />
+        {/* our own lamps and trees, kept out of the camera's line to the siren and board */}
+        {[-3.5, -14.5, -25.5, -36.5].map((z) => (
+          <Lamp key={z} position={[-4.0, 0.12, z]} />
+        ))}
+        {[-24, -31, -38].map((z) => (
+          <Lamp key={`r${z}`} position={[4.0, 0.12, z]} />
+        ))}
+        {[-27, -43].map((z) => (
+          <PineTree key={z} position={[5.1, 0.12, z]} scale={1.2} />
+        ))}
+        <Siren position={SIREN_POS} t={c.t} />
+        <group position={SHELTER_BOARD.c} rotation={[0, SHELTER_BOARD.yaw, 0]}>
+          <mesh position={[0, -SHELTER_BOARD.c[1] / 2 + 0.06, -0.15]} castShadow>
+            <BoxG args={[0.2, SHELTER_BOARD.c[1] - 0.12, 0.2]} />
+            <Flat color="#2A2A30" />
+          </mesh>
+          <mesh position={[0, 0, -0.06]} castShadow>
+            <BoxG args={[SHELTER_BOARD.w + 0.2, SHELTER_BOARD.h + 0.2, 0.1]} />
+            <Flat color="#15161C" />
+          </mesh>
+          <CanvasPanel position={[0, 0, 0]} w={SHELTER_BOARD.w} h={SHELTER_BOARD.h} draw={drawLabel("SEEK SHELTER", flash ? "#B3261E" : "#3A0E0C", "#FFFFFF", 0.55)} />
+        </group>
+      </group>
     </Shot>
   );
 };
 
+/**
+ * The shelter stands on the right-hand pavement (front face at x = 14, facing the road, door centre at
+ * z = -50), clear of the street's lamps (x = 14, z = -31.5 / -70). Trees are off in this set. Runners
+ * head for points spread across the doorway; at run speed none reaches the door before the cut.
+ */
+const SHELTER_AT: V3 = [14, 0.42, -50];
+const DOOR_TARGETS: V3[] = [
+  [14.5, 0, -51.4],
+  [14.5, 0, -49.6],
+  [14.5, 0, -50.5],
+  [14.5, 0, -48.8],
+];
+
 const c4Shelter: ShotFn = (c) => {
-  const cam = move({ position: [1.8, 5.2, 11.5], target: [0, 1.8, -6] }, { position: [1.6, 5.0, 10.5], target: [0, 1.8, -6] }, c);
-  const runner = (seed: number, x: number, z0: number, speed: number, look?: HeroLook) => (
-    <Hero key={seed} pose={mergePose(walkPose(c.lt * 2.6 + seed * 0.37, 1.35), { expression: "alarm", lean: 0.2 })} position={[x, 0, z0 - c.lt * speed]} yaw={Math.PI} look={look} />
-  );
+  const cam = move({ position: [-3, 9.5, -10], target: [11, 3.5, -50] }, { position: [-2.4, 9.0, -13], target: [11, 3.6, -50] }, c);
+  const runners = [
+    { start: [5, -30] as const, look: undefined },
+    { start: [8.5, -34] as const, look: crowdLook(21) },
+    { start: [2, -24] as const, look: crowdLook(22) },
+    { start: [9.5, -40] as const, look: crowdLook(23) },
+  ];
   return (
-    <Shot
-      mood="night"
-      dust={0.3}
-      camera={cam}
-      fog={[25, 110]}
-      overlay={
-        <OnScreen c={[SHELTER_SIGN.c[0], SHELTER_SIGN.c[1], SHELTER_SIGN.c[2] - 8]} w={SHELTER_SIGN.w} h={SHELTER_SIGN.h} cam={cam} width={c.width} height={c.height}>
-          {(w, h) => <Label w={w} h={h} text="SHELTER ↓" bg="#2FA05A" size={0.42} />}
-        </OnScreen>
-      }
-    >
-      <StreetSet seed="shelter" cars={false} />
-      <ShelterEntrance position={[0, 0.0, -8]} />
-      <Siren position={[3.8, 0.12, -4]} t={c.t} />
-      {runner(0, 0.3, 2.5, 3.2)}
-      {runner(21, -2.3, 3.6, 3.0, crowdLook(21))}
-      {runner(22, 2.6, 4.8, 3.4, crowdLook(22))}
+    <Shot mood="night" dust={0.3} camera={cam} fog={[80, 400]} shadowSize={60}>
+      <BigStreet seed="shelter" cars={false} trees={false} />
+      <ShelterBunker position={SHELTER_AT} yaw={-Math.PI / 2} t={c.t} />
+      <Hero
+        pose={mergePose(REST, { expression: "alarm", rShoulder: [2.5 + Math.sin(c.t * 8) * 0.35, 0.5], rElbow: 0.4, headYaw: 0.4 })}
+        position={[12.6, 0.42, -46.3]}
+        yaw={-Math.PI / 2}
+        look={POLICE_OFFICER}
+      />
+      {runners.map((r, i) => {
+        const target = DOOR_TARGETS[i];
+        const dx = target[0] - r.start[0];
+        const dz = target[2] - r.start[1];
+        const len = Math.hypot(dx, dz);
+        const d = Math.min(len - 3, c.lt * 4.6);
+        const p: V3 = [r.start[0] + (dx / len) * d, 0, r.start[1] + (dz / len) * d];
+        return (
+          <Hero
+            key={i}
+            pose={mergePose(walkPose(c.lt * 2.6 + i * 0.37, 1.35), { expression: "alarm", lean: 0.2 })}
+            position={p}
+            yaw={Math.atan2(dx, dz)}
+            look={r.look}
+          />
+        );
+      })}
     </Shot>
   );
 };
@@ -457,10 +475,10 @@ const c4Shelter: ShotFn = (c) => {
 // ---------------------------------------------------------------- 05 silence
 
 const c5Empty: ShotFn = (c) => {
-  const cam = move({ position: [0.5, 6, 22], target: [0, 2.5, -8] }, { position: [0.4, 5.6, 19.5], target: [0, 2.5, -8] }, c);
+  const cam = move({ position: [0.5, 9, 30], target: [0, 5, -20] }, { position: [0.4, 8.5, 26], target: [0, 5, -20] }, c);
   return (
-    <Shot mood="dawn" dust={0.5} camera={cam} fog={[20, 100]} stars={false}>
-      <StreetSet seed="empty" cars={false} lampsOn={false} modify={() => ({ power: 0.15 })} />
+    <Shot mood="dawn" dust={0.5} camera={cam} fog={[60, 300]} stars={false} shadowSize={60}>
+      <BigStreet seed="empty" cars={false} lampsOn={false} modify={() => ({ power: 0.15 })} />
       <Hero pose={mergePose(REST, { expression: "worried", headYaw: 0.5 })} position={[0.2, 0, 4]} yaw={Math.PI + 0.4} />
     </Shot>
   );

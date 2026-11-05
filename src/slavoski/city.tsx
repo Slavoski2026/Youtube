@@ -552,7 +552,9 @@ export const StreetSet: React.FC<{
   trees?: boolean;
   /** Street lamps lit (false after the blackout). */
   lampsOn?: boolean;
-}> = ({ seed = "street", length = 90, modify, cars = true, trees = true, lampsOn = true }) => {
+  /** Draw the street lamps at all (false to place your own clear of a shot's line of sight). */
+  lamps?: boolean;
+}> = ({ seed = "street", length = 90, modify, cars = true, trees = true, lampsOn = true, lamps = true }) => {
   const specs = useMemo(() => streetLayout(seed, length), [seed, length]);
   const roadW = 7;
   return (
@@ -570,12 +572,14 @@ export const StreetSet: React.FC<{
         const { key, ...props } = s;
         return <Building key={key} {...props} {...(modify?.(s, i) ?? {})} />;
       })}
-      {Array.from({ length: Math.floor(length / 11) }, (_, i) => (
-        <React.Fragment key={i}>
-          <Lamp position={[roadW / 2 + 0.5, 0.12, 2 - i * 11]} on={lampsOn} />
-          <Lamp position={[-(roadW / 2 + 0.5), 0.12, -3.5 - i * 11]} on={lampsOn} />
-        </React.Fragment>
-      ))}
+      {lamps
+        ? Array.from({ length: Math.floor(length / 11) }, (_, i) => (
+            <React.Fragment key={i}>
+              <Lamp position={[roadW / 2 + 0.5, 0.12, 2 - i * 11]} on={lampsOn} />
+              <Lamp position={[-(roadW / 2 + 0.5), 0.12, -3.5 - i * 11]} on={lampsOn} />
+            </React.Fragment>
+          ))
+        : null}
       {trees
         ? Array.from({ length: Math.floor(length / 16) }, (_, i) => (
             <React.Fragment key={i}>

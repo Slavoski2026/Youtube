@@ -12,7 +12,7 @@ import { FONT } from "../../slavoski/fonts";
 import { Flat, Glow } from "../../slavoski/materials";
 import { clamp01, type V3 } from "../../slavoski/noise";
 import { P } from "../../slavoski/palette";
-import { ScreenHtml } from "../../slavoski/screens";
+import { CANVAS_FONT, CanvasPanel, fitText, ScreenHtml } from "../../slavoski/screens";
 import type { CameraSpec } from "../../slavoski/Stage";
 
 // ================================================================ screens (HTML on a 3D rectangle)
@@ -222,12 +222,12 @@ export const fuelStreetModify = (spec: { position: V3 }) => (spec.position[0] > 
 // ================================================================ city billboard (stock crash)
 
 /** A giant screen on a pole in a plaza, facing +Z. Screen centre/size exported for OnScreen. */
-export const BILLBOARD = { c: [0, 6.0, -2] as V3, w: 4.6, h: 3.2 };
+export const BILLBOARD = { c: [0, 8.6, -2] as V3, w: 4.6, h: 3.2 };
 
 export const Billboard: React.FC = () => (
   <group>
-    <mesh position={[0, 2.1, -2.4]} castShadow>
-      <BoxG args={[0.6, 4.2, 0.6]} />
+    <mesh position={[0, 3.5, -2.4]} castShadow>
+      <BoxG args={[0.6, 7.0, 0.6]} />
       <Flat color="#2A2A30" />
     </mesh>
     <mesh position={[BILLBOARD.c[0], BILLBOARD.c[1], BILLBOARD.c[2] - 0.2]} castShadow>
@@ -242,35 +242,10 @@ export const Billboard: React.FC = () => (
   </group>
 );
 
-/** A market chart that plunges: red line + falling percentage. `k` 0..1 = how far the crash has gone. */
-export const CrashChart: React.FC<{ w: number; h: number; k: number }> = ({ w, h, k }) => {
-  const pts = Array.from({ length: 40 }, (_, i) => {
-    const u = i / 39;
-    const wiggle = Math.sin(i * 1.7) * 0.03 + Math.sin(i * 0.6) * 0.04;
-    const drop = u < 0.55 ? 0 : Math.min(1, (u - 0.55) / 0.45) ** 1.6 * 0.72;
-    return [u, 0.3 + wiggle + drop] as const;
-  });
-  const shown = Math.max(2, Math.floor(pts.length * (0.5 + 0.5 * k)));
-  const path = pts.slice(0, shown).map(([u, v], i) => `${i ? "L" : "M"}${(0.06 + u * 0.88) * w},${v * h * 0.75 + h * 0.18}`).join(" ");
-  const pct = (k * 34).toFixed(1);
-  return (
-    <div style={{ width: w, height: h, background: "#0B0E18", fontFamily: FONT, position: "relative" }}>
-      <svg width={w} height={h} style={{ position: "absolute", inset: 0 }}>
-        {[0.3, 0.5, 0.7].map((v) => (
-          <line key={v} x1={w * 0.06} x2={w * 0.94} y1={h * v} y2={h * v} stroke="#2A3248" strokeWidth={2} />
-        ))}
-        <path d={path} stroke="#E8473A" strokeWidth={Math.max(3, w * 0.012)} fill="none" strokeLinejoin="round" />
-      </svg>
-      <div style={{ position: "absolute", left: w * 0.06, top: h * 0.05, color: "#E8E4DA", fontWeight: 700, fontSize: h * 0.085, letterSpacing: "0.08em" }}>GLOBAL MARKETS</div>
-      <div style={{ position: "absolute", right: w * 0.06, bottom: h * 0.05, color: "#FF5A4A", fontWeight: 700, fontSize: h * 0.2 }}>▼ {pct}%</div>
-    </div>
-  );
-};
-
 // ================================================================ airport
 
 /** A terminal wall with a departures board (centre/size exported), benches and a luggage trolley. */
-export const BOARD = { c: [0, 5.0, -4] as V3, w: 4.8, h: 3.4 };
+export const BOARD = { c: [0, 6.3, -4] as V3, w: 4.8, h: 3.4 };
 
 export const Terminal: React.FC = () => (
   <group>
@@ -319,32 +294,6 @@ export const Terminal: React.FC = () => (
     ))}
     <pointLight position={[0, 7, 2]} color="#F0F4FF" intensity={26} distance={20} decay={2} />
   </group>
-);
-
-const FLIGHTS = [
-  ["SK 101", "LONDON"],
-  ["SK 214", "NEW YORK"],
-  ["SK 330", "TOKYO"],
-  ["SK 412", "DUBAI"],
-  ["SK 508", "SYDNEY"],
-  ["SK 617", "PARIS"],
-];
-
-/** Departures rows flipping to CANCELLED one by one as `k` goes 0..1. */
-export const Departures: React.FC<{ w: number; h: number; k: number }> = ({ w, h, k }) => (
-  <div style={{ width: w, height: h, background: "#0B0E18", fontFamily: FONT, color: "#E8D27A", padding: `${h * 0.05}px ${w * 0.04}px`, boxSizing: "border-box" }}>
-    <div style={{ fontWeight: 700, fontSize: h * 0.09, letterSpacing: "0.12em", color: "#E8E4DA", marginBottom: h * 0.03 }}>DEPARTURES</div>
-    {FLIGHTS.map(([code, city], i) => {
-      const gone = k * FLIGHTS.length > i + 0.2;
-      return (
-        <div key={code} style={{ display: "flex", justifyContent: "space-between", fontSize: h * 0.075, lineHeight: 1.45, fontWeight: 700 }}>
-          <span style={{ width: "24%" }}>{code}</span>
-          <span style={{ width: "40%" }}>{city}</span>
-          <span style={{ width: "36%", textAlign: "right", color: gone ? "#FF5A4A" : "#7FE08A" }}>{gone ? "CANCELLED" : "ON TIME"}</span>
-        </div>
-      );
-    })}
-  </div>
 );
 
 // ================================================================ border checkpoint
@@ -536,37 +485,46 @@ const BorderLand: React.FC<{ t: number }> = () => {
 
 // ================================================================ ATM
 
-/** A wall with an ATM (screen centre/size exported), facing +Z. */
-export const ATM = { c: [0, 2.6, 0.27] as V3, w: 0.8, h: 0.62 };
+/**
+ * A bank on a street with an ATM in its wall, at human scale (the ATM screen is at Slavoski's eye
+ * height). The buildings, road, car and lamp are kit pieces scaled ×3.5 (`CITY`) so a 4.2-tall hero
+ * doesn't tower over three floors of windows. Screen centre/size exported for OnScreen.
+ */
+export const CITY = 3.5;
+export const ATM = { c: [0, 3.9, 0.405] as V3, w: 1.2, h: 0.93 };
 
 export const AtmWall: React.FC = () => (
   <group>
-    <mesh position={[0, -0.05, 4]} receiveShadow>
-      <BoxG args={[40, 0.1, 16]} />
-      <Flat color={P.pavement} />
+    <mesh position={[0, -0.05, 2]} receiveShadow>
+      <boxGeometry args={[120, 0.1, 6]} />
+      <meshLambertMaterial color={P.pavement} flatShading />
     </mesh>
-    {/* the bank: front face at z = -0.3, the ATM housing sits flush against it */}
-    <Building position={[0, 0, -2.3]} w={12} d={4} h={13} color={P.bldgSlate} seed="bank" litRatio={0.25} />
-    <Building position={[-11, 0, -2.6]} w={8} d={4} h={9} color={P.bldgPurple} seed="bank2" litRatio={0.3} />
-    <Building position={[10.5, 0, -2.6]} w={7} d={4} h={16} color={P.bldgNavy} seed="bank3" litRatio={0.3} />
-    <mesh position={[0, 2.2, 0]} castShadow receiveShadow>
-      <BoxG args={[1.6, 2.4, 0.5]} />
-      <Flat color="#3A3E48" />
-    </mesh>
-    <mesh position={[0, 1.6, 0.26]}>
-      <boxGeometry args={[0.7, 0.5, 0.03]} />
-      <Flat color="#22242E" />
-    </mesh>
-    <mesh position={[0, 3.3, 0.26]}>
-      <boxGeometry args={[1.2, 0.3, 0.03]} />
-      <Glow color="#24748F" />
-    </mesh>
-    {/* street in front: road along X, a parked car, a lamp, a bin */}
-    <Road position={[0, 0.005, 8]} width={7} length={60} yaw={Math.PI / 2} />
-    <Car position={[-3.6, 0, 6.3]} yaw={Math.PI / 2} color={P.carTeal} />
-    <Lamp position={[3.2, 0, 1.6]} />
-    <mesh position={[-2.4, 0.5, 0.9]} castShadow>
-      <CylG args={[0.32, 0.28, 1.0, 8]} />
+    <group scale={CITY}>
+      {/* bank front face at world z = -0.4, just behind the ATM housing */}
+      <Building position={[0, 0, -0.114 - 2]} w={4.6} d={4} h={13} color={P.bldgSlate} seed="bank" litRatio={0.25} />
+      <Building position={[-5.1, 0, -0.2 - 2]} w={4.4} d={4} h={9} color={P.bldgPurple} seed="bank2" litRatio={0.3} />
+      <Building position={[5.2, 0, -0.2 - 2]} w={4.8} d={4} h={16} color={P.bldgNavy} seed="bank3" litRatio={0.3} />
+      <Road position={[0, 0.002, 4.5]} width={7} length={40} yaw={Math.PI / 2} />
+      <Car position={[-2.2, 0, 2.8]} yaw={Math.PI / 2} color={P.carTeal} />
+      <Lamp position={[0.9, 0, 0.55]} />
+    </group>
+    {/* ATM housing, scaled ×1.5 so its screen sits at eye height */}
+    <group scale={1.5}>
+      <mesh position={[0, 2.2, 0]} castShadow receiveShadow>
+        <BoxG args={[1.6, 2.4, 0.5]} />
+        <Flat color="#3A3E48" />
+      </mesh>
+      <mesh position={[0, 1.6, 0.26]}>
+        <boxGeometry args={[0.7, 0.5, 0.03]} />
+        <Flat color="#22242E" />
+      </mesh>
+      <mesh position={[0, 3.3, 0.26]}>
+        <boxGeometry args={[1.2, 0.3, 0.03]} />
+        <Glow color="#24748F" />
+      </mesh>
+    </group>
+    <mesh position={[-3.2, 0.6, 1.0]} castShadow>
+      <CylG args={[0.4, 0.34, 1.2, 8]} />
       <Flat color="#2E5A6A" />
     </mesh>
   </group>
@@ -617,46 +575,6 @@ export const Jet: React.FC<{ position: V3; rotation?: V3; scale?: number; trail?
 };
 
 // ================================================================ shelter entrance, sirens, boarded shops
-
-/** Steps down into a shelter, opening toward +Z, with rails and a green SHELTER sign (sign centre exported). */
-export const SHELTER_SIGN = { c: [0, 3.3, -1.56] as V3, w: 2.6, h: 0.7 };
-
-export const ShelterEntrance: React.FC<{ position: V3 }> = ({ position }) => (
-  <group position={position}>
-    {/* dark stairwell opening: a pit rendered as a black box sunk below the pavement */}
-    <mesh position={[0, -0.04, 0]}>
-      <boxGeometry args={[2.4, 0.1, 3]} />
-      <Flat color="#050608" />
-    </mesh>
-    {Array.from({ length: 4 }, (_, i) => (
-      <mesh key={i} position={[0, -0.02 - i * 0.001, 1.2 - i * 0.55]}>
-        <boxGeometry args={[2.3, 0.02, 0.12]} />
-        <Flat color="#3A3E48" />
-      </mesh>
-    ))}
-    {[-1.3, 1.3].map((x) => (
-      <React.Fragment key={x}>
-        <mesh position={[x, 0.55, 0]} castShadow>
-          <BoxG args={[0.2, 1.1, 3.2]} />
-          <Flat color="#566270" />
-        </mesh>
-        <mesh position={[x, 1.6, -1.5]} castShadow>
-          <BoxG args={[0.16, 3.2, 0.16]} />
-          <Flat color="#2A2A30" />
-        </mesh>
-      </React.Fragment>
-    ))}
-    <mesh position={[0, 3.3, -1.6]} castShadow>
-      <BoxG args={[2.9, 0.9, 0.1]} />
-      <Flat color="#15161C" />
-    </mesh>
-    <mesh position={[0, 3.3, -1.54]}>
-      <planeGeometry args={[2.6, 0.7]} />
-      <Glow color="#2FA05A" />
-    </mesh>
-    <pointLight position={[0, 2.6, 0]} color="#7FE08A" intensity={8} distance={7} decay={2} />
-  </group>
-);
 
 /** A siren pole with a rotating red light. */
 export const Siren: React.FC<{ position: V3; t: number }> = ({ position, t }) => {
@@ -868,5 +786,177 @@ export const DayStamp: React.FC<{ n: number; lt: number }> = ({ n, lt }) => {
         <div style={{ fontWeight: 700, fontSize: 110, lineHeight: 1, color: P.amber }}>{n}</div>
       </div>
     </div>
+  );
+};
+
+// ================================================================ canvas drawings for 3D signs (occludable)
+
+/** A flat coloured sign with one line of text, shrunk to fit. */
+export const drawLabel = (text: string, bg: string, color = "#FFFFFF", size = 0.62) => (ctx: CanvasRenderingContext2D, W: number, H: number) => {
+  ctx.fillStyle = bg;
+  ctx.fillRect(0, 0, W, H);
+  fitText(ctx, text, W / 2, H / 2 + H * 0.03, W * 0.9, H * size, color);
+};
+
+/** The market crash chart (k 0..1 = how far the crash has gone). */
+export const drawCrashChart = (k: number) => (ctx: CanvasRenderingContext2D, W: number, H: number) => {
+  ctx.fillStyle = "#0B0E18";
+  ctx.fillRect(0, 0, W, H);
+  ctx.strokeStyle = "#2A3248";
+  ctx.lineWidth = Math.max(2, H * 0.006);
+  for (const v of [0.35, 0.55, 0.75]) {
+    ctx.beginPath();
+    ctx.moveTo(W * 0.06, H * v);
+    ctx.lineTo(W * 0.94, H * v);
+    ctx.stroke();
+  }
+  const pts = Array.from({ length: 40 }, (_, i) => {
+    const u = i / 39;
+    const wiggle = Math.sin(i * 1.7) * 0.03 + Math.sin(i * 0.6) * 0.04;
+    const drop = u < 0.55 ? 0 : Math.min(1, (u - 0.55) / 0.45) ** 1.6 * 0.62;
+    return [W * (0.06 + u * 0.88), H * (0.36 + wiggle + drop)] as const;
+  });
+  const shown = Math.max(2, Math.floor(pts.length * (0.5 + 0.5 * k)));
+  ctx.strokeStyle = "#E8473A";
+  ctx.lineWidth = Math.max(4, W * 0.012);
+  ctx.lineJoin = "round";
+  ctx.beginPath();
+  pts.slice(0, shown).forEach(([x, y], i) => (i ? ctx.lineTo(x, y) : ctx.moveTo(x, y)));
+  ctx.stroke();
+  ctx.textAlign = "left";
+  ctx.textBaseline = "top";
+  ctx.font = CANVAS_FONT(H * 0.085);
+  ctx.fillStyle = "#E8E4DA";
+  ctx.fillText("GLOBAL MARKETS", W * 0.06, H * 0.06);
+  ctx.textAlign = "right";
+  ctx.textBaseline = "bottom";
+  ctx.font = CANVAS_FONT(H * 0.2);
+  ctx.fillStyle = "#FF5A4A";
+  ctx.fillText(`▼ ${(k * 34).toFixed(1)}%`, W * 0.94, H * 0.96);
+};
+
+/** The departures board; rows flip to CANCELLED one by one as k goes 0..1. */
+export const drawDepartures = (k: number) => (ctx: CanvasRenderingContext2D, W: number, H: number) => {
+  ctx.fillStyle = "#0B0E18";
+  ctx.fillRect(0, 0, W, H);
+  const pad = W * 0.05;
+  ctx.textBaseline = "middle";
+  ctx.textAlign = "left";
+  ctx.font = CANVAS_FONT(H * 0.09);
+  ctx.fillStyle = "#E8E4DA";
+  ctx.fillText("DEPARTURES", pad, H * 0.11);
+  const rowH = H * 0.125;
+  FLIGHT_ROWS.forEach(([code, city], i) => {
+    const y = H * 0.27 + i * rowH;
+    const gone = k * FLIGHT_ROWS.length > i + 0.2;
+    ctx.font = CANVAS_FONT(H * 0.07);
+    ctx.textAlign = "left";
+    ctx.fillStyle = "#E8D27A";
+    ctx.fillText(code, pad, y);
+    ctx.fillText(city, W * 0.29, y);
+    ctx.textAlign = "right";
+    ctx.fillStyle = gone ? "#FF5A4A" : "#7FE08A";
+    ctx.fillText(gone ? "CANCELLED" : "ON TIME", W - pad, y);
+  });
+};
+
+const FLIGHT_ROWS = [
+  ["SK 101", "LONDON"],
+  ["SK 214", "NEW YORK"],
+  ["SK 330", "TOKYO"],
+  ["SK 412", "DUBAI"],
+  ["SK 508", "SYDNEY"],
+  ["SK 617", "PARIS"],
+];
+
+// ================================================================ the shelter
+
+/**
+ * A civil-defence shelter at human scale (Slavoski is 4.2 tall): a concrete block with a lit doorway
+ * (4.4 wide × 5.6 tall), the steel blast door swung open, hazard stripes, sandbag walls and a big green
+ * SHELTER sign above the door. Front faces +Z at local z = 0; the block runs back to z = -7.
+ */
+export const SHELTER = { doorW: 4.4, doorH: 5.6, w: 12, d: 7, h: 8 };
+
+export const ShelterBunker: React.FC<{ position: V3; yaw?: number; t: number }> = ({ position, yaw = 0, t }) => {
+  const flick = 0.85 + 0.15 * Math.sin(t * 13);
+  return (
+    <group position={position} rotation={[0, yaw, 0]}>
+      <mesh position={[0, SHELTER.h / 2, -SHELTER.d / 2]} castShadow receiveShadow>
+        <BoxG args={[SHELTER.w, SHELTER.h, SHELTER.d]} />
+        <Flat color="#8A8F99" />
+      </mesh>
+      <mesh position={[0, SHELTER.h + 0.3, -SHELTER.d / 2]} castShadow>
+        <BoxG args={[SHELTER.w + 0.6, 0.6, SHELTER.d + 0.6]} />
+        <Flat color="#6A707C" />
+      </mesh>
+      {/* lit doorway with the top of a stairwell going down */}
+      <mesh position={[0, SHELTER.doorH / 2, 0.02]}>
+        <planeGeometry args={[SHELTER.doorW, SHELTER.doorH]} />
+        <Glow color="#3A2A18" />
+      </mesh>
+      {Array.from({ length: 4 }, (_, i) => (
+        <mesh key={i} position={[0, 0.3 + i * 0.35, 0.03]}>
+          <planeGeometry args={[SHELTER.doorW - 0.4, 0.12]} />
+          <Glow color="#E0B04E" opacity={0.55 - i * 0.1} />
+        </mesh>
+      ))}
+      <pointLight position={[0, 3.2, 1.2]} color="#FFC890" intensity={18 * flick} distance={12} decay={2} />
+      {/* hazard-striped door frame */}
+      {[-1, 1].map((sx) =>
+        Array.from({ length: 7 }, (_, i) => (
+          <mesh key={`${sx}${i}`} position={[sx * (SHELTER.doorW / 2 + 0.25), 0.4 + i * 0.8, 0.12]} castShadow>
+            <BoxG args={[0.5, 0.8, 0.24]} />
+            <Flat color={i % 2 ? "#15161C" : "#E0B04E"} />
+          </mesh>
+        )),
+      )}
+      <mesh position={[0, SHELTER.doorH + 0.3, 0.12]} castShadow>
+        <BoxG args={[SHELTER.doorW + 1.0, 0.6, 0.24]} />
+        <Flat color="#E0B04E" />
+      </mesh>
+      {/* open blast door, hinged on the right of the frame, swung out flat against the facade */}
+      <group position={[SHELTER.doorW / 2 + 0.5, 0, 0.25]} rotation={[0, -0.35, 0]}>
+        <mesh position={[SHELTER.doorW / 2, SHELTER.doorH / 2, 0.25]} castShadow>
+          <BoxG args={[SHELTER.doorW, SHELTER.doorH, 0.5]} />
+          <Flat color="#566270" />
+        </mesh>
+        <mesh position={[SHELTER.doorW / 2, SHELTER.doorH / 2, 0.52]}>
+          <CylG args={[0.5, 0.5, 0.08, 10]} />
+          <Flat color="#C8372D" />
+        </mesh>
+      </group>
+      {/* the big green sign above the door (a real 3D sign: people in front of it hide it) */}
+      <mesh position={[0, 7.15, 0.08]} castShadow>
+        <BoxG args={[7.4, 1.7, 0.16]} />
+        <Flat color="#15161C" />
+      </mesh>
+      <CanvasPanel position={[0, 7.15, 0.17]} w={7} h={1.4} draw={drawLabel("SHELTER  ↓", "#2FA05A", "#FFFFFF", 0.7)} />
+      {/* sandbag walls either side of the entrance */}
+      {[-1, 1].map((sx) =>
+        [0, 1, 2].map((row) =>
+          [0, 1, 2].map((i) => (
+            <mesh key={`${sx}${row}${i}`} position={[sx * (SHELTER.doorW / 2 + 1.2 + i * 1.0 + (row % 2) * 0.5), 0.25 + row * 0.48, 1.4]} castShadow>
+              <BoxG args={[0.95, 0.46, 0.7]} />
+              <Flat color={(row + i) % 2 ? "#A8956A" : "#B8A47A"} />
+            </mesh>
+          )),
+        ),
+      )}
+      {/* roof floodlights */}
+      {[-4.5, 4.5].map((x) => (
+        <group key={x} position={[x, SHELTER.h + 0.9, 0.2]}>
+          <mesh>
+            <BoxG args={[0.8, 0.5, 0.5]} />
+            <Flat color="#2A2A30" />
+          </mesh>
+          <mesh position={[0, -0.05, 0.26]}>
+            <planeGeometry args={[0.6, 0.3]} />
+            <Glow color="#F2EEE6" />
+          </mesh>
+          <pointLight position={[0, -0.6, 1.5]} color="#E8F0FF" intensity={16} distance={14} decay={2} />
+        </group>
+      ))}
+    </group>
   );
 };

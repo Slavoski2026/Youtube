@@ -7,7 +7,8 @@
  * perspective matches the 3D screen exactly. (Sizing the HTML to the projected bounding box every
  * frame, as `tvScreenRect` does, makes text wobble: avoid it for new work.)
  */
-import React from "react";
+import React, { useMemo } from "react";
+import * as THREE from "three";
 import type { V3 } from "./noise";
 import { project, type CameraSpec } from "./Stage";
 
@@ -79,5 +80,65 @@ export const ScreenHtml: React.FC<{
         {children(W, H)}
       </div>
     </div>
+  );
+};
+
+// ---------------------------------------------------------------- 3D signs (occludable)
+
+
+/** House font for canvas drawing (loaded by loadHouseFonts before any frame renders). */
+export const CANVAS_FONT = (px: number, bold = true) => `${bold ? 700 : 400} ${Math.round(px)}px "Slavoski Sans", "DejaVu Sans", sans-serif`;
+
+/** Draws `text` centred in a box, shrinking the font until it fits the box width. */
+export const fitText = (ctx: CanvasRenderingContext2D, text: string, cx: number, cy: number, maxW: number, size: number, color: string, bold = true) => {
+  let px = size;
+  ctx.font = CANVAS_FONT(px, bold);
+  while (px > 8 && ctx.measureText(text).width > maxW) {
+    px *= 0.94;
+    ctx.font = CANVAS_FONT(px, bold);
+  }
+  ctx.fillStyle = color;
+  ctx.textAlign = "center";
+  ctx.textBaseline = "middle";
+  ctx.fillText(text, cx, cy);
+};
+
+/**
+ * A real 3D panel (plane facing +Z) textured from a 2D canvas you draw on. Unlike HTML overlays it is
+ * part of the scene: characters in front of it hide it, and it never shimmers. `draw` runs every
+ * render, so it can animate (flashing, counting, a chart drawing in). Unlit, so it reads as a lit sign.
+ */
+export const CanvasPanel: React.FC<{
+  position: V3;
+  rotation?: V3;
+  w: number;
+  h: number;
+  /** Canvas width in px (height follows the aspect ratio). */
+  px?: number;
+  draw: (ctx: CanvasRenderingContext2D, W: number, H: number) => void;
+  fog?: boolean;
+}> = ({ position, rotation = [0, 0, 0], w, h, px = 1024, draw, fog = true }) => {
+  const W = px;
+  const H = Math.max(8, Math.round((px * h) / w));
+  const { canvas, tex } = useMemo(() => {
+    const canvas = document.createElement("canvas");
+    canvas.width = W;
+    canvas.height = H;
+    const tex = new THREE.CanvasTexture(canvas);
+    tex.colorSpace = THREE.SRGBColorSpace;
+    tex.anisotropy = 8;
+    return { canvas, tex };
+  }, [W, H]);
+  const ctx = canvas.getContext("2d");
+  if (ctx) {
+    ctx.clearRect(0, 0, W, H);
+    draw(ctx, W, H);
+    tex.needsUpdate = true;
+  }
+  return (
+    <mesh position={position} rotation={rotation}>
+      <planeGeometry args={[w, h]} />
+      <meshBasicMaterial map={tex} toneMapped={false} fog={fog} />
+    </mesh>
   );
 };
