@@ -22,6 +22,10 @@ const EPISODES: Record<string, () => Promise<{ schedule: (w: VoiceoverManifest["
     const ep = await import("../src/episodes/smart-animals/SmartAnimalsEpisode");
     return { schedule: ep.schedule, estimated: ep.estimatedSmartAnimals };
   },
+  "ww3-countdown": async () => {
+    const ep = await import("../src/episodes/ww3-countdown/Ww3Episode");
+    return { schedule: ep.schedule, estimated: ep.estimatedWw3 };
+  },
   "no-humans": async () => {
     const ep = await import("../src/episodes/no-humans/NoHumansEpisode");
     return { schedule: ep.schedule, estimated: ep.estimatedNoHumans };

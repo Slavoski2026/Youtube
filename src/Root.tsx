@@ -4,6 +4,7 @@ import { BlackHoleEpisode, estimatedBlackHole, type BlackHoleProps } from "./epi
 import { NoHumansEpisode, estimatedNoHumans, type NoHumansProps } from "./episodes/no-humans/NoHumansEpisode";
 import { GtaEpisode, estimatedGta, type GtaProps } from "./episodes/gta-24h/GtaEpisode";
 import { SmartAnimalsEpisode, estimatedSmartAnimals, type SmartAnimalsProps } from "./episodes/smart-animals/SmartAnimalsEpisode";
+import { Ww3Episode, estimatedWw3, type Ww3Props } from "./episodes/ww3-countdown/Ww3Episode";
 import { voiceoverMetadata } from "./lib/voiceover";
 import { withDetail } from "./slavoski/detail";
 
@@ -74,6 +75,16 @@ export const RemotionRoot: React.FC = () => (
       height={HEIGHT}
       defaultProps={{ voiceover: "smart-animals" } as SmartAnimalsProps}
       calculateMetadata={voiceoverMetadata<SmartAnimalsProps>(FPS, { tailSeconds: 2.2, fallback: estimatedSmartAnimals })}
+    />
+    <Composition
+      id="Ww3Countdown"
+      component={Ww3Episode}
+      durationInFrames={FPS * 60}
+      fps={FPS}
+      width={WIDTH}
+      height={HEIGHT}
+      defaultProps={{ voiceover: "ww3-countdown" } as Ww3Props}
+      calculateMetadata={voiceoverMetadata<Ww3Props>(FPS, { tailSeconds: 2.2, fallback: estimatedWw3 })}
     />
     <Composition
       id="StyleCheck"
