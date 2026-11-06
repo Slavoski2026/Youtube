@@ -42,21 +42,21 @@ export const NoWork2036Episode: React.FC<NoWork2036Props> = ({ manifest }) => {
   const block = blocks[shot.block];
 
   const sfx = useMemo<Sfx[]>(() => {
-    // All reused from earlier episodes: no new ElevenLabs spend.
+    // Reused from earlier episodes, plus one new chime (notify-chime, 17 credits).
     const start = (name: string) => shots.find((x) => x.name === name)?.at ?? -1;
     const last = blocks[blocks.length - 1];
     const cues: Sfx[] = [
       { src: "sfx/moon-whoosh.mp3", at: start("cold.0") + 0.1, volume: 0.3 },
       { src: "sfx/pebble-scratch.mp3", at: start("cold.2") + 0.35, volume: 0.35, duration: 0.8 },
-      { src: "sfx/phone-alert.mp3", at: start("cold.3"), volume: 0.12, duration: 0.9 },
+      { src: "sfx/notify-chime.mp3", at: start("cold.3") + 0.05, volume: 0.45, duration: 0.9, fade: 0.2 },
       { src: "sfx/tank-lid.mp3", at: start("cold.3") + 0.92, volume: 0.35 },
-      { src: "sfx/phone-alert.mp3", at: start("c1.1"), volume: 0.14 },
-      { src: "sfx/phone-alert.mp3", at: start("c1.2") + 0.1, volume: 0.12 },
+      // ep. 6's one new effect: a soft notification chime (no buzzing)
+      { src: "sfx/notify-chime.mp3", at: start("c1.1") + 0.1, volume: 0.6 },
       { src: "sfx/quake-rumble.mp3", at: start("c2.0"), volume: 0.18, duration: 2.0, fade: 0.6 },
       { src: "sfx/jet-flyover.mp3", at: start("c2.1") + 0.1, volume: 0.14, duration: 1.7, fade: 0.5 },
       { src: "sfx/tank-lid.mp3", at: start("c2.2") + 0.4, volume: 0.16 },
       { src: "sfx/tank-lid.mp3", at: start("c2.2") + 1.5, volume: 0.13 },
-      { src: "sfx/phone-alert.mp3", at: start("c3.1") + 0.25, volume: 0.12 },
+      { src: "sfx/notify-chime.mp3", at: start("c3.1") + 0.25, volume: 0.5 },
       { src: "sfx/jet-flyover.mp3", at: start("c3.2"), volume: 0.18, duration: 1.4, fade: 0.4 },
       { src: "sfx/gate-creak.mp3", at: start("c4.2"), volume: 0.25, duration: 1.4 },
       { src: "sfx/power-down.mp3", at: start("c5.3"), volume: 0.22, duration: 1.4, fade: 0.5 },

@@ -5,7 +5,7 @@
 import type { Caption } from "@remotion/captions";
 import React from "react";
 import { AbsoluteFill, random } from "remotion";
-import { CityGrid, StreetSet } from "../../slavoski/city";
+import { StreetSet, streetLayout } from "../../slavoski/city";
 import { Quadruped } from "../../slavoski/critters";
 import { BoxG, ConeG, IcoG } from "../../slavoski/detail";
 import { crowdLook } from "../../slavoski/hero";
@@ -21,7 +21,8 @@ import { lerpCam, Stage, type CameraSpec } from "../../slavoski/Stage";
 import { type CuedShot } from "../../slavoski/timeline";
 import { BED, Bedroom, Chair, WIN } from "../smart-animals/props";
 import { PalmTree } from "../gta-24h/props";
-import { AlertScreen, CITY, CLOCK, PHONE, Phone3D } from "../ww3-countdown/props";
+import { CITY, CLOCK, PHONE, Phone3D } from "../ww3-countdown/props";
+import { Drones, FutureCity, FutureSkyline, MegaTower } from "./future";
 import {
   AiCore,
   Balance,
@@ -37,7 +38,7 @@ import {
   Factory,
   HillRing,
   House,
-  MegaTower,
+  LockScreen,
   Office,
   PayScreen,
   QueueScreen,
@@ -45,7 +46,6 @@ import {
   robotHand,
   ScanHoop,
   ScanReadout,
-  Skyline,
   SkyscraperSite,
   slabTop,
   Stall,
@@ -66,11 +66,83 @@ const k01 = (lt: number, a: number, b: number) => ease(clamp01((lt - a) / (b - a
 const startFrame = (c: ShotCtx) => Math.round((c.t - c.lt) * 30);
 
 /** StreetSet ×3.5 so floors, cars and lamps match Slavoski (road |x| < 12.25, pavements to 21.35). */
-const BigStreet: React.FC<React.ComponentProps<typeof StreetSet>> = (props) => (
-  <group scale={CITY}>
-    <StreetSet {...props} />
-  </group>
+const BigStreet: React.FC<React.ComponentProps<typeof StreetSet> & { t?: number; future?: "bright" | "corp" | false }> = ({ t = 0, future = "bright", ...props }) => (
+  <>
+    <group scale={CITY}>
+      <StreetSet {...props} />
+      {future ? <StreetFuture seed={props.seed ?? "street"} style={future} /> : null}
+    </group>
+    {future ? (
+      <>
+        <FutureSkyline radius={240} count={26} seed={`${props.seed ?? "st"}sky`} arc={[Math.PI * 0.72, Math.PI * 1.28]} style={future} t={t} scale={1.25} />
+        <group position={[0, 0, -60]}>
+          <Drones count={12} t={t} style={future} radius={16} y={[24, 42]} seed={`${props.seed ?? "st"}dr`} />
+        </group>
+      </>
+    ) : null}
+  </>
 );
+
+/**
+ * 2036 touches on a kit street (kit units, inside the ×3.5 group): neon blade signs on the facades and one
+ * glass sky bridge between two buildings that face each other (its height below the lower roof).
+ */
+const BLADES = ["#7FE8FF", "#FF6FB0", "#FFBA58", "#B58CFF"];
+const StreetFuture: React.FC<{ seed: string; style: "bright" | "corp" }> = ({ seed, style }) => {
+  const specs = streetLayout(seed);
+  const face = 3.5 + 2.6;
+  const left = specs.filter((b) => b.position[0] < 0);
+  const right = specs.filter((b) => b.position[0] > 0);
+  let bridge: { z: number; y: number } | null = null;
+  for (const a of left) {
+    if (a.position[2] > -6 || a.position[2] < -34) continue;
+    const b = right.find((r) => Math.abs(r.position[2] - a.position[2]) < Math.min(a.d ?? 3, r.d ?? 3) / 2 - 0.6);
+    if (b) {
+      bridge = { z: (a.position[2] + b.position[2]) / 2, y: Math.min(a.h ?? 6, b.h ?? 6) * 0.62 };
+      break;
+    }
+  }
+  return (
+    <group>
+      {specs
+        .filter((b, i) => i % 3 === 1 && b.position[2] > -60)
+        .map((b, i) => {
+          const sx = b.position[0] > 0 ? 1 : -1;
+          const color = style === "corp" ? (i % 2 ? "#E8344A" : "#FF5A6A") : BLADES[i % BLADES.length];
+          return (
+            <group key={b.key} position={[sx * (face - 0.28), 3.6 + random(`${b.key}by`) * 1.5, b.position[2]]}>
+              <mesh>
+                <BoxG args={[0.5, 2.4, 0.16]} />
+                <Flat color="#15161C" />
+              </mesh>
+              {[-1, 1].map((s2) => (
+                <mesh key={s2} position={[0, 0, s2 * 0.085]} rotation={[0, s2 > 0 ? 0 : Math.PI, 0]}>
+                  <planeGeometry args={[0.36, 2.2]} />
+                  <Glow color={color} />
+                </mesh>
+              ))}
+            </group>
+          );
+        })}
+      {bridge ? (
+        <group position={[0, bridge.y, bridge.z]}>
+          <mesh castShadow>
+            <BoxG args={[face * 2, 0.7, 1.4]} />
+            <Flat color={style === "corp" ? "#2A2F48" : "#C9D2DE"} opacity={0.95} />
+          </mesh>
+          <mesh position={[0, 0.05, 0.71]}>
+            <planeGeometry args={[face * 2 - 0.4, 0.3]} />
+            <Glow color={style === "corp" ? "#E8344A" : "#7FE8FF"} />
+          </mesh>
+          <mesh position={[0, -0.36, 0]} rotation={[Math.PI / 2, 0, 0]}>
+            <planeGeometry args={[face * 2 - 0.4, 0.4]} />
+            <Glow color={style === "corp" ? "#E8344A" : "#7FE8FF"} />
+          </mesh>
+        </group>
+      ) : null}
+    </group>
+  );
+};
 
 const Shot: React.FC<{ children: React.ReactNode; overlay?: React.ReactNode } & React.ComponentProps<typeof Stage>> = ({ children, overlay, ...stage }) => (
   <AbsoluteFill>
@@ -164,7 +236,7 @@ const coldCommute: ShotFn = (c) => {
   );
   return (
     <Shot mood="dawn" camera={cam} fog={[60, 260]} shadowSize={40} light={0.9}>
-      <BigStreet seed="commute" />
+      <BigStreet seed="commute" t={c.t} />
       {walker(5, 15.4, 1)}
       {walker(9, 19.8, 3.5)}
       {walker(12, 15.6, -6)}
@@ -301,7 +373,7 @@ const coldOptional: ShotFn = (c) => {
       shadowSize={40}
       overlay={<CardLine text="WORK: OPTIONAL" sub="PREDICTED WITHIN 10–20 YEARS" y={470} appearFrame={startFrame(c) + 8} />}
     >
-      <BigStreet seed="optional" />
+      <BigStreet seed="optional" t={c.t} />
       <CarryBot position={[19.4, 0, -6 + c.lt * 1.9]} walk={c.lt * 1.3} walkAmount={0.8} />
       <CarryBot position={[14.6, 0, 4.5 - c.lt * 1.8]} yaw={Math.PI} walk={c.lt * 1.3 + 0.5} walkAmount={0.8} color="#A88052" />
       <Robot position={[8, 0, -14]} walk={c.lt * 1.2} yaw={0.5} />
@@ -334,30 +406,22 @@ const c1Welcome: ShotFn = (c) => {
 
 const c1Buzz: ShotFn = (c) => {
   const cam = move({ position: [BED.x + 1.9, 3.7, 5.6], target: [BED.x + 0.2, 2.5, -1.4] }, { position: [BED.x + 1.7, 3.6, 4.9], target: [BED.x + 0.2, 2.5, -1.4] }, c);
-  const jitter = Math.sin(c.t * 90) * 0.02;
-  const pose = bedPose({ headPitch: -0.45, headYaw: -0.2, expression: "neutral" });
+  // A calm notification: the screen fades up and he glances down at it. No vibrating, no rings.
+  const on = k01(c.lt, 0.05, 0.4);
+  const look = k01(c.lt, 0.35, 0.8);
+  const pose = bedPose({ headPitch: -0.1 - look * 0.35, headYaw: -0.2 * look, expression: "neutral" });
   return (
     <Shot mood="dawn" camera={cam} fog={false} stars={false} light={0.6} shadowSize={8}>
       <Bedroom lampOn={false} dawn />
       <Hero pose={pose} position={BED_HERO} />
-      <Phone3D position={[PHONE_BED[0] + jitter, PHONE_BED[1], PHONE_BED[2]]} rotation={[-Math.PI / 2, 0, 0.4]} glow="#C77A10" />
-      <pointLight position={[PHONE_BED[0], PHONE_BED[1] + 0.6, PHONE_BED[2]]} color="#FFB040" intensity={5} distance={3} decay={2} />
-      {/* buzz rings */}
-      {[0, 1].map((i) => {
-        const k = ((c.lt * 2.5 + i * 0.5) % 1 + 1) % 1;
-        return (
-          <mesh key={i} position={[PHONE_BED[0], PHONE_BED[1] + 0.03, PHONE_BED[2]]} rotation={[-Math.PI / 2, 0, 0]}>
-            <ringGeometry args={[0.45 + k * 0.6, 0.5 + k * 0.6, 24]} />
-            <meshBasicMaterial color="#FFBA58" transparent opacity={(1 - k) * 0.7} toneMapped={false} />
-          </mesh>
-        );
-      })}
+      <Phone3D position={PHONE_BED} rotation={[-Math.PI / 2, 0, 0.4]} glow={on > 0.5 ? "#DCE6F5" : "#2A3550"} />
+      <pointLight position={[PHONE_BED[0], PHONE_BED[1] + 0.6, PHONE_BED[2]]} color="#DCE6FF" intensity={3 * on} distance={3} decay={2} />
     </Shot>
   );
 };
 
 const c1Alert: ShotFn = (c) => (
-  <PhoneCU c={c} at={[BED.x - 0.2, 3.0, 0.9]} glow="#C77A10" shake={1} screen={(w, h) => <AlertScreen w={w} h={h} title="EMPLOYMENT UPDATE" body={"YOUR JOB HAS BEEN\nFULLY AUTOMATED"} t={c.t} tone="amber" />} stage={{ mood: "dawn", light: 0.5 }}>
+  <PhoneCU c={c} at={[BED.x - 0.2, 3.0, 0.9]} glow="#3A3550" screen={(w, h) => <LockScreen w={w} h={h} k={k01(c.lt, 0.05, 0.45)} title="Employment update" body="Your job has been fully automated." />} stage={{ mood: "dawn", light: 0.5 }}>
     <Bedroom lampOn={false} dawn />
   </PhoneCU>
 );
@@ -425,7 +489,7 @@ const c2Build: ShotFn = (c) => {
         );
       })}
       <Robot position={[8, slabTop(1), 0.0]} walk={c.lt * 1.2} yaw={-Math.PI / 2} />
-      <Skyline radius={170} seed="site" arc={[Math.PI * 0.6, Math.PI * 1.4]} />
+      <FutureSkyline radius={190} seed="site" t={c.t} />
     </Shot>
   );
 };
@@ -435,7 +499,7 @@ const c2Truck: ShotFn = (c) => {
   const z = -6 + c.lt * 9;
   return (
     <Shot mood="dawn" camera={cam} fog={[60, 320]} shadowSize={50}>
-      <BigStreet seed="trucks" cars={false} />
+      <BigStreet seed="trucks" cars={false} t={c.t} />
       <Truck position={[-6.1, 0, z]} t={c.t} label="left" />
       <Truck position={[6.1, 0, -95 - c.lt * 9]} yaw={Math.PI} t={c.t} label="none" color="#C8CFDA" />
     </Shot>
@@ -454,20 +518,53 @@ const c2Factory: ShotFn = (c) => {
 
 // ---------------------------------------------------------------- 03 freedom
 
+/** The four central blocks of a 6×6 FutureCity are a plaza under the AI core. */
+const PLAZA = (bx: number, bz: number) => (bx === 2 || bx === 3) && (bz === 2 || bz === 3);
+const Plaza: React.FC = () => (
+  <group>
+    <mesh position={[0, 0.08, 0]} receiveShadow>
+      <cylinderGeometry args={[14, 14.5, 0.16, 32]} />
+      <Flat color="#C9D2DE" />
+    </mesh>
+    <mesh position={[0, 0.17, 0]} rotation={[-Math.PI / 2, 0, 0]}>
+      <ringGeometry args={[10.5, 11.2, 48]} />
+      <Glow color={R_VISOR_C} />
+    </mesh>
+    {Array.from({ length: 8 }, (_, i) => {
+      const a = (i / 8) * Math.PI * 2;
+      return (
+        <group key={i} position={[Math.cos(a) * 12.8, 0, Math.sin(a) * 12.8]}>
+          <mesh position={[0, 0.6, 0]}>
+            <CylinderTrunk />
+            <Flat color={P.trunk} />
+          </mesh>
+          <mesh position={[0, 2.0, 0]} castShadow>
+            <IcoG args={[1.1, 1]} />
+            <Flat color={i % 2 ? P.leaf : P.leafDark} />
+          </mesh>
+        </group>
+      );
+    })}
+  </group>
+);
+const CylinderTrunk: React.FC = () => <cylinderGeometry args={[0.15, 0.2, 1.2, 6]} />;
+const R_VISOR_C = "#7FE8FF";
+
 const c3Core: ShotFn = (c) => {
-  const cam = move({ position: [0, 26, 78], target: [0, 24, 0] }, { position: [0, 25, 70], target: [0, 24.5, 0] }, c);
+  const cam = move({ position: [0, 74, 112], target: [0, 20, 0] }, { position: [0, 71, 104], target: [0, 21, 0] }, c);
   return (
-    <Shot mood="dawn" camera={cam} fog={[60, 300]} shadowSize={60}>
-      <CityGrid seed="free" blocks={7} />
-      <AiCore position={[0, 36, 0]} t={c.t} scale={3.4} light={6} />
-      <CoinFlow from={[0, 30, 0]} to={[0, 0.5, 6]} t={c.t} count={70} spread={34} arc={6} speed={0.5} size={0.9} seed="rain" />
+    <Shot mood="dawn" camera={cam} fog={[70, 340]} shadowSize={70}>
+      <FutureCity seed="free" blocks={6} t={c.t} skip={PLAZA} />
+      <Plaza />
+      <AiCore position={[0, 34, 0]} t={c.t} scale={3.4} light={6} />
+      <CoinFlow from={[0, 30, 0]} to={[0, 0.5, 6]} t={c.t} count={80} spread={40} arc={6} speed={0.5} size={1.0} seed="rain" />
     </Shot>
   );
 };
 
 const c3Pay: ShotFn = (c) => (
   <PhoneCU c={c} at={[16.5, 6.4, 14]} glow="#145A3A" screen={(w, h) => <PayScreen w={w} h={h} k={k01(c.lt, 0.2, 1.4)} />} stage={{ mood: "dawn", fog: [40, 240], light: 0.9 }}>
-    <BigStreet seed="pay" />
+    <BigStreet seed="pay" t={c.t} />
     <CoinFlow from={[16.5, 18, -6]} to={[16.5, 0.4, -6]} t={c.t} count={30} spread={6} arc={0} speed={0.6} size={0.35} seed="paycoins" />
   </PhoneCU>
 );
@@ -527,7 +624,7 @@ const c3Business: ShotFn = (c) => {
   const wave = Math.sin(c.lt * 10) * 0.3;
   return (
     <Shot mood="dawn" camera={cam} fog={[60, 260]} shadowSize={30}>
-      <BigStreet seed="biz" lamps={false} />
+      <BigStreet seed="biz" lamps={false} t={c.t} />
       <group position={STALL_AT} rotation={[0, -Math.PI / 2, 0]}>
         <Stall position={[0, 0, 0]} />
         <Hero pose={mergePose(REST, { rShoulder: [0.2, 2.3], rElbow: 0.4 + wave, lShoulder: [0.5, 0.1], lElbow: 0.8, expression: "smile", headPitch: 0.05 })} position={[0.3, 0, -0.55]} />
@@ -547,7 +644,7 @@ const c3Family: ShotFn = (c) => {
         <Flat color={P.grass} />
       </mesh>
       <HillRing />
-      <Skyline radius={110} seed="park" arc={[Math.PI * 0.75, Math.PI * 1.25]} />
+      <FutureSkyline radius={150} count={16} seed="park" arc={[Math.PI * 0.75, Math.PI * 1.25]} t={c.t} />
       <LeafyTree position={[-9, 0, -6]} scale={2.2} seed="pk1" />
       <LeafyTree position={[10, 0, -9]} scale={2.6} seed="pk2" />
       <LeafyTree position={[-3, 0, -16]} scale={2.4} seed="pk3" />
@@ -562,6 +659,25 @@ const c3Family: ShotFn = (c) => {
 
 // ---------------------------------------------------------------- 04 the catch
 
+/** Looking up at the HQ crown: the hex logo, the red halo, drones. */
+const c4Crown: ShotFn = (c) => {
+  const cam = move({ position: [34, 66, 64], target: [0, 98, -6] }, { position: [31, 67, 59], target: [0, 99, -6] }, c);
+  return (
+    <Shot mood="night" dust={0.35} camera={cam} fog={[90, 520]} shadowSize={70}>
+      <mesh position={[0, -0.05, 0]} receiveShadow>
+        <BoxG args={[500, 0.1, 500]} />
+        <Flat color="#2A2E3C" />
+      </mesh>
+      <MegaTower position={[0, 0, -6]} h={110} w={18} t={c.t} />
+      <FutureSkyline radius={150} seed="corp" arc={[Math.PI * 0.3, Math.PI * 1.7]} style="corp" t={c.t} />
+      <group position={[0, 0, -6]}>
+        <Drones count={12} t={c.t} style="corp" radius={26} y={[80, 120]} seed="crown" />
+      </group>
+    </Shot>
+  );
+};
+
+/** The robot army at the HQ's doors: "...that own the robots". */
 const c4Tower: ShotFn = (c) => {
   const cam = move({ position: [5, 9, 56], target: [0, 9, 0] }, { position: [4.4, 9, 53], target: [0, 10, 0] }, c);
   return (
@@ -571,7 +687,7 @@ const c4Tower: ShotFn = (c) => {
         <Flat color="#2A2E3C" />
       </mesh>
       <MegaTower position={[0, 0, -6]} h={110} w={18} t={c.t} />
-      <Skyline radius={150} seed="corp" arc={[Math.PI * 0.55, Math.PI * 1.45]} power={0.6} />
+      <FutureSkyline radius={150} seed="corp" arc={[Math.PI * 0.55, Math.PI * 1.45]} style="corp" t={c.t} />
       {/* ranks of robots in front of the doors, all standing to attention */}
       {Array.from({ length: 6 }, (_, row) =>
         Array.from({ length: 9 }, (_, col) => (
@@ -590,10 +706,7 @@ const c4Money: ShotFn = (c) => {
         <BoxG args={[500, 0.1, 500]} />
         <Flat color="#2A2E3C" />
       </mesh>
-      <group position={[0, 0, 0]}>
-        <CityGrid seed="corpcity" blocks={7} skip={(bx, bz) => bx === 3 && bz === 3} />
-      </group>
-      <MegaTower position={[0, 0, 0]} h={110} w={11} t={c.t} />
+      <FutureCity seed="corpcity" blocks={7} style="corp" t={c.t} skip={(bx, bz) => bx === 3 && bz === 3} hq={[[0, 0, 110, 10]]} />
       <CoinFlow from={[0, 4, 0]} fromSpread={44} to={[0, 102, 0]} spread={1.5} arc={18} t={c.t} count={110} speed={0.55} size={1.8} seed="up" />
     </Shot>
   );
@@ -610,8 +723,8 @@ const c4Queue: ShotFn = (c) => {
         <Flat color="#2C3247" />
       </mesh>
       <ClosedFactory t={c.t} />
-      <Skyline radius={140} seed="queue" arc={[Math.PI * 0.6, Math.PI * 1.4]} power={0.7} />
-      <Skyline radius={85} count={20} seed="queue2" arc={[Math.PI * 1.15, Math.PI * 1.75]} power={0.7} />
+      <FutureSkyline radius={150} seed="queue" arc={[Math.PI * 0.6, Math.PI * 1.4]} t={c.t} power={0.7} />
+      <FutureSkyline radius={110} count={16} seed="queue2" arc={[Math.PI * 1.15, Math.PI * 1.75]} t={c.t} power={0.7} />
       {QUEUE.map((q, i) =>
         q.x > -1.5 ? null : i === 16 ? (
           <Hero key={i} pose={mergePose(REST, { expression: "worried", headYaw: 0.35, headPitch: -0.05 })} position={[q.x, 0, q.z]} yaw={Math.PI / 2} />
@@ -639,12 +752,13 @@ const c4Wait: ShotFn = (c) => (
 // ---------------------------------------------------------------- 05 two futures
 
 const c5Grow: ShotFn = (c) => {
-  const cam = move({ position: [30, 42, 62], target: [0, 6, 0] }, { position: [27, 40, 56], target: [0, 7, 0] }, c);
+  const cam = move({ position: [56, 76, 104], target: [0, 10, 0] }, { position: [52, 72, 96], target: [0, 11, 0] }, c);
   const g = k01(c.lt, 0.05, 1.0);
   return (
     <Shot mood="dawn" camera={cam} fog={[70, 300]} shadowSize={60}>
-      <CityGrid seed="grow" blocks={7} modify={(s) => ({ h: (s.h ?? 6) * (1 + g * 1.1) })} />
-      <AiCore position={[0, 44, -30]} t={c.t} scale={2.2} light={3} />
+      <FutureCity seed="grow" blocks={6} t={c.t} grow={0.55 + g * 0.6} skip={PLAZA} />
+      <Plaza />
+      <AiCore position={[0, 30 + g * 6, 0]} t={c.t} scale={2.4} light={3} />
     </Shot>
   );
 };
@@ -668,6 +782,7 @@ const Suburb: React.FC<{ t: number }> = ({ t }) => (
       <Flat color={P.road} />
     </mesh>
     <HillRing />
+    <FutureSkyline radius={200} count={14} seed="burb" arc={[Math.PI * 0.8, Math.PI * 1.2]} t={t} scale={0.9} />
     {HOMES.map((h) => (
       <House key={h.x} position={[h.x, 0, -2]} color={h.color} roof={h.roof} build={h.build} />
     ))}
@@ -732,13 +847,22 @@ const c5Med: ShotFn = (c) => {
   );
 };
 
+/** The corporate future: the same kind of city, dark and hazy, three HQ towers with the hex logo over it. */
+const HQ_BLOCKS = (bx: number, bz: number) => (bx === 1 && bz === 2) || (bx === 4 && bz === 3) || (bx === 3 && bz === 5);
 const DarkCity: React.FC<{ t: number }> = ({ t }) => (
-  <group>
-    <CityGrid seed="dark" blocks={7} modify={() => ({ power: 0.15, color: "#2A2F48" })} skip={(bx, bz) => (bx === 1 && bz === 2) || (bx === 4 && bz === 3) || (bx === 3 && bz === 5)} />
-    <MegaTower position={[-28, 0, -14]} h={95} w={9} t={t} seed="m1" />
-    <MegaTower position={[14, 0, 0]} h={120} w={10} t={t} seed="m2" />
-    <MegaTower position={[0, 0, 28]} h={80} w={9} t={t} seed="m3" />
-  </group>
+  <FutureCity
+    seed="dark"
+    blocks={7}
+    style="corp"
+    t={t}
+    skip={HQ_BLOCKS}
+    drones={30}
+    hq={[
+      [-36, -18, 100, 10],
+      [18, 0, 125, 10],
+      [0, 36, 85, 9.5],
+    ]}
+  />
 );
 
 const c5Corp: ShotFn = (c) => {
@@ -755,7 +879,7 @@ const c5Control: ShotFn = (c) => {
   const cam = move({ position: [3, 3.2, 30], target: [0, 18, -60] }, { position: [2.6, 3.0, 26], target: [0, 20, -60] }, c);
   return (
     <Shot mood="night" dust={0.8} camera={cam} fog={[80, 420]} shadowSize={40}>
-      <BigStreet seed="ctrl" lampsOn={false} cars={false} modify={() => ({ power: 0.2 })} />
+      <BigStreet seed="ctrl" lampsOn={false} cars={false} modify={() => ({ power: 0.2 })} t={c.t} future="corp" />
       <MegaTower position={[0, 0, -150]} h={200} w={30} t={c.t} seed="end" />
       <Hero pose={mergePose(REST, { headPitch: 0.5, expression: "worried" })} position={[1.5, 0, 12]} yaw={Math.PI} />
       {Array.from({ length: 5 }, (_, i) => {
@@ -805,11 +929,11 @@ const Rooftop: React.FC = () => (
       <BoxG args={[3, 3.2, 3]} />
       <Flat color="#3A3F55" />
     </mesh>
-    <group position={[0, -24, -40]}>
-      <CityGrid seed="roof" blocks={9} />
+    <group position={[0, -24, -78]}>
+      <FutureCity seed="roof" blocks={6} t={0} monorail drones={16} />
     </group>
     <group position={[0, -24, 0]}>
-      <Skyline radius={95} count={40} seed="roofsky" arc={[0, Math.PI * 2]} />
+      <FutureSkyline radius={150} count={30} seed="roofsky" arc={[0, Math.PI * 2]} t={0} />
     </group>
   </group>
 );
@@ -935,7 +1059,8 @@ export const SHOTS: Record<string, CuedShot<ShotFn>[]> = {
     { cue: "finally see", fn: c3Family },
   ],
   c4: [
-    { cue: null, fn: c4Tower },
+    { cue: null, fn: c4Crown },
+    { cue: "own the robots", fn: c4Tower },
     { cue: "keep the money", fn: c4Money },
     { cue: "What if millions", fn: c4Queue },
     { cue: "before help", fn: c4Wait },
@@ -981,7 +1106,7 @@ export const thumbShot: ShotFn = () => {
         <Robot position={[7, slabTop(1), 0]} yaw={-0.3} walk={0.2} walkAmount={0.7} />
       </group>
       <Crane position={[30, 0, -30]} swing={0.4} />
-      <Skyline radius={170} seed="thumb" arc={[Math.PI * 0.6, Math.PI * 1.4]} />
+      <FutureSkyline radius={190} seed="thumb" t={0} />
       <CarryBot {...carry} />
       <Robot position={[3.7, 0, 4.2]} yaw={-Math.PI / 2 + 0.45} walk={0.65} walkAmount={0.7} />
       <Hero pose={mergePose(REST, { expression: "alarm", lShoulder: [0.9, 0.85], rShoulder: [0.9, 0.85], lElbow: 1.9, rElbow: 1.9, headPitch: 0.05 })} position={[0, 0, 9.5]} yaw={0.08} />

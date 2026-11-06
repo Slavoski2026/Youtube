@@ -762,10 +762,10 @@ export const CoinPile: React.FC<{ position: V3; r?: number; h?: number }> = ({ p
 
 // ================================================================ corporate tower
 
-const CORP_RED = "#E8344A";
+export const CORP_RED = "#E8344A";
 
 /** Draws the generic corporate logo (a hexagon ring around a dot): no text, no real brand. */
-const drawLogo = (ctx: CanvasRenderingContext2D, W: number, H: number) => {
+export const drawLogo = (ctx: CanvasRenderingContext2D, W: number, H: number) => {
   ctx.fillStyle = "#0B0D16";
   ctx.fillRect(0, 0, W, H);
   const r = Math.min(W, H) * 0.36;
@@ -784,60 +784,6 @@ const drawLogo = (ctx: CanvasRenderingContext2D, W: number, H: number) => {
   ctx.beginPath();
   ctx.arc(W / 2, H / 2, r * 0.28, 0, Math.PI * 2);
   ctx.fill();
-};
-
-/** A giant dark corporate tower with red light strips and a logo near the top. Base on y = 0. */
-export const MegaTower: React.FC<{ position: V3; h?: number; w?: number; t?: number; seed?: string }> = ({ position, h = 90, w = 16, t = 0, seed = "mega" }) => {
-  const body = "#141826";
-  const crownH = h * 0.12;
-  const baseH = h * 0.1;
-  const blink = Math.floor(t * 1.4 + random(seed) * 2) % 2 === 0;
-  return (
-    <group position={position}>
-      <mesh position={[0, baseH / 2, 0]} castShadow receiveShadow>
-        <BoxG args={[w * 1.35, baseH, w * 1.35]} />
-        <Flat color="#1B2030" />
-      </mesh>
-      <mesh position={[0, baseH + (h - baseH - crownH) / 2, 0]} castShadow receiveShadow>
-        <BoxG args={[w, h - baseH - crownH, w]} />
-        <Flat color={body} />
-      </mesh>
-      <mesh position={[0, h - crownH / 2, 0]} castShadow>
-        <BoxG args={[w * 0.72, crownH, w * 0.72]} />
-        <Flat color={body} />
-      </mesh>
-      <mesh position={[0, h + 6, 0]}>
-        <CylG args={[0.15, 0.4, 12, 6]} />
-        <Flat color="#2B2F3E" />
-      </mesh>
-      <mesh position={[0, h + 12.2, 0]}>
-        <IcoG args={[0.6, 1]} />
-        <Glow color={blink ? "#FF4040" : "#401010"} fog={false} />
-      </mesh>
-      {/* vertical light strips on all four faces */}
-      {[0, 1, 2, 3].map((f) => (
-        <group key={f} rotation={[0, (f * Math.PI) / 2, 0]}>
-          {[-0.36, 0, 0.36].map((x) => (
-            <mesh key={x} position={[x * w, baseH + (h - baseH - crownH) / 2, w / 2 + 0.02]}>
-              <planeGeometry args={[0.35, h - baseH - crownH - 4]} />
-              <Glow color={CORP_RED} />
-            </mesh>
-          ))}
-          {/* a few lit floors */}
-          {Array.from({ length: 10 }, (_, i) => {
-            const y = baseH + 3 + i * ((h - baseH - crownH - 6) / 10);
-            return random(`${seed}f${f}${i}`) < 0.35 ? (
-              <mesh key={`w${i}`} position={[-0.18 * w, y, w / 2 + 0.03]}>
-                <planeGeometry args={[w * 0.28, 0.5]} />
-                <Glow color="#E8C8C8" opacity={0.85} />
-              </mesh>
-            ) : null;
-          })}
-          <CanvasPanel position={[0, h - crownH / 2, w * 0.36 + 0.03]} w={w * 0.5} h={w * 0.5} px={512} draw={drawLogo} />
-        </group>
-      ))}
-    </group>
-  );
 };
 
 // ================================================================ houses, stall, park, beach
@@ -1450,3 +1396,43 @@ export const drawSign = (text: string, bg: string, color: string, size = 0.6) =>
   ctx.font = CANVAS_FONT(H * size);
   fitText(ctx, text, W / 2, H / 2 + H * 0.04, W * 0.88, H * size, color);
 };
+
+/** A calm lock screen with one notification card sliding in (generic, not any real phone OS). */
+export const LockScreen: React.FC<{ w: number; h: number; k: number; app?: string; title: string; body: string; time?: string; date?: string }> = ({
+  w,
+  h,
+  k,
+  app = "WORK",
+  title,
+  body,
+  time = "7:02",
+  date = "THURSDAY, JANUARY 3",
+}) => (
+  <div style={{ width: w, height: h, background: "linear-gradient(180deg, #24324A 0%, #3A3550 55%, #5A4A60 100%)", fontFamily: FONT, color: "#F2F2F6", position: "relative", overflow: "hidden" }}>
+    <div style={{ position: "absolute", top: h * 0.09, left: 0, right: 0, textAlign: "center", fontSize: w * 0.05, letterSpacing: "0.12em", opacity: 0.75 }}>{date}</div>
+    <div style={{ position: "absolute", top: h * 0.12, left: 0, right: 0, textAlign: "center", fontSize: w * 0.26, fontWeight: 700, letterSpacing: "-0.01em" }}>{time}</div>
+    <div
+      style={{
+        position: "absolute",
+        left: w * 0.05,
+        right: w * 0.05,
+        top: h * 0.34,
+        padding: w * 0.05,
+        borderRadius: w * 0.06,
+        background: "rgba(246,246,250,0.92)",
+        color: "#1A1E2C",
+        opacity: k,
+        transform: `translateY(${(1 - k) * -h * 0.05}px) scale(${0.96 + 0.04 * k})`,
+        boxShadow: "0 12px 40px rgba(0,0,0,0.35)",
+      }}
+    >
+      <div style={{ display: "flex", alignItems: "center", gap: w * 0.03, fontSize: w * 0.045, letterSpacing: "0.08em", color: "#5A6070" }}>
+        <div style={{ width: w * 0.07, height: w * 0.07, borderRadius: w * 0.018, background: "#24748F" }} />
+        <div style={{ flex: 1 }}>{app}</div>
+        <div>now</div>
+      </div>
+      <div style={{ marginTop: w * 0.035, fontSize: w * 0.078, fontWeight: 700 }}>{title}</div>
+      <div style={{ marginTop: w * 0.015, fontSize: w * 0.078, lineHeight: 1.22 }}>{body}</div>
+    </div>
+  </div>
+);
