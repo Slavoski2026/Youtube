@@ -12,6 +12,16 @@ export const P = {
   dawnGlow: "#D9926A",
   stormSky: "#1A2230",
   stormGlow: "#36465A",
+  /** Daylight, sunset, overcast and snow skies (time-of-day and weather variety, ep. 6 onward). */
+  daySky: "#4A8FD6",
+  dayGlow: "#C4E0F6",
+  sunsetSky: "#2E3560",
+  sunsetGlow: "#F49A5C",
+  overcastSky: "#56606F",
+  overcastGlow: "#9AA3B0",
+  snowSky: "#8592A6",
+  snowGlow: "#DCE3EC",
+  cloud: "#F4F6FA",
 
   // Nature
   grass: "#4F8F4A",

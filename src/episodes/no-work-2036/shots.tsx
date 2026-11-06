@@ -10,7 +10,7 @@ import { Quadruped } from "../../slavoski/critters";
 import { BoxG, ConeG, IcoG } from "../../slavoski/detail";
 import { crowdLook } from "../../slavoski/hero";
 import { Flat, Glow } from "../../slavoski/materials";
-import { LeafyTree } from "../../slavoski/nature";
+import { Clouds, LeafyTree, LightningBolt, Rain } from "../../slavoski/nature";
 import { clamp01, ease, type V3 } from "../../slavoski/noise";
 import { CardLine } from "../../slavoski/Overlays";
 import { P } from "../../slavoski/palette";
@@ -66,15 +66,15 @@ const k01 = (lt: number, a: number, b: number) => ease(clamp01((lt - a) / (b - a
 const startFrame = (c: ShotCtx) => Math.round((c.t - c.lt) * 30);
 
 /** StreetSet ×3.5 so floors, cars and lamps match Slavoski (road |x| < 12.25, pavements to 21.35). */
-const BigStreet: React.FC<React.ComponentProps<typeof StreetSet> & { t?: number; future?: "bright" | "corp" | false }> = ({ t = 0, future = "bright", ...props }) => (
+const BigStreet: React.FC<React.ComponentProps<typeof StreetSet> & { t?: number; future?: "bright" | "corp" | false; day?: boolean }> = ({ t = 0, future = "bright", day = false, ...props }) => (
   <>
     <group scale={CITY}>
-      <StreetSet {...props} />
+      <StreetSet {...props} lampsOn={day ? false : props.lampsOn} modify={day ? (sp, i) => ({ power: 0.35, ...(props.modify?.(sp, i) ?? {}) }) : props.modify} />
       {future ? <StreetFuture seed={props.seed ?? "street"} style={future} /> : null}
     </group>
     {future ? (
       <>
-        <FutureSkyline radius={240} count={26} seed={`${props.seed ?? "st"}sky`} arc={[Math.PI * 0.72, Math.PI * 1.28]} style={future} t={t} scale={1.25} />
+        <FutureSkyline radius={240} count={26} seed={`${props.seed ?? "st"}sky`} arc={[Math.PI * 0.72, Math.PI * 1.28]} style={future} t={t} scale={1.25} power={day ? 0.3 : undefined} />
         <group position={[0, 0, -60]}>
           <Drones count={12} t={t} style={future} radius={16} y={[24, 42]} seed={`${props.seed ?? "st"}dr`} />
         </group>
@@ -215,6 +215,14 @@ const PhoneCU: React.FC<{
   );
 };
 
+// ---------------------------------------------------------------- sky & weather
+
+const CLOUD = { day: "#F4F6FA", dawn: "#F2C9B4", sunset: "#F7C0A0", storm: "#4E5666", overcast: "#AEB6C2" } as const;
+/** Daylight clouds for a shot (a ring around the origin). */
+const Sky: React.FC<{ t: number; tint: keyof typeof CLOUD; y?: number; radius?: number; count?: number; seed?: string }> = ({ t, tint, y = 45, radius = 200, count = 16, seed = "sky" }) => (
+  <Clouds t={t} color={CLOUD[tint]} y={y} radius={radius} count={count} seed={seed} />
+);
+
 // ---------------------------------------------------------------- cold open
 
 const coldEarth: ShotFn = (c) => {
@@ -237,6 +245,7 @@ const coldCommute: ShotFn = (c) => {
   return (
     <Shot mood="dawn" camera={cam} fog={[60, 260]} shadowSize={40} light={0.9}>
       <BigStreet seed="commute" t={c.t} />
+      <Sky t={c.t} tint="dawn" seed="commute" />
       {walker(5, 15.4, 1)}
       {walker(9, 19.8, 3.5)}
       {walker(12, 15.6, -6)}
@@ -367,13 +376,14 @@ const coldOptional: ShotFn = (c) => {
   const cam = move({ position: [12.5, 5.0, 29], target: [16.6, 3.8, 2] }, { position: [12.9, 4.9, 27], target: [16.6, 3.8, 2] }, c);
   return (
     <Shot
-      mood="dawn"
+      mood="day"
       camera={cam}
-      fog={[60, 260]}
+      fog={[60, 300]}
       shadowSize={40}
       overlay={<CardLine text="WORK: OPTIONAL" sub="PREDICTED WITHIN 10–20 YEARS" y={470} appearFrame={startFrame(c) + 8} />}
     >
-      <BigStreet seed="optional" t={c.t} />
+      <BigStreet seed="optional" t={c.t} day />
+      <Sky t={c.t} tint="day" seed="optional" />
       <CarryBot position={[19.4, 0, -6 + c.lt * 1.9]} walk={c.lt * 1.3} walkAmount={0.8} />
       <CarryBot position={[14.6, 0, 4.5 - c.lt * 1.8]} yaw={Math.PI} walk={c.lt * 1.3 + 0.5} walkAmount={0.8} color="#A88052" />
       <Robot position={[8, 0, -14]} walk={c.lt * 1.2} yaw={0.5} />
@@ -464,11 +474,12 @@ const c2Build: ShotFn = (c) => {
   const hb = robotHand("r", b);
   const mid: V3 = [(ha[0] + hb[0]) / 2, (ha[1] + hb[1]) / 2 + 0.25 + lift, (ha[2] + hb[2]) / 2];
   return (
-    <Shot mood="dawn" camera={cam} fog={[80, 420]} shadowSize={50} light={0.95}>
+    <Shot mood="day" camera={cam} fog={[80, 460]} shadowSize={50} light={0.95}>
       <mesh position={[0, -0.05, 0]} receiveShadow>
         <BoxG args={[400, 0.1, 400]} />
         <Flat color="#5A5048" />
       </mesh>
+      <Sky t={c.t} tint="day" seed="build" y={55} />
       <SkyscraperSite />
       <Crane position={[26, 0, -6]} swing={c.t * 1.2} />
       <Robot {...a} />
@@ -489,7 +500,7 @@ const c2Build: ShotFn = (c) => {
         );
       })}
       <Robot position={[8, slabTop(1), 0.0]} walk={c.lt * 1.2} yaw={-Math.PI / 2} />
-      <FutureSkyline radius={190} seed="site" t={c.t} />
+      <FutureSkyline radius={190} seed="site" t={c.t} power={0.3} />
     </Shot>
   );
 };
@@ -498,8 +509,9 @@ const c2Truck: ShotFn = (c) => {
   const cam = move({ position: [9, 4.2, 34], target: [-6, 4.6, 4] }, { position: [8.5, 4.0, 32], target: [-6, 4.6, 7] }, c);
   const z = -6 + c.lt * 9;
   return (
-    <Shot mood="dawn" camera={cam} fog={[60, 320]} shadowSize={50}>
-      <BigStreet seed="trucks" cars={false} t={c.t} />
+    <Shot mood="day" camera={cam} fog={[60, 340]} shadowSize={50}>
+      <BigStreet seed="trucks" cars={false} t={c.t} day />
+      <Sky t={c.t} tint="day" seed="trucks" />
       <Truck position={[-6.1, 0, z]} t={c.t} label="left" />
       <Truck position={[6.1, 0, -95 - c.lt * 9]} yaw={Math.PI} t={c.t} label="none" color="#C8CFDA" />
     </Shot>
@@ -509,7 +521,7 @@ const c2Truck: ShotFn = (c) => {
 const c2Factory: ShotFn = (c) => {
   const cam = move({ position: [12, 8.5, 24], target: [-3, 6.6, -4] }, { position: [10.8, 8.3, 22], target: [-3.5, 6.7, -4] }, c);
   return (
-    <Shot mood="night" camera={cam} fog={[40, 140]} stars={false} light={1.15} shadowSize={30}>
+    <Shot mood="overcast" camera={cam} fog={[40, 160]} stars={false} light={0.95} shadowSize={30}>
       <Factory t={c.t} boardX={-5} />
       <Robot position={[-4 - c.lt * 1.6, 0, 6.8]} walk={c.lt * 1.2} yaw={-Math.PI / 2} />
     </Shot>
@@ -553,8 +565,9 @@ const R_VISOR_C = "#7FE8FF";
 const c3Core: ShotFn = (c) => {
   const cam = move({ position: [0, 74, 112], target: [0, 20, 0] }, { position: [0, 71, 104], target: [0, 21, 0] }, c);
   return (
-    <Shot mood="dawn" camera={cam} fog={[70, 340]} shadowSize={70}>
-      <FutureCity seed="free" blocks={6} t={c.t} skip={PLAZA} />
+    <Shot mood="day" camera={cam} fog={[90, 380]} shadowSize={70}>
+      <Sky t={c.t} tint="day" seed="free" radius={240} />
+      <FutureCity seed="free" blocks={6} t={c.t} skip={PLAZA} power={0.3} />
       <Plaza />
       <AiCore position={[0, 34, 0]} t={c.t} scale={3.4} light={6} />
       <CoinFlow from={[0, 30, 0]} to={[0, 0.5, 6]} t={c.t} count={80} spread={40} arc={6} speed={0.5} size={1.0} seed="rain" />
@@ -563,8 +576,8 @@ const c3Core: ShotFn = (c) => {
 };
 
 const c3Pay: ShotFn = (c) => (
-  <PhoneCU c={c} at={[16.5, 6.4, 14]} glow="#145A3A" screen={(w, h) => <PayScreen w={w} h={h} k={k01(c.lt, 0.2, 1.4)} />} stage={{ mood: "dawn", fog: [40, 240], light: 0.9 }}>
-    <BigStreet seed="pay" t={c.t} />
+  <PhoneCU c={c} at={[16.5, 6.4, 14]} glow="#145A3A" screen={(w, h) => <PayScreen w={w} h={h} k={k01(c.lt, 0.2, 1.4)} />} stage={{ mood: "day", fog: [40, 260], light: 0.9 }}>
+    <BigStreet seed="pay" t={c.t} day />
     <CoinFlow from={[16.5, 18, -6]} to={[16.5, 0.4, -6]} t={c.t} count={30} spread={6} arc={0} speed={0.6} size={0.35} seed="paycoins" />
   </PhoneCU>
 );
@@ -574,8 +587,9 @@ const c3Travel: ShotFn = (c) => {
   const jump = Math.max(0, Math.sin(Math.min(1, c.lt / 0.55) * Math.PI)) * 0.5;
   const pose = mergePose(REST, { lShoulder: [0.2, 2.4], rShoulder: [0.2, 2.4], lElbow: 0.25, rElbow: 0.25, expression: "smile", headPitch: 0.15, bob: jump });
   return (
-    <Shot mood="dawn" camera={cam} fog={[80, 500]} shadowSize={20} light={1.05}>
+    <Shot mood="sunset" camera={cam} fog={[80, 500]} shadowSize={20} light={1.0} keyDir={[0.3, 0.25, -1]}>
       <Beach />
+      <Sky t={c.t} tint="sunset" seed="beach" y={60} radius={300} />
       <PalmTree position={[-7, 0, -5]} height={9} seed="p1" />
       <PalmTree position={[8.5, 0, -8]} height={10} seed="p2" />
       <PalmTree position={[-14, 0, -14]} height={8} seed="p3" />
@@ -623,8 +637,8 @@ const c3Business: ShotFn = (c) => {
   const cam = move({ position: [3.5, 4.6, 4.5], target: [17.2, 4.0, -2.3] }, { position: [4.6, 4.55, 4.0], target: [17.2, 4.0, -2.3] }, c);
   const wave = Math.sin(c.lt * 10) * 0.3;
   return (
-    <Shot mood="dawn" camera={cam} fog={[60, 260]} shadowSize={30}>
-      <BigStreet seed="biz" lamps={false} t={c.t} />
+    <Shot mood="day" camera={cam} fog={[60, 280]} shadowSize={30}>
+      <BigStreet seed="biz" lamps={false} t={c.t} day />
       <group position={STALL_AT} rotation={[0, -Math.PI / 2, 0]}>
         <Stall position={[0, 0, 0]} />
         <Hero pose={mergePose(REST, { rShoulder: [0.2, 2.3], rElbow: 0.4 + wave, lShoulder: [0.5, 0.1], lElbow: 0.8, expression: "smile", headPitch: 0.05 })} position={[0.3, 0, -0.55]} />
@@ -638,13 +652,14 @@ const c3Family: ShotFn = (c) => {
   const cam = move({ position: [0.4, 4.8, 20.5], target: [0, 2.9, 0] }, { position: [0.3, 4.7, 19], target: [0, 2.95, 0] }, c);
   const open = k01(c.lt, 0, 0.5);
   return (
-    <Shot mood="dawn" camera={cam} fog={[60, 300]} shadowSize={20} light={1.05}>
+    <Shot mood="day" camera={cam} fog={[60, 320]} shadowSize={20} light={1.0}>
       <mesh position={[0, -0.05, 0]} receiveShadow>
         <BoxG args={[400, 0.1, 400]} />
         <Flat color={P.grass} />
       </mesh>
+      <Sky t={c.t} tint="day" seed="park" />
       <HillRing />
-      <FutureSkyline radius={150} count={16} seed="park" arc={[Math.PI * 0.75, Math.PI * 1.25]} t={c.t} />
+      <FutureSkyline radius={150} count={16} seed="park" arc={[Math.PI * 0.75, Math.PI * 1.25]} t={c.t} power={0.3} scale={0.8} />
       <LeafyTree position={[-9, 0, -6]} scale={2.2} seed="pk1" />
       <LeafyTree position={[10, 0, -9]} scale={2.6} seed="pk2" />
       <LeafyTree position={[-3, 0, -16]} scale={2.4} seed="pk3" />
@@ -661,9 +676,12 @@ const c3Family: ShotFn = (c) => {
 
 /** Looking up at the HQ crown: the hex logo, the red halo, drones. */
 const c4Crown: ShotFn = (c) => {
+  const flash = c.lt > 0.55 && c.lt < 0.75 ? 1 - Math.abs(c.lt - 0.6) * 6 : 0;
   const cam = move({ position: [34, 66, 64], target: [0, 98, -6] }, { position: [31, 67, 59], target: [0, 99, -6] }, c);
   return (
-    <Shot mood="night" dust={0.35} camera={cam} fog={[90, 520]} shadowSize={70}>
+    <Shot mood="storm" camera={cam} fog={[90, 520]} shadowSize={70} overlay={<AbsoluteFill style={{ background: "#E8EEFF", opacity: flash * 0.22, pointerEvents: "none" }} />}>
+      <Sky t={c.t} tint="storm" seed="crown" y={150} radius={260} count={20} />
+      <LightningBolt top={[-70, 190, -170]} bottom={[-55, 30, -150]} flash={flash} seed="crown" />
       <mesh position={[0, -0.05, 0]} receiveShadow>
         <BoxG args={[500, 0.1, 500]} />
         <Flat color="#2A2E3C" />
@@ -681,11 +699,12 @@ const c4Crown: ShotFn = (c) => {
 const c4Tower: ShotFn = (c) => {
   const cam = move({ position: [5, 9, 56], target: [0, 9, 0] }, { position: [4.4, 9, 53], target: [0, 10, 0] }, c);
   return (
-    <Shot mood="night" dust={0.35} camera={cam} fog={[90, 420]} shadowSize={70}>
+    <Shot mood="storm" camera={cam} fog={[90, 420]} shadowSize={70}>
       <mesh position={[0, -0.05, 0]} receiveShadow>
         <BoxG args={[500, 0.1, 500]} />
         <Flat color="#2A2E3C" />
       </mesh>
+      <Sky t={c.t} tint="storm" seed="army" y={130} />
       <MegaTower position={[0, 0, -6]} h={110} w={18} t={c.t} />
       <FutureSkyline radius={150} seed="corp" arc={[Math.PI * 0.55, Math.PI * 1.45]} style="corp" t={c.t} />
       {/* ranks of robots in front of the doors, all standing to attention */}
@@ -701,11 +720,12 @@ const c4Tower: ShotFn = (c) => {
 const c4Money: ShotFn = (c) => {
   const cam = move({ position: [70, 46, 130], target: [0, 50, 0] }, { position: [64, 47, 120], target: [0, 52, 0] }, c);
   return (
-    <Shot mood="night" dust={0.35} camera={cam} fog={[90, 420]} shadowSize={70}>
+    <Shot mood="storm" camera={cam} fog={[90, 420]} shadowSize={70}>
       <mesh position={[0, -0.05, 0]} receiveShadow>
         <BoxG args={[500, 0.1, 500]} />
         <Flat color="#2A2E3C" />
       </mesh>
+      <Sky t={c.t} tint="storm" seed="money" y={90} radius={280} />
       <FutureCity seed="corpcity" blocks={7} style="corp" t={c.t} skip={(bx, bz) => bx === 3 && bz === 3} hq={[[0, 0, 110, 10]]} />
       <CoinFlow from={[0, 4, 0]} fromSpread={44} to={[0, 102, 0]} spread={1.5} arc={18} t={c.t} count={110} speed={0.55} size={1.8} seed="up" />
     </Shot>
@@ -717,11 +737,13 @@ const QUEUE = Array.from({ length: 24 }, (_, i) => ({ x: -36 + i * 2.15, z: 2.4 
 const c4Queue: ShotFn = (c) => {
   const cam = move({ position: [12, 5.5, 6.6], target: [-18, 3.0, 0.6] }, { position: [11, 5.4, 6.3], target: [-18, 3.0, 0.6] }, c);
   return (
-    <Shot mood="night" dust={0.3} camera={cam} fog={[40, 220]} shadowSize={40}>
+    <Shot mood="overcast" camera={cam} fog={[40, 240]} shadowSize={40} light={0.85}>
       <mesh position={[0, -0.05, 0]} receiveShadow>
         <BoxG args={[400, 0.1, 400]} />
-        <Flat color="#2C3247" />
+        <Flat color="#3A4050" />
       </mesh>
+      <Sky t={c.t} tint="overcast" seed="queue" />
+      <Rain center={[-6, 9, 3]} size={[44, 22, 22]} t={c.t} count={1100} seed="queue" />
       <ClosedFactory t={c.t} />
       <FutureSkyline radius={150} seed="queue" arc={[Math.PI * 0.6, Math.PI * 1.4]} t={c.t} power={0.7} />
       <FutureSkyline radius={110} count={16} seed="queue2" arc={[Math.PI * 1.15, Math.PI * 1.75]} t={c.t} power={0.7} />
@@ -737,11 +759,12 @@ const c4Queue: ShotFn = (c) => {
 };
 
 const c4Wait: ShotFn = (c) => (
-  <PhoneCU c={c} at={[-6.5, 4.4, 9]} glow="#0E1018" screen={(w, h) => <QueueScreen w={w} h={h} t={c.lt} />} stage={{ mood: "night", dust: 0.3, fog: [30, 200], light: 0.8 }}>
+  <PhoneCU c={c} at={[-6.5, 4.4, 9]} glow="#0E1018" screen={(w, h) => <QueueScreen w={w} h={h} t={c.lt} />} stage={{ mood: "overcast", fog: [30, 220], light: 0.8 }}>
     <mesh position={[0, -0.05, 0]} receiveShadow>
       <BoxG args={[400, 0.1, 400]} />
-      <Flat color="#2C3247" />
+      <Flat color="#3A4050" />
     </mesh>
+    <Rain center={[-6.5, 6, 4]} size={[12, 12, 10]} t={c.t} count={420} seed="wait" />
     <ClosedFactory t={c.t} />
     {QUEUE.slice(10, 17).map((q, i) => (
       <Hero key={i} pose={mergePose(REST, { expression: "worried" })} position={[q.x, 0, q.z]} yaw={Math.PI / 2} look={crowdLook(q.seed)} />
@@ -755,8 +778,9 @@ const c5Grow: ShotFn = (c) => {
   const cam = move({ position: [56, 76, 104], target: [0, 10, 0] }, { position: [52, 72, 96], target: [0, 11, 0] }, c);
   const g = k01(c.lt, 0.05, 1.0);
   return (
-    <Shot mood="dawn" camera={cam} fog={[70, 300]} shadowSize={60}>
-      <FutureCity seed="grow" blocks={6} t={c.t} grow={0.55 + g * 0.6} skip={PLAZA} />
+    <Shot mood="day" camera={cam} fog={[90, 380]} shadowSize={60}>
+      <Sky t={c.t} tint="day" seed="grow" radius={240} />
+      <FutureCity power={0.3} seed="grow" blocks={6} t={c.t} grow={0.55 + g * 0.6} skip={PLAZA} />
       <Plaza />
       <AiCore position={[0, 30 + g * 6, 0]} t={c.t} scale={2.4} light={3} />
     </Shot>
@@ -782,7 +806,7 @@ const Suburb: React.FC<{ t: number }> = ({ t }) => (
       <Flat color={P.road} />
     </mesh>
     <HillRing />
-    <FutureSkyline radius={200} count={14} seed="burb" arc={[Math.PI * 0.8, Math.PI * 1.2]} t={t} scale={0.9} />
+    <FutureSkyline radius={200} count={14} seed="burb" arc={[Math.PI * 0.8, Math.PI * 1.2]} t={t} scale={0.9} power={0.3} />
     {HOMES.map((h) => (
       <House key={h.x} position={[h.x, 0, -2]} color={h.color} roof={h.roof} build={h.build} />
     ))}
@@ -811,7 +835,8 @@ const Suburb: React.FC<{ t: number }> = ({ t }) => (
 const c5Homes: ShotFn = (c) => {
   const cam = move({ position: [30, 8.5, 24], target: [-4, 4.2, -2] }, { position: [27.5, 8.2, 22], target: [-4, 4.2, -2] }, c);
   return (
-    <Shot mood="dawn" camera={cam} fog={[60, 300]} shadowSize={30} light={1.05}>
+    <Shot mood="day" camera={cam} fog={[60, 320]} shadowSize={30} light={1.0}>
+      <Sky t={c.t} tint="day" seed="homes" />
       <Suburb t={c.lt} />
     </Shot>
   );
@@ -827,11 +852,11 @@ const c5Med: ShotFn = (c) => {
   const panel: V3 = [-0.2, 7.0, -2.6];
   return (
     <Shot
-      mood="dawn"
+      mood="day"
       camera={cam}
       fog={false}
       stars={false}
-      light={1.05}
+      light={0.95}
       shadowSize={12}
       overlay={
         <ScreenHtml c={panel} w={3.2} h={2.0} cam={cam} width={c.width} height={c.height}>
@@ -879,6 +904,9 @@ const c5Control: ShotFn = (c) => {
   const cam = move({ position: [3, 3.2, 30], target: [0, 18, -60] }, { position: [2.6, 3.0, 26], target: [0, 20, -60] }, c);
   return (
     <Shot mood="night" dust={0.8} camera={cam} fog={[80, 420]} shadowSize={40}>
+      <group scale={2}>
+        <Rain center={[0.8, 6, 2]} size={[16, 12, 18]} t={c.t} count={900} seed="ctrl" speed={14} />
+      </group>
       <BigStreet seed="ctrl" lampsOn={false} cars={false} modify={() => ({ power: 0.2 })} t={c.t} future="corp" />
       <MegaTower position={[0, 0, -150]} h={200} w={30} t={c.t} seed="end" />
       <Hero pose={mergePose(REST, { headPitch: 0.5, expression: "worried" })} position={[1.5, 0, 12]} yaw={Math.PI} />
@@ -935,14 +963,20 @@ const Rooftop: React.FC = () => (
     <group position={[0, -24, 0]}>
       <FutureSkyline radius={150} count={30} seed="roofsky" arc={[0, Math.PI * 2]} t={0} />
     </group>
+    {/* the low sun, sinking behind the city */}
+    <mesh position={[-60, 14, -420]}>
+      <circleGeometry args={[34, 16]} />
+      <Glow color="#FFC07A" fog={false} />
+    </mesh>
   </group>
 );
 
 const c6Roof: ShotFn = (c) => {
   const cam = move({ position: [1.4, 6.4, 2.5], target: [-1.5, -3.5, -40] }, { position: [1.2, 6.3, 1.6], target: [-1.5, -3.5, -40] }, c);
   return (
-    <Shot mood="night" camera={cam} fog={[60, 260]} shadowSize={20}>
+    <Shot mood="sunset" camera={cam} fog={[70, 300]} shadowSize={20} keyDir={[-0.4, 0.3, -1]}>
       <Rooftop />
+      <Sky t={c.t} tint="sunset" seed="roof" y={22} radius={260} />
       <Hero pose={mergePose(REST, { headPitch: 0.1, headYaw: -0.2, expression: "worried" })} position={[0, 0, -8.5]} yaw={Math.PI + 0.25} />
       <AiCore position={[-22, 8, -110]} t={c.t} scale={3} light={4} />
       <Robot position={[6, 0, -9.5]} yaw={Math.PI - 0.3} />
@@ -999,8 +1033,9 @@ const c6Ask: ShotFn = (c) => {
     expression: "worried",
   });
   return (
-    <Shot mood="night" camera={cam} fog={[60, 260]} shadowSize={14}>
+    <Shot mood="sunset" camera={cam} fog={[70, 300]} shadowSize={14} keyDir={[-0.4, 0.3, -1]}>
       <Rooftop />
+      <Sky t={c.t} tint="sunset" seed="roof" y={22} radius={260} />
       <Hero pose={pose} position={[0, 0, 0]} />
     </Shot>
   );
@@ -1009,7 +1044,8 @@ const c6Ask: ShotFn = (c) => {
 const c6Good: ShotFn = (c) => {
   const cam = move({ position: [-30, 14, 30], target: [6, 3, 0] }, { position: [-27, 13.4, 27.5], target: [6, 3, 0] }, c);
   return (
-    <Shot mood="dawn" camera={cam} fog={[60, 300]} shadowSize={40} light={1.05}>
+    <Shot mood="day" camera={cam} fog={[60, 320]} shadowSize={40} light={1.0}>
+      <Sky t={c.t} tint="day" seed="good" />
       <Suburb t={1 + c.lt} />
       <Blanket position={[14, 0, 6]} w={5} d={3.4} />
       <Hero pose={mergePose(REST, { lShoulder: [2.6, 0.5], rShoulder: [2.6, 0.5], lElbow: 0.3, rElbow: 0.3, expression: "smile" })} position={[9, 0, 7]} yaw={0.3} />
@@ -1024,6 +1060,10 @@ const c6Bad: ShotFn = (c) => {
   return (
     <Shot mood="night" dust={0.85} camera={cam} fog={[120, 520]} shadowSize={90}>
       <DarkCity t={c.t} />
+      {/* rain streaks between the camera and the city */}
+      <group position={[-80, 50, 110]} scale={4}>
+        <Rain center={[0, 0, 0]} size={[16, 14, 12]} t={c.t} count={700} seed="bad" speed={5} />
+      </group>
     </Shot>
   );
 };
@@ -1090,11 +1130,12 @@ export const thumbShot: ShotFn = () => {
   const carry: RobotProps = { position: [-4.3, 0, 5.0], yaw: Math.PI / 2 - 0.35, walk: 0.3, walkAmount: 0.8 };
   const site: V3 = [1, 0, -22];
   return (
-    <Shot mood="dawn" camera={cam} fog={[80, 420]} shadowSize={40} light={1.0}>
+    <Shot mood="day" camera={cam} fog={[80, 460]} shadowSize={40} light={1.0}>
       <mesh position={[0, -0.05, 0]} receiveShadow>
         <BoxG args={[400, 0.1, 400]} />
         <Flat color="#5A5048" />
       </mesh>
+      <Sky t={0} tint="day" seed="thumb" y={55} />
       <group position={site}>
         <SkyscraperSite />
         <Robot position={[-3.2, slabTop(2), -0.4]} yaw={Math.PI / 2} l={[1.3, 0.1, 0.35]} r={[1.3, 0.1, 0.35]} />
@@ -1106,7 +1147,7 @@ export const thumbShot: ShotFn = () => {
         <Robot position={[7, slabTop(1), 0]} yaw={-0.3} walk={0.2} walkAmount={0.7} />
       </group>
       <Crane position={[30, 0, -30]} swing={0.4} />
-      <FutureSkyline radius={190} seed="thumb" t={0} />
+      <FutureSkyline radius={190} seed="thumb" t={0} power={0.3} />
       <CarryBot {...carry} />
       <Robot position={[3.7, 0, 4.2]} yaw={-Math.PI / 2 + 0.45} walk={0.65} walkAmount={0.7} />
       <Hero pose={mergePose(REST, { expression: "alarm", lShoulder: [0.9, 0.85], rShoulder: [0.9, 0.85], lElbow: 1.9, rElbow: 1.9, headPitch: 0.05 })} position={[0, 0, 9.5]} yaw={0.08} />

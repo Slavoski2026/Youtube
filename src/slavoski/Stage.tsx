@@ -7,7 +7,14 @@ import { shake, type V3 } from "./noise";
 import { P } from "./palette";
 import { DetailProvider, useDetailLevel } from "./detail";
 
-export type Mood = "night" | "dust" | "space" | "dawn" | "storm";
+/**
+ * Time of day and weather. Vary these across an episode and between episodes (the user noticed every
+ * video was night): night, dawn, day, sunset, overcast, storm, snow, plus dust (disaster) and space.
+ */
+export type Mood = "night" | "dust" | "space" | "dawn" | "storm" | "day" | "sunset" | "overcast" | "snow";
+
+/** Moods drawn as a top-to-horizon linear gradient (daylight skies) rather than the radial night glow. */
+const GRADIENT: Mood[] = ["dawn", "day", "sunset", "overcast", "snow"];
 
 export type CameraSpec = {
   position: V3;
@@ -23,6 +30,10 @@ const SKY: Record<Mood, { sky: string; glow: string }> = {
   space: { sky: P.space, glow: P.spaceGlow },
   dawn: { sky: P.dawnSky, glow: P.dawnGlow },
   storm: { sky: P.stormSky, glow: P.stormGlow },
+  day: { sky: P.daySky, glow: P.dayGlow },
+  sunset: { sky: P.sunsetSky, glow: P.sunsetGlow },
+  overcast: { sky: P.overcastSky, glow: P.overcastGlow },
+  snow: { sky: P.snowSky, glow: P.snowGlow },
 };
 
 const CameraRig: React.FC<CameraSpec & { offset: V3 }> = ({ position, target, up, fov, offset }) => {
@@ -83,6 +94,10 @@ const Lights: React.FC<{ mood: Mood; keyDir?: V3; shadowSize?: number; shadows: 
     space: { hs: "#D6E0FF", hg: "#1C1830", hi: 1.4, dc: "#FFFFFF", di: 2.2, dir: [-0.7, 0.5, 0.6] as V3 },
     dawn: { hs: "#CFE0F0", hg: "#3A3440", hi: 2.5, dc: "#FFD2A8", di: 1.7, dir: [0.75, 0.38, -0.55] as V3 },
     storm: { hs: "#9FB0C8", hg: "#202430", hi: 2.0, dc: "#B8C6E0", di: 0.9, dir: [-0.3, 1, 0.3] as V3 },
+    day: { hs: "#DDEBFF", hg: "#5A5450", hi: 2.7, dc: "#FFF2DC", di: 1.5, dir: [0.55, 1, 0.45] as V3 },
+    sunset: { hs: "#F2C8B4", hg: "#3A2A36", hi: 2.2, dc: "#FFB27A", di: 1.6, dir: [0.8, 0.32, -0.5] as V3 },
+    overcast: { hs: "#C9D1DC", hg: "#454A55", hi: 2.7, dc: "#DDE4EE", di: 0.45, dir: [-0.2, 1, 0.3] as V3 },
+    snow: { hs: "#E4ECF6", hg: "#8890A0", hi: 2.8, dc: "#F0F4FA", di: 0.6, dir: [0.3, 1, 0.4] as V3 },
   }[mood];
   const d = keyDir ?? cfg.dir;
   const len = Math.hypot(...d);
@@ -165,7 +180,9 @@ export const Stage: React.FC<StageProps> = ({
   const glow = dust > 0 ? mixHex(base.glow, P.dustSkyGlow, dust) : base.glow;
   const offset = shake(shakeSeed, frame / fps, shakeAmp);
   const lightMood: Mood = mood === "night" && dust > 0.5 ? "dust" : mood;
-  const fogColor = mood === "dawn" ? mixHex(sky, glow, 0.6) : sky;
+  const gradient = GRADIENT.includes(mood);
+  const fogColor = gradient ? mixHex(sky, glow, 0.6) : sky;
+  const starOpacity: Partial<Record<Mood, number>> = { space: 0.8, dawn: 0.25, sunset: 0.18, day: 0, overcast: 0, snow: 0, storm: 0 };
   // React context doesn't reliably cross into the R3F canvas: hand the detail level over explicitly.
   const detail = useDetailLevel();
 
@@ -173,7 +190,7 @@ export const Stage: React.FC<StageProps> = ({
     <AbsoluteFill
       style={{
         background:
-          mood === "dawn"
+          gradient
             ? `linear-gradient(180deg, ${sky} 0%, ${sky} 22%, ${mixHex(sky, glow, 0.55)} 52%, ${glow} 78%, ${glow} 100%)`
             : `radial-gradient(ellipse 85% 60% at 50% 42%, ${glow} 0%, ${sky} 70%)`,
       }}
@@ -189,7 +206,7 @@ export const Stage: React.FC<StageProps> = ({
         <CameraRig {...camera} offset={offset} />
         {fog ? <fog attach="fog" args={[fogColor, fog[0], fog[1]]} /> : null}
         <Lights mood={lightMood} keyDir={keyDir} shadows={shadows} shadowSize={shadowSize} scale={light} />
-        {stars && mood !== "storm" ? <Stars opacity={mood === "space" ? 0.8 : mood === "dawn" ? 0.25 : 0.55 * (1 - dust * 0.6)} /> : null}
+        {stars && (starOpacity[mood] ?? 0.55) > 0 ? <Stars opacity={starOpacity[mood] ?? 0.55 * (1 - dust * 0.6)} /> : null}
         <DetailProvider value={detail}>{children}</DetailProvider>
       </ThreeCanvas>
       {overlay}

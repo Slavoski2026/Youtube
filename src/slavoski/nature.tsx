@@ -237,3 +237,80 @@ export const LightningBolt: React.FC<{ top: V3; bottom: V3; flash: number; seed?
     </group>
   );
 };
+
+/** Snow: slow, drifting faceted flakes in a box around `center` (seeded, frame-driven). */
+export const Snow: React.FC<{ center: V3; size?: [number, number, number]; t: number; count?: number; seed?: string; speed?: number }> = ({
+  center,
+  size = [30, 20, 30],
+  t,
+  count = 400,
+  seed = "snow",
+  speed = 2.2,
+}) => {
+  const ref = useRef<THREE.InstancedMesh>(null);
+  const flakes = useMemo(
+    () =>
+      Array.from({ length: count }, (_, i) => ({
+        x: (random(`${seed}x${i}`) - 0.5) * size[0],
+        z: (random(`${seed}z${i}`) - 0.5) * size[2],
+        o: random(`${seed}o${i}`),
+        s: 0.06 + random(`${seed}s${i}`) * 0.08,
+        w: random(`${seed}w${i}`) * Math.PI * 2,
+      })),
+    [count, seed, size],
+  );
+  useLayoutEffect(() => {
+    const m = ref.current;
+    if (!m) return;
+    flakes.forEach((f, i) => {
+      const k = (f.o + (t * speed) / size[1]) % 1;
+      tmp.position.set(center[0] + f.x + Math.sin(t * 0.9 + f.w) * 0.6, center[1] + size[1] / 2 - k * size[1], center[2] + f.z + Math.cos(t * 0.7 + f.w) * 0.4);
+      tmp.rotation.set(t + f.w, t * 0.7, 0);
+      tmp.scale.setScalar(f.s / 0.1);
+      tmp.updateMatrix();
+      m.setMatrixAt(i, tmp.matrix);
+    });
+    m.instanceMatrix.needsUpdate = true;
+  });
+  return (
+    <instancedMesh ref={ref} args={[undefined, undefined, flakes.length]} key={flakes.length}>
+      <IcoG args={[0.1, 0]} />
+      <meshBasicMaterial color="#F4F8FF" toneMapped={false} />
+    </instancedMesh>
+  );
+};
+
+/**
+ * Low-poly clouds: clusters of faceted puffs on a ring around the origin at height `y`, drifting with t.
+ * Tint them per sky: white by day, peach at sunset, grey when overcast or stormy.
+ */
+export const Clouds: React.FC<{ t: number; radius?: number; y?: number; count?: number; color?: string; seed?: string; scale?: number; arc?: [number, number]; opacity?: number }> = ({
+  t,
+  radius = 220,
+  y = 70,
+  count = 14,
+  color = "#F4F6FA",
+  seed = "cloud",
+  scale = 1,
+  arc = [0, Math.PI * 2],
+  opacity = 1,
+}) => (
+  <group>
+    {Array.from({ length: count }, (_, i) => {
+      const a = arc[0] + ((arc[1] - arc[0]) * (i + random(`${seed}a${i}`) * 0.8)) / count + t * 0.004;
+      const r = radius * (0.85 + random(`${seed}r${i}`) * 0.3);
+      const s = scale * (8 + random(`${seed}s${i}`) * 10);
+      const puffs = 3 + Math.floor(random(`${seed}n${i}`) * 3);
+      return (
+        <group key={i} position={[Math.sin(a) * r, y + random(`${seed}y${i}`) * 25, Math.cos(a) * r]} rotation={[0, a, 0]}>
+          {Array.from({ length: puffs }, (_, j) => (
+            <mesh key={j} position={[(j - (puffs - 1) / 2) * s * 0.8, (random(`${seed}py${i}${j}`) - 0.3) * s * 0.4, (random(`${seed}pz${i}${j}`) - 0.5) * s * 0.4]} scale={[1, 0.62, 0.8]}>
+              <IcoG args={[s * (0.6 + random(`${seed}ps${i}${j}`) * 0.5), 1]} />
+              <meshLambertMaterial color={color} flatShading fog={false} transparent={opacity < 1} opacity={opacity} />
+            </mesh>
+          ))}
+        </group>
+      );
+    })}
+  </group>
+);

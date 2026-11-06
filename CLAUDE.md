@@ -63,10 +63,16 @@ Reference frames: ep. "What if the Moon fell?" — title card, `02 / A CHANGING 
 | **Brand amber** (title accent, caption keywords) | `#FFBA58` |
 | Caption highlight cream | `#F6EBC4` |
 
-Mood arc: start cool and clean (deep navy, crisp stars), and as the scenario escalates shift toward dusty purple-brown skies, orange fire light and haze. Put the palette in `src/slavoski/palette.ts` and use only those tokens.
+Mood arc: start cool and clean (deep navy, crisp stars), and as the scenario escalates shift toward dusty purple-brown skies, orange fire light and haze. Put the palette in `src/slavoski/palette.ts` and use only those tokens. Daylight skies (`daySky`/`dayGlow`, `sunsetSky`/`sunsetGlow`, `overcastSky`/`overcastGlow`, `snowSky`/`snowGlow`) and `cloud` are in the palette too.
+
+### Time of day and weather: vary them (standing rule since ep. 6)
+The user noticed "it's always night in my videos". **Night is no longer the default.** Give every episode a time-of-day and weather arc that serves the story, and make each episode's arc different from the last ones:
+- `Stage` moods: `night`, `dawn`, `day`, `sunset`, `overcast`, `storm`, `snow`, plus `dust` (disaster) and `space`. Daylight moods draw a top-to-horizon gradient sky. Stars show only at night, at dawn and faintly at sunset.
+- Weather in `nature.tsx`: `Rain` (scale its group up for big sets; place the box near the camera so streaks read), `Snow`, `Clouds` (faceted puffs on a ring: keep them low, y ≈ 20–55, or ground cameras never see them; tint white by day, peach at sunset/dawn, grey for overcast/storm) and `LightningBolt` (with a short white overlay flash).
+- By day, dim the practicals: `power` ≈ 0.3 on buildings and future towers, street lamps off (`BigStreet day` in ep. 6). Let the mood follow the story (ep. 6: sunrise rush hour → bright midday city → golden beach → a storm over the corporate HQ → an overcast queue in the rain → sunny good future vs rainy night bad future → sunset on the rooftop).
 
 ### Lighting
-- Moonlit night: cool hemisphere light plus a soft directional "moon" key; warm practicals (windows, lamps, headlights) as emissive materials, not real lights.
+- Per mood (see "Time of day and weather" above). At night: a cool hemisphere light plus a soft directional "moon" key; warm practicals (windows, lamps, headlights) as emissive materials, not real lights.
 - Disaster acts: add an orange point/directional fill from the fire/lava side, and a light distance fog in the sky colour.
 - A subtle **radial vignette** over every shot, and a faint star field (seeded small points) in every sky.
 - Soft shadows on (`shadows="percentage"`).
