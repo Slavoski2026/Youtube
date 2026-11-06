@@ -121,7 +121,7 @@ Store chapters in the episode's `timeline.ts` as `{ n, title, at }` keyed to nar
    - `npx remotion bundle src/index.ts --out-dir=build`
    - `npx tsx scripts/shot-frames.ts <slug>` lists every shot with its length (flags shots over ~4 s); `--frames` prints mid-shot frames.
    - `npx tsx scripts/contact-sheet.ts <Id> "<frames>" 0.3 out/sheet.png` renders them in one browser session and tiles them with frame numbers.
-6. Render the video: `npm run render -- <Id> out/<name>.mp4`. The user can preview interactively with `npm run dev` (Remotion Studio).
+6. Render the video: `npm run render -- <Id> out/<name>.mp4`. The user can preview interactively with `npm run dev` (Remotion Studio). **Finals always use the HQ mode** (the user asked for "better graphics" on ep. 6): `npm run render -- <Id> out/<name>-final.mp4 --gl=swangle --props='{"hq":true}' --concurrency=4 --crf=15 --jpeg-quality=95` (2× supersampled canvases, 4096 px shadows, ≈ 2 s per frame here; render the thumbnail with the same `--props`). Previews and contact sheets stay at normal quality.
 7. Export subtitles: `npx tsx scripts/export-srt.ts <slug>`.
 
 ## Pacing (standing rules)
@@ -163,10 +163,10 @@ Objects must never pass into each other on screen. This applies to disaster scen
 | File | Contents |
 |---|---|
 | `palette.ts` | The colour tokens above |
-| `Stage.tsx` | A shot: sky gradient, canvas with the house lighting per mood (`night`/`dust`/`space`/`dawn`/`storm`, plus a `dust` blend and a `light` multiplier, e.g. 0.3 to see a planet's night side), fog, stars, vignette, declarative camera (position, target, `up`, `fov`) with seeded `shake`; also `project()` (pin HTML labels to 3D points) and `lerpCam()` |
+| `Stage.tsx` | A shot: sky gradient, canvas (2× supersampled with 4096 px shadows when the render's input props carry `hq: true`, see `isHq()`) with the house lighting per mood (`night`/`dawn`/`day`/`sunset`/`overcast`/`storm`/`snow`/`dust`/`space`, plus a `dust` blend and a `light` multiplier, e.g. 0.3 to see a planet's night side), fog, stars, vignette, declarative camera (position, target, `up`, `fov`) with seeded `shake`; also `project()` (pin HTML labels to 3D points) and `lerpCam()` |
 | `rig/Hero.tsx`, `hero.ts` | Slavoski, the posable low-poly hero: `REST`, `walkPose`, `mergePose`, `lerpPose`, expressions (neutral, alarm, smile, worried, awe, relief), `handPosition()`, `headPosition()`, `armJoints`/`legJoints`, `reach()` (numeric IK), `groundedBob()`, `selfClipping()`; `ghost` (see-through observer) and `vanish` (flash and shrink to nothing) modes. Head radius 0.68, torso half-depth 0.36, height ≈ 4.2. |
 | `city.tsx` | `Building` (seeded windows, `tilt`, `sink`, `power` blackout, `decay` with broken windows, ivy and roof plants), `StreetSet` (`lampsOn`, `modify`) and `CityGrid` (roads every `block`; with an even `blocks` count a road runs through x = 0, otherwise block centres sit there), `Road`, `Lamp` (`on`, `lean`), `PineTree`, `Car` (`rust`, `crumple`, `tilt`, `moss`; `CAR_HALF_LENGTH` for contact points), `Plane`, `PowerStation` |
-| `nature.tsx` | `GrassTufts` (growth 0..1, over an area or along points), `Bush`, `LeafyTree`, `GroundCover`, `Rain`, `LightningBolt` |
+| `nature.tsx` | `GrassTufts` (growth 0..1, over an area or along points), `Bush`, `LeafyTree`, `GroundCover`, `Rain` (`thickness`/`opacity`: thin it near the camera), `Snow`, `Clouds`, `LightningBolt` |
 | `animals.tsx` | `Animal` (dog, deer, fox, wolf): ep. 2's simple quadruped rig with `walk` phase, `headPitch` (graze) and `sit` |
 | `critters.tsx` | Expressive animals with Slavoski-style square eyes, brows (`flat`/`angry`/`worried`/`smug`) and a talking `mouth`: `Quadruped` (dog, cat, cow, pig, rat; `walk`, `rear` onto hind legs with `arms`, `sit`, `wag`), `Bird` (pigeon, crow, chicken; `peck`, `flap`, `pebble`), `Chimp`, `Octopus` (waving arms, `reach`), `ToonEyes`; `quadPaw()` gives a front paw's world position for held props |
 | `detail.tsx` | `DetailProvider` / `useDetail()` and the detail-aware geometry elements (see "Detail level") |
@@ -174,7 +174,7 @@ Objects must never pass into each other on screen. This applies to disaster scen
 | `room.tsx` | `GamingRoom` (couch, TV, wall clock and window sky that follow `hours` since noon, side table with cans, water bottle, phone), `SEAT`/`SEAT_YAW`, `sittingPose()`, `controllerAt()`, `Controller`, `tvScreenRect()` (projected TV screen, used to overlay a live game feed rendered by a second `Stage` with `size`) |
 | `space.tsx` | `FacetedMoon`, `FacetedEarth` (atmosphere rim, clouds, tidal `stretch`, `heat`, `cityLights` 0..1), `OrbitPath` (dotted), `BlackHole` (core plus dashed marker ring), `AccretionDisk` |
 | `fx.tsx` | `Meteor` (tapered trail plus rock), `Fireball`, `SmokeCluster`, `LavaCrack`, `Shockwave`, `Debris` (comes to rest on the ground), `FloodWater`, `Volcano` |
-| `materials.tsx`, `noise.ts` | `Flat` (flat-shaded Lambert) and `Glow` (unlit emissive); seeded `noise1`/`noise3`/`fbm3`, `shake`, `ease` |
+| `materials.tsx`, `noise.ts` | `Flat` (flat-shaded Lambert), `Glow` (unlit emissive) and `Halo` (a soft additive glow sprite: the house "bloom" for neon, lamps, beacons, cores and the sun; put one on every important light); seeded `noise1`/`noise3`/`fbm3`, `shake`, `ease` |
 | `Overlays.tsx` | `BrandLockup` (SLAVOSKI plus chapter label), `TitleCard`, `EndCard` (no teaser), `Tag` ("REAL PHYSICS" / "DRAMATISED" / "HYPOTHESIS" / "EXPERT ESTIMATE" / "REAL SCIENCE" / "REAL PREDICTION"), `Readout` (HUD value), `CardLine` (info card) |
 | `WordCaptions.tsx` | Captions in the house style (cream active word, amber keywords from a per-episode `KEYWORDS` list) |
 | `timeline.ts` | `NarrationBlock`s (one per chapter), `estimateManifest()` (script-based timing until the voiceover exists), `blockTimes()`, `wordAt()`, `shotAt()`, `scheduleShots()` (cued shots → flat time-sorted list; use it for new episodes), `useTime()` |
