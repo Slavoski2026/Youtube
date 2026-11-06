@@ -9,7 +9,7 @@ import { StreetSet, streetLayout } from "../../slavoski/city";
 import { Quadruped } from "../../slavoski/critters";
 import { BoxG, ConeG, IcoG } from "../../slavoski/detail";
 import { crowdLook } from "../../slavoski/hero";
-import { Flat, Glow } from "../../slavoski/materials";
+import { Flat, Glow, Halo } from "../../slavoski/materials";
 import { Clouds, LeafyTree, LightningBolt, Rain } from "../../slavoski/nature";
 import { clamp01, ease, type V3 } from "../../slavoski/noise";
 import { CardLine } from "../../slavoski/Overlays";
@@ -121,6 +121,7 @@ const StreetFuture: React.FC<{ seed: string; style: "bright" | "corp" }> = ({ se
                   <Glow color={color} />
                 </mesh>
               ))}
+              <Halo size={3.2} color={color} opacity={0.32} />
             </group>
           );
         })}
@@ -363,6 +364,7 @@ const coldRobot: ShotFn = (c) => {
         <meshBasicMaterial color="#BFEFFF" transparent opacity={0.08} depthWrite={false} toneMapped={false} />
       </mesh>
       <pointLight position={[0, 9, 2]} color="#E8F6FF" intensity={30} distance={16} decay={2} />
+      <Halo position={[0, 17.6, 0.3]} size={6} color="#BFEFFF" opacity={0.5} />
       <Robot position={[0, 0.3, -1.6 + step * 1.6]} walk={step < 1 ? c.lt * 1.2 : 0} walkAmount={1 - step * 0.9} r={[0.15, 2.45, 0.45 + wave]} headYaw={0.15} />
     </Shot>
   );
@@ -426,6 +428,7 @@ const c1Buzz: ShotFn = (c) => {
       <Hero pose={pose} position={BED_HERO} />
       <Phone3D position={PHONE_BED} rotation={[-Math.PI / 2, 0, 0.4]} glow={on > 0.5 ? "#DCE6F5" : "#2A3550"} />
       <pointLight position={[PHONE_BED[0], PHONE_BED[1] + 0.6, PHONE_BED[2]]} color="#DCE6FF" intensity={3 * on} distance={3} decay={2} />
+      {on > 0 ? <Halo position={[PHONE_BED[0], PHONE_BED[1] + 0.08, PHONE_BED[2]]} size={1.4} color="#DCE6FF" opacity={0.35 * on} /> : null}
     </Shot>
   );
 };
@@ -905,7 +908,7 @@ const c5Control: ShotFn = (c) => {
   return (
     <Shot mood="night" dust={0.8} camera={cam} fog={[80, 420]} shadowSize={40}>
       <group scale={2}>
-        <Rain center={[0.8, 6, 2]} size={[16, 12, 18]} t={c.t} count={900} seed="ctrl" speed={14} />
+        <Rain center={[0.8, 6, 2]} size={[16, 12, 18]} t={c.t} count={1100} seed="ctrl" speed={14} thickness={0.014} opacity={0.5} />
       </group>
       <BigStreet seed="ctrl" lampsOn={false} cars={false} modify={() => ({ power: 0.2 })} t={c.t} future="corp" />
       <MegaTower position={[0, 0, -150]} h={200} w={30} t={c.t} seed="end" />
@@ -968,6 +971,7 @@ const Rooftop: React.FC = () => (
       <circleGeometry args={[34, 16]} />
       <Glow color="#FFC07A" fog={false} />
     </mesh>
+    <Halo position={[-60, 14, -419]} size={200} color="#FF9A5A" opacity={0.45} />
   </group>
 );
 
@@ -1062,7 +1066,7 @@ const c6Bad: ShotFn = (c) => {
       <DarkCity t={c.t} />
       {/* rain streaks between the camera and the city */}
       <group position={[-80, 50, 110]} scale={4}>
-        <Rain center={[0, 0, 0]} size={[16, 14, 12]} t={c.t} count={700} seed="bad" speed={5} />
+        <Rain center={[0, 0, 0]} size={[16, 14, 12]} t={c.t} count={900} seed="bad" speed={5} thickness={0.01} opacity={0.45} />
       </group>
     </Shot>
   );

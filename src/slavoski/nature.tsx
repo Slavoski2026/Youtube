@@ -164,13 +164,15 @@ export const GroundCover: React.FC<{ area: [number, number, number, number]; gro
 };
 
 /** Rain streaks falling through a box around `center`. `t` in seconds. */
-export const Rain: React.FC<{ center: V3; size?: [number, number, number]; t: number; count?: number; seed?: string; speed?: number }> = ({
+export const Rain: React.FC<{ center: V3; size?: [number, number, number]; t: number; count?: number; seed?: string; speed?: number; thickness?: number; opacity?: number }> = ({
   center,
   size = [30, 20, 30],
   t,
   count = 500,
   seed = "rain",
   speed = 22,
+  thickness = 0.03,
+  opacity = 0.55,
 }) => {
   const ref = useRef<THREE.InstancedMesh>(null);
   const drops = useMemo(
@@ -197,8 +199,8 @@ export const Rain: React.FC<{ center: V3; size?: [number, number, number]; t: nu
   });
   return (
     <instancedMesh ref={ref} args={[undefined, undefined, drops.length]} key={drops.length}>
-      <BoxG args={[0.03, 0.9, 0.03]} />
-      <meshBasicMaterial color="#B9CCE6" transparent opacity={0.55} depthWrite={false} toneMapped={false} />
+      <BoxG args={[thickness, 0.9, thickness]} />
+      <meshBasicMaterial color="#B9CCE6" transparent opacity={opacity} depthWrite={false} toneMapped={false} />
     </instancedMesh>
   );
 };

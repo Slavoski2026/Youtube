@@ -10,7 +10,7 @@ import { random } from "remotion";
 import * as THREE from "three";
 import { Ground, Road } from "../../slavoski/city";
 import { BoxG, chamferBox, ConeG, CylG, IcoG } from "../../slavoski/detail";
-import { Flat, Glow } from "../../slavoski/materials";
+import { Flat, Glow, Halo } from "../../slavoski/materials";
 import type { V3 } from "../../slavoski/noise";
 import { P } from "../../slavoski/palette";
 import { CanvasPanel } from "../../slavoski/screens";
@@ -122,11 +122,15 @@ export const FutureTower: React.FC<TowerSpec & { style: CityStyle; t: number; po
   const accent = ACCENT[style][Math.floor(random(`${seed}ac`) * ACCENT[style].length)];
   const variant = Math.floor(random(`${seed}v`) * 3);
   const blink = Math.floor(t * 1.3 + random(`${seed}bl`) * 2) % 2 === 0;
+  const tipColor = style === "corp" ? (blink ? "#FF4040" : "#401010") : blink ? "#FFFFFF" : accent;
   const tip = (y: number) => (
-    <mesh position={[0, y, 0]}>
-      <IcoG args={[0.3, 1]} />
-      <Glow color={style === "corp" ? (blink ? "#FF4040" : "#401010") : blink ? "#FFFFFF" : accent} fog={false} />
-    </mesh>
+    <group position={[0, y, 0]}>
+      <mesh>
+        <IcoG args={[0.3, 1]} />
+        <Glow color={tipColor} fog={false} />
+      </mesh>
+      {style === "corp" && !blink ? null : <Halo size={3.4} color={style === "corp" ? "#FF4040" : accent} opacity={0.55} />}
+    </group>
   );
   let body: React.ReactNode;
   if (kind === "glass") {
@@ -345,6 +349,7 @@ export const Drones: React.FC<{ count: number; t: number; style: CityStyle; radi
             <IcoG args={[0.16, 1]} />
             <Glow color={style === "corp" ? "#FF3A4A" : i % 3 ? R_VISOR : P.amber} fog={false} />
           </mesh>
+          <Halo position={[0, -0.22, 0]} size={1.8} color={style === "corp" ? "#FF3A4A" : i % 3 ? R_VISOR : P.amber} opacity={0.5} />
         </group>
       );
     })}
@@ -576,6 +581,11 @@ export const MegaTower: React.FC<{ position: V3; h?: number; w?: number; t?: num
         <torusGeometry args={[w * 0.72, Math.max(0.12, w * 0.02), 4, 48]} />
         <meshBasicMaterial color={CORP_RED} toneMapped={false} />
       </mesh>
+      {/* soft glow around the halo ring */}
+      <mesh position={[0, upTop + (h - upTop) * 0.25, 0]} rotation={[Math.PI / 2 + 0.12 * Math.sin(t * 0.4), 0, t * 0.3]}>
+        <torusGeometry args={[w * 0.72, Math.max(0.6, w * 0.1), 6, 48]} />
+        <meshBasicMaterial color={CORP_RED} transparent opacity={0.16} blending={THREE.AdditiveBlending} depthWrite={false} toneMapped={false} />
+      </mesh>
       {/* spire */}
       <mesh position={[0, h + h * 0.07, 0]}>
         <CylG args={[0.15, Math.max(0.4, w * 0.04), h * 0.14, 6]} />
@@ -585,6 +595,8 @@ export const MegaTower: React.FC<{ position: V3; h?: number; w?: number; t?: num
         <IcoG args={[Math.max(0.5, w * 0.04), 1]} />
         <Glow color={blink ? "#FF4040" : "#401010"} fog={false} />
       </mesh>
+      {blink ? <Halo position={[0, h + h * 0.14 + 0.4, 0]} size={Math.max(5, w * 0.6)} color="#FF4040" opacity={0.6} /> : null}
+      <Halo position={[0, lowTop + lobbyH / 2, w * 0.36]} size={w * 1.1} color="#FF5A6A" opacity={0.18} />
     </group>
   );
 };

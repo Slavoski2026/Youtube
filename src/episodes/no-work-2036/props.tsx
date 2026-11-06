@@ -10,7 +10,7 @@ import * as THREE from "three";
 import { Building, BUILDING_COLORS } from "../../slavoski/city";
 import { BoxG, ConeG, CylG, IcoG } from "../../slavoski/detail";
 import { FONT } from "../../slavoski/fonts";
-import { Flat, Glow } from "../../slavoski/materials";
+import { Flat, Glow, Halo } from "../../slavoski/materials";
 import { clamp01, type V3 } from "../../slavoski/noise";
 import { P } from "../../slavoski/palette";
 import { CANVAS_FONT, CanvasPanel, fitText } from "../../slavoski/screens";
@@ -379,6 +379,7 @@ export const Crane: React.FC<{ position: V3; height?: number; jib?: number; load
         <IcoG args={[0.3, 1]} />
         <Glow color="#FF4040" fog={false} />
       </mesh>
+      <Halo position={[-jib + 1.2, height + 0.9, 0]} size={3} color="#FF4040" opacity={0.5} />
     </group>
   );
 };
@@ -438,11 +439,15 @@ export const Truck: React.FC<{ position: V3; yaw?: number; t?: number; color?: s
         <Glow color={R_VISOR} />
       </mesh>
       {[-1.8, 1.8].map((x) => (
-        <mesh key={x} position={[x, 2.4, TRUCK.front + 0.01]}>
-          <planeGeometry args={[0.9, 0.45]} />
-          <Glow color={P.headlight} />
-        </mesh>
+        <group key={x}>
+          <mesh position={[x, 2.4, TRUCK.front + 0.01]}>
+            <planeGeometry args={[0.9, 0.45]} />
+            <Glow color={P.headlight} />
+          </mesh>
+          <Halo position={[x, 2.4, TRUCK.front + 0.3]} size={2.2} color={P.headlight} opacity={0.5} />
+        </group>
       ))}
+      <Halo position={[0, 6.7, cabZ + 1.2]} size={1.8} color={R_VISOR} opacity={0.45} />
       {/* trailer */}
       <mesh position={[0, 5.0, trailerZ]} castShadow receiveShadow>
         <BoxG args={[W, 6.6, 18]} />
@@ -590,6 +595,7 @@ export const Factory: React.FC<{ t: number; boardX?: number }> = ({ t, boardX = 
             <ConeG args={[0.9, 0.8, 8, 1, true]} />
             <Glow color={P.lampGlow} />
           </mesh>
+          <Halo position={[0, 14.4, 0.5]} size={4} color={P.lampGlow} opacity={0.4} />
         </group>
       ))}
       {/* conveyor */}
@@ -695,6 +701,8 @@ export const AiCore: React.FC<{ position: V3; t: number; scale?: number; color?:
           <Glow color={i % 3 ? color : P.amber} />
         </mesh>
       ))}
+      <Halo size={10} color={color} opacity={0.45} />
+      <Halo size={4.6} color="#FFFFFF" opacity={0.35} />
       {split ? (
         <>
           <pointLight position={[-4, 1, 3]} color={P.amber} intensity={60 * light} distance={14} decay={2} />
@@ -959,6 +967,7 @@ export const Beach: React.FC = () => (
       <circleGeometry args={[26, 12]} />
       <Glow color="#FFD08A" fog={false} />
     </mesh>
+    <Halo position={[30, 22, -399]} size={150} color="#FFB070" opacity={0.5} />
   </group>
 );
 

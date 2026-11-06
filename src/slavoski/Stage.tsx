@@ -1,7 +1,7 @@
 import { useThree } from "@react-three/fiber";
 import { ThreeCanvas } from "@remotion/three";
 import React, { useLayoutEffect, useMemo } from "react";
-import { AbsoluteFill, useCurrentFrame, useVideoConfig } from "remotion";
+import { AbsoluteFill, getInputProps, useCurrentFrame, useVideoConfig } from "remotion";
 import * as THREE from "three";
 import { shake, type V3 } from "./noise";
 import { P } from "./palette";
@@ -81,12 +81,26 @@ export const Stars: React.FC<{ count?: number; radius?: number; seed?: string; s
   );
 };
 
-const Lights: React.FC<{ mood: Mood; keyDir?: V3; shadowSize?: number; shadows: boolean; scale?: number }> = ({
+/**
+ * Final-render quality switch. Render with `--props='{"hq":true}'` to supersample every canvas 2× (smoother
+ * edges, steadier thin lines and distant windows) and double the shadow-map resolution. Off by default so
+ * contact sheets and previews stay fast.
+ */
+export const isHq = (): boolean => {
+  try {
+    return Boolean((getInputProps() as { hq?: boolean }).hq);
+  } catch {
+    return false;
+  }
+};
+
+const Lights: React.FC<{ mood: Mood; keyDir?: V3; shadowSize?: number; shadows: boolean; scale?: number; hq?: boolean }> = ({
   mood,
   keyDir,
   shadowSize = 40,
   shadows,
   scale = 1,
+  hq = false,
 }) => {
   const cfg = {
     night: { hs: "#C4CCFF", hg: "#2E2840", hi: 2.4, dc: "#D6DCFF", di: 1.4, dir: [-0.5, 1, 0.45] as V3 },
@@ -110,7 +124,7 @@ const Lights: React.FC<{ mood: Mood; keyDir?: V3; shadowSize?: number; shadows: 
         intensity={cfg.di * Math.max(scale, 0.6)}
         position={[(d[0] / len) * dist, (d[1] / len) * dist, (d[2] / len) * dist]}
         castShadow={shadows}
-        shadow-mapSize={[2048, 2048]}
+        shadow-mapSize={hq ? [4096, 4096] : [2048, 2048]}
         shadow-bias={-0.0004}
         shadow-normalBias={0.02}
         shadow-camera-left={-shadowSize}
@@ -185,6 +199,7 @@ export const Stage: React.FC<StageProps> = ({
   const starOpacity: Partial<Record<Mood, number>> = { space: 0.8, dawn: 0.25, sunset: 0.18, day: 0, overcast: 0, snow: 0, storm: 0 };
   // React context doesn't reliably cross into the R3F canvas: hand the detail level over explicitly.
   const detail = useDetailLevel();
+  const hq = isHq();
 
   return (
     <AbsoluteFill
@@ -201,11 +216,12 @@ export const Stage: React.FC<StageProps> = ({
         flat
         shadows={shadows ? "percentage" : false}
         gl={{ alpha: true, antialias: true, preserveDrawingBuffer: true }}
+        dpr={hq ? 2 : 1}
         camera={{ fov: camera.fov ?? 40, near: 0.1, far: 3000, position: camera.position }}
       >
         <CameraRig {...camera} offset={offset} />
         {fog ? <fog attach="fog" args={[fogColor, fog[0], fog[1]]} /> : null}
-        <Lights mood={lightMood} keyDir={keyDir} shadows={shadows} shadowSize={shadowSize} scale={light} />
+        <Lights mood={lightMood} keyDir={keyDir} shadows={shadows} shadowSize={shadowSize} scale={light} hq={hq} />
         {stars && (starOpacity[mood] ?? 0.55) > 0 ? <Stars opacity={starOpacity[mood] ?? 0.55 * (1 - dust * 0.6)} /> : null}
         <DetailProvider value={detail}>{children}</DetailProvider>
       </ThreeCanvas>
