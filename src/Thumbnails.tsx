@@ -9,6 +9,7 @@ import { SHOTS as GTA } from "./episodes/gta-24h/shots";
 import { SHOTS as NH } from "./episodes/no-humans/shots";
 import { SHOTS as SA } from "./episodes/smart-animals/shots";
 import { SHOTS as WW3 } from "./episodes/ww3-countdown/shots";
+import { thumbShot as NW } from "./episodes/no-work-2036/shots";
 import { FONT, loadHouseFonts } from "./slavoski/fonts";
 import { P } from "./slavoski/palette";
 import { AccretionDisk, FacetedEarth } from "./slavoski/space";
@@ -16,7 +17,7 @@ import { Stage } from "./slavoski/Stage";
 
 loadHouseFonts();
 
-export type ThumbProps = { episode: "black-hole" | "no-humans" | "gta-24h" | "smart-animals" | "ww3-countdown" };
+export type ThumbProps = { episode: "black-hole" | "no-humans" | "gta-24h" | "smart-animals" | "ww3-countdown" | "no-work-2036" };
 
 type Line = { text: string; color?: string; size?: number };
 const THUMBS: Record<ThumbProps["episode"], { shot: React.ReactNode; lines: Line[]; chip: string; top: number }> = {
@@ -48,6 +49,13 @@ const THUMBS: Record<ThumbProps["episode"], { shot: React.ReactNode; lines: Line
     shot: WW3.c4[2].fn({ lt: 1.1, dur: 1.8, t: 28.8, words: [], width: 1080, height: 1920 }),
     lines: [{ text: "WW3 STARTS" }, { text: "IN 7 DAYS", color: P.amber, size: 150 }],
     chip: "DAY BY DAY",
+    top: 230,
+  },
+  "no-work-2036": {
+    // Slavoski panicking in front of a city that robots are building.
+    shot: NW({ lt: 0, dur: 2, t: 0, words: [], width: 1080, height: 1920 }),
+    lines: [{ text: "WORK ENDS" }, { text: "IN 2036", color: P.amber, size: 150 }],
+    chip: "ROBOTS DO EVERYTHING",
     top: 230,
   },
   "gta-24h": {
