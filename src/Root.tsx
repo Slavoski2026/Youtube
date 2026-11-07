@@ -6,6 +6,7 @@ import { GtaEpisode, estimatedGta, type GtaProps } from "./episodes/gta-24h/GtaE
 import { SmartAnimalsEpisode, estimatedSmartAnimals, type SmartAnimalsProps } from "./episodes/smart-animals/SmartAnimalsEpisode";
 import { Ww3Episode, estimatedWw3, type Ww3Props } from "./episodes/ww3-countdown/Ww3Episode";
 import { NoWork2036Episode, estimatedNoWork2036, type NoWork2036Props } from "./episodes/no-work-2036/NoWork2036Episode";
+import { SatellitesDarkEpisode, estimatedSatellitesDark, type SatellitesDarkProps } from "./episodes/satellites-dark/SatellitesDarkEpisode";
 import { voiceoverMetadata } from "./lib/voiceover";
 import { withDetail } from "./slavoski/detail";
 
@@ -59,6 +60,7 @@ export const RemotionRoot: React.FC = () => (
       ["smart-animals", "SmartAnimals"],
       ["ww3-countdown", "Ww3Countdown"],
       ["no-work-2036", "NoWork2036"],
+      ["satellites-dark", "SatellitesDark"],
     ] as const).map(([ep, id]) => (
       <Still
         key={ep}
@@ -98,6 +100,16 @@ export const RemotionRoot: React.FC = () => (
       height={HEIGHT}
       defaultProps={{ voiceover: "no-work-2036" } as NoWork2036Props}
       calculateMetadata={voiceoverMetadata<NoWork2036Props>(FPS, { tailSeconds: 2.2, fallback: estimatedNoWork2036 })}
+    />
+    <Composition
+      id="SatellitesDark"
+      component={SatellitesDarkEpisode}
+      durationInFrames={FPS * 74}
+      fps={FPS}
+      width={WIDTH}
+      height={HEIGHT}
+      defaultProps={{ voiceover: "satellites-dark" } as SatellitesDarkProps}
+      calculateMetadata={voiceoverMetadata<SatellitesDarkProps>(FPS, { tailSeconds: 2.2, fallback: estimatedSatellitesDark })}
     />
     <Composition
       id="StyleCheck"

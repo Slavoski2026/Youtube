@@ -26,6 +26,10 @@ const EPISODES: Record<string, () => Promise<{ schedule: (w: VoiceoverManifest["
     const ep = await import("../src/episodes/ww3-countdown/Ww3Episode");
     return { schedule: ep.schedule, estimated: ep.estimatedWw3 };
   },
+  "satellites-dark": async () => {
+    const ep = await import("../src/episodes/satellites-dark/SatellitesDarkEpisode");
+    return { schedule: ep.schedule, estimated: ep.estimatedSatellitesDark };
+  },
   "no-work-2036": async () => {
     const ep = await import("../src/episodes/no-work-2036/NoWork2036Episode");
     return { schedule: ep.schedule, estimated: ep.estimatedNoWork2036 };
