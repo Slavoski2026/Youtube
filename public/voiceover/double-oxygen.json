@@ -1,0 +1,1659 @@
+{
+  "slug": "double-oxygen",
+  "audio": "voiceover/double-oxygen.mp3",
+  "durationInSeconds": 93.51836734693877,
+  "words": [
+    {
+      "text": "What",
+      "startMs": 140,
+      "endMs": 240,
+      "timestampMs": 190,
+      "confidence": null
+    },
+    {
+      "text": " if",
+      "startMs": 280,
+      "endMs": 380,
+      "timestampMs": 330,
+      "confidence": null
+    },
+    {
+      "text": " the",
+      "startMs": 420,
+      "endMs": 480,
+      "timestampMs": 450,
+      "confidence": null
+    },
+    {
+      "text": " amount",
+      "startMs": 520,
+      "endMs": 760,
+      "timestampMs": 640,
+      "confidence": null
+    },
+    {
+      "text": " of",
+      "startMs": 780,
+      "endMs": 940,
+      "timestampMs": 860,
+      "confidence": null
+    },
+    {
+      "text": " oxygen",
+      "startMs": 1020,
+      "endMs": 1460,
+      "timestampMs": 1240,
+      "confidence": null
+    },
+    {
+      "text": " in",
+      "startMs": 1480,
+      "endMs": 1620,
+      "timestampMs": 1550,
+      "confidence": null
+    },
+    {
+      "text": " Earth's",
+      "startMs": 1660,
+      "endMs": 1960,
+      "timestampMs": 1810,
+      "confidence": null
+    },
+    {
+      "text": " atmosphere",
+      "startMs": 2040,
+      "endMs": 2520,
+      "timestampMs": 2280,
+      "confidence": null
+    },
+    {
+      "text": " doubled",
+      "startMs": 2760,
+      "endMs": 3100,
+      "timestampMs": 2930,
+      "confidence": null
+    },
+    {
+      "text": " overnight?",
+      "startMs": 3240,
+      "endMs": 3720,
+      "timestampMs": 3480,
+      "confidence": null
+    },
+    {
+      "text": " Right",
+      "startMs": 4480,
+      "endMs": 4640,
+      "timestampMs": 4560,
+      "confidence": null
+    },
+    {
+      "text": " now,",
+      "startMs": 4700,
+      "endMs": 4940,
+      "timestampMs": 4820,
+      "confidence": null
+    },
+    {
+      "text": " oxygen",
+      "startMs": 5260,
+      "endMs": 5640,
+      "timestampMs": 5450,
+      "confidence": null
+    },
+    {
+      "text": " makes",
+      "startMs": 5680,
+      "endMs": 5880,
+      "timestampMs": 5780,
+      "confidence": null
+    },
+    {
+      "text": " up",
+      "startMs": 5940,
+      "endMs": 6020,
+      "timestampMs": 5980,
+      "confidence": null
+    },
+    {
+      "text": " about",
+      "startMs": 6100,
+      "endMs": 6320,
+      "timestampMs": 6210,
+      "confidence": null
+    },
+    {
+      "text": " twenty-one",
+      "startMs": 6380,
+      "endMs": 6860,
+      "timestampMs": 6620,
+      "confidence": null
+    },
+    {
+      "text": " percent",
+      "startMs": 6960,
+      "endMs": 7340,
+      "timestampMs": 7150,
+      "confidence": null
+    },
+    {
+      "text": " of",
+      "startMs": 7380,
+      "endMs": 7440,
+      "timestampMs": 7410,
+      "confidence": null
+    },
+    {
+      "text": " the",
+      "startMs": 7480,
+      "endMs": 7580,
+      "timestampMs": 7530,
+      "confidence": null
+    },
+    {
+      "text": " air",
+      "startMs": 7640,
+      "endMs": 7760,
+      "timestampMs": 7700,
+      "confidence": null
+    },
+    {
+      "text": " we",
+      "startMs": 7800,
+      "endMs": 7940,
+      "timestampMs": 7870,
+      "confidence": null
+    },
+    {
+      "text": " breathe.",
+      "startMs": 7960,
+      "endMs": 8300,
+      "timestampMs": 8130,
+      "confidence": null
+    },
+    {
+      "text": " But",
+      "startMs": 8900,
+      "endMs": 9140,
+      "timestampMs": 9020,
+      "confidence": null
+    },
+    {
+      "text": " imagine",
+      "startMs": 9200,
+      "endMs": 9560,
+      "timestampMs": 9380,
+      "confidence": null
+    },
+    {
+      "text": " waking",
+      "startMs": 9640,
+      "endMs": 9900,
+      "timestampMs": 9770,
+      "confidence": null
+    },
+    {
+      "text": " up",
+      "startMs": 9940,
+      "endMs": 10040,
+      "timestampMs": 9990,
+      "confidence": null
+    },
+    {
+      "text": " tomorrow",
+      "startMs": 10080,
+      "endMs": 10660,
+      "timestampMs": 10370,
+      "confidence": null
+    },
+    {
+      "text": " and",
+      "startMs": 10680,
+      "endMs": 10780,
+      "timestampMs": 10730,
+      "confidence": null
+    },
+    {
+      "text": " that",
+      "startMs": 10820,
+      "endMs": 10960,
+      "timestampMs": 10890,
+      "confidence": null
+    },
+    {
+      "text": " number",
+      "startMs": 10980,
+      "endMs": 11200,
+      "timestampMs": 11090,
+      "confidence": null
+    },
+    {
+      "text": " has",
+      "startMs": 11240,
+      "endMs": 11420,
+      "timestampMs": 11330,
+      "confidence": null
+    },
+    {
+      "text": " suddenly",
+      "startMs": 11500,
+      "endMs": 11900,
+      "timestampMs": 11700,
+      "confidence": null
+    },
+    {
+      "text": " jumped",
+      "startMs": 11960,
+      "endMs": 12160,
+      "timestampMs": 12060,
+      "confidence": null
+    },
+    {
+      "text": " to",
+      "startMs": 12200,
+      "endMs": 12420,
+      "timestampMs": 12310,
+      "confidence": null
+    },
+    {
+      "text": " forty-two",
+      "startMs": 12460,
+      "endMs": 12960,
+      "timestampMs": 12710,
+      "confidence": null
+    },
+    {
+      "text": " percent.",
+      "startMs": 13060,
+      "endMs": 13440,
+      "timestampMs": 13250,
+      "confidence": null
+    },
+    {
+      "text": " At",
+      "startMs": 14080,
+      "endMs": 14200,
+      "timestampMs": 14140,
+      "confidence": null
+    },
+    {
+      "text": " first,",
+      "startMs": 14260,
+      "endMs": 14600,
+      "timestampMs": 14430,
+      "confidence": null
+    },
+    {
+      "text": " you",
+      "startMs": 14880,
+      "endMs": 14960,
+      "timestampMs": 14920,
+      "confidence": null
+    },
+    {
+      "text": " might",
+      "startMs": 15020,
+      "endMs": 15140,
+      "timestampMs": 15080,
+      "confidence": null
+    },
+    {
+      "text": " not",
+      "startMs": 15180,
+      "endMs": 15280,
+      "timestampMs": 15230,
+      "confidence": null
+    },
+    {
+      "text": " even",
+      "startMs": 15320,
+      "endMs": 15500,
+      "timestampMs": 15410,
+      "confidence": null
+    },
+    {
+      "text": " notice,",
+      "startMs": 15540,
+      "endMs": 15940,
+      "timestampMs": 15740,
+      "confidence": null
+    },
+    {
+      "text": " but",
+      "startMs": 16500,
+      "endMs": 16600,
+      "timestampMs": 16550,
+      "confidence": null
+    },
+    {
+      "text": " then",
+      "startMs": 16660,
+      "endMs": 17060,
+      "timestampMs": 16860,
+      "confidence": null
+    },
+    {
+      "text": " something",
+      "startMs": 17100,
+      "endMs": 17500,
+      "timestampMs": 17300,
+      "confidence": null
+    },
+    {
+      "text": " terrifying",
+      "startMs": 17580,
+      "endMs": 18200,
+      "timestampMs": 17890,
+      "confidence": null
+    },
+    {
+      "text": " starts",
+      "startMs": 18300,
+      "endMs": 18540,
+      "timestampMs": 18420,
+      "confidence": null
+    },
+    {
+      "text": " happening.",
+      "startMs": 18560,
+      "endMs": 18980,
+      "timestampMs": 18770,
+      "confidence": null
+    },
+    {
+      "text": " Fires",
+      "startMs": 19720,
+      "endMs": 20140,
+      "timestampMs": 19930,
+      "confidence": null
+    },
+    {
+      "text": " become",
+      "startMs": 20160,
+      "endMs": 20560,
+      "timestampMs": 20360,
+      "confidence": null
+    },
+    {
+      "text": " much",
+      "startMs": 20600,
+      "endMs": 20840,
+      "timestampMs": 20720,
+      "confidence": null
+    },
+    {
+      "text": " more",
+      "startMs": 20880,
+      "endMs": 21040,
+      "timestampMs": 20960,
+      "confidence": null
+    },
+    {
+      "text": " dangerous.",
+      "startMs": 21080,
+      "endMs": 21580,
+      "timestampMs": 21330,
+      "confidence": null
+    },
+    {
+      "text": " A",
+      "startMs": 22080,
+      "endMs": 22140,
+      "timestampMs": 22110,
+      "confidence": null
+    },
+    {
+      "text": " tiny",
+      "startMs": 22220,
+      "endMs": 22560,
+      "timestampMs": 22390,
+      "confidence": null
+    },
+    {
+      "text": " spark",
+      "startMs": 22660,
+      "endMs": 22900,
+      "timestampMs": 22780,
+      "confidence": null
+    },
+    {
+      "text": " that",
+      "startMs": 22920,
+      "endMs": 23040,
+      "timestampMs": 22980,
+      "confidence": null
+    },
+    {
+      "text": " might",
+      "startMs": 23080,
+      "endMs": 23240,
+      "timestampMs": 23160,
+      "confidence": null
+    },
+    {
+      "text": " normally",
+      "startMs": 23320,
+      "endMs": 23720,
+      "timestampMs": 23520,
+      "confidence": null
+    },
+    {
+      "text": " go",
+      "startMs": 23760,
+      "endMs": 23900,
+      "timestampMs": 23830,
+      "confidence": null
+    },
+    {
+      "text": " out",
+      "startMs": 23980,
+      "endMs": 24240,
+      "timestampMs": 24110,
+      "confidence": null
+    },
+    {
+      "text": " could",
+      "startMs": 24260,
+      "endMs": 24460,
+      "timestampMs": 24360,
+      "confidence": null
+    },
+    {
+      "text": " suddenly",
+      "startMs": 24540,
+      "endMs": 24900,
+      "timestampMs": 24720,
+      "confidence": null
+    },
+    {
+      "text": " ignite",
+      "startMs": 24940,
+      "endMs": 25400,
+      "timestampMs": 25170,
+      "confidence": null
+    },
+    {
+      "text": " nearby",
+      "startMs": 25460,
+      "endMs": 25780,
+      "timestampMs": 25620,
+      "confidence": null
+    },
+    {
+      "text": " materials.",
+      "startMs": 25800,
+      "endMs": 26380,
+      "timestampMs": 26090,
+      "confidence": null
+    },
+    {
+      "text": " Wildfires",
+      "startMs": 26980,
+      "endMs": 27620,
+      "timestampMs": 27300,
+      "confidence": null
+    },
+    {
+      "text": " could",
+      "startMs": 27640,
+      "endMs": 27780,
+      "timestampMs": 27710,
+      "confidence": null
+    },
+    {
+      "text": " spread",
+      "startMs": 27900,
+      "endMs": 28060,
+      "timestampMs": 27980,
+      "confidence": null
+    },
+    {
+      "text": " faster,",
+      "startMs": 28220,
+      "endMs": 28620,
+      "timestampMs": 28420,
+      "confidence": null
+    },
+    {
+      "text": " and",
+      "startMs": 28920,
+      "endMs": 28980,
+      "timestampMs": 28950,
+      "confidence": null
+    },
+    {
+      "text": " putting",
+      "startMs": 29060,
+      "endMs": 29240,
+      "timestampMs": 29150,
+      "confidence": null
+    },
+    {
+      "text": " them",
+      "startMs": 29280,
+      "endMs": 29380,
+      "timestampMs": 29330,
+      "confidence": null
+    },
+    {
+      "text": " out",
+      "startMs": 29460,
+      "endMs": 29660,
+      "timestampMs": 29560,
+      "confidence": null
+    },
+    {
+      "text": " would",
+      "startMs": 29680,
+      "endMs": 29760,
+      "timestampMs": 29720,
+      "confidence": null
+    },
+    {
+      "text": " become",
+      "startMs": 29800,
+      "endMs": 30080,
+      "timestampMs": 29940,
+      "confidence": null
+    },
+    {
+      "text": " much",
+      "startMs": 30240,
+      "endMs": 30460,
+      "timestampMs": 30350,
+      "confidence": null
+    },
+    {
+      "text": " harder.",
+      "startMs": 30500,
+      "endMs": 30820,
+      "timestampMs": 30660,
+      "confidence": null
+    },
+    {
+      "text": " But",
+      "startMs": 31460,
+      "endMs": 31800,
+      "timestampMs": 31630,
+      "confidence": null
+    },
+    {
+      "text": " what",
+      "startMs": 31840,
+      "endMs": 31920,
+      "timestampMs": 31880,
+      "confidence": null
+    },
+    {
+      "text": " about",
+      "startMs": 31980,
+      "endMs": 32140,
+      "timestampMs": 32060,
+      "confidence": null
+    },
+    {
+      "text": " your",
+      "startMs": 32180,
+      "endMs": 32320,
+      "timestampMs": 32250,
+      "confidence": null
+    },
+    {
+      "text": " body?",
+      "startMs": 32340,
+      "endMs": 32680,
+      "timestampMs": 32510,
+      "confidence": null
+    },
+    {
+      "text": " You",
+      "startMs": 33280,
+      "endMs": 33340,
+      "timestampMs": 33310,
+      "confidence": null
+    },
+    {
+      "text": " might",
+      "startMs": 33380,
+      "endMs": 33540,
+      "timestampMs": 33460,
+      "confidence": null
+    },
+    {
+      "text": " think",
+      "startMs": 33580,
+      "endMs": 33760,
+      "timestampMs": 33670,
+      "confidence": null
+    },
+    {
+      "text": " twice",
+      "startMs": 33820,
+      "endMs": 34260,
+      "timestampMs": 34040,
+      "confidence": null
+    },
+    {
+      "text": " the",
+      "startMs": 34480,
+      "endMs": 34600,
+      "timestampMs": 34540,
+      "confidence": null
+    },
+    {
+      "text": " oxygen",
+      "startMs": 34680,
+      "endMs": 35160,
+      "timestampMs": 34920,
+      "confidence": null
+    },
+    {
+      "text": " means",
+      "startMs": 35200,
+      "endMs": 35520,
+      "timestampMs": 35360,
+      "confidence": null
+    },
+    {
+      "text": " twice",
+      "startMs": 35580,
+      "endMs": 35860,
+      "timestampMs": 35720,
+      "confidence": null
+    },
+    {
+      "text": " the",
+      "startMs": 35900,
+      "endMs": 35980,
+      "timestampMs": 35940,
+      "confidence": null
+    },
+    {
+      "text": " energy.",
+      "startMs": 36020,
+      "endMs": 36400,
+      "timestampMs": 36210,
+      "confidence": null
+    },
+    {
+      "text": " Unfortunately,",
+      "startMs": 36940,
+      "endMs": 37660,
+      "timestampMs": 37300,
+      "confidence": null
+    },
+    {
+      "text": " that's",
+      "startMs": 37920,
+      "endMs": 38240,
+      "timestampMs": 38080,
+      "confidence": null
+    },
+    {
+      "text": " not",
+      "startMs": 38300,
+      "endMs": 38500,
+      "timestampMs": 38400,
+      "confidence": null
+    },
+    {
+      "text": " how",
+      "startMs": 38540,
+      "endMs": 38700,
+      "timestampMs": 38620,
+      "confidence": null
+    },
+    {
+      "text": " breathing",
+      "startMs": 38720,
+      "endMs": 39040,
+      "timestampMs": 38880,
+      "confidence": null
+    },
+    {
+      "text": " works.",
+      "startMs": 39080,
+      "endMs": 39420,
+      "timestampMs": 39250,
+      "confidence": null
+    },
+    {
+      "text": " Your",
+      "startMs": 40000,
+      "endMs": 40160,
+      "timestampMs": 40080,
+      "confidence": null
+    },
+    {
+      "text": " blood",
+      "startMs": 40200,
+      "endMs": 40400,
+      "timestampMs": 40300,
+      "confidence": null
+    },
+    {
+      "text": " is",
+      "startMs": 40440,
+      "endMs": 40620,
+      "timestampMs": 40530,
+      "confidence": null
+    },
+    {
+      "text": " already",
+      "startMs": 40700,
+      "endMs": 41040,
+      "timestampMs": 40870,
+      "confidence": null
+    },
+    {
+      "text": " nearly",
+      "startMs": 41200,
+      "endMs": 41580,
+      "timestampMs": 41390,
+      "confidence": null
+    },
+    {
+      "text": " saturated",
+      "startMs": 41660,
+      "endMs": 42180,
+      "timestampMs": 41920,
+      "confidence": null
+    },
+    {
+      "text": " with",
+      "startMs": 42200,
+      "endMs": 42340,
+      "timestampMs": 42270,
+      "confidence": null
+    },
+    {
+      "text": " oxygen",
+      "startMs": 42440,
+      "endMs": 42820,
+      "timestampMs": 42630,
+      "confidence": null
+    },
+    {
+      "text": " under",
+      "startMs": 42860,
+      "endMs": 43040,
+      "timestampMs": 42950,
+      "confidence": null
+    },
+    {
+      "text": " normal",
+      "startMs": 43100,
+      "endMs": 43340,
+      "timestampMs": 43220,
+      "confidence": null
+    },
+    {
+      "text": " conditions,",
+      "startMs": 43440,
+      "endMs": 43940,
+      "timestampMs": 43690,
+      "confidence": null
+    },
+    {
+      "text": " and",
+      "startMs": 44380,
+      "endMs": 44460,
+      "timestampMs": 44420,
+      "confidence": null
+    },
+    {
+      "text": " breathing",
+      "startMs": 44540,
+      "endMs": 44880,
+      "timestampMs": 44710,
+      "confidence": null
+    },
+    {
+      "text": " unusually",
+      "startMs": 44940,
+      "endMs": 45540,
+      "timestampMs": 45240,
+      "confidence": null
+    },
+    {
+      "text": " high",
+      "startMs": 45620,
+      "endMs": 45860,
+      "timestampMs": 45740,
+      "confidence": null
+    },
+    {
+      "text": " oxygen",
+      "startMs": 45960,
+      "endMs": 46320,
+      "timestampMs": 46140,
+      "confidence": null
+    },
+    {
+      "text": " levels",
+      "startMs": 46360,
+      "endMs": 46680,
+      "timestampMs": 46520,
+      "confidence": null
+    },
+    {
+      "text": " for",
+      "startMs": 46720,
+      "endMs": 46840,
+      "timestampMs": 46780,
+      "confidence": null
+    },
+    {
+      "text": " long",
+      "startMs": 46920,
+      "endMs": 47120,
+      "timestampMs": 47020,
+      "confidence": null
+    },
+    {
+      "text": " periods",
+      "startMs": 47220,
+      "endMs": 47740,
+      "timestampMs": 47480,
+      "confidence": null
+    },
+    {
+      "text": " can",
+      "startMs": 47780,
+      "endMs": 47960,
+      "timestampMs": 47870,
+      "confidence": null
+    },
+    {
+      "text": " damage",
+      "startMs": 47980,
+      "endMs": 48300,
+      "timestampMs": 48140,
+      "confidence": null
+    },
+    {
+      "text": " your",
+      "startMs": 48320,
+      "endMs": 48400,
+      "timestampMs": 48360,
+      "confidence": null
+    },
+    {
+      "text": " lungs.",
+      "startMs": 48520,
+      "endMs": 48920,
+      "timestampMs": 48720,
+      "confidence": null
+    },
+    {
+      "text": " But",
+      "startMs": 49520,
+      "endMs": 49640,
+      "timestampMs": 49580,
+      "confidence": null
+    },
+    {
+      "text": " here's",
+      "startMs": 49700,
+      "endMs": 49960,
+      "timestampMs": 49830,
+      "confidence": null
+    },
+    {
+      "text": " where",
+      "startMs": 49980,
+      "endMs": 50140,
+      "timestampMs": 50060,
+      "confidence": null
+    },
+    {
+      "text": " things",
+      "startMs": 50160,
+      "endMs": 50420,
+      "timestampMs": 50290,
+      "confidence": null
+    },
+    {
+      "text": " get",
+      "startMs": 50460,
+      "endMs": 50660,
+      "timestampMs": 50560,
+      "confidence": null
+    },
+    {
+      "text": " really",
+      "startMs": 50820,
+      "endMs": 51140,
+      "timestampMs": 50980,
+      "confidence": null
+    },
+    {
+      "text": " interesting.",
+      "startMs": 51200,
+      "endMs": 51700,
+      "timestampMs": 51450,
+      "confidence": null
+    },
+    {
+      "text": " Millions",
+      "startMs": 52360,
+      "endMs": 52720,
+      "timestampMs": 52540,
+      "confidence": null
+    },
+    {
+      "text": " of",
+      "startMs": 52780,
+      "endMs": 52840,
+      "timestampMs": 52810,
+      "confidence": null
+    },
+    {
+      "text": " years",
+      "startMs": 52880,
+      "endMs": 53080,
+      "timestampMs": 52980,
+      "confidence": null
+    },
+    {
+      "text": " ago,",
+      "startMs": 53140,
+      "endMs": 53380,
+      "timestampMs": 53260,
+      "confidence": null
+    },
+    {
+      "text": " Earth's",
+      "startMs": 53620,
+      "endMs": 53920,
+      "timestampMs": 53770,
+      "confidence": null
+    },
+    {
+      "text": " atmosphere",
+      "startMs": 54000,
+      "endMs": 54480,
+      "timestampMs": 54240,
+      "confidence": null
+    },
+    {
+      "text": " contained",
+      "startMs": 54500,
+      "endMs": 54840,
+      "timestampMs": 54670,
+      "confidence": null
+    },
+    {
+      "text": " more",
+      "startMs": 55000,
+      "endMs": 55260,
+      "timestampMs": 55130,
+      "confidence": null
+    },
+    {
+      "text": " oxygen",
+      "startMs": 55340,
+      "endMs": 55740,
+      "timestampMs": 55540,
+      "confidence": null
+    },
+    {
+      "text": " than",
+      "startMs": 55760,
+      "endMs": 55840,
+      "timestampMs": 55800,
+      "confidence": null
+    },
+    {
+      "text": " it",
+      "startMs": 55880,
+      "endMs": 55940,
+      "timestampMs": 55910,
+      "confidence": null
+    },
+    {
+      "text": " does",
+      "startMs": 55980,
+      "endMs": 56160,
+      "timestampMs": 56070,
+      "confidence": null
+    },
+    {
+      "text": " today,",
+      "startMs": 56200,
+      "endMs": 56520,
+      "timestampMs": 56360,
+      "confidence": null
+    },
+    {
+      "text": " and",
+      "startMs": 57120,
+      "endMs": 57280,
+      "timestampMs": 57200,
+      "confidence": null
+    },
+    {
+      "text": " some",
+      "startMs": 57340,
+      "endMs": 57540,
+      "timestampMs": 57440,
+      "confidence": null
+    },
+    {
+      "text": " insects",
+      "startMs": 57600,
+      "endMs": 58000,
+      "timestampMs": 57800,
+      "confidence": null
+    },
+    {
+      "text": " grew",
+      "startMs": 58100,
+      "endMs": 58280,
+      "timestampMs": 58190,
+      "confidence": null
+    },
+    {
+      "text": " to",
+      "startMs": 58320,
+      "endMs": 58440,
+      "timestampMs": 58380,
+      "confidence": null
+    },
+    {
+      "text": " enormous",
+      "startMs": 58500,
+      "endMs": 59120,
+      "timestampMs": 58810,
+      "confidence": null
+    },
+    {
+      "text": " sizes.",
+      "startMs": 59200,
+      "endMs": 59680,
+      "timestampMs": 59440,
+      "confidence": null
+    },
+    {
+      "text": " Scientists",
+      "startMs": 60320,
+      "endMs": 60760,
+      "timestampMs": 60540,
+      "confidence": null
+    },
+    {
+      "text": " believe",
+      "startMs": 60780,
+      "endMs": 61040,
+      "timestampMs": 60910,
+      "confidence": null
+    },
+    {
+      "text": " higher",
+      "startMs": 61160,
+      "endMs": 61460,
+      "timestampMs": 61310,
+      "confidence": null
+    },
+    {
+      "text": " oxygen",
+      "startMs": 61540,
+      "endMs": 61900,
+      "timestampMs": 61720,
+      "confidence": null
+    },
+    {
+      "text": " levels",
+      "startMs": 61960,
+      "endMs": 62240,
+      "timestampMs": 62100,
+      "confidence": null
+    },
+    {
+      "text": " helped",
+      "startMs": 62280,
+      "endMs": 62500,
+      "timestampMs": 62390,
+      "confidence": null
+    },
+    {
+      "text": " make",
+      "startMs": 62540,
+      "endMs": 62680,
+      "timestampMs": 62610,
+      "confidence": null
+    },
+    {
+      "text": " this",
+      "startMs": 62720,
+      "endMs": 62880,
+      "timestampMs": 62800,
+      "confidence": null
+    },
+    {
+      "text": " possible",
+      "startMs": 62900,
+      "endMs": 63340,
+      "timestampMs": 63120,
+      "confidence": null
+    },
+    {
+      "text": " because",
+      "startMs": 63640,
+      "endMs": 63940,
+      "timestampMs": 63790,
+      "confidence": null
+    },
+    {
+      "text": " insects",
+      "startMs": 64000,
+      "endMs": 64440,
+      "timestampMs": 64220,
+      "confidence": null
+    },
+    {
+      "text": " breathe",
+      "startMs": 64480,
+      "endMs": 64720,
+      "timestampMs": 64600,
+      "confidence": null
+    },
+    {
+      "text": " through",
+      "startMs": 64739,
+      "endMs": 64920,
+      "timestampMs": 64829,
+      "confidence": null
+    },
+    {
+      "text": " networks",
+      "startMs": 65000,
+      "endMs": 65379,
+      "timestampMs": 65190,
+      "confidence": null
+    },
+    {
+      "text": " of",
+      "startMs": 65420,
+      "endMs": 65519,
+      "timestampMs": 65470,
+      "confidence": null
+    },
+    {
+      "text": " tiny",
+      "startMs": 65580,
+      "endMs": 65920,
+      "timestampMs": 65750,
+      "confidence": null
+    },
+    {
+      "text": " tubes.",
+      "startMs": 65980,
+      "endMs": 66360,
+      "timestampMs": 66170,
+      "confidence": null
+    },
+    {
+      "text": " So",
+      "startMs": 67060,
+      "endMs": 67520,
+      "timestampMs": 67290,
+      "confidence": null
+    },
+    {
+      "text": " would",
+      "startMs": 67560,
+      "endMs": 67680,
+      "timestampMs": 67620,
+      "confidence": null
+    },
+    {
+      "text": " we",
+      "startMs": 67720,
+      "endMs": 67880,
+      "timestampMs": 67800,
+      "confidence": null
+    },
+    {
+      "text": " suddenly",
+      "startMs": 67960,
+      "endMs": 68300,
+      "timestampMs": 68130,
+      "confidence": null
+    },
+    {
+      "text": " have",
+      "startMs": 68400,
+      "endMs": 68620,
+      "timestampMs": 68510,
+      "confidence": null
+    },
+    {
+      "text": " giant",
+      "startMs": 68680,
+      "endMs": 68980,
+      "timestampMs": 68830,
+      "confidence": null
+    },
+    {
+      "text": " spiders?",
+      "startMs": 69140,
+      "endMs": 69580,
+      "timestampMs": 69360,
+      "confidence": null
+    },
+    {
+      "text": " Not",
+      "startMs": 70280,
+      "endMs": 70440,
+      "timestampMs": 70360,
+      "confidence": null
+    },
+    {
+      "text": " overnight.",
+      "startMs": 70500,
+      "endMs": 70920,
+      "timestampMs": 70710,
+      "confidence": null
+    },
+    {
+      "text": " Evolution",
+      "startMs": 71480,
+      "endMs": 71980,
+      "timestampMs": 71730,
+      "confidence": null
+    },
+    {
+      "text": " takes",
+      "startMs": 72040,
+      "endMs": 72380,
+      "timestampMs": 72210,
+      "confidence": null
+    },
+    {
+      "text": " generations,",
+      "startMs": 72440,
+      "endMs": 73260,
+      "timestampMs": 72850,
+      "confidence": null
+    },
+    {
+      "text": " and",
+      "startMs": 73460,
+      "endMs": 73600,
+      "timestampMs": 73530,
+      "confidence": null
+    },
+    {
+      "text": " oxygen",
+      "startMs": 73660,
+      "endMs": 74080,
+      "timestampMs": 73870,
+      "confidence": null
+    },
+    {
+      "text": " isn't",
+      "startMs": 74120,
+      "endMs": 74300,
+      "timestampMs": 74210,
+      "confidence": null
+    },
+    {
+      "text": " the",
+      "startMs": 74320,
+      "endMs": 74480,
+      "timestampMs": 74400,
+      "confidence": null
+    },
+    {
+      "text": " only",
+      "startMs": 74560,
+      "endMs": 74840,
+      "timestampMs": 74700,
+      "confidence": null
+    },
+    {
+      "text": " factor",
+      "startMs": 74880,
+      "endMs": 75160,
+      "timestampMs": 75020,
+      "confidence": null
+    },
+    {
+      "text": " controlling",
+      "startMs": 75220,
+      "endMs": 75640,
+      "timestampMs": 75430,
+      "confidence": null
+    },
+    {
+      "text": " insect",
+      "startMs": 75700,
+      "endMs": 76060,
+      "timestampMs": 75880,
+      "confidence": null
+    },
+    {
+      "text": " size.",
+      "startMs": 76100,
+      "endMs": 76400,
+      "timestampMs": 76250,
+      "confidence": null
+    },
+    {
+      "text": " But",
+      "startMs": 76980,
+      "endMs": 77220,
+      "timestampMs": 77100,
+      "confidence": null
+    },
+    {
+      "text": " over",
+      "startMs": 77280,
+      "endMs": 77480,
+      "timestampMs": 77380,
+      "confidence": null
+    },
+    {
+      "text": " millions",
+      "startMs": 77640,
+      "endMs": 78020,
+      "timestampMs": 77830,
+      "confidence": null
+    },
+    {
+      "text": " of",
+      "startMs": 78080,
+      "endMs": 78140,
+      "timestampMs": 78110,
+      "confidence": null
+    },
+    {
+      "text": " years,",
+      "startMs": 78200,
+      "endMs": 78520,
+      "timestampMs": 78360,
+      "confidence": null
+    },
+    {
+      "text": " ecosystems",
+      "startMs": 78800,
+      "endMs": 79460,
+      "timestampMs": 79130,
+      "confidence": null
+    },
+    {
+      "text": " could",
+      "startMs": 79480,
+      "endMs": 79620,
+      "timestampMs": 79550,
+      "confidence": null
+    },
+    {
+      "text": " change",
+      "startMs": 79680,
+      "endMs": 79920,
+      "timestampMs": 79800,
+      "confidence": null
+    },
+    {
+      "text": " dramatically.",
+      "startMs": 80020,
+      "endMs": 80760,
+      "timestampMs": 80390,
+      "confidence": null
+    },
+    {
+      "text": " And",
+      "startMs": 81340,
+      "endMs": 81460,
+      "timestampMs": 81400,
+      "confidence": null
+    },
+    {
+      "text": " here's",
+      "startMs": 81540,
+      "endMs": 81780,
+      "timestampMs": 81660,
+      "confidence": null
+    },
+    {
+      "text": " the",
+      "startMs": 81820,
+      "endMs": 81900,
+      "timestampMs": 81860,
+      "confidence": null
+    },
+    {
+      "text": " craziest",
+      "startMs": 81980,
+      "endMs": 82520,
+      "timestampMs": 82250,
+      "confidence": null
+    },
+    {
+      "text": " part:",
+      "startMs": 82600,
+      "endMs": 82820,
+      "timestampMs": 82710,
+      "confidence": null
+    },
+    {
+      "text": " oxygen",
+      "startMs": 83420,
+      "endMs": 83920,
+      "timestampMs": 83670,
+      "confidence": null
+    },
+    {
+      "text": " is",
+      "startMs": 83960,
+      "endMs": 84040,
+      "timestampMs": 84000,
+      "confidence": null
+    },
+    {
+      "text": " the",
+      "startMs": 84080,
+      "endMs": 84240,
+      "timestampMs": 84160,
+      "confidence": null
+    },
+    {
+      "text": " very",
+      "startMs": 84320,
+      "endMs": 84560,
+      "timestampMs": 84440,
+      "confidence": null
+    },
+    {
+      "text": " thing",
+      "startMs": 84700,
+      "endMs": 84960,
+      "timestampMs": 84830,
+      "confidence": null
+    },
+    {
+      "text": " keeping",
+      "startMs": 85000,
+      "endMs": 85280,
+      "timestampMs": 85140,
+      "confidence": null
+    },
+    {
+      "text": " you",
+      "startMs": 85320,
+      "endMs": 85400,
+      "timestampMs": 85360,
+      "confidence": null
+    },
+    {
+      "text": " alive,",
+      "startMs": 85440,
+      "endMs": 85860,
+      "timestampMs": 85650,
+      "confidence": null
+    },
+    {
+      "text": " yet",
+      "startMs": 86420,
+      "endMs": 86640,
+      "timestampMs": 86530,
+      "confidence": null
+    },
+    {
+      "text": " doubling",
+      "startMs": 86660,
+      "endMs": 87060,
+      "timestampMs": 86860,
+      "confidence": null
+    },
+    {
+      "text": " it",
+      "startMs": 87100,
+      "endMs": 87240,
+      "timestampMs": 87170,
+      "confidence": null
+    },
+    {
+      "text": " could",
+      "startMs": 87260,
+      "endMs": 87380,
+      "timestampMs": 87320,
+      "confidence": null
+    },
+    {
+      "text": " make",
+      "startMs": 87420,
+      "endMs": 87560,
+      "timestampMs": 87490,
+      "confidence": null
+    },
+    {
+      "text": " the",
+      "startMs": 87600,
+      "endMs": 87680,
+      "timestampMs": 87640,
+      "confidence": null
+    },
+    {
+      "text": " world",
+      "startMs": 87720,
+      "endMs": 87900,
+      "timestampMs": 87810,
+      "confidence": null
+    },
+    {
+      "text": " around",
+      "startMs": 87960,
+      "endMs": 88280,
+      "timestampMs": 88120,
+      "confidence": null
+    },
+    {
+      "text": " you",
+      "startMs": 88320,
+      "endMs": 88380,
+      "timestampMs": 88350,
+      "confidence": null
+    },
+    {
+      "text": " far",
+      "startMs": 88640,
+      "endMs": 88860,
+      "timestampMs": 88750,
+      "confidence": null
+    },
+    {
+      "text": " more",
+      "startMs": 88900,
+      "endMs": 89060,
+      "timestampMs": 88980,
+      "confidence": null
+    },
+    {
+      "text": " dangerous.",
+      "startMs": 89100,
+      "endMs": 89620,
+      "timestampMs": 89360,
+      "confidence": null
+    },
+    {
+      "text": " Sometimes",
+      "startMs": 90260,
+      "endMs": 90780,
+      "timestampMs": 90520,
+      "confidence": null
+    },
+    {
+      "text": " even",
+      "startMs": 91060,
+      "endMs": 91320,
+      "timestampMs": 91190,
+      "confidence": null
+    },
+    {
+      "text": " too",
+      "startMs": 91400,
+      "endMs": 91560,
+      "timestampMs": 91480,
+      "confidence": null
+    },
+    {
+      "text": " much",
+      "startMs": 91600,
+      "endMs": 91760,
+      "timestampMs": 91680,
+      "confidence": null
+    },
+    {
+      "text": " of",
+      "startMs": 91800,
+      "endMs": 91860,
+      "timestampMs": 91830,
+      "confidence": null
+    },
+    {
+      "text": " a",
+      "startMs": 91900,
+      "endMs": 92000,
+      "timestampMs": 91950,
+      "confidence": null
+    },
+    {
+      "text": " good",
+      "startMs": 92040,
+      "endMs": 92220,
+      "timestampMs": 92130,
+      "confidence": null
+    },
+    {
+      "text": " thing",
+      "startMs": 92260,
+      "endMs": 92460,
+      "timestampMs": 92360,
+      "confidence": null
+    },
+    {
+      "text": " can",
+      "startMs": 92500,
+      "endMs": 92600,
+      "timestampMs": 92550,
+      "confidence": null
+    },
+    {
+      "text": " be",
+      "startMs": 92640,
+      "endMs": 92760,
+      "timestampMs": 92700,
+      "confidence": null
+    },
+    {
+      "text": " deadly.",
+      "startMs": 92780,
+      "endMs": 93120,
+      "timestampMs": 92950,
+      "confidence": null
+    }
+  ]
+}

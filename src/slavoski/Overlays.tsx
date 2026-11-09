@@ -7,7 +7,14 @@ import { AbsoluteFill, interpolate, spring, useCurrentFrame, useVideoConfig } fr
 import { FONT } from "./fonts";
 import { P } from "./palette";
 
-const LEFT = 87;
+/**
+ * Safe positions for the HUD, measured from the YouTube Shorts player on an iPhone (the user's screenshot):
+ * the player crops ~48 px off each side, the phone's clock and battery sit over y ≈ 30–120, and the
+ * comments / search / ⋯ buttons sit over the top right at y ≈ 175–240, x ≈ 690–990.
+ * So the lockup starts below the clock (y 168, left) and anything on the right starts below the buttons (y 268).
+ */
+export const SAFE = { left: 96, lockupTop: 168, rightTop: 268, titleTop: 302, tagTop: 262 } as const;
+const LEFT = SAFE.left;
 
 export const BrandLockup: React.FC<{
   chapter?: { n: number; title: string } | null;
@@ -15,7 +22,7 @@ export const BrandLockup: React.FC<{
   sub?: string[];
   opacity?: number;
 }> = ({ chapter, sub, opacity = 1 }) => (
-  <div style={{ position: "absolute", left: LEFT, top: 86, fontFamily: FONT, opacity, color: P.white }}>
+  <div style={{ position: "absolute", left: LEFT, top: SAFE.lockupTop, fontFamily: FONT, opacity, color: P.white }}>
     <div style={{ fontWeight: 700, fontSize: 28, letterSpacing: "0.32em", lineHeight: 1 }}>SLAVOSKI</div>
     {chapter ? (
       <div style={{ marginTop: 24, fontSize: 21, letterSpacing: "0.12em", opacity: 0.62, whiteSpace: "pre" }}>
@@ -49,7 +56,7 @@ export const TitleCard: React.FC<{
   return (
     <AbsoluteFill style={{ fontFamily: FONT, opacity: out }}>
       <BrandLockup sub={[series, disclaimer]} />
-      <div style={{ position: "absolute", left: LEFT - 4, top: 218 }}>
+      <div style={{ position: "absolute", left: LEFT - 4, top: SAFE.titleTop }}>
         {lines.map((l, i) => {
           const s = spring({ frame: frame - startFrame - i * 4, fps, config: { damping: 14, stiffness: 160 } });
           return (
@@ -95,7 +102,7 @@ export const Tag: React.FC<{ kind: TagKind; appearFrame?: number }> = ({ kind, a
       style={{
         position: "absolute",
         left: LEFT,
-        top: 176,
+        top: SAFE.tagTop,
         display: "flex",
         alignItems: "center",
         gap: 10,
@@ -124,7 +131,7 @@ export const Readout: React.FC<{
   top?: number;
   align?: "left" | "right";
   pulse?: number;
-}> = ({ label, value, accent = P.amber, top = 86, align = "right", pulse = 0 }) => (
+}> = ({ label, value, accent = P.amber, top = SAFE.rightTop, align = "right", pulse = 0 }) => (
   <div
     style={{
       position: "absolute",
