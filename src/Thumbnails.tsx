@@ -12,6 +12,7 @@ import { SHOTS as WW3 } from "./episodes/ww3-countdown/shots";
 import { thumbShot as NW } from "./episodes/no-work-2036/shots";
 import { thumbShot as SD } from "./episodes/satellites-dark/shots";
 import { thumbShot as VR } from "./episodes/verity/shots";
+import { thumbShot as DO } from "./episodes/double-oxygen/shots";
 import { FONT, loadHouseFonts } from "./slavoski/fonts";
 import { P } from "./slavoski/palette";
 import { AccretionDisk, FacetedEarth } from "./slavoski/space";
@@ -19,7 +20,7 @@ import { Stage } from "./slavoski/Stage";
 
 loadHouseFonts();
 
-export type ThumbProps = { episode: "black-hole" | "no-humans" | "gta-24h" | "smart-animals" | "ww3-countdown" | "no-work-2036" | "satellites-dark" | "verity" };
+export type ThumbProps = { episode: "black-hole" | "no-humans" | "gta-24h" | "smart-animals" | "ww3-countdown" | "no-work-2036" | "satellites-dark" | "verity" | "double-oxygen" };
 
 type Line = { text: string; color?: string; size?: number };
 const THUMBS: Record<ThumbProps["episode"], { shot: React.ReactNode; lines: Line[]; chip: string; top: number }> = {
@@ -72,6 +73,13 @@ const THUMBS: Record<ThumbProps["episode"], { shot: React.ReactNode; lines: Line
     shot: VR({ lt: 0, dur: 2, t: 0, words: [], width: 1080, height: 1920 }),
     lines: [{ text: "VERITY" , color: P.amber, size: 170 }, { text: "IS REAL" }],
     chip: "DON'T TURN AROUND",
+    top: 230,
+  },
+  "double-oxygen": {
+    // Slavoski in the backyard, a match roaring into a tower of flame.
+    shot: DO({ lt: 0, dur: 2, t: 0, words: [], width: 1080, height: 1920 }),
+    lines: [{ text: "OXYGEN", color: P.amber, size: 170 }, { text: "DOUBLED" }],
+    chip: "EVERYTHING BURNS",
     top: 230,
   },
   "gta-24h": {
