@@ -48,7 +48,9 @@ export const quadMatrix = (W: number, H: number, q: [Pt, Pt, Pt, Pt]): string =>
 export const screenCorners = (c: V3, w: number, h: number, yaw = 0, flat = false): [V3, V3, V3, V3] => {
   const cs = Math.cos(yaw);
   const sn = Math.sin(yaw);
-  const at = (dx: number, dy: number): V3 => (flat ? [c[0] + dx, c[1], c[2] - dy] : [c[0] + dx * cs, c[1] + dy, c[2] - dx * sn]);
+  // flat: lying face-up, turned by `yaw` about +Y (top edge toward −Z at yaw 0), like a mesh rotated [-π/2, 0, yaw]
+  const at = (dx: number, dy: number): V3 =>
+    flat ? [c[0] + dx * cs - dy * sn, c[1], c[2] - dx * sn - dy * cs] : [c[0] + dx * cs, c[1] + dy, c[2] - dx * sn];
   return [at(-w / 2, h / 2), at(w / 2, h / 2), at(w / 2, -h / 2), at(-w / 2, -h / 2)];
 };
 

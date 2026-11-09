@@ -13,7 +13,7 @@ import { Flat, Glow, Halo } from "../../slavoski/materials";
 import { Clouds, LightningBolt } from "../../slavoski/nature";
 import { clamp01, ease, noise1, type V3 } from "../../slavoski/noise";
 import { P } from "../../slavoski/palette";
-import { handPosition, headPosition, Hero, mergePose, reach, REST, walkPose, type Pose } from "../../slavoski/rig/Hero";
+import { handPosition, headPosition, Hero, lerpPose, mergePose, reach, REST, walkPose, type Pose } from "../../slavoski/rig/Hero";
 import { sittingPose } from "../../slavoski/room";
 import { CanvasPanel, ScreenHtml, fitText } from "../../slavoski/screens";
 import { lerpCam, Stage, type CameraSpec } from "../../slavoski/Stage";
@@ -146,18 +146,23 @@ const PARCEL_AT: V3 = [0, HOUSE.porchY, 2.7];
 
 /** The parcel on the doormat; the door swings open and Slavoski steps out and looks down. */
 const c1Porch: ShotFn = (c) => {
-  const door = k01(c.lt, 0.5, 1.1);
-  const out = c.lt > 0.95;
-  const step = k01(c.lt, 0.95, 1.7);
-  const hero: V3 = [PORCH_HERO[0], PORCH_HERO[1], 0.35 + step * (PORCH_HERO[2] - 0.35)];
-  const pose = mergePose(c.lt < 1.7 ? walkPose(c.lt * 1.4, 0.6 * (1 - step)) : REST, { headPitch: -0.55 * k01(c.lt, 1.5, 2.1), expression: c.lt > 2.0 ? "awe" : "neutral" });
+  const door = k01(c.lt, 0.3, 0.9);
+  // he walks out of the entry hall, across the threshold, to the parcel
+  const step = k01(c.lt, 0.7, 2.5);
+  const walking = c.lt > 0.7 && c.lt < 2.5;
+  const hero: V3 = [PORCH_HERO[0], PORCH_HERO[1], -2.4 + step * (PORCH_HERO[2] + 2.4)];
+  const settle = k01(c.lt, 2.3, 2.6);
+  const pose = mergePose(walking ? lerpPose(walkPose((c.lt - 0.7) * 1.25, 0.8), REST, settle) : REST, {
+    headPitch: -0.55 * k01(c.lt, 2.1, 2.7),
+    expression: c.lt > 2.6 ? "awe" : "neutral",
+  });
   const cam = move({ position: [7, 3.4, 20], target: [0, 4.4, 1.5] }, { position: [6, 3.4, 17.5], target: [0, 4.2, 1.8] }, c);
   return (
     <Shot mood="day" camera={cam} fog={[60, 300]} shadowSize={25}>
       <HouseFront t={c.t} doorOpen={door} />
       <Clouds t={c.t} color={CLOUD_DAY} y={45} radius={170} count={14} seed="dayc" />
       <Parcel position={PARCEL_AT} yaw={0.15} />
-      {out ? <Hero pose={pose} position={hero} /> : null}
+      <Hero pose={pose} position={hero} />
     </Shot>
   );
 };

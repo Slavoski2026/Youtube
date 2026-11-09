@@ -896,7 +896,7 @@ const drawSmileWindow = (k: number) => (ctx: CanvasRenderingContext2D, W: number
   ctx.fillRect(0, H / 2 - H * 0.02, W, H * 0.04);
 };
 
-export const HOUSE = { w: 20, h: 15, d: 14, porchY: 0.9, door: { w: 2.8, h: 5.6 } };
+export const HOUSE = { w: 20, h: 15, d: 14, porchY: 0.9, entry: 3.4, door: { w: 2.8, h: 5.6 } };
 
 /** A cardboard parcel; `open` 0..1 swings the four flaps out. Origin at the bottom centre. */
 export const Parcel: React.FC<{ position: V3; yaw?: number; open?: number; size?: [number, number, number] }> = ({ position, yaw = 0, open = 0, size = [1.5, 1.1, 1.3] }) => {
@@ -1041,11 +1041,28 @@ export const HouseFront: React.FC<{ t: number; night?: boolean; lit?: boolean; d
           <Flat color={trim} />
         </mesh>
       ))}
-      {/* the house body */}
-      <mesh position={[0, h / 2, -d / 2]} castShadow receiveShadow>
-        <BoxG args={[w, h, d]} />
+      {/* the house body: a solid back part, and a front part with a real doorway into a dim entry hall */}
+      <mesh position={[0, h / 2, -(d + HOUSE.entry) / 2]} castShadow receiveShadow>
+        <BoxG args={[w, h, d - HOUSE.entry]} />
         <Flat color={siding} />
       </mesh>
+      <WallWithHole x0={-w / 2} x1={w / 2} y1={h} hole={[-HOUSE.door.w / 2, HOUSE.door.w / 2, porchY, porchY + HOUSE.door.h]} z={-HOUSE.entry / 2} d={HOUSE.entry} color={siding} />
+      {/* entry hall seen through the doorway: back wall, side walls, floor, a warm ceiling light */}
+      <mesh position={[0, porchY + HOUSE.door.h / 2, -HOUSE.entry + 0.02]}>
+        <planeGeometry args={[HOUSE.door.w, HOUSE.door.h]} />
+        <Flat color={night ? "#2A2030" : "#5A4A5E"} />
+      </mesh>
+      {[-1, 1].map((s) => (
+        <mesh key={s} position={[s * (HOUSE.door.w / 2 - 0.01), porchY + HOUSE.door.h / 2, -HOUSE.entry / 2]} rotation={[0, -s * Math.PI / 2, 0]}>
+          <planeGeometry args={[HOUSE.entry, HOUSE.door.h]} />
+          <Flat color={night ? "#251C2A" : "#4E405A"} />
+        </mesh>
+      ))}
+      <mesh position={[0, porchY + 0.005, -HOUSE.entry / 2]} rotation={[-Math.PI / 2, 0, 0]}>
+        <planeGeometry args={[HOUSE.door.w, HOUSE.entry]} />
+        <Flat color="#4A3328" />
+      </mesh>
+      <pointLight position={[0, porchY + HOUSE.door.h - 0.4, -HOUSE.entry + 0.6]} color="#FFD49A" intensity={6} distance={6} decay={2} />
       <mesh position={[0, 7.5, 0.06]}>
         <BoxG args={[w + 0.2, 0.3, 0.2]} />
         <Flat color={trim} />
@@ -1134,16 +1151,12 @@ export const HouseFront: React.FC<{ t: number; night?: boolean; lit?: boolean; d
       </mesh>
       {night ? <pointLight position={[2.2, porchY + 4.4, 1.6]} color="#FFD49A" intensity={14} distance={12} decay={2} /> : null}
       {/* the front door (hinged on its left edge, swings inward) */}
-      <mesh position={[0, porchY + HOUSE.door.h / 2, 0.03]}>
-        <planeGeometry args={[HOUSE.door.w, HOUSE.door.h]} />
-        <Flat color={night ? "#120E0C" : "#2A1E18"} />
-      </mesh>
-      <group position={[-HOUSE.door.w / 2, porchY, 0.15]} rotation={[0, doorOpen * 1.6, 0]}>
-        <mesh position={[HOUSE.door.w / 2, HOUSE.door.h / 2, 0]} castShadow>
-          <BoxG args={[HOUSE.door.w, HOUSE.door.h, 0.2]} />
+      <group position={[-HOUSE.door.w / 2 + 0.12, porchY, -0.12]} rotation={[0, doorOpen * 1.5, 0]}>
+        <mesh position={[HOUSE.door.w / 2 - 0.12, HOUSE.door.h / 2, 0]} castShadow>
+          <BoxG args={[HOUSE.door.w - 0.24, HOUSE.door.h - 0.05, 0.2]} />
           <Flat color="#6A2A2A" />
         </mesh>
-        <mesh position={[HOUSE.door.w - 0.45, 2.6, 0.13]}>
+        <mesh position={[HOUSE.door.w - 0.55, 2.6, 0.13]}>
           <BoxG args={[0.14, 0.14, 0.14]} />
           <Flat color="#D8B060" />
         </mesh>
