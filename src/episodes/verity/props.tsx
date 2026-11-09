@@ -867,7 +867,7 @@ const roofGeom = (len: number, depth: number, height: number) => {
   const g = new THREE.ExtrudeGeometry(s, { depth: len, bevelEnabled: false });
   g.rotateY(Math.PI / 2);
   g.translate(-len / 2, 0, 0);
-  return g.toNonIndexed();
+  return g;
 };
 
 /** Drawn in the upstairs window: a yellow glow with Verity's smile in it. */
