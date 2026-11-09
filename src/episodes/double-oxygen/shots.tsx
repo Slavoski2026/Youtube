@@ -1043,13 +1043,13 @@ const c6Match: ShotFn = (c) => {
 /** Shorts cover: Slavoski in the backyard, a match in his hand roaring into a tower of flame. */
 export const thumbShot: ShotFn = () => {
   const hero: V3 = [0, 0, 1];
-  const { pose, base } = matchStance(hero, 0, add(hero, [-0.4, 2.65, 1.05]), { expression: "alarm", lean: -0.1, headPitch: 0.2 });
+  const { pose, base } = matchStance(hero, 0, add(hero, [-1.75, 2.05, 0.55]), { expression: "alarm", lean: -0.1, headPitch: 0.15, headYaw: -0.15 });
   return (
-    <Shot mood="day" camera={{ position: [0.6, 2.4, 14], target: [0, 6.2, 0] }} fog={[60, 300]} shadowSize={14}>
+    <Shot mood="day" camera={{ position: [-0.2, 3.4, 19], target: [-0.7, 4.9, 0] }} fog={[60, 300]} shadowSize={14}>
       <Backyard t={0} />
       <Clouds t={0} color="#F4F6FA" y={45} radius={160} count={14} seed="th" />
       <Hero pose={pose} position={hero} />
-      <Match position={base} t={0.4} flame={5.5} />
+      <Match position={base} t={0.4} flame={3.6} />
     </Shot>
   );
 };
