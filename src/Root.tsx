@@ -9,6 +9,7 @@ import { NoWork2036Episode, estimatedNoWork2036, type NoWork2036Props } from "./
 import { SatellitesDarkEpisode, estimatedSatellitesDark, type SatellitesDarkProps } from "./episodes/satellites-dark/SatellitesDarkEpisode";
 import { VerityEpisode, estimatedVerity, type VerityProps } from "./episodes/verity/VerityEpisode";
 import { DoubleOxygenEpisode, estimatedDoubleOxygen, type DoubleOxygenProps } from "./episodes/double-oxygen/DoubleOxygenEpisode";
+import { NoPainEpisode, estimatedNoPain, type NoPainProps } from "./episodes/no-pain/NoPainEpisode";
 import { voiceoverMetadata } from "./lib/voiceover";
 import { withDetail } from "./slavoski/detail";
 
@@ -65,6 +66,7 @@ export const RemotionRoot: React.FC = () => (
       ["satellites-dark", "SatellitesDark"],
       ["verity", "Verity"],
       ["double-oxygen", "DoubleOxygen"],
+      ["no-pain", "NoPain"],
     ] as const).map(([ep, id]) => (
       <Still
         key={ep}
@@ -134,6 +136,16 @@ export const RemotionRoot: React.FC = () => (
       height={HEIGHT}
       defaultProps={{ voiceover: "double-oxygen" } as DoubleOxygenProps}
       calculateMetadata={voiceoverMetadata<DoubleOxygenProps>(FPS, { tailSeconds: 2.2, fallback: estimatedDoubleOxygen })}
+    />
+    <Composition
+      id="NoPain"
+      component={NoPainEpisode}
+      durationInFrames={FPS * 89}
+      fps={FPS}
+      width={WIDTH}
+      height={HEIGHT}
+      defaultProps={{ voiceover: "no-pain" } as NoPainProps}
+      calculateMetadata={voiceoverMetadata<NoPainProps>(FPS, { tailSeconds: 2.2, fallback: estimatedNoPain })}
     />
     <Composition
       id="StyleCheck"

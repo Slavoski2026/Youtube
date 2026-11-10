@@ -13,6 +13,7 @@ import { thumbShot as NW } from "./episodes/no-work-2036/shots";
 import { thumbShot as SD } from "./episodes/satellites-dark/shots";
 import { thumbShot as VR } from "./episodes/verity/shots";
 import { thumbShot as DO } from "./episodes/double-oxygen/shots";
+import { thumbShot as NP } from "./episodes/no-pain/shots";
 import { FONT, loadHouseFonts } from "./slavoski/fonts";
 import { P } from "./slavoski/palette";
 import { AccretionDisk, FacetedEarth } from "./slavoski/space";
@@ -20,7 +21,7 @@ import { Stage } from "./slavoski/Stage";
 
 loadHouseFonts();
 
-export type ThumbProps = { episode: "black-hole" | "no-humans" | "gta-24h" | "smart-animals" | "ww3-countdown" | "no-work-2036" | "satellites-dark" | "verity" | "double-oxygen" };
+export type ThumbProps = { episode: "black-hole" | "no-humans" | "gta-24h" | "smart-animals" | "ww3-countdown" | "no-work-2036" | "satellites-dark" | "verity" | "double-oxygen" | "no-pain" };
 
 type Line = { text: string; color?: string; size?: number };
 const THUMBS: Record<ThumbProps["episode"], { shot: React.ReactNode; lines: Line[]; chip: string; top: number }> = {
@@ -80,6 +81,13 @@ const THUMBS: Record<ThumbProps["episode"], { shot: React.ReactNode; lines: Line
     shot: DO({ lt: 0, dur: 2, t: 0, words: [], width: 1080, height: 1920 }),
     lines: [{ text: "OXYGEN", color: P.amber, size: 170 }, { text: "DOUBLED" }],
     chip: "EVERYTHING BURNS",
+    top: 230,
+  },
+  "no-pain": {
+    // Slavoski's fist buried in a cracked wall, his face completely blank.
+    shot: NP({ lt: 0, dur: 2, t: 0, words: [], width: 1080, height: 1920 }),
+    lines: [{ text: "NO PAIN", color: P.amber, size: 170 }, { text: "AT ALL" }],
+    chip: "IT COULD KILL YOU",
     top: 230,
   },
   "gta-24h": {
