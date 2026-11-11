@@ -4,7 +4,7 @@
  * an infection is a red glow with cartoon germs. Generic medical signs (a blue "H", a green cross).
  * All at hero scale (Slavoski is 4.2 tall).
  */
-import React, { useMemo } from "react";
+import React, { useLayoutEffect, useMemo, useRef } from "react";
 import { random } from "remotion";
 import * as THREE from "three";
 import { BoxG, ConeG, CylG, IcoG } from "../../slavoski/detail";
@@ -379,14 +379,31 @@ export const Stadium: React.FC<{ t: number }> = ({ t }) => (
         <Flat color="#F4F0E8" />
       </mesh>
     ))}
-    {/* stands: stepped tiers with a crowd of coloured heads */}
-    {Array.from({ length: 8 }, (_, r) => (
+    {/* stands: stepped tiers (tread r: top at y 1.8 + 2.6r, centred at z −12 − 1.6r), a lit rail on each */}
+    {Array.from({ length: CROWD_ROWS }, (_, r) => (
       <group key={r}>
         <mesh position={[0, 0.9 + r * 1.3, -12 - r * 1.6]} receiveShadow>
           <BoxG args={[300, 1.8 + r * 2.6, 1.6]} />
-          <Flat color={r % 2 ? "#3A4258" : "#444C64"} />
+          <Flat color={r % 2 ? "#2E3446" : "#363E54"} />
         </mesh>
-        <Crowd row={r} t={t} />
+        <mesh position={[0, 1.8 + r * 2.6 + 0.02, -11.25 - r * 1.6]}>
+          <BoxG args={[300, 0.05, 0.08]} />
+          <Glow color="#8FA8D8" opacity={0.6} />
+        </mesh>
+      </group>
+    ))}
+    <StadiumCrowd t={t} />
+    {/* trackside boards between the track and the stands */}
+    {Array.from({ length: 30 }, (_, i) => (
+      <group key={i} position={[-145 + i * 10, 0, -8.2]}>
+        <mesh position={[0, 0.7, 0]} castShadow>
+          <BoxG args={[9.6, 1.4, 0.2]} />
+          <Flat color={["#24748F", "#C8372D", "#F2D23A", "#2F7A5A", "#5A4A78"][i % 5]} />
+        </mesh>
+        <mesh position={[0, 0.7, 0.11]}>
+          <planeGeometry args={[6, 0.3]} />
+          <Glow color="#F4F4F0" />
+        </mesh>
       </group>
     ))}
     {[-60, -20, 20, 60].map((x) => (
@@ -417,27 +434,98 @@ export const Stadium: React.FC<{ t: number }> = ({ t }) => (
   </group>
 );
 
-const Crowd: React.FC<{ row: number; t: number }> = ({ row, t }) => {
-  const n = 80;
-  const y = 0.9 + row * 1.3 + (1.8 + row * 2.6) / 2;
+const CROWD_ROWS = 8;
+const PER_ROW = 120;
+const SKINS = ["#C58B62", "#8A5A3A", "#E0B090", "#5A3A28", "#D8A07A", "#A8704A"];
+const HAIRS = ["#2A1A12", "#5A3A20", "#141418", "#C89A5A", "#6A6A70", "#3A2418"];
+const SHIRTS = ["#C8372D", "#24748F", "#E8C84A", "#E8E4DA", "#5A4A78", "#2F7A5A", "#E8862A", "#4F86D9"];
+
+/**
+ * The stadium crowd: hundreds of little people (shirt, head, hair, two arms) standing on the tiers, as five
+ * instanced meshes. About a third cheer with their arms up and bounce; the rest stand with arms down.
+ * Spaced 2 apart (±0.25 jitter) so neighbours never touch; each stands on its tread, in front of the next riser.
+ */
+const StadiumCrowd: React.FC<{ t: number }> = ({ t }) => {
+  const people = useMemo(
+    () =>
+      Array.from({ length: CROWD_ROWS * PER_ROW }, (_, i) => {
+        const row = Math.floor(i / PER_ROW);
+        const k = i % PER_ROW;
+        return {
+          row,
+          x: -120 + k * 2 + (random(`px${i}`) - 0.5) * 0.5 + (row % 2) * 1.0,
+          h: 0.85 + random(`ph${i}`) * 0.3,
+          cheer: random(`pc${i}`) < 0.35,
+          ph: random(`pp${i}`) * 6,
+          shirt: new THREE.Color(SHIRTS[Math.floor(random(`ps${i}`) * SHIRTS.length)]),
+          skin: new THREE.Color(SKINS[Math.floor(random(`pk${i}`) * SKINS.length)]),
+          hair: new THREE.Color(HAIRS[Math.floor(random(`pr${i}`) * HAIRS.length)]),
+        };
+      }),
+    [],
+  );
+  const body = useRef<THREE.InstancedMesh>(null);
+  const head = useRef<THREE.InstancedMesh>(null);
+  const hair = useRef<THREE.InstancedMesh>(null);
+  const armL = useRef<THREE.InstancedMesh>(null);
+  const armR = useRef<THREE.InstancedMesh>(null);
+  useLayoutEffect(() => {
+    const o = new THREE.Object3D();
+    const set = (mesh: THREE.InstancedMesh | null, i: number, p: V3, rz = 0, color?: THREE.Color) => {
+      if (!mesh) return;
+      o.position.set(...p);
+      o.rotation.set(0, 0, rz);
+      o.scale.set(1, 1, 1);
+      o.updateMatrix();
+      mesh.setMatrixAt(i, o.matrix);
+      if (color) mesh.setColorAt(i, color);
+    };
+    people.forEach((p, i) => {
+      const base = 1.8 + 2.6 * p.row;
+      const z = -12 - 1.6 * p.row;
+      const jump = p.cheer ? Math.max(0, Math.sin(t * 6 + p.ph)) * 0.22 : 0;
+      const top = base + jump + 1.0 * p.h;
+      set(body.current, i, [p.x, base + jump + 0.5 * p.h, z], 0, p.shirt);
+      set(head.current, i, [p.x, top + 0.34, z], 0, p.skin);
+      set(hair.current, i, [p.x, top + 0.58, z - 0.04], 0, p.hair);
+      const wave = Math.sin(t * 8 + p.ph) * 0.25;
+      if (p.cheer) {
+        set(armL.current, i, [p.x - 0.52, top + 0.42, z], 0.25 + wave, p.shirt);
+        set(armR.current, i, [p.x + 0.52, top + 0.42, z], -0.25 - wave, p.shirt);
+      } else {
+        set(armL.current, i, [p.x - 0.55, base + jump + 0.55 * p.h, z], 0, p.shirt);
+        set(armR.current, i, [p.x + 0.55, base + jump + 0.55 * p.h, z], 0, p.shirt);
+      }
+    });
+    for (const m of [body.current, head.current, hair.current, armL.current, armR.current]) {
+      if (!m) continue;
+      m.instanceMatrix.needsUpdate = true;
+      if (m.instanceColor) m.instanceColor.needsUpdate = true;
+    }
+  });
+  const n = people.length;
   return (
     <group>
-      {Array.from({ length: n }, (_, i) => {
-        const x = -120 + i * 3 + random(`cx${row}${i}`) * 1.4;
-        const jump = Math.max(0, Math.sin(t * 6 + i * 0.7 + row)) * 0.25;
-        return (
-          <group key={i} position={[x, y + jump, -12 - row * 1.6]}>
-            <mesh position={[0, 0.4, 0]}>
-              <BoxG args={[1.0, 0.8, 0.6]} />
-              <Flat color={["#C8372D", "#24748F", "#E8C84A", "#E8E4DA", "#5A4A78", "#2F7A5A"][(i + row) % 6]} />
-            </mesh>
-            <mesh position={[0, 1.1, 0]}>
-              <IcoG args={[0.34, 0]} />
-              <Flat color={["#C58B62", "#8A5A3A", "#E0B090", "#5A3A28"][(i * 3 + row) % 4]} />
-            </mesh>
-          </group>
-        );
-      })}
+      <instancedMesh ref={body} args={[undefined, undefined, n]} castShadow>
+        <boxGeometry args={[0.9, 1.0, 0.5]} />
+        <meshLambertMaterial color="#FFFFFF" flatShading />
+      </instancedMesh>
+      <instancedMesh ref={head} args={[undefined, undefined, n]}>
+        <icosahedronGeometry args={[0.34, 1]} />
+        <meshLambertMaterial color="#FFFFFF" flatShading />
+      </instancedMesh>
+      <instancedMesh ref={hair} args={[undefined, undefined, n]}>
+        <boxGeometry args={[0.62, 0.18, 0.6]} />
+        <meshLambertMaterial color="#FFFFFF" flatShading />
+      </instancedMesh>
+      <instancedMesh ref={armL} args={[undefined, undefined, n]}>
+        <boxGeometry args={[0.18, 0.85, 0.2]} />
+        <meshLambertMaterial color="#FFFFFF" flatShading />
+      </instancedMesh>
+      <instancedMesh ref={armR} args={[undefined, undefined, n]}>
+        <boxGeometry args={[0.18, 0.85, 0.2]} />
+        <meshLambertMaterial color="#FFFFFF" flatShading />
+      </instancedMesh>
     </group>
   );
 };
@@ -459,8 +547,8 @@ export const Playground: React.FC = () => (
     {/* climbing frame */}
     {[-1.5, 1.5].flatMap((x) =>
       [-1.5, 1.5].map((z) => (
-        <mesh key={`${x}${z}`} position={[x, 2.6, z]} castShadow>
-          <CylG args={[0.12, 0.12, 5.2, 6]} />
+        <mesh key={`${x}${z}`} position={[x, 3.9, z]} castShadow>
+          <CylG args={[0.12, 0.12, 7.8, 6]} />
           <Flat color="#C8372D" />
         </mesh>
       )),
@@ -469,7 +557,8 @@ export const Playground: React.FC = () => (
       <BoxG args={[3.4, 0.2, 3.4]} />
       <Flat color="#24748F" />
     </mesh>
-    <mesh position={[0, 5.6, 0]} rotation={[0, Math.PI / 4, 0]} castShadow>
+    {/* roof well above a kid standing on the deck (deck top 4.0, kid 2.5 tall) */}
+    <mesh position={[0, 8.6, 0]} rotation={[0, Math.PI / 4, 0]} castShadow>
       <ConeG args={[2.6, 1.6, 4]} />
       <Flat color="#E8C84A" />
     </mesh>
@@ -622,6 +711,62 @@ export const Bathroom: React.FC = () => (
     <mesh position={[-6.8, 4.5, 2]}>
       <BoxG args={[0.3, 9, 12]} />
       <Flat color="#D0E0E8" />
+    </mesh>
+  </group>
+);
+
+/**
+ * A bathtub (outer 5.2 × 2.6, 1.4 high; inner floor at y = TUB.floor) full of steaming, too-hot water, with a
+ * rubber duck. Centred on `position`. Steam rises only beside the bather (|x| > 1.1), never through him.
+ */
+export const TUB = { floor: 0.25, water: 1.28, inX: 2.3, inZ: 1.0 };
+export const Bathtub: React.FC<{ position: V3; t: number; heat?: number }> = ({ position, t, heat = 1 }) => (
+  <group position={position}>
+    {[
+      [0, 0.7, -1.15, 5.2, 1.4, 0.3],
+      [0, 0.7, 1.15, 5.2, 1.4, 0.3],
+      [-2.45, 0.7, 0, 0.3, 1.4, 2.0],
+      [2.45, 0.7, 0, 0.3, 1.4, 2.0],
+      [0, TUB.floor / 2, 0, 4.6, TUB.floor, 2.0],
+    ].map(([x, y, z, w, h, d], i) => (
+      <mesh key={i} position={[x, y, z]} castShadow receiveShadow>
+        <BoxG args={[w, h, d]} />
+        <Flat color="#F4F6F8" />
+      </mesh>
+    ))}
+    <mesh position={[0, TUB.water, 0]} rotation={[-Math.PI / 2, 0, 0]}>
+      <planeGeometry args={[TUB.inX * 2, TUB.inZ * 2]} />
+      <meshBasicMaterial color={mix("#8FD0F0", "#FF8A5A", heat * 0.6)} transparent opacity={0.6} toneMapped={false} depthWrite={false} side={THREE.DoubleSide} />
+    </mesh>
+    <Halo position={[0, TUB.water + 0.3, 0]} size={6} color="#FF7A4A" opacity={0.25 * heat} />
+    <group position={[-1.6, TUB.water + 0.12, 0.35]} rotation={[0, 0.6 + Math.sin(t * 2) * 0.2, 0]}>
+      <mesh>
+        <IcoG args={[0.24, 1]} />
+        <Flat color="#F2D23A" />
+      </mesh>
+      <mesh position={[0, 0.24, 0.12]}>
+        <IcoG args={[0.15, 1]} />
+        <Flat color="#F2D23A" />
+      </mesh>
+      <mesh position={[0, 0.22, 0.29]}>
+        <BoxG args={[0.12, 0.05, 0.1]} />
+        <Flat color="#E8862A" />
+      </mesh>
+    </group>
+    {Array.from({ length: 10 }, (_, i) => {
+      const ph = (t * 0.5 + i / 10) % 1;
+      const side = i % 2 ? 1 : -1;
+      return (
+        <mesh key={i} position={[side * (1.2 + random(`sx${i}`) * 0.9), TUB.water + 0.2 + ph * 2.6, (random(`sz${i}`) - 0.5) * 1.4]}>
+          <IcoG args={[0.18 + ph * 0.35, 1]} />
+          <Flat color="#F4F4F8" opacity={0.55 * (1 - ph) * heat} />
+        </mesh>
+      );
+    })}
+    {/* taps on the end wall */}
+    <mesh position={[2.3, 1.7, 0]} rotation={[0, 0, Math.PI / 2]}>
+      <CylG args={[0.08, 0.08, 0.6, 8]} />
+      <Flat color="#B8C2CE" />
     </mesh>
   </group>
 );
@@ -865,14 +1010,15 @@ export const SmokeAlarm: React.FC<{ position: V3; t: number; battery?: number; r
 };
 
 /** Grey smoke creeping low across a floor from `from` toward +Z (k 0..1). */
-export const CreepingSmoke: React.FC<{ from: V3; k: number; t: number; width?: number }> = ({ from, k, t, width = 6 }) => (
+export const CreepingSmoke: React.FC<{ from: V3; k: number; t: number; width?: number; maxReach?: number }> = ({ from, k, t, width = 6, maxReach = 9 }) => (
   <group position={from}>
     {Array.from({ length: 26 }, (_, i) => {
       const d = random(`cs${i}`);
-      const reach = k * 9 * (0.4 + d * 0.6);
+      const r = 0.5 + d * 0.4;
+      const reach = k * maxReach * (0.4 + d * 0.6);
       return (
-        <mesh key={i} position={[(random(`csx${i}`) - 0.5) * width, 0.3 + random(`csy${i}`) * 0.8 + noise1(`cs${i}`, t) * 0.2, reach]}>
-          <IcoG args={[0.6 + d * 0.8, 1]} />
+        <mesh key={i} position={[(random(`csx${i}`) - 0.5) * width, r + random(`csy${i}`) * 0.5 + noise1(`cs${i}`, t) * 0.15, reach]}>
+          <IcoG args={[r, 1]} />
           <Flat color={i % 3 ? "#6A6A74" : "#55555E"} opacity={0.55} />
         </mesh>
       );

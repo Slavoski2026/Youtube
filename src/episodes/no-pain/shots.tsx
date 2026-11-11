@@ -9,7 +9,7 @@ import React from "react";
 import { AbsoluteFill, random } from "remotion";
 import { StreetSet } from "../../slavoski/city";
 import { BoxG, CylG, IcoG } from "../../slavoski/detail";
-import { crowdLook, SLAVOSKI } from "../../slavoski/hero";
+import { crowdLook } from "../../slavoski/hero";
 import { Flat, Glow, Halo } from "../../slavoski/materials";
 import { Clouds, LeafyTree, Rain } from "../../slavoski/nature";
 import { clamp01, ease, type V3 } from "../../slavoski/noise";
@@ -28,6 +28,7 @@ import {
   ArmBones,
   athleteLook,
   Bathroom,
+  Bathtub,
   BurnGlow,
   coatLook,
   CreepingSmoke,
@@ -47,7 +48,7 @@ import {
   Playground,
   SmokeAlarm,
   Stadium,
-  ToyBricks,
+  TUB,
 } from "./props";
 
 export type ShotCtx = { lt: number; dur: number; t: number; words: Caption[]; width: number; height: number };
@@ -98,7 +99,6 @@ const BigStreet: React.FC<React.ComponentProps<typeof StreetSet> & { day?: boole
   </group>
 );
 
-const BARE = { ...SLAVOSKI, shoe: P.skin };
 
 // ---------------------------------------------------------------- cold open: the hook
 
@@ -156,13 +156,15 @@ const bedPose = (over: Partial<Pose> = {}): Pose =>
 const c1Wake: ShotFn = (c) => {
   const k = k01(c.lt, 0.3, 0.7);
   const pose = bedPose({ lean: -0.3 * (1 - k), headRoll: 0.3 * (1 - k), blink: 1 - k, expression: k > 0.5 ? "neutral" : "relief" });
-  const ring = c.lt > 0.05 ? Math.sin(c.lt * 40) * 0.02 : 0;
   const cam = move({ position: [BED.x + 0.6, 4.6, 7.4], target: [BED.x - 1.0, 2.5, -2.6] }, { position: [BED.x + 0.5, 4.5, 6.8], target: [BED.x - 1.0, 2.6, -2.6] }, c);
   return (
     <Shot mood="dawn" camera={cam} fog={false} light={0.7} shadowSize={10} keyDir={[-1, 0.35, 0.1]}>
       <Bedroom lampOn={false} dawn />
       <Hero pose={pose} position={BED_HERO} />
-      <AlarmClock position={[0.1 + ring, 1.1, -3.3]} yaw={0.4} />
+      {/* on the nightstand top (y 1.1), in front of the lamp pole and below its shade (shade bottom 1.53) */}
+      <group position={[0.1, 1.1, -2.98]} scale={0.6}>
+        <AlarmClock position={[0, 0, 0]} yaw={0.25} />
+      </group>
     </Shot>
   );
 };
@@ -216,11 +218,13 @@ const c1Super: ShotFn = (c) => {
         <LeafyTree key={i} position={[x, 0, -18 - i * 3]} scale={3} seed={`sp${i}`} />
       ))}
       <Clouds t={c.t} color="#F4F6FA" y={40} radius={150} count={14} seed="sup" />
-      {/* cape hanging from the shoulders, flapping out behind */}
-      <mesh position={[0, 2.0, -0.55]} rotation={[0.35 + flap, 0, 0]} castShadow>
-        <BoxG args={[1.5, 2.4, 0.06]} />
-        <Flat color={P.carRed} />
-      </mesh>
+      {/* cape: pinned along the shoulder line just behind the back (torso back z −0.36, below the head), flapping out behind */}
+      <group position={[0, 2.74, -0.42]} rotation={[-0.3 - Math.abs(flap), 0, 0]}>
+        <mesh position={[0, -1.1, 0]} castShadow>
+          <BoxG args={[1.5, 2.2, 0.06]} />
+          <Flat color={P.carRed} />
+        </mesh>
+      </group>
       <Hero pose={pose} position={[0, 0, 0]} />
       {Array.from({ length: 6 }, (_, i) => {
         const ph = (c.t * 0.9 + i / 6) % 1;
@@ -272,22 +276,33 @@ const c1Alive: ShotFn = (c) => {
 /** The sunny street with a signpost and two townsfolk; `focus` "bonk" (a man walks into the post) or "box" (a man drops a box on his foot). Both carry on smiling. */
 const streetBeat = (c: ShotCtx, focus: "bonk" | "box") => {
   const lt = c.lt;
-  const zA = Math.min(-9.5 + lt * 3.2, -4.55);
-  const tHit = (-4.55 + 9.5) / 3.2;
-  const bonk = lt > tHit ? k01(lt, tHit, tHit + 0.15) - k01(lt, tHit + 0.15, tHit + 0.5) : 0;
-  const after = Math.max(0, lt - tHit - 0.5);
-  const walkA = lt < tHit || after > 0;
-  const A: V3 = [16 + k01(lt, tHit + 0.5, tHit + 1.0) * 1.4, 0, zA - bonk * 0.5 + after * 2.8];
+  // A walks +Z along x = 16 and stops when his head (radius 0.68) meets the post (radius 0.15 at z = −4).
+  const zStop = -4 - 0.15 - 0.7;
+  const speed = 3.0;
+  const tHit = (zStop + 9.5) / speed;
+  const bonk = lt > tHit ? k01(lt, tHit, tHit + 0.12) - k01(lt, tHit + 0.3, tHit + 0.7) : 0;
+  const side = k01(lt, tHit + 0.8, tHit + 1.4);
+  const after = Math.max(0, lt - tHit - 1.4);
+  const walking = lt < tHit || side > 0;
+  const A: V3 = [16 + side * 1.6, 0, Math.min(-9.5 + lt * speed, zStop) - bonk * 0.25 + after * speed];
+  let poseA = mergePose(walking ? walkPose(lt * 1.3, 0.8) : REST, { expression: lt > tHit + 0.5 ? "smile" : "neutral", headPitch: bonk * 0.35, lean: -0.15 * bonk });
+  poseA = { ...poseA, bob: groundedBob({ ...poseA, bob: 0 }) };
+  const headA: V3 = [A[0], 4.0 + 0.6, A[2]];
+  // B holds a wide box against his chest and drops it; it lands on the pavement touching his toes (toes at z = B.z + 0.49).
   const drop = focus === "box" ? k01(lt, 0.55, 0.85) : 0;
   const B: V3 = [19.2, 0, -6];
-  const boxY = 2.3 - drop * 1.88;
+  const boxZ = B[2] + 0.49 + 0.4;
+  const boxY = 2.35 - drop * (2.35 - 0.4);
+  const bounce = focus === "box" && lt > 0.85 ? Math.max(0, Math.sin(((lt - 0.85) / 0.25) * Math.PI)) * 0.12 * (lt < 1.1 ? 1 : 0) : 0;
+  const holdB = 1 - drop;
+  const poseB = mergePose(REST, { expression: lt > 1.2 ? "smile" : "neutral", headPitch: -0.45 * drop, lShoulder: [1.05 * holdB + 0.05, 0.12], rShoulder: [1.05 * holdB + 0.05, 0.12], lElbow: 0.15 + 0.5 * holdB, rElbow: 0.15 + 0.5 * holdB });
   const cam =
     focus === "bonk"
-      ? move({ position: [14.2, 4.0, 9], target: [16.2, 2.8, -5] }, { position: [14.4, 3.9, 7.8], target: [16.2, 2.8, -5] }, c)
-      : move({ position: [17.6, 3.3, 3.2], target: [19.3, 1.9, -6] }, { position: [17.8, 3.25, 2.4], target: [19.3, 1.9, -6] }, c);
+      ? move({ position: [6.0, 3.7, -1.0], target: [16, 2.8, -5.2] }, { position: [6.6, 3.6, -1.3], target: [16, 2.8, -5.0] }, c)
+      : move({ position: [17.4, 3.4, 3.6], target: [19.2, 1.8, -5.4] }, { position: [17.6, 3.3, 2.8], target: [19.2, 1.8, -5.4] }, c);
   return (
-    <Shot mood="day" camera={cam} fog={[80, 320]} shadowSize={30} shake={bonk > 0.5 ? 0.02 : 0}>
-      <BigStreet seed="pain" cars={false} />
+    <Shot mood="day" camera={cam} fog={[80, 320]} shadowSize={30} shake={bonk > 0.6 ? 0.02 : 0}>
+      <BigStreet seed="pain" cars={false} lamps={false} />
       <Clouds t={c.t} color="#F4F6FA" y={45} radius={170} count={14} seed="ps" />
       <mesh position={[16, 3, -4]} castShadow>
         <CylG args={[0.15, 0.15, 6, 8]} />
@@ -297,12 +312,31 @@ const streetBeat = (c: ShotCtx, focus: "bonk" | "box") => {
         <BoxG args={[1.8, 1.0, 0.1]} />
         <Flat color="#2E5A8A" />
       </mesh>
-      {focus === "bonk" ? <Hero pose={mergePose(walkA ? walkPose(lt * 1.4, 0.8) : REST, { expression: "smile", headPitch: bonk * 0.3 })} position={A} look={crowdLook(4)} /> : null}
-      <Hero pose={mergePose(REST, { expression: "smile", headPitch: -0.3 * drop, lShoulder: [0.9 * (1 - drop) + 0.1, 0.2], rShoulder: [0.9 * (1 - drop) + 0.1, 0.2], lElbow: 0.8 * (1 - drop), rElbow: 0.8 * (1 - drop) })} position={B} yaw={0.3} look={crowdLook(11)} />
-      <mesh position={[B[0] + 0.2, Math.max(0.42, boxY), B[2] + 0.72]} rotation={[0, 0.3, drop * 0.2]} castShadow>
-        <BoxG args={[1.0, 0.8, 0.8]} />
-        <Flat color="#B88A58" />
-      </mesh>
+      {focus === "bonk" ? (
+        <>
+          <Hero pose={poseA} position={A} look={crowdLook(4)} />
+          {lt > tHit && lt < tHit + 1.6
+            ? [0, 1, 2].map((i) => {
+                const a = c.t * 5 + (i / 3) * Math.PI * 2;
+                return (
+                  <mesh key={i} position={[headA[0] + Math.cos(a) * 0.7, headA[1] + 0.25, headA[2] + Math.sin(a) * 0.7]} rotation={[0, a, 0.4]}>
+                    <IcoG args={[0.12, 0]} />
+                    <Glow color={P.amber} />
+                  </mesh>
+                );
+              })
+            : null}
+        </>
+      ) : null}
+      {focus === "box" ? (
+        <>
+          <Hero pose={poseB} position={B} look={crowdLook(11)} />
+          <mesh position={[B[0], boxY + bounce, boxZ]} rotation={[drop * 0.08, 0, 0]} castShadow>
+            <BoxG args={[1.4, 0.8, 0.8]} />
+            <Flat color="#B88A58" />
+          </mesh>
+        </>
+      ) : null}
     </Shot>
   );
 };
@@ -414,7 +448,8 @@ const RUN_Z = 1;
 /** "Athletes could keep running…": a sprinter under the floodlights, the crowd on its feet. */
 const c3Run: ShotFn = (c) => {
   const x = -8 + c.lt * 9;
-  const pose = mergePose(walkPose(c.lt * 3.2, 1.7), { expression: "smile", lean: 0.25 });
+  const pose0 = mergePose(walkPose(c.lt * 3.2, 1.7), { expression: "smile", lean: 0.25 });
+  const pose = { ...pose0, bob: groundedBob({ ...pose0, bob: 0 }) };
   const cam: CameraSpec = { position: [x + 4, 3.6, 13], target: [x + 1, 3.0, -2] };
   return (
     <Shot mood="night" camera={cam} fog={[60, 260]} shadowSize={20} light={1.0}>
@@ -427,7 +462,8 @@ const c3Run: ShotFn = (c) => {
 /** "…on broken bones.": X-ray view: a cracked shin bone, still sprinting. */
 const c3Xray: ShotFn = (c) => {
   const x = -1 + c.lt * 9;
-  const pose = mergePose(walkPose(1.1 + c.lt * 3.2, 1.7), { expression: "smile", lean: 0.25 });
+  const pose0 = mergePose(walkPose(1.1 + c.lt * 3.2, 1.7), { expression: "smile", lean: 0.25 });
+  const pose = { ...pose0, bob: groundedBob({ ...pose0, bob: 0 }) };
   const pos: V3 = [x, 0, RUN_Z];
   const cam: CameraSpec = { position: [x + 1.5, 2.4, 9], target: [x, 1.8, RUN_Z] };
   return (
@@ -444,14 +480,14 @@ const c3Xray: ShotFn = (c) => {
 const c3Play: ShotFn = (c) => {
   const s = 0.6;
   const j = k01(c.lt, 0.3, 1.1);
-  const start: V3 = [0.9, PLAY.deck[1], 1.0];
-  const end: V3 = [2.0, 0, 4.4];
+  const start: V3 = [0, PLAY.deck[1], 0.6];
+  const end: V3 = [0.3, 0, 4.6];
   const kid: V3 = [start[0] + (end[0] - start[0]) * j, start[1] + (end[1] - start[1]) * j + Math.sin(j * Math.PI) * 1.4, start[2] + (end[2] - start[2]) * j];
   const squat = c.lt > 1.1 ? 1 - k01(c.lt, 1.3, 1.8) : 0;
   let pose = mergePose(REST, { expression: "smile", lShoulder: [0.3, 1.6 * (j > 0 && j < 1 ? 1 : 0.3)], rShoulder: [0.3, 1.6 * (j > 0 && j < 1 ? 1 : 0.3)], lHip: [0.9 * squat, 0.05], rHip: [0.9 * squat, 0.05], lKnee: 1.4 * squat, rKnee: 1.4 * squat, lean: 0.3 * squat });
   pose = { ...pose, bob: squat > 0 ? groundedBob(pose) : 0 };
   const knee = add(kid, [0.12, 0.75 * s, 0.25]);
-  const cam = move({ position: [7, 3.4, 14], target: [1.2, 2.6, 2] }, { position: [6.4, 3.3, 12.8], target: [1.2, 2.6, 2] }, c);
+  const cam = move({ position: [5.2, 3.8, 15], target: [0.3, 3.0, 2] }, { position: [4.8, 3.7, 13.8], target: [0.3, 3.0, 2] }, c);
   return (
     <Shot mood="sunset" camera={cam} fog={[60, 280]} shadowSize={14}>
       <Playground />
@@ -483,7 +519,7 @@ const c3Germs: ShotFn = (c) => {
       {Array.from({ length: n }, (_, i) => {
         const a = random(`gm${i}`) * Math.PI * 2;
         const d = 0.2 + random(`gmd${i}`) * (0.4 + red * 1.2);
-        return <Germ key={i} position={[Math.cos(a) * d, 0.18 + random(`gmy${i}`) * 0.25, Math.sin(a) * d]} r={0.13} t={c.t + i} seed={`gm${i}`} />;
+        return <Germ key={i} position={[Math.cos(a) * d, 0.24 + random(`gmy${i}`) * 0.25, Math.sin(a) * d]} r={0.13} t={c.t + i} seed={`gm${i}`} />;
       })}
     </Shot>
   );
@@ -491,23 +527,24 @@ const c3Germs: ShotFn = (c) => {
 
 /** "…because the usual painful warning signs are missing.": the body's dashboard: every warning light dead. */
 const c3Dash: ShotFn = (c) => {
-  const cam = move({ position: [0.2, 2.3, 9.4], target: [0, 1.9, 0] }, { position: [0.15, 2.25, 8.6], target: [0, 1.9, 0] }, c);
+  const cam = move({ position: [0.2, 2.6, 9.0], target: [0, 2.4, 0] }, { position: [0.15, 2.55, 8.2], target: [0, 2.4, 0] }, c);
   return (
     <Shot mood="night" camera={cam} fog={false} stars={false} light={0.4} shadowSize={8}>
-      <mesh position={[0, 1.0, -0.6]} castShadow>
-        <BoxG args={[7, 2.4, 1.6]} />
-        <Flat color="#1E2028" />
+      {/* a dark clinic wall with a wall-mounted monitor */}
+      <mesh position={[0, 4, -0.3]} receiveShadow>
+        <BoxG args={[16, 10, 0.3]} />
+        <Flat color="#2A3040" />
       </mesh>
-      <mesh position={[0, 2.1, 0.21]}>
-        <BoxG args={[2.4, 3.0, 0.1]} />
+      <mesh position={[0, -0.05, 4]} receiveShadow>
+        <BoxG args={[16, 0.1, 9]} />
+        <Flat color="#3A4050" />
+      </mesh>
+      <mesh position={[0, 2.4, -0.05]} castShadow>
+        <BoxG args={[2.6, 3.2, 0.2]} />
         <Flat color="#121318" />
       </mesh>
-      <CanvasPanel position={[0, 2.1, 0.27]} w={2.2} h={2.8} px={768} draw={drawDash(c.t, k01(c.lt, 0.2, 1.2))} />
-      <mesh position={[0.2, 0.9, 1.4]} rotation={[0.45, 0, 0]}>
-        <torusGeometry args={[1.0, 0.11, 6, 18]} />
-        <Flat color="#2A2C34" />
-      </mesh>
-      <pointLight position={[0, 2.2, 2]} color="#8FB3D9" intensity={3} distance={8} decay={2} />
+      <CanvasPanel position={[0, 2.4, 0.06]} w={2.2} h={2.8} px={768} draw={drawDash(c.t, k01(c.lt, 0.2, 1.2))} />
+      <pointLight position={[0, 2.6, 2]} color="#8FB3D9" intensity={3} distance={8} decay={2} />
     </Shot>
   );
 };
@@ -620,7 +657,7 @@ const c5Hospital: ShotFn = (c) => {
     <Shot mood="storm" camera={cam} fog={[60, 260]} shadowSize={40} light={0.7}>
       <HospitalFront t={c.t} />
       {Array.from({ length: 6 }, (_, i) => (
-        <Ambulance key={i} position={[-6 + i * 0.4, 0, 8 + i * 6.5]} yaw={Math.PI + 0.05} t={c.t + i * 0.37} />
+        <Ambulance key={i} position={[-6 + i * 0.4, 0, 8 + i * 7.8]} yaw={Math.PI + 0.05} t={c.t + i * 0.37} />
       ))}
       <Rain center={[8, 10, 30]} size={[40, 22, 26]} t={c.t} count={600} seed="hos" thickness={0.06} opacity={0.5} />
     </Shot>
@@ -630,14 +667,14 @@ const c5Hospital: ShotFn = (c) => {
 /** "Doctors would have to rely much more heavily on examinations…": a doctor scans Slavoski head to toe. */
 const c5Scan: ShotFn = (c) => {
   const y = 0.3 + ((Math.sin(c.lt * 2.2 - Math.PI / 2) + 1) / 2) * 3.9;
-  const cam = move({ position: [3.6, 4.0, 11.5], target: [0.8, 2.8, 0.5] }, { position: [3.2, 3.9, 10.5], target: [0.8, 2.8, 0.5] }, c);
+  const cam = move({ position: [3.2, 4.0, 13.5], target: [1.4, 2.8, 2.2] }, { position: [2.9, 3.9, 12.5], target: [1.4, 2.8, 2.2] }, c);
   return (
     <Shot mood="day" camera={cam} fog={false} light={0.95} shadowSize={12}>
       <Clinic />
-      <Hero pose={mergePose(REST, { expression: "neutral", headPitch: -0.1 })} position={[0, 0, 1.2]} />
-      <ScanHoop position={[0, y, 1.2]} r={1.45} />
-      <Halo position={[0, y, 1.2]} size={3.5} color="#45E08A" opacity={0.25} />
-      <Hero pose={mergePose(REST, { expression: "neutral", headYaw: -0.4, rShoulder: [1.0, 0.3], rElbow: 0.8 })} position={[3.0, 0, 0.3]} yaw={-0.6} look={coatLook(7)} />
+      <Hero pose={mergePose(REST, { expression: "neutral", headPitch: -0.1 })} position={[0, 0, 2.6]} />
+      <ScanHoop position={[0, y, 2.6]} r={1.45} />
+      <Halo position={[0, y, 2.6]} size={3.5} color="#45E08A" opacity={0.25} />
+      <Hero pose={mergePose(REST, { expression: "neutral", headYaw: -0.4, rShoulder: [1.0, 0.3], rElbow: 0.8 })} position={[3.6, 0, 2.6]} yaw={-0.9} look={coatLook(7)} />
     </Shot>
   );
 };
@@ -652,16 +689,16 @@ const c5Tests: ShotFn = (c) => {
   );
 };
 
-/** "And everyday activities could become surprisingly dangerous.": barefoot across a floor of toy bricks, beaming. */
-const c5Bricks: ShotFn = (c) => {
-  const x = -3.8 + c.lt * 1.6;
-  const pose = mergePose(walkPose(c.lt * 1.2, 0.8), { expression: "smile" });
-  const cam = move({ position: [1.5, 3.4, 8.5], target: [-0.4, 1.8, -0.4] }, { position: [1.3, 3.3, 7.6], target: [-0.2, 1.8, -0.4] }, c);
+/** "And everyday activities could become surprisingly dangerous.": a steaming, far-too-hot bath, and a big happy smile. */
+const TUB_AT: V3 = [2.6, 0, 0.6];
+const c5Bath: ShotFn = (c) => {
+  const pose = mergePose(REST, { expression: "smile", headPitch: 0.05, lShoulder: [0.15, 0.35], rShoulder: [0.15, 0.35] });
+  const cam = move({ position: [3.6, 4.6, 10.5], target: [2.6, 2.6, 0.6] }, { position: [3.4, 4.5, 9.6], target: [2.6, 2.6, 0.6] }, c);
   return (
-    <Shot mood="sunset" camera={cam} fog={false} light={0.75} shadowSize={10} keyDir={[-1, 0.35, 0.1]} overlay={<CardLine text="EVERYDAY LIFE" sub="SURPRISINGLY DANGEROUS" y={420} appearFrame={startFrame(c) + 10} accent="#FF6A4A" />}>
-      <Bedroom lampOn dawn />
-      <ToyBricks area={[-4.5, 3, -1.4, 1.6]} count={30} />
-      <Hero pose={pose} position={[x, 0, 0.2]} yaw={Math.PI / 2} look={BARE} />
+    <Shot mood="day" camera={cam} fog={false} light={0.95} shadowSize={10} overlay={<CardLine text="EVERYDAY LIFE" sub="SURPRISINGLY DANGEROUS" y={420} appearFrame={startFrame(c) + 10} accent="#FF6A4A" />}>
+      <Bathroom />
+      <Bathtub position={TUB_AT} t={c.t} />
+      <Hero pose={pose} position={[TUB_AT[0], TUB.floor, TUB_AT[2]]} />
     </Shot>
   );
 };
@@ -670,11 +707,11 @@ const c5Bricks: ShotFn = (c) => {
 
 /** "Because here's the terrifying truth:": night, Slavoski looks straight at us. */
 const c6Truth: ShotFn = (c) => {
-  const cam = move({ position: [0.4, 3.6, 8.6], target: [0, 3.4, 0.4] }, { position: [0.35, 3.6, 7.0], target: [0, 3.45, 0.4] }, c);
+  const cam = move({ position: [-1.4, 3.6, 9.8], target: [-1.8, 3.4, 1.6] }, { position: [-1.45, 3.6, 8.4], target: [-1.8, 3.45, 1.6] }, c);
   return (
     <Shot mood="night" camera={cam} fog={false} light={0.45} shadowSize={10}>
       <Bedroom lampOn />
-      <Hero pose={mergePose(REST, { expression: "worried", headPitch: 0.05 })} position={[0, 0, 0.4]} />
+      <Hero pose={mergePose(REST, { expression: "worried", headPitch: 0.05 })} position={[-1.8, 0, 1.6]} />
     </Shot>
   );
 };
@@ -693,7 +730,7 @@ const c6Friend: ShotFn = (c) => {
 };
 
 /** "It's your body's ALARM SYSTEM.": a smoke alarm on the ceiling, its red light blinking. */
-const ALARM_AT: V3 = [0.4, 5.95, -1.0];
+const ALARM_AT: V3 = [0.4, 6.0, -1.0];
 const c6Alarm: ShotFn = (c) => {
   const cam = move({ position: [1.6, 3.4, 2.4], target: ALARM_AT }, { position: [1.4, 3.6, 2.0], target: ALARM_AT }, c);
   return (
@@ -721,7 +758,7 @@ const c6Battery: ShotFn = (c) => {
         <Flat color="#4A4466" />
       </mesh>
       <SmokeAlarm position={ALARM_AT} t={c.t} battery={1 - pull} />
-      <ArmInsert fist={add(bat, [-0.42, -0.05, 0])} dir={[-0.5, -1, 0.6]} />
+      <ArmInsert fist={add(bat, [-0.49, -0.02, 0])} dir={[-0.5, -1, 0.6]} />
     </Shot>
   );
 };
@@ -729,7 +766,7 @@ const c6Battery: ShotFn = (c) => {
 /** "…you might not realise something is killing you until it's too late.": he sleeps; smoke creeps in; the alarm stays dark. */
 const c6Sleep: ShotFn = (c) => {
   const pose = bedPose({ lean: -0.32, headRoll: 0.3, blink: 1, expression: "relief" });
-  const cam = move({ position: [BED.x + 3.8, 5.6, 9.6], target: [BED.x - 1.6, 1.6, -1.6] }, { position: [BED.x + 3.0, 5.2, 7.8], target: [BED.x - 1.4, 1.8, -1.8] }, c);
+  const cam = move({ position: [BED.x + 2.2, 5.4, 10.2], target: [-0.1, 1.6, -0.8] }, { position: [BED.x + 1.8, 5.1, 8.6], target: [0.0, 1.7, -1.0] }, c);
   return (
     <Shot mood="night" camera={cam} fog={false} light={0.35} shadowSize={10}>
       <Bedroom lampOn={false} />
@@ -739,7 +776,8 @@ const c6Sleep: ShotFn = (c) => {
       </mesh>
       <SmokeAlarm position={ALARM_AT} t={c.t} battery={0} />
       <Hero pose={pose} position={BED_HERO} />
-      <CreepingSmoke from={[-3.5, 0, -4]} k={k01(c.lt, 0, 4)} t={c.t} width={5} />
+      {/* in the open floor between the nightstand (z ≤ −2.85) and the bed (x ≥ 0.8) */}
+      <CreepingSmoke from={[-1.7, 0, -1.8]} k={k01(c.lt, 0, 4)} t={c.t} width={0.6} maxReach={5} />
     </Shot>
   );
 };
@@ -802,7 +840,7 @@ export const SHOTS: Record<string, CuedShot<ShotFn>[]> = {
     { cue: "Hospitals", fn: c5Hospital },
     { cue: "Doctors would", fn: c5Scan },
     { cue: "medical tests", fn: c5Tests },
-    { cue: "And everyday", fn: c5Bricks },
+    { cue: "And everyday", fn: c5Bath },
   ],
   c6: [
     { cue: null, fn: c6Truth },
