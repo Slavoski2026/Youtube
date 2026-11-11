@@ -225,6 +225,9 @@ Lessons (carry forward):
 - A flame held in front of the hero hides his face: hold matches and torches out to his side (hand at about hero + (−1.3, 2.3, 0.75)).
 - `headYaw` > 0 turns the head to the hero's own left (local +X). With the hero at yaw π (facing −Z), his left is world −X: put the camera on that side for a turn-to-camera.
 - A wide control panel (a dashboard, a chart) gets cropped in 9:16: lay it out portrait (2×2) instead of in a row.
+- **`BigStreet` pavement is raised:** its top is y = 0.12 × 3.5 = 0.42 over x 12.25…21.35. People and props on the pavement stand at y 0.42, not 0, or their feet sink out of sight (ep. 10).
+- Inserting a shot into a chapter shifts every later `cN.k` name: re-check the `Sfx` cues that point at them (ep. 10's pan sizzle ended up on the box drop).
+- A cape hangs from a pivot at the shoulder line just behind the back, rotated about X by a **positive** angle so it swings back (−Z); a negative angle swings it into the body.
 - A street-lamp pole at ×3.5 is a thick dark bar: a camera on the pavement looking along it can end up right behind one (the frame goes dark). Turn `lamps={false}` on `BigStreet` for pavement shots, or check the camera line.
 - Crowds: use instanced meshes (body, head, hair, two arms) with per-instance colours, a third of them cheering with arms up (ep. 10 `StadiumCrowd`). Rows of plain boxes with a ball on top look cheap (the user said so).
 - `BigStreet` buildings are ~50 tall: aerial shots over it go above the road (x = 0) and higher than 60, or the camera ends up inside a building.

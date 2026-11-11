@@ -219,7 +219,7 @@ const c1Super: ShotFn = (c) => {
       ))}
       <Clouds t={c.t} color="#F4F6FA" y={40} radius={150} count={14} seed="sup" />
       {/* cape: pinned along the shoulder line just behind the back (torso back z −0.36, below the head), flapping out behind */}
-      <group position={[0, 2.74, -0.42]} rotation={[-0.3 - Math.abs(flap), 0, 0]}>
+      <group position={[0, 2.74, -0.42]} rotation={[0.3 + Math.abs(flap), 0, 0]}>
         <mesh position={[0, -1.1, 0]} castShadow>
           <BoxG args={[1.5, 2.2, 0.06]} />
           <Flat color={P.carRed} />
@@ -274,6 +274,8 @@ const c1Alive: ShotFn = (c) => {
 // ---------------------------------------------------------------- 02 the first hours
 
 /** The sunny street with a signpost and two townsfolk; `focus` "bonk" (a man walks into the post) or "box" (a man drops a box on his foot). Both carry on smiling. */
+/** BigStreet's pavement (x 12.25…21.35) is a 0.12 kit slab scaled ×3.5: people stand on its top, not on y = 0. */
+const PAVE = 0.12 * CITY;
 const streetBeat = (c: ShotCtx, focus: "bonk" | "box") => {
   const lt = c.lt;
   // A walks +Z along x = 16 and stops when his head (radius 0.68) meets the post (radius 0.15 at z = −4).
@@ -284,15 +286,15 @@ const streetBeat = (c: ShotCtx, focus: "bonk" | "box") => {
   const side = k01(lt, tHit + 0.8, tHit + 1.4);
   const after = Math.max(0, lt - tHit - 1.4);
   const walking = lt < tHit || side > 0;
-  const A: V3 = [16 + side * 1.6, 0, Math.min(-9.5 + lt * speed, zStop) - bonk * 0.25 + after * speed];
+  const A: V3 = [16 + side * 1.6, PAVE, Math.min(-9.5 + lt * speed, zStop) - bonk * 0.25 + after * speed];
   let poseA = mergePose(walking ? walkPose(lt * 1.3, 0.8) : REST, { expression: lt > tHit + 0.5 ? "smile" : "neutral", headPitch: bonk * 0.35, lean: -0.15 * bonk });
   poseA = { ...poseA, bob: groundedBob({ ...poseA, bob: 0 }) };
-  const headA: V3 = [A[0], 4.0 + 0.6, A[2]];
+  const headA: V3 = [A[0], PAVE + 4.6, A[2]];
   // B holds a wide box against his chest and drops it; it lands on the pavement touching his toes (toes at z = B.z + 0.49).
   const drop = focus === "box" ? k01(lt, 0.55, 0.85) : 0;
-  const B: V3 = [19.2, 0, -6];
+  const B: V3 = [19.2, PAVE, -6];
   const boxZ = B[2] + 0.49 + 0.4;
-  const boxY = 2.35 - drop * (2.35 - 0.4);
+  const boxY = PAVE + 2.35 - drop * 1.95;
   const bounce = focus === "box" && lt > 0.85 ? Math.max(0, Math.sin(((lt - 0.85) / 0.25) * Math.PI)) * 0.12 * (lt < 1.1 ? 1 : 0) : 0;
   const holdB = 1 - drop;
   const poseB = mergePose(REST, { expression: lt > 1.2 ? "smile" : "neutral", headPitch: -0.45 * drop, lShoulder: [1.05 * holdB + 0.05, 0.12], rShoulder: [1.05 * holdB + 0.05, 0.12], lElbow: 0.15 + 0.5 * holdB, rElbow: 0.15 + 0.5 * holdB });
