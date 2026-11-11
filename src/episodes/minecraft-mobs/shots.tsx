@@ -815,7 +815,7 @@ const zombieBurn: ShotFn = (c) => {
 };
 
 const skelBurn: ShotFn = (c) => {
-  const x = -4 + c.lt * 5.4;
+  const x = -2.8 + c.lt * 4.4;
   const gone = c.lt > 1.15;
   const cam = move({ position: [0, 3.0, 15], target: [0, 2.6, 0] }, { position: [0.6, 3.0, 13.6], target: [0.6, 2.6, 0] }, c);
   return (
@@ -949,7 +949,7 @@ const runAway: ShotFn = (c) => {
       ) : (
         <>
           <Hero pose={runPose(c.lt * 2.9)} position={[0, 0, hz]} />
-          <Hisser position={[0.8, 0, hz - gap]} walk={c.lt * 5} swell={k} flash={blink} tilt={0.08} />
+          <Hisser position={[0.8, 0, hz - gap]} walk={c.lt * 5} swell={k} flash={blink * 0.65} tilt={0.08} />
         </>
       )}
     </Shot>
