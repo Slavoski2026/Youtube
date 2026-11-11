@@ -11,6 +11,7 @@ import { SHOTS as SA } from "./episodes/smart-animals/shots";
 import { SHOTS as WW3 } from "./episodes/ww3-countdown/shots";
 import { thumbShot as NW } from "./episodes/no-work-2036/shots";
 import { thumbShot as SD } from "./episodes/satellites-dark/shots";
+import { thumbShot as MM } from "./episodes/minecraft-mobs/shots";
 import { FONT, loadHouseFonts } from "./slavoski/fonts";
 import { P } from "./slavoski/palette";
 import { AccretionDisk, FacetedEarth } from "./slavoski/space";
@@ -18,7 +19,7 @@ import { Stage } from "./slavoski/Stage";
 
 loadHouseFonts();
 
-export type ThumbProps = { episode: "black-hole" | "no-humans" | "gta-24h" | "smart-animals" | "ww3-countdown" | "no-work-2036" | "satellites-dark" };
+export type ThumbProps = { episode: "black-hole" | "no-humans" | "gta-24h" | "smart-animals" | "ww3-countdown" | "no-work-2036" | "satellites-dark" | "minecraft-mobs" };
 
 type Line = { text: string; color?: string; size?: number };
 const THUMBS: Record<ThumbProps["episode"], { shot: React.ReactNode; lines: Line[]; chip: string; top: number }> = {
@@ -65,6 +66,13 @@ const THUMBS: Record<ThumbProps["episode"], { shot: React.ReactNode; lines: Line
     lines: [{ text: "EVERY SATELLITE" }, { text: "JUST DIED", color: P.amber, size: 150 }],
     chip: "WHAT HAPPENS NEXT?",
     top: 230,
+  },
+  "minecraft-mobs": {
+    // Slavoski mid-scream on his street at sunset, the hisser flashing right behind him.
+    shot: MM({ lt: 0, dur: 2, t: 0, words: [], width: 1080, height: 1920 }),
+    lines: [{ text: "MINECRAFT MOBS" }, { text: "IN REAL LIFE", color: P.amber, size: 150 }],
+    chip: "DON'T LOOK BEHIND YOU",
+    top: 300,
   },
   "gta-24h": {
     shot: GTA.c5[0].fn({ lt: 2.2, dur: 2.6, t: 48.2 }),

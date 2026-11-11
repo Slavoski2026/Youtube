@@ -1,0 +1,1071 @@
+{
+  "slug": "minecraft-mobs",
+  "audio": "voiceover/minecraft-mobs.mp3",
+  "durationInSeconds": 57.99183673469388,
+  "words": [
+    {
+      "text": "What",
+      "startMs": 160,
+      "endMs": 260,
+      "timestampMs": 210,
+      "confidence": null
+    },
+    {
+      "text": " if",
+      "startMs": 320,
+      "endMs": 400,
+      "timestampMs": 360,
+      "confidence": null
+    },
+    {
+      "text": " Minecraft",
+      "startMs": 560,
+      "endMs": 1120,
+      "timestampMs": 840,
+      "confidence": null
+    },
+    {
+      "text": " mobs",
+      "startMs": 1220,
+      "endMs": 1500,
+      "timestampMs": 1360,
+      "confidence": null
+    },
+    {
+      "text": " suddenly",
+      "startMs": 1740,
+      "endMs": 2140,
+      "timestampMs": 1940,
+      "confidence": null
+    },
+    {
+      "text": " spawned",
+      "startMs": 2280,
+      "endMs": 2540,
+      "timestampMs": 2410,
+      "confidence": null
+    },
+    {
+      "text": " in",
+      "startMs": 2580,
+      "endMs": 2680,
+      "timestampMs": 2630,
+      "confidence": null
+    },
+    {
+      "text": " real",
+      "startMs": 2820,
+      "endMs": 3000,
+      "timestampMs": 2910,
+      "confidence": null
+    },
+    {
+      "text": " life?",
+      "startMs": 3080,
+      "endMs": 3420,
+      "timestampMs": 3250,
+      "confidence": null
+    },
+    {
+      "text": " Imagine",
+      "startMs": 3653,
+      "endMs": 3973,
+      "timestampMs": 3813,
+      "confidence": null
+    },
+    {
+      "text": " walking",
+      "startMs": 4113,
+      "endMs": 4393,
+      "timestampMs": 4252,
+      "confidence": null
+    },
+    {
+      "text": " down",
+      "startMs": 4433,
+      "endMs": 4553,
+      "timestampMs": 4493,
+      "confidence": null
+    },
+    {
+      "text": " the",
+      "startMs": 4593,
+      "endMs": 4672,
+      "timestampMs": 4633,
+      "confidence": null
+    },
+    {
+      "text": " street",
+      "startMs": 4752,
+      "endMs": 5053,
+      "timestampMs": 4903,
+      "confidence": null
+    },
+    {
+      "text": " when",
+      "startMs": 5093,
+      "endMs": 5292,
+      "timestampMs": 5193,
+      "confidence": null
+    },
+    {
+      "text": " suddenly",
+      "startMs": 5373,
+      "endMs": 5813,
+      "timestampMs": 5592,
+      "confidence": null
+    },
+    {
+      "text": " a",
+      "startMs": 6883,
+      "endMs": 6983,
+      "timestampMs": 6933,
+      "confidence": null
+    },
+    {
+      "text": " creeper",
+      "startMs": 7063,
+      "endMs": 7383,
+      "timestampMs": 7223,
+      "confidence": null
+    },
+    {
+      "text": " appears",
+      "startMs": 7443,
+      "endMs": 7743,
+      "timestampMs": 7593,
+      "confidence": null
+    },
+    {
+      "text": " right",
+      "startMs": 7883,
+      "endMs": 8063,
+      "timestampMs": 7973,
+      "confidence": null
+    },
+    {
+      "text": " behind",
+      "startMs": 8083,
+      "endMs": 8483,
+      "timestampMs": 8282,
+      "confidence": null
+    },
+    {
+      "text": " you.",
+      "startMs": 8543,
+      "endMs": 8663,
+      "timestampMs": 8603,
+      "confidence": null
+    },
+    {
+      "text": " Your",
+      "startMs": 9663,
+      "endMs": 9763,
+      "timestampMs": 9712,
+      "confidence": null
+    },
+    {
+      "text": " neighbor's",
+      "startMs": 9823,
+      "endMs": 10143,
+      "timestampMs": 9983,
+      "confidence": null
+    },
+    {
+      "text": " house",
+      "startMs": 10203,
+      "endMs": 10463,
+      "timestampMs": 10333,
+      "confidence": null
+    },
+    {
+      "text": " is",
+      "startMs": 10503,
+      "endMs": 10623,
+      "timestampMs": 10563,
+      "confidence": null
+    },
+    {
+      "text": " gone,",
+      "startMs": 10663,
+      "endMs": 10963,
+      "timestampMs": 10813,
+      "confidence": null
+    },
+    {
+      "text": " but",
+      "startMs": 11158,
+      "endMs": 11278,
+      "timestampMs": 11218,
+      "confidence": null
+    },
+    {
+      "text": " that's",
+      "startMs": 11338,
+      "endMs": 11578,
+      "timestampMs": 11458,
+      "confidence": null
+    },
+    {
+      "text": " just",
+      "startMs": 11638,
+      "endMs": 11758,
+      "timestampMs": 11698,
+      "confidence": null
+    },
+    {
+      "text": " the",
+      "startMs": 11798,
+      "endMs": 11858,
+      "timestampMs": 11828,
+      "confidence": null
+    },
+    {
+      "text": " beginning.",
+      "startMs": 11878,
+      "endMs": 12358,
+      "timestampMs": 12118,
+      "confidence": null
+    },
+    {
+      "text": " As",
+      "startMs": 12578,
+      "endMs": 12678,
+      "timestampMs": 12628,
+      "confidence": null
+    },
+    {
+      "text": " the",
+      "startMs": 12718,
+      "endMs": 12818,
+      "timestampMs": 12768,
+      "confidence": null
+    },
+    {
+      "text": " sun",
+      "startMs": 12878,
+      "endMs": 13058,
+      "timestampMs": 12968,
+      "confidence": null
+    },
+    {
+      "text": " sets,",
+      "startMs": 13198,
+      "endMs": 13458,
+      "timestampMs": 13328,
+      "confidence": null
+    },
+    {
+      "text": " zombies",
+      "startMs": 13821,
+      "endMs": 14221,
+      "timestampMs": 14021,
+      "confidence": null
+    },
+    {
+      "text": " start",
+      "startMs": 14261,
+      "endMs": 14401,
+      "timestampMs": 14331,
+      "confidence": null
+    },
+    {
+      "text": " appearing",
+      "startMs": 14441,
+      "endMs": 14781,
+      "timestampMs": 14611,
+      "confidence": null
+    },
+    {
+      "text": " across",
+      "startMs": 14841,
+      "endMs": 15161,
+      "timestampMs": 15001,
+      "confidence": null
+    },
+    {
+      "text": " every",
+      "startMs": 15361,
+      "endMs": 15601,
+      "timestampMs": 15481,
+      "confidence": null
+    },
+    {
+      "text": " city.",
+      "startMs": 15741,
+      "endMs": 16021,
+      "timestampMs": 15881,
+      "confidence": null
+    },
+    {
+      "text": " Skeletons",
+      "startMs": 16316,
+      "endMs": 16836,
+      "timestampMs": 16575,
+      "confidence": null
+    },
+    {
+      "text": " begin",
+      "startMs": 16876,
+      "endMs": 17136,
+      "timestampMs": 17005,
+      "confidence": null
+    },
+    {
+      "text": " shooting",
+      "startMs": 17176,
+      "endMs": 17496,
+      "timestampMs": 17336,
+      "confidence": null
+    },
+    {
+      "text": " arrows",
+      "startMs": 17595,
+      "endMs": 17876,
+      "timestampMs": 17736,
+      "confidence": null
+    },
+    {
+      "text": " at",
+      "startMs": 17896,
+      "endMs": 18075,
+      "timestampMs": 17986,
+      "confidence": null
+    },
+    {
+      "text": " anyone",
+      "startMs": 18136,
+      "endMs": 18455,
+      "timestampMs": 18295,
+      "confidence": null
+    },
+    {
+      "text": " outside,",
+      "startMs": 18496,
+      "endMs": 18996,
+      "timestampMs": 18746,
+      "confidence": null
+    },
+    {
+      "text": " and",
+      "startMs": 19319,
+      "endMs": 19399,
+      "timestampMs": 19359,
+      "confidence": null
+    },
+    {
+      "text": " spiders",
+      "startMs": 19639,
+      "endMs": 20039,
+      "timestampMs": 19839,
+      "confidence": null
+    },
+    {
+      "text": " the",
+      "startMs": 20059,
+      "endMs": 20159,
+      "timestampMs": 20109,
+      "confidence": null
+    },
+    {
+      "text": " size",
+      "startMs": 20199,
+      "endMs": 20419,
+      "timestampMs": 20309,
+      "confidence": null
+    },
+    {
+      "text": " of",
+      "startMs": 20459,
+      "endMs": 20579,
+      "timestampMs": 20519,
+      "confidence": null
+    },
+    {
+      "text": " cars",
+      "startMs": 20639,
+      "endMs": 21039,
+      "timestampMs": 20839,
+      "confidence": null
+    },
+    {
+      "text": " start",
+      "startMs": 21099,
+      "endMs": 21319,
+      "timestampMs": 21209,
+      "confidence": null
+    },
+    {
+      "text": " climbing",
+      "startMs": 21359,
+      "endMs": 21719,
+      "timestampMs": 21539,
+      "confidence": null
+    },
+    {
+      "text": " buildings.",
+      "startMs": 21839,
+      "endMs": 22339,
+      "timestampMs": 22089,
+      "confidence": null
+    },
+    {
+      "text": " You",
+      "startMs": 22594,
+      "endMs": 22674,
+      "timestampMs": 22634,
+      "confidence": null
+    },
+    {
+      "text": " think",
+      "startMs": 22694,
+      "endMs": 22854,
+      "timestampMs": 22774,
+      "confidence": null
+    },
+    {
+      "text": " hiding",
+      "startMs": 22894,
+      "endMs": 23154,
+      "timestampMs": 23024,
+      "confidence": null
+    },
+    {
+      "text": " inside",
+      "startMs": 23194,
+      "endMs": 23494,
+      "timestampMs": 23344,
+      "confidence": null
+    },
+    {
+      "text": " your",
+      "startMs": 23534,
+      "endMs": 23674,
+      "timestampMs": 23604,
+      "confidence": null
+    },
+    {
+      "text": " house",
+      "startMs": 23714,
+      "endMs": 23974,
+      "timestampMs": 23844,
+      "confidence": null
+    },
+    {
+      "text": " will",
+      "startMs": 23994,
+      "endMs": 24114,
+      "timestampMs": 24054,
+      "confidence": null
+    },
+    {
+      "text": " save",
+      "startMs": 24154,
+      "endMs": 24374,
+      "timestampMs": 24264,
+      "confidence": null
+    },
+    {
+      "text": " you?",
+      "startMs": 24414,
+      "endMs": 24514,
+      "timestampMs": 24464,
+      "confidence": null
+    },
+    {
+      "text": " Think",
+      "startMs": 24829,
+      "endMs": 24989,
+      "timestampMs": 24909,
+      "confidence": null
+    },
+    {
+      "text": " again.",
+      "startMs": 25049,
+      "endMs": 25409,
+      "timestampMs": 25229,
+      "confidence": null
+    },
+    {
+      "text": " An",
+      "startMs": 25716,
+      "endMs": 25896,
+      "timestampMs": 25806,
+      "confidence": null
+    },
+    {
+      "text": " Enderman",
+      "startMs": 25956,
+      "endMs": 26336,
+      "timestampMs": 26146,
+      "confidence": null
+    },
+    {
+      "text": " teleports",
+      "startMs": 26436,
+      "endMs": 26896,
+      "timestampMs": 26666,
+      "confidence": null
+    },
+    {
+      "text": " straight",
+      "startMs": 27036,
+      "endMs": 27356,
+      "timestampMs": 27196,
+      "confidence": null
+    },
+    {
+      "text": " into",
+      "startMs": 27376,
+      "endMs": 27536,
+      "timestampMs": 27456,
+      "confidence": null
+    },
+    {
+      "text": " your",
+      "startMs": 27576,
+      "endMs": 27656,
+      "timestampMs": 27616,
+      "confidence": null
+    },
+    {
+      "text": " bedroom.",
+      "startMs": 27776,
+      "endMs": 28236,
+      "timestampMs": 28006,
+      "confidence": null
+    },
+    {
+      "text": " You",
+      "startMs": 28443,
+      "endMs": 28523,
+      "timestampMs": 28483,
+      "confidence": null
+    },
+    {
+      "text": " look",
+      "startMs": 28563,
+      "endMs": 28683,
+      "timestampMs": 28623,
+      "confidence": null
+    },
+    {
+      "text": " it",
+      "startMs": 28723,
+      "endMs": 28803,
+      "timestampMs": 28763,
+      "confidence": null
+    },
+    {
+      "text": " directly",
+      "startMs": 28843,
+      "endMs": 29343,
+      "timestampMs": 29093,
+      "confidence": null
+    },
+    {
+      "text": " in",
+      "startMs": 29363,
+      "endMs": 29443,
+      "timestampMs": 29403,
+      "confidence": null
+    },
+    {
+      "text": " the",
+      "startMs": 29463,
+      "endMs": 29543,
+      "timestampMs": 29503,
+      "confidence": null
+    },
+    {
+      "text": " eyes.",
+      "startMs": 29623,
+      "endMs": 29923,
+      "timestampMs": 29773,
+      "confidence": null
+    },
+    {
+      "text": " Big",
+      "startMs": 30281,
+      "endMs": 30441,
+      "timestampMs": 30361,
+      "confidence": null
+    },
+    {
+      "text": " mistake.",
+      "startMs": 30501,
+      "endMs": 30961,
+      "timestampMs": 30731,
+      "confidence": null
+    },
+    {
+      "text": " Now",
+      "startMs": 31262,
+      "endMs": 31402,
+      "timestampMs": 31332,
+      "confidence": null
+    },
+    {
+      "text": " it's",
+      "startMs": 31442,
+      "endMs": 31602,
+      "timestampMs": 31522,
+      "confidence": null
+    },
+    {
+      "text": " chasing",
+      "startMs": 31662,
+      "endMs": 32042,
+      "timestampMs": 31852,
+      "confidence": null
+    },
+    {
+      "text": " you",
+      "startMs": 32082,
+      "endMs": 32182,
+      "timestampMs": 32132,
+      "confidence": null
+    },
+    {
+      "text": " through",
+      "startMs": 32202,
+      "endMs": 32342,
+      "timestampMs": 32272,
+      "confidence": null
+    },
+    {
+      "text": " your",
+      "startMs": 32382,
+      "endMs": 32502,
+      "timestampMs": 32442,
+      "confidence": null
+    },
+    {
+      "text": " own",
+      "startMs": 32582,
+      "endMs": 32742,
+      "timestampMs": 32662,
+      "confidence": null
+    },
+    {
+      "text": " house.",
+      "startMs": 32802,
+      "endMs": 33202,
+      "timestampMs": 33002,
+      "confidence": null
+    },
+    {
+      "text": " But",
+      "startMs": 33430,
+      "endMs": 33550,
+      "timestampMs": 33490,
+      "confidence": null
+    },
+    {
+      "text": " here's",
+      "startMs": 33610,
+      "endMs": 33830,
+      "timestampMs": 33720,
+      "confidence": null
+    },
+    {
+      "text": " where",
+      "startMs": 33850,
+      "endMs": 34010,
+      "timestampMs": 33930,
+      "confidence": null
+    },
+    {
+      "text": " things",
+      "startMs": 34030,
+      "endMs": 34270,
+      "timestampMs": 34150,
+      "confidence": null
+    },
+    {
+      "text": " get",
+      "startMs": 34290,
+      "endMs": 34510,
+      "timestampMs": 34400,
+      "confidence": null
+    },
+    {
+      "text": " really",
+      "startMs": 34650,
+      "endMs": 34930,
+      "timestampMs": 34790,
+      "confidence": null
+    },
+    {
+      "text": " bad.",
+      "startMs": 34970,
+      "endMs": 35230,
+      "timestampMs": 35100,
+      "confidence": null
+    },
+    {
+      "text": " Someone",
+      "startMs": 35552,
+      "endMs": 35932,
+      "timestampMs": 35742,
+      "confidence": null
+    },
+    {
+      "text": " accidentally",
+      "startMs": 36012,
+      "endMs": 36592,
+      "timestampMs": 36302,
+      "confidence": null
+    },
+    {
+      "text": " summons",
+      "startMs": 36652,
+      "endMs": 37032,
+      "timestampMs": 36842,
+      "confidence": null
+    },
+    {
+      "text": " the",
+      "startMs": 37092,
+      "endMs": 37252,
+      "timestampMs": 37172,
+      "confidence": null
+    },
+    {
+      "text": " Wither.",
+      "startMs": 37292,
+      "endMs": 37612,
+      "timestampMs": 37452,
+      "confidence": null
+    },
+    {
+      "text": " Buildings",
+      "startMs": 37957,
+      "endMs": 38317,
+      "timestampMs": 38137,
+      "confidence": null
+    },
+    {
+      "text": " explode,",
+      "startMs": 38357,
+      "endMs": 38938,
+      "timestampMs": 38647,
+      "confidence": null
+    },
+    {
+      "text": " streets",
+      "startMs": 39298,
+      "endMs": 39598,
+      "timestampMs": 39448,
+      "confidence": null
+    },
+    {
+      "text": " collapse,",
+      "startMs": 39677,
+      "endMs": 40098,
+      "timestampMs": 39887,
+      "confidence": null
+    },
+    {
+      "text": " and",
+      "startMs": 40317,
+      "endMs": 40378,
+      "timestampMs": 40348,
+      "confidence": null
+    },
+    {
+      "text": " entire",
+      "startMs": 40418,
+      "endMs": 40898,
+      "timestampMs": 40658,
+      "confidence": null
+    },
+    {
+      "text": " cities",
+      "startMs": 41098,
+      "endMs": 41438,
+      "timestampMs": 41268,
+      "confidence": null
+    },
+    {
+      "text": " become",
+      "startMs": 41457,
+      "endMs": 41798,
+      "timestampMs": 41628,
+      "confidence": null
+    },
+    {
+      "text": " battlegrounds.",
+      "startMs": 41838,
+      "endMs": 42537,
+      "timestampMs": 42188,
+      "confidence": null
+    },
+    {
+      "text": " Humanity's",
+      "startMs": 42783,
+      "endMs": 43303,
+      "timestampMs": 43043,
+      "confidence": null
+    },
+    {
+      "text": " only",
+      "startMs": 43363,
+      "endMs": 43563,
+      "timestampMs": 43463,
+      "confidence": null
+    },
+    {
+      "text": " hope?",
+      "startMs": 43603,
+      "endMs": 43863,
+      "timestampMs": 43733,
+      "confidence": null
+    },
+    {
+      "text": " Survive",
+      "startMs": 44172,
+      "endMs": 44692,
+      "timestampMs": 44432,
+      "confidence": null
+    },
+    {
+      "text": " until",
+      "startMs": 44752,
+      "endMs": 44972,
+      "timestampMs": 44862,
+      "confidence": null
+    },
+    {
+      "text": " sunrise.",
+      "startMs": 45132,
+      "endMs": 45672,
+      "timestampMs": 45402,
+      "confidence": null
+    },
+    {
+      "text": " The",
+      "startMs": 45905,
+      "endMs": 46005,
+      "timestampMs": 45955,
+      "confidence": null
+    },
+    {
+      "text": " zombies",
+      "startMs": 46065,
+      "endMs": 46405,
+      "timestampMs": 46235,
+      "confidence": null
+    },
+    {
+      "text": " and",
+      "startMs": 46425,
+      "endMs": 46505,
+      "timestampMs": 46465,
+      "confidence": null
+    },
+    {
+      "text": " skeletons",
+      "startMs": 46625,
+      "endMs": 47065,
+      "timestampMs": 46845,
+      "confidence": null
+    },
+    {
+      "text": " start",
+      "startMs": 47105,
+      "endMs": 47285,
+      "timestampMs": 47195,
+      "confidence": null
+    },
+    {
+      "text": " burning",
+      "startMs": 47465,
+      "endMs": 47785,
+      "timestampMs": 47625,
+      "confidence": null
+    },
+    {
+      "text": " in",
+      "startMs": 47805,
+      "endMs": 47925,
+      "timestampMs": 47865,
+      "confidence": null
+    },
+    {
+      "text": " daylight.",
+      "startMs": 47965,
+      "endMs": 48365,
+      "timestampMs": 48165,
+      "confidence": null
+    },
+    {
+      "text": " Finally,",
+      "startMs": 48665,
+      "endMs": 49045,
+      "timestampMs": 48855,
+      "confidence": null
+    },
+    {
+      "text": " the",
+      "startMs": 49365,
+      "endMs": 49485,
+      "timestampMs": 49425,
+      "confidence": null
+    },
+    {
+      "text": " nightmare",
+      "startMs": 49545,
+      "endMs": 49925,
+      "timestampMs": 49735,
+      "confidence": null
+    },
+    {
+      "text": " is",
+      "startMs": 49945,
+      "endMs": 50065,
+      "timestampMs": 50005,
+      "confidence": null
+    },
+    {
+      "text": " over,",
+      "startMs": 50145,
+      "endMs": 50385,
+      "timestampMs": 50265,
+      "confidence": null
+    },
+    {
+      "text": " until",
+      "startMs": 50630,
+      "endMs": 51030,
+      "timestampMs": 50830,
+      "confidence": null
+    },
+    {
+      "text": " you",
+      "startMs": 51150,
+      "endMs": 51250,
+      "timestampMs": 51200,
+      "confidence": null
+    },
+    {
+      "text": " hear",
+      "startMs": 51290,
+      "endMs": 51430,
+      "timestampMs": 51360,
+      "confidence": null
+    },
+    {
+      "text": " a",
+      "startMs": 51470,
+      "endMs": 51550,
+      "timestampMs": 51510,
+      "confidence": null
+    },
+    {
+      "text": " familiar",
+      "startMs": 51590,
+      "endMs": 52090,
+      "timestampMs": 51840,
+      "confidence": null
+    },
+    {
+      "text": " sound",
+      "startMs": 52230,
+      "endMs": 52510,
+      "timestampMs": 52370,
+      "confidence": null
+    },
+    {
+      "text": " behind",
+      "startMs": 52550,
+      "endMs": 52930,
+      "timestampMs": 52740,
+      "confidence": null
+    },
+    {
+      "text": " you.",
+      "startMs": 52990,
+      "endMs": 53110,
+      "timestampMs": 53050,
+      "confidence": null
+    },
+    {
+      "text": " Because",
+      "startMs": 54280,
+      "endMs": 54580,
+      "timestampMs": 54430,
+      "confidence": null
+    },
+    {
+      "text": " creepers",
+      "startMs": 54640,
+      "endMs": 55220,
+      "timestampMs": 54930,
+      "confidence": null
+    },
+    {
+      "text": " don't",
+      "startMs": 55260,
+      "endMs": 55520,
+      "timestampMs": 55390,
+      "confidence": null
+    },
+    {
+      "text": " burn",
+      "startMs": 55560,
+      "endMs": 55720,
+      "timestampMs": 55640,
+      "confidence": null
+    },
+    {
+      "text": " in",
+      "startMs": 55740,
+      "endMs": 55860,
+      "timestampMs": 55800,
+      "confidence": null
+    },
+    {
+      "text": " sunlight,",
+      "startMs": 55920,
+      "endMs": 56340,
+      "timestampMs": 56130,
+      "confidence": null
+    },
+    {
+      "text": " and",
+      "startMs": 56551,
+      "endMs": 56651,
+      "timestampMs": 56601,
+      "confidence": null
+    },
+    {
+      "text": " neither",
+      "startMs": 56711,
+      "endMs": 56971,
+      "timestampMs": 56841,
+      "confidence": null
+    },
+    {
+      "text": " do",
+      "startMs": 56991,
+      "endMs": 57071,
+      "timestampMs": 57031,
+      "confidence": null
+    },
+    {
+      "text": " your",
+      "startMs": 57111,
+      "endMs": 57171,
+      "timestampMs": 57141,
+      "confidence": null
+    },
+    {
+      "text": " problems.",
+      "startMs": 57251,
+      "endMs": 57751,
+      "timestampMs": 57501,
+      "confidence": null
+    }
+  ]
+}
