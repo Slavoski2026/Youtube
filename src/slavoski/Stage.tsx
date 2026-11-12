@@ -6,6 +6,7 @@ import * as THREE from "three";
 import { shake, type V3 } from "./noise";
 import { P } from "./palette";
 import { DetailProvider, useDetailLevel } from "./detail";
+import { DEFAULT_GRADE, GLOW_BOOST, GlowBoost, PostFX, skyTexture, useFxEnabled, type Grade } from "./postfx";
 
 /**
  * Time of day and weather. Vary these across an episode and between episodes (the user noticed every
@@ -162,6 +163,8 @@ export type StageProps = {
   children: React.ReactNode;
   /** HTML overlays drawn above the canvas but under the vignette. */
   overlay?: React.ReactNode;
+  /** Post-processing overrides for this shot (bloom, depth of field, grade): only used with FX on (see postfx.tsx). */
+  grade?: Partial<Grade>;
 };
 
 const mixHex = (a: string, b: string, t: number) => new THREE.Color(a).lerp(new THREE.Color(b), t).getStyle();
@@ -183,6 +186,7 @@ export const Stage: React.FC<StageProps> = ({
   vignette = true,
   children,
   overlay,
+  grade,
 }) => {
   const video = useVideoConfig();
   const { fps } = video;
@@ -200,6 +204,10 @@ export const Stage: React.FC<StageProps> = ({
   // React context doesn't reliably cross into the R3F canvas: hand the detail level over explicitly.
   const detail = useDetailLevel();
   const hq = isHq();
+  const fx = useFxEnabled();
+  const midSky = mixHex(sky, glow, 0.55);
+  const skyTex = useMemo(() => (fx ? skyTexture(gradient, sky, glow, midSky) : null), [fx, gradient, sky, glow, midSky]);
+  const fullGrade = useMemo<Grade>(() => ({ ...DEFAULT_GRADE, ...grade }), [grade]);
 
   return (
     <AbsoluteFill
@@ -223,10 +231,14 @@ export const Stage: React.FC<StageProps> = ({
         {fog ? <fog attach="fog" args={[fogColor, fog[0], fog[1]]} /> : null}
         <Lights mood={lightMood} keyDir={keyDir} shadows={shadows} shadowSize={shadowSize} scale={light} hq={hq} />
         {stars && (starOpacity[mood] ?? 0.55) > 0 ? <Stars opacity={starOpacity[mood] ?? 0.55 * (1 - dust * 0.6)} /> : null}
-        <DetailProvider value={detail}>{children}</DetailProvider>
+        {skyTex ? <primitive attach="background" object={skyTex} /> : null}
+        <DetailProvider value={detail}>
+          <GlowBoost.Provider value={fx ? GLOW_BOOST : 1}>{children}</GlowBoost.Provider>
+        </DetailProvider>
+        {fx ? <PostFX frame={frame} grade={fullGrade} target={camera.target} /> : null}
       </ThreeCanvas>
       {overlay}
-      {vignette ? <Vignette /> : null}
+      {vignette && !fx ? <Vignette /> : null}
     </AbsoluteFill>
   );
 };

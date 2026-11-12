@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useContext, useMemo } from "react";
+import { GlowBoost } from "./postfx";
 import * as THREE from "three";
 
 /** Flat-shaded Lambert: the house material for every solid object. */
@@ -24,9 +25,12 @@ export const Glow: React.FC<{ color: string; opacity?: number; fog?: boolean; ad
   opacity = 1,
   fog = true,
   additive,
-}) => (
+}) => {
+  const boost = useContext(GlowBoost);
+  const c = useMemo(() => (boost === 1 ? color : new THREE.Color(color).multiplyScalar(boost)), [color, boost]);
+  return (
   <meshBasicMaterial
-    color={color}
+    color={c}
     transparent={opacity < 1 || additive}
     opacity={opacity}
     fog={fog}
@@ -34,7 +38,8 @@ export const Glow: React.FC<{ color: string; opacity?: number; fog?: boolean; ad
     blending={additive ? 2 /* AdditiveBlending */ : 1 /* NormalBlending */}
     toneMapped={false}
   />
-);
+  );
+};
 
 let haloTexture: THREE.CanvasTexture | null = null;
 /** A soft radial falloff (white centre → transparent edge), shared by every Halo. */
