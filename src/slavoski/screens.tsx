@@ -7,9 +7,10 @@
  * perspective matches the 3D screen exactly. (Sizing the HTML to the projected bounding box every
  * frame, as `tvScreenRect` does, makes text wobble: avoid it for new work.)
  */
-import React, { useMemo } from "react";
+import React, { useContext, useMemo } from "react";
 import * as THREE from "three";
 import type { V3 } from "./noise";
+import { GlowBoost } from "./postfx";
 import { project, type CameraSpec } from "./Stage";
 
 type Pt = { x: number; y: number };
@@ -117,7 +118,11 @@ export const CanvasPanel: React.FC<{
   px?: number;
   draw: (ctx: CanvasRenderingContext2D, W: number, H: number) => void;
   fog?: boolean;
-}> = ({ position, rotation = [0, 0, 0], w, h, px = 1024, draw, fog = true }) => {
+  /** A lit screen: slightly over-bright under post-processing so it blooms (no effect without FX). */
+  glow?: boolean;
+}> = ({ position, rotation = [0, 0, 0], w, h, px = 1024, draw, fog = true, glow = false }) => {
+  const boost = useContext(GlowBoost);
+  const tint = useMemo(() => new THREE.Color(1, 1, 1).multiplyScalar(glow && boost > 1 ? 1.18 : 1), [glow, boost]);
   const W = px;
   const H = Math.max(8, Math.round((px * h) / w));
   const { canvas, tex } = useMemo(() => {
@@ -138,7 +143,7 @@ export const CanvasPanel: React.FC<{
   return (
     <mesh position={position} rotation={rotation}>
       <planeGeometry args={[w, h]} />
-      <meshBasicMaterial map={tex} toneMapped={false} fog={fog} />
+      <meshBasicMaterial map={tex} color={tint} toneMapped={false} fog={fog} />
     </mesh>
   );
 };

@@ -30,6 +30,10 @@ const EPISODES: Record<string, () => Promise<{ schedule: (w: VoiceoverManifest["
     const ep = await import("../src/episodes/satellites-dark/SatellitesDarkEpisode");
     return { schedule: ep.schedule, estimated: ep.estimatedSatellitesDark };
   },
+  "no-voices": async () => {
+    const ep = await import("../src/episodes/no-voices/NoVoicesEpisode");
+    return { schedule: ep.schedule, estimated: ep.estimatedNoVoices };
+  },
   "minecraft-mobs": async () => {
     const ep = await import("../src/episodes/minecraft-mobs/MinecraftMobsEpisode");
     return { schedule: ep.schedule, estimated: ep.estimatedMinecraftMobs };

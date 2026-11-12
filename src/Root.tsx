@@ -8,6 +8,8 @@ import { Ww3Episode, estimatedWw3, type Ww3Props } from "./episodes/ww3-countdow
 import { NoWork2036Episode, estimatedNoWork2036, type NoWork2036Props } from "./episodes/no-work-2036/NoWork2036Episode";
 import { SatellitesDarkEpisode, estimatedSatellitesDark, type SatellitesDarkProps } from "./episodes/satellites-dark/SatellitesDarkEpisode";
 import { MinecraftMobsEpisode, estimatedMinecraftMobs, type MinecraftMobsProps } from "./episodes/minecraft-mobs/MinecraftMobsEpisode";
+import { NoVoicesEpisode, estimatedNoVoices, type NoVoicesProps } from "./episodes/no-voices/NoVoicesEpisode";
+import { withFx } from "./slavoski/postfx";
 import { voiceoverMetadata } from "./lib/voiceover";
 import { withDetail } from "./slavoski/detail";
 
@@ -15,6 +17,8 @@ import { withDetail } from "./slavoski/detail";
 const BlackHoleLow = withDetail("low", BlackHoleEpisode);
 const NoHumansLow = withDetail("low", NoHumansEpisode);
 const GtaLow = withDetail("low", GtaEpisode);
+// Ep. 9 onward: post-processing (bloom, depth of field, grade).
+const NoVoicesFx = withFx(NoVoicesEpisode);
 import { StyleCheck, type StyleCheckProps } from "./StyleCheck";
 import { Thumbnail, type ThumbProps } from "./Thumbnails";
 
@@ -63,6 +67,7 @@ export const RemotionRoot: React.FC = () => (
       ["no-work-2036", "NoWork2036"],
       ["satellites-dark", "SatellitesDark"],
       ["minecraft-mobs", "MinecraftMobs"],
+      ["no-voices", "NoVoices"],
     ] as const).map(([ep, id]) => (
       <Still
         key={ep}
@@ -122,6 +127,16 @@ export const RemotionRoot: React.FC = () => (
       height={HEIGHT}
       defaultProps={{ voiceover: "minecraft-mobs" } as MinecraftMobsProps}
       calculateMetadata={voiceoverMetadata<MinecraftMobsProps>(FPS, { tailSeconds: 1.9, fallback: estimatedMinecraftMobs })}
+    />
+    <Composition
+      id="NoVoices"
+      component={NoVoicesFx}
+      durationInFrames={FPS * 60}
+      fps={FPS}
+      width={WIDTH}
+      height={HEIGHT}
+      defaultProps={{ voiceover: "no-voices" } as NoVoicesProps}
+      calculateMetadata={voiceoverMetadata<NoVoicesProps>(FPS, { tailSeconds: 2.2, fallback: estimatedNoVoices })}
     />
     <Composition
       id="StyleCheck"
