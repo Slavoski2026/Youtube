@@ -226,7 +226,7 @@ const STREET_FOLK: { p: V3; yaw: number; seed: number; start: number }[] = [
 const coldStreet: ShotFn = (c) => {
   const cam = move({ position: [5.5, 3.2, 25], target: [17, 4.6, -6] }, { position: [6.2, 3.1, 22.5], target: [17, 4.8, -6] }, c);
   return (
-    <Shot mood="day" camera={cam} fog={[60, 320]} shadowSize={36} keyDir={[-0.7, 0.45, 0.4]} grade={{ dof: 0.6 }}>
+    <Shot mood="day" camera={cam} fog={[60, 320]} shadowSize={36} keyDir={[-0.7, 0.45, 0.4]} light={1.2} grade={{ exposure: 1.12, dof: 0.6 }}>
       <BigStreet seed="morning" day cars={false} lamps={false} />
       <Sky t={c.t} tint="day" seed="morning" />
       {STREET_FOLK.map((f, i) => (
@@ -246,7 +246,7 @@ const c1Throat: ShotFn = (c) => {
   const head = headPosition(pose, ME, yaw);
   const cam = move({ position: add(head, [-3.4, -0.4, 10.5]), target: add(head, [0, -0.9, 0]) }, { position: add(head, [-3.0, -0.4, 9.4]), target: add(head, [0, -0.85, 0]) }, c);
   return (
-    <Shot mood="day" camera={cam} fog={[60, 320]} shadowSize={16} keyDir={[-0.7, 0.45, 0.4]}>
+    <Shot mood="day" camera={cam} fog={[60, 320]} shadowSize={16} keyDir={[-0.7, 0.45, 0.4]} light={1.2} grade={{ exposure: 1.12 }}>
       <BigStreet seed="morning" day cars={false} />
       <Sky t={c.t} tint="day" seed="morning" />
       <Speaker pose={pose} position={ME} yaw={yaw} t={c.lt} start={0.5} cam={cam.position} size={0.6} />
@@ -258,7 +258,7 @@ const c1Throat: ShotFn = (c) => {
 const c1Pharmacy: ShotFn = (c) => {
   const cam = move({ position: [10.5, 5.2, 16], target: [17.6, 4.2, -14] }, { position: [10.9, 5.1, 14], target: [17.6, 4.2, -14] }, c);
   return (
-    <Shot mood="day" camera={cam} fog={[60, 320]} shadowSize={40} keyDir={[-0.7, 0.45, 0.4]} grade={{ dof: 0.7 }}>
+    <Shot mood="day" camera={cam} fog={[60, 320]} shadowSize={40} keyDir={[-0.7, 0.45, 0.4]} light={1.2} grade={{ exposure: 1.12, dof: 0.7 }}>
       <BigStreet seed="pharm" day cars={false} trees={false} />
       <Sky t={c.t} tint="day" seed="morning" />
       {Array.from({ length: 8 }, (_, i) => {
@@ -326,7 +326,7 @@ const OPERATORS: { p: V3; yaw: number; seed: number }[] = [
   { p: [3, 0, DISPATCH_ROWS[1] + 1.7], yaw: Math.PI + 0.2, seed: 52 },
   { p: [-11, 0, DISPATCH_ROWS[0] + 1.7], yaw: Math.PI + 0.2, seed: 53 },
   { p: [6, 0, DISPATCH_ROWS[0] + 1.7], yaw: Math.PI - 0.2, seed: 54 },
-  { p: [11.5, 0, DISPATCH_ROWS[1] + 2.4], yaw: -0.5, seed: 55 },
+  { p: [2.2, 0, DISPATCH_ROWS[1] + 3.6], yaw: 0.25, seed: 55 },
 ];
 const c1Dispatch: ShotFn = (c) => {
   const cam = move({ position: [6, 4.6, 22], target: [0, 6.6, 0] }, { position: [5.4, 4.5, 20], target: [0, 6.8, 0] }, c);
@@ -939,16 +939,18 @@ const c3World: ShotFn = (c) => {
 /** Chapter clock: seconds since "imagine". The pedestrian crosses, the car brakes and stops 2+ units short. */
 const dangerT = (c: ShotCtx) => c.t - wordAt(c.words, "imagine", 30, c.t - c.lt);
 const WALKER_SPEED = 1.3;
-const walkerX = (T: number) => 8.6 - WALKER_SPEED * Math.max(0, T);
+const walkerX = (T: number) => 9.4 - WALKER_SPEED * Math.max(0, T);
 const CAR_X = 6.1;
-const BRAKE = 1.1;
-const DECEL = 7;
+/** Seconds after "imagine" when the car starts braking (the horn); it stops 1 s later, 2.6 units short of him. */
+export const BRAKE = 2.3;
+const V0 = 16;
+const DECEL = 16;
 const STOP_FRONT = -2.6;
+const TURN = BRAKE + 0.7;
 const carFront = (T: number) => {
-  const v0 = DECEL * 2.29;
-  if (T < BRAKE) return STOP_FRONT - (v0 * v0) / (2 * DECEL) - v0 * (BRAKE - T);
-  const s = Math.min(T - BRAKE, v0 / DECEL);
-  return STOP_FRONT - (v0 * v0) / (2 * DECEL) + v0 * s - 0.5 * DECEL * s * s;
+  if (T < BRAKE) return STOP_FRONT - (V0 * V0) / (2 * DECEL) - V0 * (BRAKE - T);
+  const s = Math.min(T - BRAKE, V0 / DECEL);
+  return STOP_FRONT - (V0 * V0) / (2 * DECEL) + V0 * s - 0.5 * DECEL * s * s;
 };
 const HALF_CAR = 1.55 * CITY;
 const ME_WARN: V3 = [14.5, 0, 4];
@@ -997,12 +999,12 @@ const RainStreet: React.FC<{ t: number; T: number; cam: V3 }> = ({ t, T, cam }) 
     </>
   );
 };
-const walkerPose = (T: number) => mergePose(walkPose(T * 1.3, 0.7), { rShoulder: [0.75, 0.15], rElbow: 1.35, headPitch: -0.4, expression: T > BRAKE + 0.35 ? "alarm" : "neutral" });
+const walkerPose = (T: number) => mergePose(walkPose(T * 1.3, 0.7), { rShoulder: [0.45, 0.15], rElbow: 1.65, headPitch: -0.45, expression: "neutral" });
 const Walker: React.FC<{ T: number }> = ({ T }) => {
-  const turned = T > BRAKE + 0.45;
-  const yaw = -Math.PI / 2 + (turned ? -k01(T, BRAKE + 0.45, BRAKE + 0.8) * 1.2 : 0);
-  const p: V3 = [walkerX(Math.min(T, BRAKE + 0.45)), 0, 0];
-  const pose = turned ? mergePose(REST, { expression: "alarm", rShoulder: [0.75, 0.15], rElbow: 1.35, lShoulder: [0.3, 0.9], lean: -0.15 }) : walkerPose(T);
+  const turned = T > TURN;
+  const yaw = -Math.PI / 2 + (turned ? -k01(T, TURN, TURN + 0.3) * 1.2 : 0);
+  const p: V3 = [walkerX(Math.min(T, TURN)), 0, 0];
+  const pose = turned ? mergePose(REST, { expression: "alarm", rShoulder: [0.45, 0.15], rElbow: 1.65, lShoulder: [0.3, 0.9], lean: -0.15 }) : walkerPose(T);
   return (
     <>
       <Hero pose={pose} position={p} yaw={yaw} look={crowdLook(14)} />
@@ -1041,9 +1043,10 @@ const c4Warn: ShotFn = (c) => {
 /** Over his shoulder: eyes on the phone, Slavoski waving uselessly behind him, the headlights growing. */
 const c4Back: ShotFn = (c) => {
   const T = dangerT(c);
-  const wx = walkerX(Math.min(T, BRAKE + 0.45));
+  const wx = walkerX(Math.min(T, TURN));
   const head = headPosition(walkerPose(T), [wx, 0, 0], -Math.PI / 2);
-  const cam = move({ position: [wx - 4.6, 4.2, -3.6], target: add(head, [0, -0.4, 0]) }, { position: [wx - 3.9, 4.1, -3.0], target: add(head, [0, -0.4, 0]) }, c);
+  // over Slavoski's shoulder (he is in the blurred foreground, waving): the walker never looks round
+  const cam = move({ position: [17.3, 4.9, 4.1], target: add(head, [0, -0.4, 0]) }, { position: [16.8, 4.8, 3.9], target: add(head, [0, -0.4, 0]) }, c);
   return (
     <Shot mood="storm" camera={cam} fog={[30, 240]} shadowSize={16} light={1.0} grade={{ dof: 0.9, bloom: 0.45 }}>
       <RainStreet t={c.t} T={T} cam={cam.position} />
@@ -1057,7 +1060,7 @@ const c4Back: ShotFn = (c) => {
 const c4Stop: ShotFn = (c) => {
   const T = dangerT(c);
   const front = carFront(T);
-  const shake = T > BRAKE && T < BRAKE + 2.29 ? 0.04 : 0;
+  const shake = T > BRAKE && T < BRAKE + V0 / DECEL ? 0.05 : 0;
   const cam = move({ position: [-6.5, 1.6, 9.5], target: [5.6, 2.2, -1.8] }, { position: [-5.8, 1.5, 8.6], target: [5.6, 2.3, -1.8] }, c);
   return (
     <Shot mood="storm" camera={cam} fog={[30, 240]} shadowSize={24} light={1.0} shake={shake} grade={{ dof: 0.5, bloom: 0.45 }}>
@@ -1218,9 +1221,9 @@ export const SHOTS: Record<string, CuedShot<ShotFn>[]> = {
   ],
   c3: [
     { cue: null, fn: c3Chat },
-    { cue: "texting", fn: c3Texting },
+    { cue: "people turn", fn: c3Texting },
     { cue: "writing", fn: c3Writing },
-    { cue: "and sign", fn: c3Sign },
+    { cue: "sign", fn: c3Sign },
     { cue: "Phones", fn: c3PhonesUp },
     { cue: "And people who", fn: c3Teacher },
     { cue: "suddenly have", fn: c3Copy },
@@ -1229,7 +1232,7 @@ export const SHOTS: Record<string, CuedShot<ShotFn>[]> = {
   c4: [
     { cue: null, fn: c4Wide },
     { cue: "warn someone", fn: c4Warn },
-    { cue: "When they're", fn: c4Back },
+    { cue: "danger", fn: c4Back },
     { cue: "looking at", fn: c4Stop },
   ],
   c5: [

@@ -1,0 +1,1127 @@
+{
+  "slug": "no-voices",
+  "audio": "voiceover/no-voices.mp3",
+  "durationInSeconds": 57.652244897959186,
+  "words": [
+    {
+      "text": "Tomorrow",
+      "startMs": 80,
+      "endMs": 400,
+      "timestampMs": 240,
+      "confidence": null
+    },
+    {
+      "text": " morning,",
+      "startMs": 500,
+      "endMs": 820,
+      "timestampMs": 660,
+      "confidence": null
+    },
+    {
+      "text": " eight",
+      "startMs": 1246,
+      "endMs": 1426,
+      "timestampMs": 1336,
+      "confidence": null
+    },
+    {
+      "text": " billion",
+      "startMs": 1666,
+      "endMs": 2046,
+      "timestampMs": 1856,
+      "confidence": null
+    },
+    {
+      "text": " people",
+      "startMs": 2146,
+      "endMs": 2466,
+      "timestampMs": 2306,
+      "confidence": null
+    },
+    {
+      "text": " wake",
+      "startMs": 2506,
+      "endMs": 2686,
+      "timestampMs": 2596,
+      "confidence": null
+    },
+    {
+      "text": " up",
+      "startMs": 2786,
+      "endMs": 2946,
+      "timestampMs": 2866,
+      "confidence": null
+    },
+    {
+      "text": " and",
+      "startMs": 3452,
+      "endMs": 3592,
+      "timestampMs": 3522,
+      "confidence": null
+    },
+    {
+      "text": " nobody",
+      "startMs": 3772,
+      "endMs": 4151,
+      "timestampMs": 3962,
+      "confidence": null
+    },
+    {
+      "text": " can",
+      "startMs": 4192,
+      "endMs": 4332,
+      "timestampMs": 4262,
+      "confidence": null
+    },
+    {
+      "text": " speak.",
+      "startMs": 4432,
+      "endMs": 4712,
+      "timestampMs": 4572,
+      "confidence": null
+    },
+    {
+      "text": " Not",
+      "startMs": 5020,
+      "endMs": 5180,
+      "timestampMs": 5100,
+      "confidence": null
+    },
+    {
+      "text": " a",
+      "startMs": 5240,
+      "endMs": 5300,
+      "timestampMs": 5270,
+      "confidence": null
+    },
+    {
+      "text": " single",
+      "startMs": 5480,
+      "endMs": 5800,
+      "timestampMs": 5640,
+      "confidence": null
+    },
+    {
+      "text": " word.",
+      "startMs": 5920,
+      "endMs": 6200,
+      "timestampMs": 6060,
+      "confidence": null
+    },
+    {
+      "text": " At",
+      "startMs": 6629,
+      "endMs": 6769,
+      "timestampMs": 6699,
+      "confidence": null
+    },
+    {
+      "text": " first,",
+      "startMs": 6809,
+      "endMs": 7149,
+      "timestampMs": 6979,
+      "confidence": null
+    },
+    {
+      "text": " everyone",
+      "startMs": 7469,
+      "endMs": 7789,
+      "timestampMs": 7629,
+      "confidence": null
+    },
+    {
+      "text": " thinks",
+      "startMs": 7809,
+      "endMs": 8009,
+      "timestampMs": 7909,
+      "confidence": null
+    },
+    {
+      "text": " they've",
+      "startMs": 8029,
+      "endMs": 8189,
+      "timestampMs": 8109,
+      "confidence": null
+    },
+    {
+      "text": " lost",
+      "startMs": 8229,
+      "endMs": 8449,
+      "timestampMs": 8339,
+      "confidence": null
+    },
+    {
+      "text": " their",
+      "startMs": 8469,
+      "endMs": 8589,
+      "timestampMs": 8529,
+      "confidence": null
+    },
+    {
+      "text": " voice.",
+      "startMs": 8689,
+      "endMs": 9049,
+      "timestampMs": 8869,
+      "confidence": null
+    },
+    {
+      "text": " But",
+      "startMs": 9319,
+      "endMs": 9439,
+      "timestampMs": 9379,
+      "confidence": null
+    },
+    {
+      "text": " then",
+      "startMs": 9499,
+      "endMs": 9879,
+      "timestampMs": 9689,
+      "confidence": null
+    },
+    {
+      "text": " the",
+      "startMs": 9919,
+      "endMs": 9979,
+      "timestampMs": 9949,
+      "confidence": null
+    },
+    {
+      "text": " emergency",
+      "startMs": 10019,
+      "endMs": 10559,
+      "timestampMs": 10289,
+      "confidence": null
+    },
+    {
+      "text": " calls",
+      "startMs": 10639,
+      "endMs": 10859,
+      "timestampMs": 10749,
+      "confidence": null
+    },
+    {
+      "text": " start",
+      "startMs": 10919,
+      "endMs": 11079,
+      "timestampMs": 10999,
+      "confidence": null
+    },
+    {
+      "text": " failing.",
+      "startMs": 11179,
+      "endMs": 11519,
+      "timestampMs": 11349,
+      "confidence": null
+    },
+    {
+      "text": " Pilots",
+      "startMs": 11767,
+      "endMs": 12147,
+      "timestampMs": 11957,
+      "confidence": null
+    },
+    {
+      "text": " can't",
+      "startMs": 12207,
+      "endMs": 12387,
+      "timestampMs": 12297,
+      "confidence": null
+    },
+    {
+      "text": " speak",
+      "startMs": 12487,
+      "endMs": 12647,
+      "timestampMs": 12567,
+      "confidence": null
+    },
+    {
+      "text": " to",
+      "startMs": 12667,
+      "endMs": 12787,
+      "timestampMs": 12727,
+      "confidence": null
+    },
+    {
+      "text": " air",
+      "startMs": 12847,
+      "endMs": 12987,
+      "timestampMs": 12917,
+      "confidence": null
+    },
+    {
+      "text": " traffic",
+      "startMs": 13027,
+      "endMs": 13327,
+      "timestampMs": 13177,
+      "confidence": null
+    },
+    {
+      "text": " controllers.",
+      "startMs": 13347,
+      "endMs": 13887,
+      "timestampMs": 13617,
+      "confidence": null
+    },
+    {
+      "text": " Doctors",
+      "startMs": 14230,
+      "endMs": 14690,
+      "timestampMs": 14460,
+      "confidence": null
+    },
+    {
+      "text": " can't",
+      "startMs": 14729,
+      "endMs": 14890,
+      "timestampMs": 14809,
+      "confidence": null
+    },
+    {
+      "text": " communicate",
+      "startMs": 14930,
+      "endMs": 15370,
+      "timestampMs": 15150,
+      "confidence": null
+    },
+    {
+      "text": " verbally",
+      "startMs": 15510,
+      "endMs": 15930,
+      "timestampMs": 15720,
+      "confidence": null
+    },
+    {
+      "text": " during",
+      "startMs": 15950,
+      "endMs": 16130,
+      "timestampMs": 16040,
+      "confidence": null
+    },
+    {
+      "text": " emergencies.",
+      "startMs": 16170,
+      "endMs": 16850,
+      "timestampMs": 16510,
+      "confidence": null
+    },
+    {
+      "text": " And",
+      "startMs": 17102,
+      "endMs": 17242,
+      "timestampMs": 17172,
+      "confidence": null
+    },
+    {
+      "text": " millions",
+      "startMs": 17362,
+      "endMs": 17742,
+      "timestampMs": 17552,
+      "confidence": null
+    },
+    {
+      "text": " of",
+      "startMs": 17782,
+      "endMs": 17882,
+      "timestampMs": 17832,
+      "confidence": null
+    },
+    {
+      "text": " people",
+      "startMs": 17922,
+      "endMs": 18262,
+      "timestampMs": 18092,
+      "confidence": null
+    },
+    {
+      "text": " realize",
+      "startMs": 18282,
+      "endMs": 18742,
+      "timestampMs": 18512,
+      "confidence": null
+    },
+    {
+      "text": " they",
+      "startMs": 18922,
+      "endMs": 19062,
+      "timestampMs": 18992,
+      "confidence": null
+    },
+    {
+      "text": " can't",
+      "startMs": 19142,
+      "endMs": 19322,
+      "timestampMs": 19232,
+      "confidence": null
+    },
+    {
+      "text": " even",
+      "startMs": 19362,
+      "endMs": 19562,
+      "timestampMs": 19462,
+      "confidence": null
+    },
+    {
+      "text": " call",
+      "startMs": 19622,
+      "endMs": 19822,
+      "timestampMs": 19722,
+      "confidence": null
+    },
+    {
+      "text": " for",
+      "startMs": 19842,
+      "endMs": 19982,
+      "timestampMs": 19912,
+      "confidence": null
+    },
+    {
+      "text": " help.",
+      "startMs": 20042,
+      "endMs": 20342,
+      "timestampMs": 20192,
+      "confidence": null
+    },
+    {
+      "text": " But",
+      "startMs": 20721,
+      "endMs": 20841,
+      "timestampMs": 20781,
+      "confidence": null
+    },
+    {
+      "text": " here's",
+      "startMs": 20881,
+      "endMs": 21101,
+      "timestampMs": 20991,
+      "confidence": null
+    },
+    {
+      "text": " where",
+      "startMs": 21121,
+      "endMs": 21261,
+      "timestampMs": 21191,
+      "confidence": null
+    },
+    {
+      "text": " things",
+      "startMs": 21281,
+      "endMs": 21521,
+      "timestampMs": 21401,
+      "confidence": null
+    },
+    {
+      "text": " get",
+      "startMs": 21541,
+      "endMs": 21741,
+      "timestampMs": 21641,
+      "confidence": null
+    },
+    {
+      "text": " really",
+      "startMs": 21921,
+      "endMs": 22221,
+      "timestampMs": 22071,
+      "confidence": null
+    },
+    {
+      "text": " strange.",
+      "startMs": 22281,
+      "endMs": 22681,
+      "timestampMs": 22481,
+      "confidence": null
+    },
+    {
+      "text": " Your",
+      "startMs": 23003,
+      "endMs": 23203,
+      "timestampMs": 23103,
+      "confidence": null
+    },
+    {
+      "text": " brain",
+      "startMs": 23223,
+      "endMs": 23563,
+      "timestampMs": 23393,
+      "confidence": null
+    },
+    {
+      "text": " still",
+      "startMs": 23843,
+      "endMs": 24063,
+      "timestampMs": 23953,
+      "confidence": null
+    },
+    {
+      "text": " knows",
+      "startMs": 24103,
+      "endMs": 24463,
+      "timestampMs": 24283,
+      "confidence": null
+    },
+    {
+      "text": " every",
+      "startMs": 24543,
+      "endMs": 24803,
+      "timestampMs": 24673,
+      "confidence": null
+    },
+    {
+      "text": " word",
+      "startMs": 24923,
+      "endMs": 25143,
+      "timestampMs": 25033,
+      "confidence": null
+    },
+    {
+      "text": " you've",
+      "startMs": 25183,
+      "endMs": 25383,
+      "timestampMs": 25283,
+      "confidence": null
+    },
+    {
+      "text": " ever",
+      "startMs": 25443,
+      "endMs": 25663,
+      "timestampMs": 25553,
+      "confidence": null
+    },
+    {
+      "text": " learned.",
+      "startMs": 25703,
+      "endMs": 26023,
+      "timestampMs": 25863,
+      "confidence": null
+    },
+    {
+      "text": " Your",
+      "startMs": 26277,
+      "endMs": 26417,
+      "timestampMs": 26347,
+      "confidence": null
+    },
+    {
+      "text": " vocal",
+      "startMs": 26457,
+      "endMs": 26697,
+      "timestampMs": 26577,
+      "confidence": null
+    },
+    {
+      "text": " cords",
+      "startMs": 26777,
+      "endMs": 27077,
+      "timestampMs": 26927,
+      "confidence": null
+    },
+    {
+      "text": " might",
+      "startMs": 27117,
+      "endMs": 27217,
+      "timestampMs": 27167,
+      "confidence": null
+    },
+    {
+      "text": " even",
+      "startMs": 27257,
+      "endMs": 27417,
+      "timestampMs": 27337,
+      "confidence": null
+    },
+    {
+      "text": " be",
+      "startMs": 27457,
+      "endMs": 27597,
+      "timestampMs": 27527,
+      "confidence": null
+    },
+    {
+      "text": " perfectly",
+      "startMs": 27657,
+      "endMs": 28077,
+      "timestampMs": 27867,
+      "confidence": null
+    },
+    {
+      "text": " healthy.",
+      "startMs": 28097,
+      "endMs": 28477,
+      "timestampMs": 28287,
+      "confidence": null
+    },
+    {
+      "text": " But",
+      "startMs": 28703,
+      "endMs": 28863,
+      "timestampMs": 28783,
+      "confidence": null
+    },
+    {
+      "text": " somehow,",
+      "startMs": 28963,
+      "endMs": 29363,
+      "timestampMs": 29163,
+      "confidence": null
+    },
+    {
+      "text": " your",
+      "startMs": 29723,
+      "endMs": 29823,
+      "timestampMs": 29773,
+      "confidence": null
+    },
+    {
+      "text": " ability",
+      "startMs": 29863,
+      "endMs": 30263,
+      "timestampMs": 30063,
+      "confidence": null
+    },
+    {
+      "text": " to",
+      "startMs": 30303,
+      "endMs": 30383,
+      "timestampMs": 30343,
+      "confidence": null
+    },
+    {
+      "text": " produce",
+      "startMs": 30403,
+      "endMs": 30703,
+      "timestampMs": 30553,
+      "confidence": null
+    },
+    {
+      "text": " speech",
+      "startMs": 30863,
+      "endMs": 31163,
+      "timestampMs": 31013,
+      "confidence": null
+    },
+    {
+      "text": " has",
+      "startMs": 31383,
+      "endMs": 31623,
+      "timestampMs": 31503,
+      "confidence": null
+    },
+    {
+      "text": " vanished.",
+      "startMs": 31683,
+      "endMs": 32163,
+      "timestampMs": 31923,
+      "confidence": null
+    },
+    {
+      "text": " Within",
+      "startMs": 32436,
+      "endMs": 32737,
+      "timestampMs": 32587,
+      "confidence": null
+    },
+    {
+      "text": " hours,",
+      "startMs": 32857,
+      "endMs": 33217,
+      "timestampMs": 33037,
+      "confidence": null
+    },
+    {
+      "text": " people",
+      "startMs": 33417,
+      "endMs": 33657,
+      "timestampMs": 33537,
+      "confidence": null
+    },
+    {
+      "text": " turn",
+      "startMs": 33697,
+      "endMs": 33857,
+      "timestampMs": 33777,
+      "confidence": null
+    },
+    {
+      "text": " to",
+      "startMs": 33877,
+      "endMs": 33997,
+      "timestampMs": 33936,
+      "confidence": null
+    },
+    {
+      "text": " texting,",
+      "startMs": 34057,
+      "endMs": 34537,
+      "timestampMs": 34296,
+      "confidence": null
+    },
+    {
+      "text": " writing,",
+      "startMs": 34837,
+      "endMs": 35197,
+      "timestampMs": 35017,
+      "confidence": null
+    },
+    {
+      "text": " and",
+      "startMs": 35296,
+      "endMs": 35377,
+      "timestampMs": 35337,
+      "confidence": null
+    },
+    {
+      "text": " sign",
+      "startMs": 35477,
+      "endMs": 35677,
+      "timestampMs": 35576,
+      "confidence": null
+    },
+    {
+      "text": " language.",
+      "startMs": 35737,
+      "endMs": 36116,
+      "timestampMs": 35927,
+      "confidence": null
+    },
+    {
+      "text": " Phones",
+      "startMs": 36428,
+      "endMs": 36748,
+      "timestampMs": 36588,
+      "confidence": null
+    },
+    {
+      "text": " become",
+      "startMs": 36768,
+      "endMs": 37088,
+      "timestampMs": 36928,
+      "confidence": null
+    },
+    {
+      "text": " more",
+      "startMs": 37128,
+      "endMs": 37288,
+      "timestampMs": 37208,
+      "confidence": null
+    },
+    {
+      "text": " important",
+      "startMs": 37328,
+      "endMs": 37728,
+      "timestampMs": 37528,
+      "confidence": null
+    },
+    {
+      "text": " than",
+      "startMs": 37748,
+      "endMs": 37968,
+      "timestampMs": 37858,
+      "confidence": null
+    },
+    {
+      "text": " ever.",
+      "startMs": 38048,
+      "endMs": 38308,
+      "timestampMs": 38178,
+      "confidence": null
+    },
+    {
+      "text": " And",
+      "startMs": 38529,
+      "endMs": 38629,
+      "timestampMs": 38579,
+      "confidence": null
+    },
+    {
+      "text": " people",
+      "startMs": 38669,
+      "endMs": 38869,
+      "timestampMs": 38769,
+      "confidence": null
+    },
+    {
+      "text": " who",
+      "startMs": 38909,
+      "endMs": 39109,
+      "timestampMs": 39009,
+      "confidence": null
+    },
+    {
+      "text": " already",
+      "startMs": 39189,
+      "endMs": 39549,
+      "timestampMs": 39369,
+      "confidence": null
+    },
+    {
+      "text": " communicate",
+      "startMs": 39589,
+      "endMs": 40109,
+      "timestampMs": 39849,
+      "confidence": null
+    },
+    {
+      "text": " without",
+      "startMs": 40149,
+      "endMs": 40509,
+      "timestampMs": 40329,
+      "confidence": null
+    },
+    {
+      "text": " speech",
+      "startMs": 40609,
+      "endMs": 40869,
+      "timestampMs": 40739,
+      "confidence": null
+    },
+    {
+      "text": " suddenly",
+      "startMs": 41189,
+      "endMs": 41489,
+      "timestampMs": 41339,
+      "confidence": null
+    },
+    {
+      "text": " have",
+      "startMs": 41569,
+      "endMs": 41709,
+      "timestampMs": 41639,
+      "confidence": null
+    },
+    {
+      "text": " skills",
+      "startMs": 41749,
+      "endMs": 42069,
+      "timestampMs": 41909,
+      "confidence": null
+    },
+    {
+      "text": " the",
+      "startMs": 42109,
+      "endMs": 42249,
+      "timestampMs": 42179,
+      "confidence": null
+    },
+    {
+      "text": " rest",
+      "startMs": 42289,
+      "endMs": 42489,
+      "timestampMs": 42389,
+      "confidence": null
+    },
+    {
+      "text": " of",
+      "startMs": 42529,
+      "endMs": 42589,
+      "timestampMs": 42559,
+      "confidence": null
+    },
+    {
+      "text": " the",
+      "startMs": 42629,
+      "endMs": 42669,
+      "timestampMs": 42649,
+      "confidence": null
+    },
+    {
+      "text": " world",
+      "startMs": 42729,
+      "endMs": 42889,
+      "timestampMs": 42809,
+      "confidence": null
+    },
+    {
+      "text": " desperately",
+      "startMs": 43109,
+      "endMs": 43629,
+      "timestampMs": 43369,
+      "confidence": null
+    },
+    {
+      "text": " needs.",
+      "startMs": 43649,
+      "endMs": 44009,
+      "timestampMs": 43829,
+      "confidence": null
+    },
+    {
+      "text": " But",
+      "startMs": 44519,
+      "endMs": 44579,
+      "timestampMs": 44549,
+      "confidence": null
+    },
+    {
+      "text": " imagine",
+      "startMs": 44619,
+      "endMs": 45019,
+      "timestampMs": 44819,
+      "confidence": null
+    },
+    {
+      "text": " trying",
+      "startMs": 45059,
+      "endMs": 45239,
+      "timestampMs": 45149,
+      "confidence": null
+    },
+    {
+      "text": " to",
+      "startMs": 45279,
+      "endMs": 45419,
+      "timestampMs": 45349,
+      "confidence": null
+    },
+    {
+      "text": " warn",
+      "startMs": 45479,
+      "endMs": 45679,
+      "timestampMs": 45579,
+      "confidence": null
+    },
+    {
+      "text": " someone",
+      "startMs": 45799,
+      "endMs": 45999,
+      "timestampMs": 45899,
+      "confidence": null
+    },
+    {
+      "text": " about",
+      "startMs": 46039,
+      "endMs": 46299,
+      "timestampMs": 46169,
+      "confidence": null
+    },
+    {
+      "text": " danger",
+      "startMs": 46339,
+      "endMs": 46799,
+      "timestampMs": 46569,
+      "confidence": null
+    },
+    {
+      "text": " when",
+      "startMs": 47121,
+      "endMs": 47221,
+      "timestampMs": 47171,
+      "confidence": null
+    },
+    {
+      "text": " they're",
+      "startMs": 47241,
+      "endMs": 47361,
+      "timestampMs": 47301,
+      "confidence": null
+    },
+    {
+      "text": " not",
+      "startMs": 47381,
+      "endMs": 47601,
+      "timestampMs": 47491,
+      "confidence": null
+    },
+    {
+      "text": " looking",
+      "startMs": 47681,
+      "endMs": 47961,
+      "timestampMs": 47821,
+      "confidence": null
+    },
+    {
+      "text": " at",
+      "startMs": 48021,
+      "endMs": 48141,
+      "timestampMs": 48081,
+      "confidence": null
+    },
+    {
+      "text": " you.",
+      "startMs": 48201,
+      "endMs": 48321,
+      "timestampMs": 48261,
+      "confidence": null
+    },
+    {
+      "text": " Humanity",
+      "startMs": 48597,
+      "endMs": 49017,
+      "timestampMs": 48807,
+      "confidence": null
+    },
+    {
+      "text": " wouldn't",
+      "startMs": 49137,
+      "endMs": 49377,
+      "timestampMs": 49257,
+      "confidence": null
+    },
+    {
+      "text": " lose",
+      "startMs": 49437,
+      "endMs": 49597,
+      "timestampMs": 49517,
+      "confidence": null
+    },
+    {
+      "text": " its",
+      "startMs": 49617,
+      "endMs": 49737,
+      "timestampMs": 49677,
+      "confidence": null
+    },
+    {
+      "text": " intelligence.",
+      "startMs": 49757,
+      "endMs": 50437,
+      "timestampMs": 50097,
+      "confidence": null
+    },
+    {
+      "text": " It",
+      "startMs": 50733,
+      "endMs": 50833,
+      "timestampMs": 50783,
+      "confidence": null
+    },
+    {
+      "text": " wouldn't",
+      "startMs": 50873,
+      "endMs": 51033,
+      "timestampMs": 50953,
+      "confidence": null
+    },
+    {
+      "text": " even",
+      "startMs": 51073,
+      "endMs": 51233,
+      "timestampMs": 51153,
+      "confidence": null
+    },
+    {
+      "text": " lose",
+      "startMs": 51293,
+      "endMs": 51453,
+      "timestampMs": 51373,
+      "confidence": null
+    },
+    {
+      "text": " language.",
+      "startMs": 51533,
+      "endMs": 51993,
+      "timestampMs": 51763,
+      "confidence": null
+    },
+    {
+      "text": " It",
+      "startMs": 52483,
+      "endMs": 52543,
+      "timestampMs": 52513,
+      "confidence": null
+    },
+    {
+      "text": " would",
+      "startMs": 52563,
+      "endMs": 52703,
+      "timestampMs": 52633,
+      "confidence": null
+    },
+    {
+      "text": " lose",
+      "startMs": 52763,
+      "endMs": 52983,
+      "timestampMs": 52873,
+      "confidence": null
+    },
+    {
+      "text": " something",
+      "startMs": 53023,
+      "endMs": 53343,
+      "timestampMs": 53183,
+      "confidence": null
+    },
+    {
+      "text": " we've",
+      "startMs": 53383,
+      "endMs": 53543,
+      "timestampMs": 53463,
+      "confidence": null
+    },
+    {
+      "text": " depended",
+      "startMs": 53563,
+      "endMs": 54023,
+      "timestampMs": 53793,
+      "confidence": null
+    },
+    {
+      "text": " on",
+      "startMs": 54103,
+      "endMs": 54303,
+      "timestampMs": 54203,
+      "confidence": null
+    },
+    {
+      "text": " for",
+      "startMs": 54323,
+      "endMs": 54423,
+      "timestampMs": 54373,
+      "confidence": null
+    },
+    {
+      "text": " thousands",
+      "startMs": 54623,
+      "endMs": 55083,
+      "timestampMs": 54853,
+      "confidence": null
+    },
+    {
+      "text": " of",
+      "startMs": 55123,
+      "endMs": 55203,
+      "timestampMs": 55163,
+      "confidence": null
+    },
+    {
+      "text": " years:",
+      "startMs": 55283,
+      "endMs": 55623,
+      "timestampMs": 55453,
+      "confidence": null
+    },
+    {
+      "text": " the",
+      "startMs": 55901,
+      "endMs": 55961,
+      "timestampMs": 55931,
+      "confidence": null
+    },
+    {
+      "text": " ability",
+      "startMs": 56021,
+      "endMs": 56661,
+      "timestampMs": 56341,
+      "confidence": null
+    },
+    {
+      "text": " to",
+      "startMs": 56701,
+      "endMs": 56781,
+      "timestampMs": 56741,
+      "confidence": null
+    },
+    {
+      "text": " be",
+      "startMs": 56821,
+      "endMs": 56981,
+      "timestampMs": 56901,
+      "confidence": null
+    },
+    {
+      "text": " heard.",
+      "startMs": 57061,
+      "endMs": 57401,
+      "timestampMs": 57231,
+      "confidence": null
+    }
+  ]
+}

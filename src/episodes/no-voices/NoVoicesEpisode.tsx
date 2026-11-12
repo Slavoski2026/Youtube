@@ -12,7 +12,7 @@ import { Soundtrack, type Sfx } from "../../slavoski/Soundtrack";
 import { estimateManifest, scheduleShots, shotAt, wordAt } from "../../slavoski/timeline";
 import { WordCaptions } from "../../slavoski/WordCaptions";
 import { BLOCKS, KEYWORDS, SLUG, TAGS, TITLE, VOICES } from "./narration";
-import { SHOTS } from "./shots";
+import { BRAKE, SHOTS } from "./shots";
 
 loadHouseFonts();
 
@@ -51,7 +51,7 @@ export const NoVoicesEpisode: React.FC<NoVoicesProps> = ({ manifest }) => {
       { src: "sfx/power-down.mp3", at: start("c2.0") + 0.2, volume: 0.15, duration: 1.4, fade: 0.6 },
       { src: "sfx/notify-chime.mp3", at: start("c3.0") + 0.05, volume: 0.35 },
       { src: "sfx/notify-chime.mp3", at: start("c3.0") + 0.7, volume: 0.25 },
-      { src: "sfx/horn-screech.mp3", at: start("c4.0") >= 0 ? wordAt(words, "imagine", 30, start("c4.0")) + 1.1 : -1, volume: 0.6 },
+      { src: "sfx/horn-screech.mp3", at: start("c4.0") >= 0 ? wordAt(words, "imagine", 30, start("c4.0")) + BRAKE - 0.05 : -1, volume: 0.6 },
       { src: "sfx/end-sting.mp3", at: last.end + 0.7, volume: 0.6 },
     ];
     return cues.filter((c) => c.at >= 0);
