@@ -1177,15 +1177,19 @@ const c5Heard: ShotFn = (c) => {
 export const thumbShot: ShotFn = () => {
   const pose = mergePose(REST, { expression: "alarm", lShoulder: [0.3, 0.7], rShoulder: [0.3, 0.7], lElbow: 0.9, rElbow: 0.9, headPitch: 0.12 });
   const head = headPosition(pose, ROOF_ME);
-  const cam: CameraSpec = { position: add(head, [1.2, -1.6, 7.6]), target: add(head, [0, -1.2, 0]) };
+  // text sits in the top third (y 300–740 px), so the face goes low: aim above the head and focus on the face
+  const position = add(head, [1.0, -0.1, 6.4]);
+  const cam: CameraSpec = { position, target: add(head, [0, 0.95, 0]) };
+  const focus = Math.hypot(position[0] - head[0], position[1] - head[1], position[2] - head[2]);
   return (
-    <Stage mood="night" camera={cam} fog={[80, 420]} shadowSize={14} light={0.8}>
+    <Stage mood="night" camera={cam} fog={[80, 420]} shadowSize={14} light={0.9} grade={{ focus, dof: 0.8 }}>
       <Rooftop />
       <NightCity y={-60} z={-120} phones={0.6} t={0} />
-      <pointLight position={[2, 5, 6]} color="#9FB8FF" intensity={24} distance={14} decay={2} />
+      <pointLight position={add(head, [1.5, 0.5, 4])} color="#FFD8B0" intensity={26} distance={12} decay={2} />
+      <pointLight position={add(head, [-3, 2, -3])} color="#9F7AFF" intensity={30} distance={12} decay={2} />
       <Hero pose={pose} position={ROOF_ME} />
-      <SoundWave origin={mouthOf(pose, ROOF_ME).at} dir={[0, 0, 1]} cam={cam.position} t={0.75} dead size={1.3} seed="thumb" />
-      <Bubble3D position={[-2.6, 6.8, -3]} text="?" scale={1.1} />
+      <SoundWave origin={mouthOf(pose, ROOF_ME).at} dir={[1, -0.08, 0.35]} cam={cam.position} t={0.5} dead size={0.9} seed="thumb" />
+      <Bubble3D position={add(head, [-1.3, 1.25, -1.2])} text="?" scale={0.55} color="#3D8BFF" />
     </Stage>
   );
 };
