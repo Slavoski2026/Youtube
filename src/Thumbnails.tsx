@@ -89,7 +89,7 @@ const THUMBS: Record<ThumbProps["episode"], { shot: React.ReactNode; lines: Line
     shot: <FxProvider value>{NF({ lt: 0, dur: 2, t: 0, words: [], width: 1080, height: 1920 })}</FxProvider>,
     lines: [{ text: "NO MORE" }, { text: "FEAR", color: P.amber, size: 170 }],
     chip: "IS THAT GOOD?",
-    top: 300,
+    top: 880,
   },
   "gta-24h": {
     shot: GTA.c5[0].fn({ lt: 2.2, dur: 2.6, t: 48.2 }),

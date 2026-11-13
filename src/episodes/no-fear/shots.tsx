@@ -518,7 +518,6 @@ const c4Board: ShotFn = (c) => {
 const RIM_ME: V3 = [1.2, 0, 3.4];
 const c4Danger: ShotFn = (c) => {
   const pose = mergePose(REST, { headPitch: -0.1 + Math.sin(c.lt * 7) * 0.08 * k01(c.lt, 0.4, 0.6), expression: "neutral" });
-  const head = headPosition(pose, RIM_ME, Math.PI);
   const cam = move({ position: [-2.6, 4.6, 10.5], target: [0.2, 3.7, 1.6] }, { position: [-2.3, 4.5, 9.4], target: [0.2, 3.7, 1.6] }, c);
   return (
     <Shot mood="sunset" camera={cam} fog={[60, 420]} keyDir={[-0.7, 0.3, -0.6]} shadowSize={20} grade={{ dof: 0.4 }}>
@@ -747,12 +746,11 @@ const c5Alive: ShotFn = (c) => {
 
 /** Slavoski at the very edge, toes over a 300 m drop, totally calm; the city and clouds far below. */
 export const thumbShot: ShotFn = () => {
-  const pose = edgePose({ headPitch: -0.2, headYaw: 0.5, expression: "smile" });
-  const feet: V3 = [EDGE[0] + 0.3, ROOF.y + 0.4, EDGE[2]];
-  const cam: CameraSpec = { position: [EDGE[0] + 9, ROOF.y - 5, EDGE[2] + 7], target: add(feet, [0, 5, 0]), fov: 60 };
-  const focus = Math.hypot(cam.position[0] - EDGE[0], cam.position[1] - (ROOF.y + 3), cam.position[2] - EDGE[2]);
+  // From out over the drop, looking down: him at the top smiling down at us, the 300 m fall below (the title sits over the drop).
+  const pose = edgePose({ headPitch: 0.55, expression: "smile", lShoulder: [0.1, 0.35], rShoulder: [0.1, 0.35] });
+  const cam: CameraSpec = { position: [EDGE[0] + 7.8, ROOF.y + 13.5, EDGE[2] + 1.8], target: [EDGE[0] - 3.1, ROOF.y - 16.5, EDGE[2] + 0.3], up: [-1, 0, 0], fov: 60 };
   return (
-    <Stage {...NOON} camera={cam} grade={{ focus, dof: 0.5 }}>
+    <Stage {...NOON} camera={cam} grade={{ focus: 13.5, dof: 0.35 }}>
       <Rooftop t={0} />
       <Hero pose={pose} position={EDGE} yaw={EDGE_YAW} />
     </Stage>
