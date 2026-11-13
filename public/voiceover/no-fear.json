@@ -1,0 +1,1155 @@
+{
+  "slug": "no-fear",
+  "audio": "voiceover/no-fear.mp3",
+  "durationInSeconds": 58.14857142857143,
+  "words": [
+    {
+      "text": "What",
+      "startMs": 100,
+      "endMs": 200,
+      "timestampMs": 150,
+      "confidence": null
+    },
+    {
+      "text": " if",
+      "startMs": 240,
+      "endMs": 480,
+      "timestampMs": 360,
+      "confidence": null
+    },
+    {
+      "text": " every",
+      "startMs": 540,
+      "endMs": 780,
+      "timestampMs": 660,
+      "confidence": null
+    },
+    {
+      "text": " human",
+      "startMs": 880,
+      "endMs": 1140,
+      "timestampMs": 1010,
+      "confidence": null
+    },
+    {
+      "text": " on",
+      "startMs": 1180,
+      "endMs": 1360,
+      "timestampMs": 1270,
+      "confidence": null
+    },
+    {
+      "text": " Earth",
+      "startMs": 1440,
+      "endMs": 1700,
+      "timestampMs": 1570,
+      "confidence": null
+    },
+    {
+      "text": " suddenly",
+      "startMs": 1960,
+      "endMs": 2340,
+      "timestampMs": 2150,
+      "confidence": null
+    },
+    {
+      "text": " lost",
+      "startMs": 2420,
+      "endMs": 2660,
+      "timestampMs": 2540,
+      "confidence": null
+    },
+    {
+      "text": " the",
+      "startMs": 2700,
+      "endMs": 2780,
+      "timestampMs": 2740,
+      "confidence": null
+    },
+    {
+      "text": " ability",
+      "startMs": 2820,
+      "endMs": 3240,
+      "timestampMs": 3030,
+      "confidence": null
+    },
+    {
+      "text": " to",
+      "startMs": 3280,
+      "endMs": 3400,
+      "timestampMs": 3340,
+      "confidence": null
+    },
+    {
+      "text": " feel",
+      "startMs": 3460,
+      "endMs": 3620,
+      "timestampMs": 3540,
+      "confidence": null
+    },
+    {
+      "text": " fear?",
+      "startMs": 3860,
+      "endMs": 4180,
+      "timestampMs": 4020,
+      "confidence": null
+    },
+    {
+      "text": " Imagine",
+      "startMs": 4655,
+      "endMs": 4975,
+      "timestampMs": 4815,
+      "confidence": null
+    },
+    {
+      "text": " standing",
+      "startMs": 5095,
+      "endMs": 5355,
+      "timestampMs": 5225,
+      "confidence": null
+    },
+    {
+      "text": " on",
+      "startMs": 5395,
+      "endMs": 5475,
+      "timestampMs": 5435,
+      "confidence": null
+    },
+    {
+      "text": " top",
+      "startMs": 5515,
+      "endMs": 5675,
+      "timestampMs": 5595,
+      "confidence": null
+    },
+    {
+      "text": " of",
+      "startMs": 5715,
+      "endMs": 5775,
+      "timestampMs": 5745,
+      "confidence": null
+    },
+    {
+      "text": " a",
+      "startMs": 5795,
+      "endMs": 5895,
+      "timestampMs": 5845,
+      "confidence": null
+    },
+    {
+      "text": " skyscraper,",
+      "startMs": 5975,
+      "endMs": 6635,
+      "timestampMs": 6305,
+      "confidence": null
+    },
+    {
+      "text": " looking",
+      "startMs": 6879,
+      "endMs": 7079,
+      "timestampMs": 6979,
+      "confidence": null
+    },
+    {
+      "text": " straight",
+      "startMs": 7339,
+      "endMs": 7679,
+      "timestampMs": 7509,
+      "confidence": null
+    },
+    {
+      "text": " down,",
+      "startMs": 7718,
+      "endMs": 8019,
+      "timestampMs": 7869,
+      "confidence": null
+    },
+    {
+      "text": " and",
+      "startMs": 8240,
+      "endMs": 8340,
+      "timestampMs": 8290,
+      "confidence": null
+    },
+    {
+      "text": " feeling",
+      "startMs": 8460,
+      "endMs": 8740,
+      "timestampMs": 8600,
+      "confidence": null
+    },
+    {
+      "text": " absolutely",
+      "startMs": 9060,
+      "endMs": 9740,
+      "timestampMs": 9400,
+      "confidence": null
+    },
+    {
+      "text": " nothing.",
+      "startMs": 9900,
+      "endMs": 10300,
+      "timestampMs": 10100,
+      "confidence": null
+    },
+    {
+      "text": " No",
+      "startMs": 10560,
+      "endMs": 10660,
+      "timestampMs": 10610,
+      "confidence": null
+    },
+    {
+      "text": " panic,",
+      "startMs": 10760,
+      "endMs": 11140,
+      "timestampMs": 10950,
+      "confidence": null
+    },
+    {
+      "text": " not",
+      "startMs": 11439,
+      "endMs": 11579,
+      "timestampMs": 11509,
+      "confidence": null
+    },
+    {
+      "text": " even",
+      "startMs": 11619,
+      "endMs": 11779,
+      "timestampMs": 11699,
+      "confidence": null
+    },
+    {
+      "text": " a",
+      "startMs": 11819,
+      "endMs": 11939,
+      "timestampMs": 11879,
+      "confidence": null
+    },
+    {
+      "text": " racing",
+      "startMs": 11959,
+      "endMs": 12299,
+      "timestampMs": 12129,
+      "confidence": null
+    },
+    {
+      "text": " heartbeat.",
+      "startMs": 12339,
+      "endMs": 12819,
+      "timestampMs": 12579,
+      "confidence": null
+    },
+    {
+      "text": " Sounds",
+      "startMs": 13007,
+      "endMs": 13207,
+      "timestampMs": 13107,
+      "confidence": null
+    },
+    {
+      "text": " like",
+      "startMs": 13227,
+      "endMs": 13307,
+      "timestampMs": 13267,
+      "confidence": null
+    },
+    {
+      "text": " a",
+      "startMs": 13367,
+      "endMs": 13427,
+      "timestampMs": 13397,
+      "confidence": null
+    },
+    {
+      "text": " superpower,",
+      "startMs": 13467,
+      "endMs": 14007,
+      "timestampMs": 13737,
+      "confidence": null
+    },
+    {
+      "text": " right?",
+      "startMs": 14107,
+      "endMs": 14287,
+      "timestampMs": 14197,
+      "confidence": null
+    },
+    {
+      "text": " But",
+      "startMs": 14526,
+      "endMs": 14626,
+      "timestampMs": 14576,
+      "confidence": null
+    },
+    {
+      "text": " within",
+      "startMs": 14646,
+      "endMs": 14986,
+      "timestampMs": 14816,
+      "confidence": null
+    },
+    {
+      "text": " hours,",
+      "startMs": 15086,
+      "endMs": 15466,
+      "timestampMs": 15276,
+      "confidence": null
+    },
+    {
+      "text": " the",
+      "startMs": 15566,
+      "endMs": 15646,
+      "timestampMs": 15606,
+      "confidence": null
+    },
+    {
+      "text": " consequences",
+      "startMs": 15706,
+      "endMs": 16446,
+      "timestampMs": 16076,
+      "confidence": null
+    },
+    {
+      "text": " could",
+      "startMs": 16486,
+      "endMs": 16606,
+      "timestampMs": 16546,
+      "confidence": null
+    },
+    {
+      "text": " be",
+      "startMs": 16646,
+      "endMs": 16806,
+      "timestampMs": 16726,
+      "confidence": null
+    },
+    {
+      "text": " terrifying.",
+      "startMs": 16866,
+      "endMs": 17506,
+      "timestampMs": 17186,
+      "confidence": null
+    },
+    {
+      "text": " People",
+      "startMs": 17708,
+      "endMs": 17908,
+      "timestampMs": 17808,
+      "confidence": null
+    },
+    {
+      "text": " might",
+      "startMs": 17948,
+      "endMs": 18068,
+      "timestampMs": 18008,
+      "confidence": null
+    },
+    {
+      "text": " start",
+      "startMs": 18128,
+      "endMs": 18308,
+      "timestampMs": 18218,
+      "confidence": null
+    },
+    {
+      "text": " taking",
+      "startMs": 18348,
+      "endMs": 18588,
+      "timestampMs": 18468,
+      "confidence": null
+    },
+    {
+      "text": " risks",
+      "startMs": 18708,
+      "endMs": 19008,
+      "timestampMs": 18858,
+      "confidence": null
+    },
+    {
+      "text": " they'd",
+      "startMs": 19048,
+      "endMs": 19228,
+      "timestampMs": 19138,
+      "confidence": null
+    },
+    {
+      "text": " normally",
+      "startMs": 19268,
+      "endMs": 19588,
+      "timestampMs": 19428,
+      "confidence": null
+    },
+    {
+      "text": " avoid.",
+      "startMs": 19648,
+      "endMs": 20048,
+      "timestampMs": 19848,
+      "confidence": null
+    },
+    {
+      "text": " Dangerous",
+      "startMs": 20314,
+      "endMs": 20674,
+      "timestampMs": 20494,
+      "confidence": null
+    },
+    {
+      "text": " animals?",
+      "startMs": 20754,
+      "endMs": 21134,
+      "timestampMs": 20944,
+      "confidence": null
+    },
+    {
+      "text": " No",
+      "startMs": 21495,
+      "endMs": 21595,
+      "timestampMs": 21545,
+      "confidence": null
+    },
+    {
+      "text": " longer",
+      "startMs": 21655,
+      "endMs": 21875,
+      "timestampMs": 21765,
+      "confidence": null
+    },
+    {
+      "text": " frightening.",
+      "startMs": 21955,
+      "endMs": 22355,
+      "timestampMs": 22155,
+      "confidence": null
+    },
+    {
+      "text": " Extreme",
+      "startMs": 22655,
+      "endMs": 23035,
+      "timestampMs": 22845,
+      "confidence": null
+    },
+    {
+      "text": " heights?",
+      "startMs": 23075,
+      "endMs": 23415,
+      "timestampMs": 23245,
+      "confidence": null
+    },
+    {
+      "text": " Just",
+      "startMs": 23769,
+      "endMs": 23929,
+      "timestampMs": 23849,
+      "confidence": null
+    },
+    {
+      "text": " another",
+      "startMs": 23969,
+      "endMs": 24249,
+      "timestampMs": 24109,
+      "confidence": null
+    },
+    {
+      "text": " view.",
+      "startMs": 24269,
+      "endMs": 24509,
+      "timestampMs": 24389,
+      "confidence": null
+    },
+    {
+      "text": " But",
+      "startMs": 24776,
+      "endMs": 24916,
+      "timestampMs": 24846,
+      "confidence": null
+    },
+    {
+      "text": " here's",
+      "startMs": 24996,
+      "endMs": 25236,
+      "timestampMs": 25116,
+      "confidence": null
+    },
+    {
+      "text": " what",
+      "startMs": 25256,
+      "endMs": 25356,
+      "timestampMs": 25306,
+      "confidence": null
+    },
+    {
+      "text": " science",
+      "startMs": 25496,
+      "endMs": 25836,
+      "timestampMs": 25666,
+      "confidence": null
+    },
+    {
+      "text": " tells",
+      "startMs": 25916,
+      "endMs": 26136,
+      "timestampMs": 26026,
+      "confidence": null
+    },
+    {
+      "text": " us.",
+      "startMs": 26216,
+      "endMs": 26376,
+      "timestampMs": 26296,
+      "confidence": null
+    },
+    {
+      "text": " Deep",
+      "startMs": 26695,
+      "endMs": 26855,
+      "timestampMs": 26775,
+      "confidence": null
+    },
+    {
+      "text": " inside",
+      "startMs": 26895,
+      "endMs": 27255,
+      "timestampMs": 27075,
+      "confidence": null
+    },
+    {
+      "text": " your",
+      "startMs": 27295,
+      "endMs": 27435,
+      "timestampMs": 27365,
+      "confidence": null
+    },
+    {
+      "text": " brain,",
+      "startMs": 27455,
+      "endMs": 27795,
+      "timestampMs": 27625,
+      "confidence": null
+    },
+    {
+      "text": " a",
+      "startMs": 28075,
+      "endMs": 28115,
+      "timestampMs": 28095,
+      "confidence": null
+    },
+    {
+      "text": " structure",
+      "startMs": 28175,
+      "endMs": 28494,
+      "timestampMs": 28334,
+      "confidence": null
+    },
+    {
+      "text": " called",
+      "startMs": 28594,
+      "endMs": 28755,
+      "timestampMs": 28674,
+      "confidence": null
+    },
+    {
+      "text": " the",
+      "startMs": 28795,
+      "endMs": 28875,
+      "timestampMs": 28835,
+      "confidence": null
+    },
+    {
+      "text": " amygdala",
+      "startMs": 28915,
+      "endMs": 29495,
+      "timestampMs": 29205,
+      "confidence": null
+    },
+    {
+      "text": " helps",
+      "startMs": 29595,
+      "endMs": 29895,
+      "timestampMs": 29745,
+      "confidence": null
+    },
+    {
+      "text": " process",
+      "startMs": 29935,
+      "endMs": 30355,
+      "timestampMs": 30145,
+      "confidence": null
+    },
+    {
+      "text": " threats",
+      "startMs": 30455,
+      "endMs": 30795,
+      "timestampMs": 30625,
+      "confidence": null
+    },
+    {
+      "text": " and",
+      "startMs": 30895,
+      "endMs": 30975,
+      "timestampMs": 30935,
+      "confidence": null
+    },
+    {
+      "text": " fear.",
+      "startMs": 31115,
+      "endMs": 31375,
+      "timestampMs": 31245,
+      "confidence": null
+    },
+    {
+      "text": " Scientists",
+      "startMs": 31663,
+      "endMs": 32063,
+      "timestampMs": 31863,
+      "confidence": null
+    },
+    {
+      "text": " have",
+      "startMs": 32083,
+      "endMs": 32203,
+      "timestampMs": 32143,
+      "confidence": null
+    },
+    {
+      "text": " studied",
+      "startMs": 32243,
+      "endMs": 32483,
+      "timestampMs": 32363,
+      "confidence": null
+    },
+    {
+      "text": " rare",
+      "startMs": 32623,
+      "endMs": 32783,
+      "timestampMs": 32703,
+      "confidence": null
+    },
+    {
+      "text": " patients",
+      "startMs": 32903,
+      "endMs": 33283,
+      "timestampMs": 33093,
+      "confidence": null
+    },
+    {
+      "text": " with",
+      "startMs": 33323,
+      "endMs": 33463,
+      "timestampMs": 33393,
+      "confidence": null
+    },
+    {
+      "text": " damage",
+      "startMs": 33503,
+      "endMs": 33863,
+      "timestampMs": 33683,
+      "confidence": null
+    },
+    {
+      "text": " there",
+      "startMs": 33903,
+      "endMs": 34063,
+      "timestampMs": 33983,
+      "confidence": null
+    },
+    {
+      "text": " who",
+      "startMs": 34103,
+      "endMs": 34223,
+      "timestampMs": 34163,
+      "confidence": null
+    },
+    {
+      "text": " feel",
+      "startMs": 34263,
+      "endMs": 34383,
+      "timestampMs": 34323,
+      "confidence": null
+    },
+    {
+      "text": " dramatically",
+      "startMs": 34463,
+      "endMs": 35183,
+      "timestampMs": 34823,
+      "confidence": null
+    },
+    {
+      "text": " less",
+      "startMs": 35263,
+      "endMs": 35523,
+      "timestampMs": 35393,
+      "confidence": null
+    },
+    {
+      "text": " fear.",
+      "startMs": 35563,
+      "endMs": 35823,
+      "timestampMs": 35693,
+      "confidence": null
+    },
+    {
+      "text": " But",
+      "startMs": 36004,
+      "endMs": 36124,
+      "timestampMs": 36064,
+      "confidence": null
+    },
+    {
+      "text": " losing",
+      "startMs": 36164,
+      "endMs": 36544,
+      "timestampMs": 36354,
+      "confidence": null
+    },
+    {
+      "text": " fear",
+      "startMs": 36604,
+      "endMs": 36784,
+      "timestampMs": 36694,
+      "confidence": null
+    },
+    {
+      "text": " doesn't",
+      "startMs": 36984,
+      "endMs": 37284,
+      "timestampMs": 37134,
+      "confidence": null
+    },
+    {
+      "text": " mean",
+      "startMs": 37324,
+      "endMs": 37484,
+      "timestampMs": 37404,
+      "confidence": null
+    },
+    {
+      "text": " losing",
+      "startMs": 37524,
+      "endMs": 37764,
+      "timestampMs": 37644,
+      "confidence": null
+    },
+    {
+      "text": " intelligence.",
+      "startMs": 37804,
+      "endMs": 38424,
+      "timestampMs": 38114,
+      "confidence": null
+    },
+    {
+      "text": " You",
+      "startMs": 38666,
+      "endMs": 38726,
+      "timestampMs": 38696,
+      "confidence": null
+    },
+    {
+      "text": " could",
+      "startMs": 38746,
+      "endMs": 38846,
+      "timestampMs": 38796,
+      "confidence": null
+    },
+    {
+      "text": " still",
+      "startMs": 38906,
+      "endMs": 39126,
+      "timestampMs": 39016,
+      "confidence": null
+    },
+    {
+      "text": " recognize",
+      "startMs": 39166,
+      "endMs": 39626,
+      "timestampMs": 39396,
+      "confidence": null
+    },
+    {
+      "text": " danger,",
+      "startMs": 39726,
+      "endMs": 40146,
+      "timestampMs": 39936,
+      "confidence": null
+    },
+    {
+      "text": " feel",
+      "startMs": 40426,
+      "endMs": 40566,
+      "timestampMs": 40496,
+      "confidence": null
+    },
+    {
+      "text": " pain,",
+      "startMs": 40706,
+      "endMs": 41006,
+      "timestampMs": 40856,
+      "confidence": null
+    },
+    {
+      "text": " and",
+      "startMs": 41366,
+      "endMs": 41486,
+      "timestampMs": 41426,
+      "confidence": null
+    },
+    {
+      "text": " understand",
+      "startMs": 41526,
+      "endMs": 42006,
+      "timestampMs": 41766,
+      "confidence": null
+    },
+    {
+      "text": " that",
+      "startMs": 42026,
+      "endMs": 42166,
+      "timestampMs": 42096,
+      "confidence": null
+    },
+    {
+      "text": " something",
+      "startMs": 42206,
+      "endMs": 42466,
+      "timestampMs": 42336,
+      "confidence": null
+    },
+    {
+      "text": " might",
+      "startMs": 42626,
+      "endMs": 42826,
+      "timestampMs": 42726,
+      "confidence": null
+    },
+    {
+      "text": " kill",
+      "startMs": 42886,
+      "endMs": 43046,
+      "timestampMs": 42966,
+      "confidence": null
+    },
+    {
+      "text": " you.",
+      "startMs": 43166,
+      "endMs": 43266,
+      "timestampMs": 43216,
+      "confidence": null
+    },
+    {
+      "text": " You",
+      "startMs": 43485,
+      "endMs": 43545,
+      "timestampMs": 43515,
+      "confidence": null
+    },
+    {
+      "text": " just",
+      "startMs": 43585,
+      "endMs": 43725,
+      "timestampMs": 43655,
+      "confidence": null
+    },
+    {
+      "text": " wouldn't",
+      "startMs": 43745,
+      "endMs": 43985,
+      "timestampMs": 43865,
+      "confidence": null
+    },
+    {
+      "text": " feel",
+      "startMs": 44025,
+      "endMs": 44185,
+      "timestampMs": 44105,
+      "confidence": null
+    },
+    {
+      "text": " the",
+      "startMs": 44205,
+      "endMs": 44305,
+      "timestampMs": 44255,
+      "confidence": null
+    },
+    {
+      "text": " same",
+      "startMs": 44345,
+      "endMs": 44545,
+      "timestampMs": 44445,
+      "confidence": null
+    },
+    {
+      "text": " emotional",
+      "startMs": 44585,
+      "endMs": 45125,
+      "timestampMs": 44855,
+      "confidence": null
+    },
+    {
+      "text": " warning.",
+      "startMs": 45225,
+      "endMs": 45585,
+      "timestampMs": 45405,
+      "confidence": null
+    },
+    {
+      "text": " Fear",
+      "startMs": 45875,
+      "endMs": 46195,
+      "timestampMs": 46035,
+      "confidence": null
+    },
+    {
+      "text": " isn't",
+      "startMs": 46235,
+      "endMs": 46475,
+      "timestampMs": 46355,
+      "confidence": null
+    },
+    {
+      "text": " something",
+      "startMs": 46515,
+      "endMs": 46775,
+      "timestampMs": 46645,
+      "confidence": null
+    },
+    {
+      "text": " that",
+      "startMs": 46795,
+      "endMs": 46915,
+      "timestampMs": 46855,
+      "confidence": null
+    },
+    {
+      "text": " holds",
+      "startMs": 46975,
+      "endMs": 47255,
+      "timestampMs": 47115,
+      "confidence": null
+    },
+    {
+      "text": " humanity",
+      "startMs": 47295,
+      "endMs": 47695,
+      "timestampMs": 47495,
+      "confidence": null
+    },
+    {
+      "text": " back.",
+      "startMs": 47815,
+      "endMs": 48115,
+      "timestampMs": 47965,
+      "confidence": null
+    },
+    {
+      "text": " It's",
+      "startMs": 48311,
+      "endMs": 48390,
+      "timestampMs": 48351,
+      "confidence": null
+    },
+    {
+      "text": " a",
+      "startMs": 48430,
+      "endMs": 48491,
+      "timestampMs": 48460,
+      "confidence": null
+    },
+    {
+      "text": " survival",
+      "startMs": 48510,
+      "endMs": 49070,
+      "timestampMs": 48790,
+      "confidence": null
+    },
+    {
+      "text": " mechanism",
+      "startMs": 49110,
+      "endMs": 49570,
+      "timestampMs": 49340,
+      "confidence": null
+    },
+    {
+      "text": " shaped",
+      "startMs": 49671,
+      "endMs": 49911,
+      "timestampMs": 49790,
+      "confidence": null
+    },
+    {
+      "text": " by",
+      "startMs": 49951,
+      "endMs": 50091,
+      "timestampMs": 50021,
+      "confidence": null
+    },
+    {
+      "text": " millions",
+      "startMs": 50271,
+      "endMs": 50671,
+      "timestampMs": 50471,
+      "confidence": null
+    },
+    {
+      "text": " of",
+      "startMs": 50710,
+      "endMs": 50790,
+      "timestampMs": 50750,
+      "confidence": null
+    },
+    {
+      "text": " years",
+      "startMs": 50890,
+      "endMs": 51110,
+      "timestampMs": 51000,
+      "confidence": null
+    },
+    {
+      "text": " of",
+      "startMs": 51150,
+      "endMs": 51210,
+      "timestampMs": 51180,
+      "confidence": null
+    },
+    {
+      "text": " evolution.",
+      "startMs": 51250,
+      "endMs": 51790,
+      "timestampMs": 51521,
+      "confidence": null
+    },
+    {
+      "text": " So",
+      "startMs": 52294,
+      "endMs": 52354,
+      "timestampMs": 52324,
+      "confidence": null
+    },
+    {
+      "text": " the",
+      "startMs": 52394,
+      "endMs": 52454,
+      "timestampMs": 52424,
+      "confidence": null
+    },
+    {
+      "text": " next",
+      "startMs": 52494,
+      "endMs": 52674,
+      "timestampMs": 52584,
+      "confidence": null
+    },
+    {
+      "text": " time",
+      "startMs": 52714,
+      "endMs": 52854,
+      "timestampMs": 52784,
+      "confidence": null
+    },
+    {
+      "text": " you're",
+      "startMs": 52894,
+      "endMs": 53014,
+      "timestampMs": 52954,
+      "confidence": null
+    },
+    {
+      "text": " scared",
+      "startMs": 53074,
+      "endMs": 53274,
+      "timestampMs": 53174,
+      "confidence": null
+    },
+    {
+      "text": " of",
+      "startMs": 53294,
+      "endMs": 53394,
+      "timestampMs": 53344,
+      "confidence": null
+    },
+    {
+      "text": " something,",
+      "startMs": 53414,
+      "endMs": 53774,
+      "timestampMs": 53594,
+      "confidence": null
+    },
+    {
+      "text": " remember,",
+      "startMs": 54249,
+      "endMs": 54689,
+      "timestampMs": 54469,
+      "confidence": null
+    },
+    {
+      "text": " that",
+      "startMs": 54995,
+      "endMs": 55235,
+      "timestampMs": 55115,
+      "confidence": null
+    },
+    {
+      "text": " fear",
+      "startMs": 55295,
+      "endMs": 55515,
+      "timestampMs": 55405,
+      "confidence": null
+    },
+    {
+      "text": " might",
+      "startMs": 55795,
+      "endMs": 55975,
+      "timestampMs": 55885,
+      "confidence": null
+    },
+    {
+      "text": " be",
+      "startMs": 56015,
+      "endMs": 56115,
+      "timestampMs": 56065,
+      "confidence": null
+    },
+    {
+      "text": " the",
+      "startMs": 56155,
+      "endMs": 56315,
+      "timestampMs": 56235,
+      "confidence": null
+    },
+    {
+      "text": " very",
+      "startMs": 56395,
+      "endMs": 56655,
+      "timestampMs": 56525,
+      "confidence": null
+    },
+    {
+      "text": " reason",
+      "startMs": 56755,
+      "endMs": 57075,
+      "timestampMs": 56915,
+      "confidence": null
+    },
+    {
+      "text": " you're",
+      "startMs": 57115,
+      "endMs": 57215,
+      "timestampMs": 57165,
+      "confidence": null
+    },
+    {
+      "text": " still",
+      "startMs": 57274,
+      "endMs": 57414,
+      "timestampMs": 57344,
+      "confidence": null
+    },
+    {
+      "text": " alive.",
+      "startMs": 57475,
+      "endMs": 57935,
+      "timestampMs": 57705,
+      "confidence": null
+    }
+  ]
+}

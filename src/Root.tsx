@@ -10,6 +10,7 @@ import { SatellitesDarkEpisode, estimatedSatellitesDark, type SatellitesDarkProp
 import { MinecraftMobsEpisode, estimatedMinecraftMobs, type MinecraftMobsProps } from "./episodes/minecraft-mobs/MinecraftMobsEpisode";
 import { NoVoicesEpisode, estimatedNoVoices, type NoVoicesProps } from "./episodes/no-voices/NoVoicesEpisode";
 import { withFx } from "./slavoski/postfx";
+import { NoFearEpisode, estimatedNoFear, type NoFearProps } from "./episodes/no-fear/NoFearEpisode";
 import { voiceoverMetadata } from "./lib/voiceover";
 import { withDetail } from "./slavoski/detail";
 
@@ -19,6 +20,7 @@ const NoHumansLow = withDetail("low", NoHumansEpisode);
 const GtaLow = withDetail("low", GtaEpisode);
 // Ep. 9 onward: post-processing (bloom, depth of field, grade).
 const NoVoicesFx = withFx(NoVoicesEpisode);
+const NoFearFx = withFx(NoFearEpisode);
 import { StyleCheck, type StyleCheckProps } from "./StyleCheck";
 import { Thumbnail, type ThumbProps } from "./Thumbnails";
 
@@ -68,6 +70,7 @@ export const RemotionRoot: React.FC = () => (
       ["satellites-dark", "SatellitesDark"],
       ["minecraft-mobs", "MinecraftMobs"],
       ["no-voices", "NoVoices"],
+      ["no-fear", "NoFear"],
     ] as const).map(([ep, id]) => (
       <Still
         key={ep}
@@ -137,6 +140,16 @@ export const RemotionRoot: React.FC = () => (
       height={HEIGHT}
       defaultProps={{ voiceover: "no-voices" } as NoVoicesProps}
       calculateMetadata={voiceoverMetadata<NoVoicesProps>(FPS, { tailSeconds: 2.2, fallback: estimatedNoVoices })}
+    />
+    <Composition
+      id="NoFear"
+      component={NoFearFx}
+      durationInFrames={FPS * 60}
+      fps={FPS}
+      width={WIDTH}
+      height={HEIGHT}
+      defaultProps={{ voiceover: "no-fear" } as NoFearProps}
+      calculateMetadata={voiceoverMetadata<NoFearProps>(FPS, { tailSeconds: 1.8, fallback: estimatedNoFear })}
     />
     <Composition
       id="StyleCheck"

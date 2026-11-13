@@ -68,7 +68,7 @@ export const ToonEyes: React.FC<{ face?: Face; size: number; spacing: number; br
 };
 
 // ---------- Quadrupeds ----------
-export type QuadKind = "dog" | "cat" | "cow" | "pig" | "rat";
+export type QuadKind = "dog" | "cat" | "cow" | "pig" | "rat" | "lion";
 
 type QuadSpec = {
   body: V3;
@@ -91,6 +91,8 @@ type QuadSpec = {
   eyeY?: number;
   spots?: string;
   stripes?: string;
+  /** A ring of faceted tufts round the head (the lion's mane). */
+  mane?: string;
 };
 
 export const QUAD: Record<QuadKind, QuadSpec> = {
@@ -113,6 +115,11 @@ export const QUAD: Record<QuadKind, QuadSpec> = {
     body: [0.72, 0.62, 1.1], leg: 0.36, legW: 0.17, head: [0.54, 0.5, 0.44], neck: 0.06, snout: [0.3, 0.22, 0.12],
     fur: "#E9A3A8", belly: "#F3C4C4", snoutColor: "#D98890", nose: "#9A4E58", paw: "#9A4E58",
     ears: "pig", tail: "curl", tailLen: 0.2, eye: 0.11, eyeY: 0.27,
+  },
+  lion: {
+    body: [0.62, 0.56, 1.36], leg: 0.56, legW: 0.17, head: [0.5, 0.46, 0.44], neck: 0.12, snout: [0.26, 0.18, 0.14],
+    fur: "#C9934A", belly: "#E3C08A", snoutColor: "#E3C08A", nose: "#3A2A22", paw: "#C9934A",
+    ears: "round", tail: "tuft", tailLen: 0.8, eye: 0.1, eyeY: 0.2, mane: "#7A4A22",
   },
   rat: {
     body: [0.24, 0.22, 0.46], leg: 0.11, legW: 0.06, head: [0.2, 0.18, 0.24], neck: 0.02, snout: [0.1, 0.08, 0.12],
@@ -310,6 +317,18 @@ export const Quadruped: React.FC<QuadProps> = ({
                 <ToonEyes face={face} size={k.eye} spacing={hw * 0.24} />
               </group>
               <Ears k={k} kind={kind} />
+              {k.mane
+                ? Array.from({ length: 14 }, (_, i) => {
+                    const a = (i / 14) * Math.PI * 2;
+                    const r = Math.max(hw, hh) * 0.72;
+                    return (
+                      <mesh key={`m${i}`} position={[Math.cos(a) * r, Math.sin(a) * r * 1.05 + hh * 0.05, hl * 0.18 - (i % 2) * 0.06]} castShadow>
+                        <IcoG args={[hw * (0.3 + (i % 3) * 0.04), 1]} />
+                        <Flat color={i % 3 === 0 ? "#5E3618" : (k.mane ?? "#7A4A22")} />
+                      </mesh>
+                    );
+                  })
+                : null}
             </group>
           </group>
         </group>

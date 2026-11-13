@@ -13,6 +13,7 @@ import { thumbShot as NW } from "./episodes/no-work-2036/shots";
 import { thumbShot as SD } from "./episodes/satellites-dark/shots";
 import { thumbShot as MM } from "./episodes/minecraft-mobs/shots";
 import { thumbShot as NV } from "./episodes/no-voices/shots";
+import { thumbShot as NF } from "./episodes/no-fear/shots";
 import { FxProvider } from "./slavoski/postfx";
 import { FONT, loadHouseFonts } from "./slavoski/fonts";
 import { P } from "./slavoski/palette";
@@ -21,7 +22,7 @@ import { Stage } from "./slavoski/Stage";
 
 loadHouseFonts();
 
-export type ThumbProps = { episode: "black-hole" | "no-humans" | "gta-24h" | "smart-animals" | "ww3-countdown" | "no-work-2036" | "satellites-dark" | "minecraft-mobs" | "no-voices" };
+export type ThumbProps = { episode: "black-hole" | "no-humans" | "gta-24h" | "smart-animals" | "ww3-countdown" | "no-work-2036" | "satellites-dark" | "minecraft-mobs" | "no-voices" | "no-fear" };
 
 type Line = { text: string; color?: string; size?: number };
 const THUMBS: Record<ThumbProps["episode"], { shot: React.ReactNode; lines: Line[]; chip: string; top: number }> = {
@@ -81,6 +82,13 @@ const THUMBS: Record<ThumbProps["episode"], { shot: React.ReactNode; lines: Line
     shot: <FxProvider value>{NV({ lt: 0, dur: 2, t: 0, words: [], width: 1080, height: 1920 })}</FxProvider>,
     lines: [{ text: "NOBODY" }, { text: "CAN SPEAK", color: P.amber, size: 150 }],
     chip: "NOT A SINGLE WORD",
+    top: 300,
+  },
+  "no-fear": {
+    // Slavoski at the very edge of a skyscraper, smiling, a 300 m drop below. Post-processing on.
+    shot: <FxProvider value>{NF({ lt: 0, dur: 2, t: 0, words: [], width: 1080, height: 1920 })}</FxProvider>,
+    lines: [{ text: "NO MORE" }, { text: "FEAR", color: P.amber, size: 170 }],
+    chip: "IS THAT GOOD?",
     top: 300,
   },
   "gta-24h": {
