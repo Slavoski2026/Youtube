@@ -58,7 +58,7 @@ export const ROOF = { y: 308.6, edge: 16.1, kitH: 88, kitW: 9 };
 export const SkyTower: React.FC<{ seed?: string; power?: number; helipad?: boolean }> = ({ seed = "tower", power = 0.3, helipad = true }) => (
   <group>
     <group scale={CITY}>
-      <Building position={[0, 0, 0]} w={ROOF.kitW} d={ROOF.kitW} h={ROOF.kitH} color={P.bldgSlate} seed={seed} litRatio={0.4} power={power} />
+      <Building position={[0, 0, 0]} w={ROOF.kitW} d={ROOF.kitW} h={ROOF.kitH} color={P.bldgSlate} seed={seed} litRatio={0.4} power={power} bare />
     </group>
     {/* roof deck covering the kit roof slab and cornice */}
     <mesh position={[0, ROOF.y - 0.3, 0]} castShadow receiveShadow>
@@ -102,8 +102,21 @@ export const SkyTower: React.FC<{ seed?: string; power?: number; helipad?: boole
       </mesh>
       <Halo position={[0, 26.4, 0]} size={5} color="#FF3A3A" opacity={0.6} />
     </group>
+    {/* stair and lift housing in the far corner, clear of the helipad */}
+    <mesh position={[9.5, ROOF.y + 2.6, -10.5]} castShadow receiveShadow>
+      <BoxG args={[8, 5.2, 7]} />
+      <Flat color="#5A6270" />
+    </mesh>
+    <mesh position={[9.5, ROOF.y + 5.35, -10.5]} castShadow>
+      <BoxG args={[8.6, 0.3, 7.6]} />
+      <Flat color="#4A5260" />
+    </mesh>
+    <mesh position={[9.5, ROOF.y + 1.6, -6.98]}>
+      <planeGeometry args={[1.8, 3.2]} />
+      <Flat color="#2A2E36" />
+    </mesh>
     {/* AC units */}
-    {[[8, 0, -10], [11, 0, -10], [8, 0, -6.5]].map((p, i) => (
+    {[[2, 0, -12.5], [-1.4, 0, -13.2], [12.5, 0, -2]].map((p, i) => (
       <mesh key={i} position={[p[0], ROOF.y + 1.1, p[2]]} castShadow>
         <BoxG args={[2.6, 2.2, 2.8]} />
         <Flat color="#9AA1B0" />
@@ -157,7 +170,7 @@ export const PlankTowers: React.FC = () => (
     {[-1, 1].map((s) => (
       <group key={s}>
         <group scale={CITY} position={[s * 34, 0, 0]}>
-          <Building position={[0, 0, 0]} w={9} d={9} h={240 / CITY} color={s > 0 ? P.bldgTeal : P.bldgPurple} seed={`pk${s}`} power={0.3} />
+          <Building position={[0, 0, 0]} w={9} d={9} h={240 / CITY} color={s > 0 ? P.bldgTeal : P.bldgPurple} seed={`pk${s}`} power={0.3} bare />
         </group>
         <mesh position={[s * 34, 240.3, 0]} receiveShadow>
           <BoxG args={[32.4, 0.6, 32.4]} />

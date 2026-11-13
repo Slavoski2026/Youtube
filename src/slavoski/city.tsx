@@ -117,6 +117,8 @@ export type BuildingProps = {
   power?: number;
   /** 0..1 abandonment: weathered colour, broken windows, ivy climbing the walls, roof plants. */
   decay?: number;
+  /** No cornice, roof slab or rooftop box (for towers that get their own roof deck, e.g. the ep. 10 skyscraper). */
+  bare?: boolean;
 };
 
 export const Building: React.FC<BuildingProps> = ({
@@ -132,6 +134,7 @@ export const Building: React.FC<BuildingProps> = ({
   yaw = 0,
   power = 1,
   decay = 0,
+  bare = false,
 }) => {
   const windows = useMemo(() => windowGrid(w, h, d, seed, litRatio), [w, h, d, seed, litRatio]);
   const pq = Math.round(power * 20) / 20;
@@ -184,17 +187,21 @@ export const Building: React.FC<BuildingProps> = ({
           <mesh {...box(w, h, d)} position={[0, h / 2, 0]} castShadow receiveShadow>
             <Flat color={bodyColor} />
           </mesh>
-          {mid ? (
+          {mid && !bare ? (
             <mesh geometry={chamferBox(w + 0.16, 0.24, d + 0.16)} position={[0, h - 0.12, 0]} castShadow>
               <Flat color={roofColor} />
             </mesh>
           ) : null}
-          <mesh {...box(w - 0.3, 0.16, d - 0.3)} position={[0, h + 0.08, 0]} castShadow>
-            <Flat color={roofColor} />
-          </mesh>
-          <mesh {...box(rooftop.w, 0.7, rooftop.d)} position={[rooftop.x, h + 0.16 + 0.35, rooftop.z]} castShadow>
-            <Flat color={roofColor} />
-          </mesh>
+          {bare ? null : (
+            <>
+              <mesh {...box(w - 0.3, 0.16, d - 0.3)} position={[0, h + 0.08, 0]} castShadow>
+                <Flat color={roofColor} />
+              </mesh>
+              <mesh {...box(rooftop.w, 0.7, rooftop.d)} position={[rooftop.x, h + 0.16 + 0.35, rooftop.z]} castShadow>
+                <Flat color={roofColor} />
+              </mesh>
+            </>
+          )}
           <Instances items={rest} />
           {sills.length ? <Instances items={sills} /> : null}
           {lit.length ? <Instances items={lit} glow /> : null}

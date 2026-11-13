@@ -102,6 +102,7 @@ uniform sampler2D tColor;
 uniform sampler2D tDepth;
 uniform float cameraNear;
 uniform float cameraFar;
+uniform float logDepth;
 uniform float focus;
 uniform float cocScale;
 uniform float maxCoc;
@@ -119,6 +120,8 @@ varying vec2 vUv;
 
 float viewDist(vec2 uv) {
   float d = texture2D(tDepth, uv).x;
+  // log depth: d = log2(1 + w) / log2(far + 1)  =>  w = (far + 1)^d - 1
+  if (logDepth > 0.5) return pow(cameraFar + 1.0, d) - 1.0;
   return -perspectiveDepthToViewZ(d, cameraNear, cameraFar);
 }
 // signed circle of confusion, in uv-height units (negative = in front of the focus plane)
@@ -259,6 +262,7 @@ export const PostFX: React.FC<{ frame: number; grade: Grade; target: [number, nu
         tDepth: { value: depthTexture },
         cameraNear: { value: 0.1 },
         cameraFar: { value: 3000 },
+        logDepth: { value: 0 },
         focus: { value: 10 },
         cocScale: { value: 0 },
         maxCoc: { value: 0.016 },
@@ -297,6 +301,7 @@ export const PostFX: React.FC<{ frame: number; grade: Grade; target: [number, nu
     const focus = grade.focus ?? Math.max(0.5, camera.position.distanceTo(new THREE.Vector3(...target)));
     u.cameraNear.value = camera.near;
     u.cameraFar.value = camera.far;
+    u.logDepth.value = gl.capabilities.logarithmicDepthBuffer ? 1 : 0;
     u.focus.value = focus;
     u.cocScale.value = grade.dof > 0 ? (grade.dof * 0.06) / focus : 0;
     u.seed.value = (frame * 0.618034) % 1;

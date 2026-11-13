@@ -223,7 +223,7 @@ export const Stage: React.FC<StageProps> = ({
         height={height}
         flat
         shadows={shadows ? "percentage" : false}
-        gl={{ alpha: true, antialias: true, preserveDrawingBuffer: true }}
+        gl={{ alpha: true, antialias: true, preserveDrawingBuffer: true, logarithmicDepthBuffer: fx }}
         dpr={hq ? 2 : 1}
         camera={{ fov: camera.fov ?? 40, near: 0.1, far: 3000, position: camera.position }}
       >

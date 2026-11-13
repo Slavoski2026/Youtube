@@ -122,6 +122,8 @@ export const mouthOf = (pose: Pose, position: V3, yaw = 0): { at: V3; dir: V3 } 
 // ================================================================ light
 
 const shaftVert = /* glsl */ `
+#include <common>
+#include <logdepthbuf_pars_vertex>
 varying float vH;
 varying vec3 vN;
 varying vec3 vV;
@@ -131,14 +133,17 @@ void main() {
   vN = normalize(normalMatrix * normal);
   vV = normalize(-mv.xyz);
   gl_Position = projectionMatrix * mv;
+  #include <logdepthbuf_vertex>
 }`;
 const shaftFrag = /* glsl */ `
+#include <logdepthbuf_pars_fragment>
 uniform vec3 color;
 uniform float opacity;
 varying float vH;
 varying vec3 vN;
 varying vec3 vV;
 void main() {
+  #include <logdepthbuf_fragment>
   float facing = pow(abs(dot(normalize(vN), normalize(vV))), 1.6);
   float along = smoothstep(0.0, 0.25, vH) * (0.35 + 0.65 * vH);
   gl_FragColor = vec4(color * facing * along * opacity, 1.0);
