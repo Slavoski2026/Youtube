@@ -962,9 +962,9 @@ const c7Walk: ShotFn = (c) => {
 
 /** Shorts cover: Earth with its shield shattering, the solar wind pouring in. */
 export const thumbShot: ShotFn = () => (
-  <Shot mood="space" camera={{ position: [7, 2.5, 30], target: [0, 0.2, 0] }} fog={false} shadows={false} light={0.85} keyDir={SPACE_KEY}>
+  <Shot mood="space" camera={{ position: [6, 2.4, 33], target: [0, 3.2, 0] }} fog={false} shadows={false} light={0.85} keyDir={SPACE_KEY}>
     <SunAbove t={0} x={-3} />
-    <ShieldScene t={1.2} on={0.25} shatter={0.32} wind={0.4} hits={0.8} />
+    <ShieldScene t={1.2} on={0.62} shatter={0.2} wind={0.5} hits={1} />
   </Shot>
 );
 
