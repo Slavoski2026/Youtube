@@ -596,7 +596,7 @@ export const Aurora: React.FC<{ t: number; position?: V3; width?: number; height
   seed = "aurora",
   yaw = 0,
 }) => {
-  const SX = 90, SY = 6;
+  const SX = 90, SY = 10;
   const tq = Math.round(t * 30) / 30;
   const geom = useMemo(() => {
     const g = new THREE.PlaneGeometry(1, 1, SX, SY).toNonIndexed();
@@ -620,7 +620,8 @@ export const Aurora: React.FC<{ t: number; position?: V3; width?: number; height
       const rays = 0.55 + 0.45 * Math.abs(noise1(`${seed}r`, u * 24 + tq * 0.6));
       const edge = Math.min(1, u * 3.5, (1 - u) * 3.5) ** 1.6;
       const c = v < 0.35 ? foot.clone().lerp(mid, v / 0.35) : mid.clone().lerp(crown, (v - 0.35) / 0.65);
-      c.multiplyScalar(rays * edge * (1 - v) ** 1.3);
+      const hem = Math.min(1, v / 0.16) ** 1.2; // the lower hem fades in instead of ending on a hard line
+      c.multiplyScalar(rays * edge * hem * (1 - v) ** 1.3);
       colors.set([c.r, c.g, c.b], i * 3);
     }
     g.setAttribute("color", new THREE.BufferAttribute(colors, 3));

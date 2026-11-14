@@ -857,9 +857,22 @@ const c7Naked: ShotFn = (c) => {
 /** Time-lapse on the hill: Slavoski asleep, the stars wheeling overhead, the aurora rippling. */
 const c7Lapse: ShotFn = (c) => {
   const cam = move({ position: [15, 3.0, 15], target: [0, 2.2, -5] }, { position: [14, 2.9, 14], target: [0, 2.3, -5] }, c);
+  // the curtain faces the camera, centred on the view and far wider than the frame, so no end shows
+  const dir = Math.atan2(cam.target[0] - cam.position[0], cam.target[2] - cam.position[2]);
+  const far = 240;
   return (
     <Shot mood="night" camera={cam} fog={false} shadowSize={14} light={0.6} stars={false}>
-      <Hill t={c.t * 8} aurora={0.8} />
+      <Hill t={c.t * 3} aurora={0} />
+      <Aurora
+        t={c.t * 3}
+        position={[cam.position[0] + Math.sin(dir) * far, 30, cam.position[2] + Math.cos(dir) * far]}
+        yaw={dir + Math.PI}
+        width={640}
+        height={55}
+        bend={40}
+        opacity={0.8}
+        seed="lapse"
+      />
       <group rotation={[0.3, 0, c.lt * 0.35]}>
         <Stars opacity={0.8} seed="lapse" />
       </group>
@@ -912,12 +925,13 @@ const c7Compass: ShotFn = (c) => {
 /** Sunrise: he stretches, pockets the compass and strolls off, none the wiser. */
 const c7Walk: ShotFn = (c) => {
   const cam = move({ position: [6, 3.0, 18], target: [0, 3.0, 0] }, { position: [5, 3.2, 16], target: [0, 3.4, -3] }, c);
-  const stretch = k01(c.lt, 0.0, 0.5) * (1 - k01(c.lt, 1.0, 1.4));
-  const walking = c.lt > 1.3;
-  const wt = Math.max(0, c.lt - 1.3);
-  const yaw = walking ? Math.PI - 0.5 * k01(c.lt, 1.3, 1.6) : 0.2;
-  const base = walking ? walkPose(wt * 1.5, 0.8) : REST;
-  const pose = mergePose(base, walking ? { expression: "smile" } : {
+  // stretch → arms down → turn round on the spot in small steps (~0.9 s, eased) → stroll off
+  const stretch = k01(c.lt, 0.0, 0.45) * (1 - k01(c.lt, 0.65, 1.0));
+  const turn = k01(c.lt, 0.85, 1.75);
+  const yaw = 0.2 + (Math.PI - 0.7) * turn;
+  const steps = 0.3 * k01(c.lt, 0.85, 1.1) + 0.5 * k01(c.lt, 1.45, 1.95);
+  const base = mergePose(walkPose(Math.max(0, c.lt - 0.85) * 1.6, steps), { expression: "smile" });
+  const up = mergePose(base, {
     lShoulder: [0.1, 0.12 + 2.3 * stretch],
     rShoulder: [0.1, 0.12 + 2.3 * stretch],
     lElbow: 0.15 + 0.4 * stretch,
@@ -926,7 +940,10 @@ const c7Walk: ShotFn = (c) => {
     blink: stretch > 0.5 ? 1 : 0,
     expression: stretch > 0.3 ? "relief" : "smile",
   });
-  const pos: V3 = [Math.sin(yaw) * wt * 2.2, 0, 2 + Math.cos(yaw) * wt * 2.2];
+  const pose = c.lt < 1.0 ? up : base;
+  const wt = Math.max(0, c.lt - 1.45);
+  const dist = (2.2 * wt * wt) / (wt + 0.5); // eases into walking pace
+  const pos: V3 = [Math.sin(yaw) * dist, 0, 2 + Math.cos(yaw) * dist];
   return (
     <Shot mood="dawn" camera={cam} fog={[60, 360]} shadowSize={20} keyDir={[0.8, 0.35, -0.5]}>
       <Hill t={c.t} dawn />
