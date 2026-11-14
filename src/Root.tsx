@@ -7,6 +7,7 @@ import { SmartAnimalsEpisode, estimatedSmartAnimals, type SmartAnimalsProps } fr
 import { Ww3Episode, estimatedWw3, type Ww3Props } from "./episodes/ww3-countdown/Ww3Episode";
 import { NoWork2036Episode, estimatedNoWork2036, type NoWork2036Props } from "./episodes/no-work-2036/NoWork2036Episode";
 import { SatellitesDarkEpisode, estimatedSatellitesDark, type SatellitesDarkProps } from "./episodes/satellites-dark/SatellitesDarkEpisode";
+import { ShieldDownEpisode, estimatedShieldDown, type ShieldDownProps } from "./episodes/shield-down/ShieldDownEpisode";
 import { voiceoverMetadata } from "./lib/voiceover";
 import { withDetail } from "./slavoski/detail";
 
@@ -61,6 +62,7 @@ export const RemotionRoot: React.FC = () => (
       ["ww3-countdown", "Ww3Countdown"],
       ["no-work-2036", "NoWork2036"],
       ["satellites-dark", "SatellitesDark"],
+      ["shield-down", "ShieldDown"],
     ] as const).map(([ep, id]) => (
       <Still
         key={ep}
@@ -110,6 +112,16 @@ export const RemotionRoot: React.FC = () => (
       height={HEIGHT}
       defaultProps={{ voiceover: "satellites-dark" } as SatellitesDarkProps}
       calculateMetadata={voiceoverMetadata<SatellitesDarkProps>(FPS, { tailSeconds: 2.2, fallback: estimatedSatellitesDark })}
+    />
+    <Composition
+      id="ShieldDown"
+      component={ShieldDownEpisode}
+      durationInFrames={FPS * 64}
+      fps={FPS}
+      width={WIDTH}
+      height={HEIGHT}
+      defaultProps={{ voiceover: "shield-down" } as ShieldDownProps}
+      calculateMetadata={voiceoverMetadata<ShieldDownProps>(FPS, { tailSeconds: 2.2, fallback: estimatedShieldDown })}
     />
     <Composition
       id="StyleCheck"
