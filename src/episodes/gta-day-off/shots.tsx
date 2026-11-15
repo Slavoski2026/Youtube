@@ -9,7 +9,7 @@
 import type { Caption } from "@remotion/captions";
 import React from "react";
 import { AbsoluteFill, random } from "remotion";
-import { Car, Ground, StreetSet } from "../../slavoski/city";
+import { Building, Car, Ground, StreetSet } from "../../slavoski/city";
 import { BoxG, chamferBox, CylG, IcoG } from "../../slavoski/detail";
 import { FONT } from "../../slavoski/fonts";
 import { crowdLook, suitLook } from "../../slavoski/hero";
@@ -29,6 +29,7 @@ import { GAME_PINK } from "../gta-24h/props";
 import { Balance, CoinFlow, CoinPile, Crane, House, HillRing, SkyscraperSite } from "../no-work-2036/props";
 import { BED, Bedroom } from "../smart-animals/props";
 import { CITY, drawLabel, PHONE, Phone3D } from "../ww3-countdown/props";
+import { ScreenCity } from "./screen-city";
 import {
   BarChart,
   BedsideClock,
@@ -50,7 +51,6 @@ import {
   PaperStack,
   PawnGrid,
   RubberStamp,
-  ScreenCity,
   seatedWorker,
   ShopFront,
   StreamerDesk,
@@ -237,12 +237,11 @@ const ShopRow: React.FC<{ t: number; main: React.ReactNode; night?: boolean; see
     {main}
     <ShopFront position={[-15, 0, 0]} w={14} color="#2E5A6A" awning={["#24748F", "#F4F2EA"]} sign={drawSign("BAKERY", "#F4F2EA", "#2E5A6A")} glow="#F2D8A0" />
     <ShopFront position={[15, 0, 0]} w={14} color="#566270" awning={["#2B2F3E", "#E8C04A"]} sign={drawSign("BOOKS", "#2B2F3E", "#E8C04A")} glow="#E8D0A0" />
-    {[-40, -24, -8, 8, 24, 40].map((x, i) => (
-      <mesh key={x} position={[x, 18, -14]} castShadow>
-        <BoxG args={[15, 36, 16]} />
-        <Flat color={[P.bldgNavy, P.bldgSlate, P.bldgPurple, P.bldgTeal][i % 4]} />
-      </mesh>
-    ))}
+    <group scale={CITY}>
+      {[-11.4, -6.9, -2.3, 2.3, 6.9, 11.4].map((x, i) => (
+        <Building key={x} position={[x, 0, -4.4 - (i % 2) * 1.2]} w={4.2} d={4.4} h={9 + ((i * 5) % 7)} color={[P.bldgNavy, P.bldgSlate, P.bldgPurple, P.bldgTeal][i % 4]} seed={`${seed}b${i}`} power={night ? 1 : 0.3} />
+      ))}
+    </group>
     <Clouds t={t} color={night ? STORM_CLOUD : GREY} y={46} radius={120} count={18} seed={`${seed}cl`} />
   </group>
 );
@@ -301,13 +300,13 @@ const coldCough: ShotFn = (c) => {
 
 /** Grey drizzly dawn over the city: window after window lights up with a game. */
 const coldCity: ShotFn = (c) => {
-  const cam = move({ position: [150, 120, 175], target: [0, 4, 0] }, { position: [138, 112, 162], target: [0, 4, 0] }, c);
+  const cam = move({ position: [96, 92, 112], target: [-6, 4, -8] }, { position: [88, 86, 103], target: [-6, 4, -8] }, c);
   return (
     <Shot mood="storm" camera={cam} fog={[170, 480]} shadowSize={100} light={0.8}>
       <Ground color="#2C3247" />
       <ScreenCity t={c.t} games={0.18 + k01(c.lt, 0.1, 1.1) * 0.32} lit={0.25} />
       <Clouds t={c.t} color={STORM_CLOUD} y={50} radius={300} count={30} seed="dawncl" />
-      <Drizzle t={c.t} at={[110, 90, 130]} size={[60, 50, 60]} count={900} />
+      <Drizzle t={c.t} at={[72, 72, 84]} size={[60, 50, 60]} count={900} />
     </Shot>
   );
 };
@@ -555,13 +554,13 @@ const c2Inbox: ShotFn = (c) => {
 // ---------------------------------------------------------------- 03 lost hours (overcast, rain)
 
 const c3City: ShotFn = (c) => {
-  const cam = move({ position: [-150, 95, 170], target: [0, 8, 0] }, { position: [-138, 90, 158], target: [0, 8, 0] }, c);
+  const cam = move({ position: [-116, 84, 132], target: [4, 4, -6] }, { position: [-108, 80, 124], target: [4, 4, -6] }, c);
   return (
     <Shot mood="overcast" camera={cam} fog={[170, 480]} shadowSize={100} light={0.85}>
       <Ground color="#3A3F55" />
       <ScreenCity t={c.t} games={0.28} lit={0.12} day seed="noon" />
       <Clouds t={c.t} color={GREY} y={50} radius={300} count={30} seed="noon" />
-      <Drizzle t={c.t} at={[-110, 70, 125]} size={[60, 50, 60]} count={900} />
+      <Drizzle t={c.t} at={[-86, 62, 98]} size={[60, 50, 60]} count={900} />
     </Shot>
   );
 };
@@ -891,12 +890,12 @@ const c6Light: ShotFn = (c) => {
 
 /** The night skyline, window after window glowing with the game. */
 const c6Skyline: ShotFn = (c) => {
-  const cam = move({ position: [150, 46, 175], target: [0, 26, 0] }, { position: [140, 44, 164], target: [0, 27, 0] }, c);
+  const cam = move({ position: [96, 40, 112], target: [0, 20, -10] }, { position: [89, 38, 104], target: [0, 21, -10] }, c);
   return (
     <Shot mood="night" camera={cam} fog={[170, 480]} shadowSize={100} light={0.6}>
       <Ground color="#1A1E2C" />
       <ScreenCity t={c.t} games={0.55} lit={0.2} seed="night" />
-      <Drizzle t={c.t} at={[125, 40, 145]} size={[50, 40, 50]} count={800} opacity={0.35} />
+      <Drizzle t={c.t} at={[78, 34, 90]} size={[50, 40, 50]} count={800} opacity={0.35} />
     </Shot>
   );
 };

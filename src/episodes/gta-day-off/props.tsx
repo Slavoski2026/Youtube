@@ -3,7 +3,7 @@
  * The game only ever appears as OUR OWN neon art (sunset grid road, pink supercar, palms):
  * never real GTA footage, logos, box art, map or HUD.
  */
-import React, { useLayoutEffect, useMemo, useRef } from "react";
+import React, { useMemo } from "react";
 import { random } from "remotion";
 import * as THREE from "three";
 import { Building, PineTree } from "../../slavoski/city";
@@ -665,94 +665,6 @@ export const TrafficLight: React.FC<{ position: V3; yaw?: number; state: number 
     ))}
   </group>
 );
-
-// ================================================================ night city of game screens
-
-const SCREEN_COLORS = [NEON_PINK, NEON_TEAL, NEON_BLUE, "#B06FFF"];
-
-/**
- * A grid of plain towers whose windows are instanced quads: warm lamps, dark, or the flickering
- * pink/teal/blue glow of a game on a TV. `games` 0..1 is the share of windows playing.
- */
-export const ScreenCity: React.FC<{ t: number; games?: number; lit?: number; blocks?: number; spacing?: number; seed?: string; skip?: (x: number, z: number) => boolean; day?: boolean }> = ({
-  t,
-  games = 0.35,
-  lit = 0.3,
-  blocks = 7,
-  spacing = 26,
-  seed = "sc",
-  skip,
-  day = false,
-}) => {
-  const towers = useMemo(() => {
-    const out: { x: number; z: number; w: number; d: number; h: number; color: string }[] = [];
-    const half = (blocks - 1) / 2;
-    for (let i = 0; i < blocks; i++)
-      for (let j = 0; j < blocks; j++) {
-        const x = (i - half) * spacing, z = (j - half) * spacing;
-        if (skip?.(x, z)) continue;
-        const r = random(`${seed}${i}${j}`);
-        out.push({ x, z, w: 12 + r * 6, d: 12 + random(`${seed}d${i}${j}`) * 6, h: 18 + random(`${seed}h${i}${j}`) * 46, color: [P.bldgNavy, P.bldgSlate, P.bldgPurple, P.bldgTeal, P.bldgIndigo][Math.floor(r * 5)] });
-      }
-    return out;
-  }, [blocks, spacing, seed, skip]);
-  const wins = useMemo(() => {
-    const out: { m: THREE.Matrix4; kind: number; c: number; ph: number }[] = [];
-    towers.forEach((b, bi) => {
-      const floors = Math.floor(b.h / 3.2);
-      const faces: [number, number, number, number][] = [
-        [0, b.d / 2 + 0.02, 0, b.w],
-        [Math.PI, -b.d / 2 - 0.02, 0, b.w],
-        [Math.PI / 2, b.w / 2 + 0.02, 1, b.d],
-        [-Math.PI / 2, -b.w / 2 - 0.02, 1, b.d],
-      ];
-      faces.forEach(([rot, off, axis, span], fi) => {
-        const cols = Math.floor(span / 2.4);
-        for (let f = 0; f < floors; f++)
-          for (let c = 0; c < cols; c++) {
-            const u = -span / 2 + (c + 0.5) * (span / cols);
-            const y = 2 + f * 3.2;
-            const pos = axis === 0 ? new THREE.Vector3(b.x + u, y, b.z + off) : new THREE.Vector3(b.x + off, y, b.z - u * Math.sign(off));
-            const m = new THREE.Matrix4().compose(pos, new THREE.Quaternion().setFromEuler(new THREE.Euler(0, rot, 0)), new THREE.Vector3(1.3, 1.7, 1));
-            const r = random(`${seed}w${bi}${fi}${f}${c}`);
-            out.push({ m, kind: r, c: Math.floor(random(`${seed}c${bi}${fi}${f}${c}`) * SCREEN_COLORS.length), ph: random(`${seed}p${bi}${fi}${f}${c}`) * 10 });
-          }
-      });
-    });
-    return out;
-  }, [towers, seed]);
-  const ref = useRef<THREE.InstancedMesh>(null);
-  useLayoutEffect(() => {
-    const m = ref.current;
-    if (!m) return;
-    const col = new THREE.Color();
-    wins.forEach((w, i) => {
-      m.setMatrixAt(i, w.m);
-      if (w.kind < games) {
-        const flick = 0.7 + 0.3 * Math.sin(t * (3 + w.ph) + w.ph * 3) * Math.sin(t * 1.7 + w.ph);
-        col.set(SCREEN_COLORS[w.c]).multiplyScalar(flick);
-      } else if (w.kind < games + lit) col.set(P.windowLit).multiplyScalar(day ? 0.55 : 1);
-      else col.set(day ? "#7E93AE" : "#1A2038");
-      m.setColorAt(i, col);
-    });
-    m.instanceMatrix.needsUpdate = true;
-    if (m.instanceColor) m.instanceColor.needsUpdate = true;
-  });
-  return (
-    <group>
-      {towers.map((b, i) => (
-        <mesh key={i} position={[b.x, b.h / 2, b.z]} castShadow receiveShadow>
-          <BoxG args={[b.w, b.h, b.d]} />
-          <Flat color={b.color} />
-        </mesh>
-      ))}
-      <instancedMesh ref={ref} args={[undefined, undefined, wins.length]} frustumCulled={false}>
-        <planeGeometry args={[1, 1]} />
-        <meshBasicMaterial toneMapped={false} />
-      </instancedMesh>
-    </group>
-  );
-};
 
 // ================================================================ infographics
 
