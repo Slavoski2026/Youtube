@@ -1,0 +1,1239 @@
+{
+  "slug": "gta-day-off",
+  "audio": "voiceover/gta-day-off.mp3",
+  "durationInSeconds": 69.06775510204082,
+  "words": [
+    {
+      "text": "It's",
+      "startMs": 100,
+      "endMs": 260,
+      "timestampMs": 180,
+      "confidence": null
+    },
+    {
+      "text": " November",
+      "startMs": 300,
+      "endMs": 680,
+      "timestampMs": 490,
+      "confidence": null
+    },
+    {
+      "text": " nineteenth,",
+      "startMs": 760,
+      "endMs": 1280,
+      "timestampMs": 1020,
+      "confidence": null
+    },
+    {
+      "text": " twenty",
+      "startMs": 1580,
+      "endMs": 1820,
+      "timestampMs": 1700,
+      "confidence": null
+    },
+    {
+      "text": " twenty-six.",
+      "startMs": 1920,
+      "endMs": 2540,
+      "timestampMs": 2230,
+      "confidence": null
+    },
+    {
+      "text": " GTA",
+      "startMs": 3040,
+      "endMs": 3320,
+      "timestampMs": 3180,
+      "confidence": null
+    },
+    {
+      "text": " VI",
+      "startMs": 3440,
+      "endMs": 3520,
+      "timestampMs": 3480,
+      "confidence": null
+    },
+    {
+      "text": " has",
+      "startMs": 3980,
+      "endMs": 4280,
+      "timestampMs": 4130,
+      "confidence": null
+    },
+    {
+      "text": " finally",
+      "startMs": 4320,
+      "endMs": 4740,
+      "timestampMs": 4530,
+      "confidence": null
+    },
+    {
+      "text": " arrived.",
+      "startMs": 4800,
+      "endMs": 5320,
+      "timestampMs": 5060,
+      "confidence": null
+    },
+    {
+      "text": " But",
+      "startMs": 5840,
+      "endMs": 6200,
+      "timestampMs": 6020,
+      "confidence": null
+    },
+    {
+      "text": " what",
+      "startMs": 6260,
+      "endMs": 6360,
+      "timestampMs": 6310,
+      "confidence": null
+    },
+    {
+      "text": " if",
+      "startMs": 6400,
+      "endMs": 6480,
+      "timestampMs": 6440,
+      "confidence": null
+    },
+    {
+      "text": " millions",
+      "startMs": 6680,
+      "endMs": 7040,
+      "timestampMs": 6860,
+      "confidence": null
+    },
+    {
+      "text": " of",
+      "startMs": 7080,
+      "endMs": 7180,
+      "timestampMs": 7130,
+      "confidence": null
+    },
+    {
+      "text": " people",
+      "startMs": 7220,
+      "endMs": 7460,
+      "timestampMs": 7340,
+      "confidence": null
+    },
+    {
+      "text": " decided",
+      "startMs": 7540,
+      "endMs": 7880,
+      "timestampMs": 7710,
+      "confidence": null
+    },
+    {
+      "text": " to",
+      "startMs": 7920,
+      "endMs": 8020,
+      "timestampMs": 7970,
+      "confidence": null
+    },
+    {
+      "text": " stay",
+      "startMs": 8100,
+      "endMs": 8300,
+      "timestampMs": 8200,
+      "confidence": null
+    },
+    {
+      "text": " home",
+      "startMs": 8360,
+      "endMs": 8520,
+      "timestampMs": 8440,
+      "confidence": null
+    },
+    {
+      "text": " and",
+      "startMs": 8540,
+      "endMs": 8620,
+      "timestampMs": 8580,
+      "confidence": null
+    },
+    {
+      "text": " play",
+      "startMs": 8700,
+      "endMs": 8900,
+      "timestampMs": 8800,
+      "confidence": null
+    },
+    {
+      "text": " it?",
+      "startMs": 8980,
+      "endMs": 9060,
+      "timestampMs": 9020,
+      "confidence": null
+    },
+    {
+      "text": " Offices",
+      "startMs": 9580,
+      "endMs": 10040,
+      "timestampMs": 9810,
+      "confidence": null
+    },
+    {
+      "text": " would",
+      "startMs": 10060,
+      "endMs": 10160,
+      "timestampMs": 10110,
+      "confidence": null
+    },
+    {
+      "text": " be",
+      "startMs": 10200,
+      "endMs": 10320,
+      "timestampMs": 10260,
+      "confidence": null
+    },
+    {
+      "text": " missing",
+      "startMs": 10400,
+      "endMs": 10680,
+      "timestampMs": 10540,
+      "confidence": null
+    },
+    {
+      "text": " employees,",
+      "startMs": 10720,
+      "endMs": 11360,
+      "timestampMs": 11040,
+      "confidence": null
+    },
+    {
+      "text": " managers",
+      "startMs": 11860,
+      "endMs": 12340,
+      "timestampMs": 12100,
+      "confidence": null
+    },
+    {
+      "text": " would",
+      "startMs": 12360,
+      "endMs": 12440,
+      "timestampMs": 12400,
+      "confidence": null
+    },
+    {
+      "text": " be",
+      "startMs": 12480,
+      "endMs": 12700,
+      "timestampMs": 12590,
+      "confidence": null
+    },
+    {
+      "text": " flooded",
+      "startMs": 12760,
+      "endMs": 13100,
+      "timestampMs": 12930,
+      "confidence": null
+    },
+    {
+      "text": " with",
+      "startMs": 13140,
+      "endMs": 13260,
+      "timestampMs": 13200,
+      "confidence": null
+    },
+    {
+      "text": " sick",
+      "startMs": 13320,
+      "endMs": 13480,
+      "timestampMs": 13400,
+      "confidence": null
+    },
+    {
+      "text": " calls,",
+      "startMs": 13540,
+      "endMs": 13820,
+      "timestampMs": 13680,
+      "confidence": null
+    },
+    {
+      "text": " and",
+      "startMs": 14220,
+      "endMs": 14360,
+      "timestampMs": 14290,
+      "confidence": null
+    },
+    {
+      "text": " some",
+      "startMs": 14420,
+      "endMs": 14620,
+      "timestampMs": 14520,
+      "confidence": null
+    },
+    {
+      "text": " businesses",
+      "startMs": 14640,
+      "endMs": 15120,
+      "timestampMs": 14880,
+      "confidence": null
+    },
+    {
+      "text": " could",
+      "startMs": 15140,
+      "endMs": 15300,
+      "timestampMs": 15220,
+      "confidence": null
+    },
+    {
+      "text": " struggle",
+      "startMs": 15400,
+      "endMs": 15720,
+      "timestampMs": 15560,
+      "confidence": null
+    },
+    {
+      "text": " to",
+      "startMs": 15760,
+      "endMs": 15840,
+      "timestampMs": 15800,
+      "confidence": null
+    },
+    {
+      "text": " cover",
+      "startMs": 15880,
+      "endMs": 16059,
+      "timestampMs": 15970,
+      "confidence": null
+    },
+    {
+      "text": " their",
+      "startMs": 16100,
+      "endMs": 16180,
+      "timestampMs": 16140,
+      "confidence": null
+    },
+    {
+      "text": " shifts.",
+      "startMs": 16280,
+      "endMs": 16660,
+      "timestampMs": 16470,
+      "confidence": null
+    },
+    {
+      "text": " Sounds",
+      "startMs": 17220,
+      "endMs": 17440,
+      "timestampMs": 17330,
+      "confidence": null
+    },
+    {
+      "text": " exaggerated?",
+      "startMs": 17480,
+      "endMs": 18140,
+      "timestampMs": 17810,
+      "confidence": null
+    },
+    {
+      "text": " A",
+      "startMs": 18640,
+      "endMs": 18780,
+      "timestampMs": 18710,
+      "confidence": null
+    },
+    {
+      "text": " real",
+      "startMs": 18820,
+      "endMs": 19080,
+      "timestampMs": 18950,
+      "confidence": null
+    },
+    {
+      "text": " survey",
+      "startMs": 19140,
+      "endMs": 19460,
+      "timestampMs": 19300,
+      "confidence": null
+    },
+    {
+      "text": " found",
+      "startMs": 19560,
+      "endMs": 19720,
+      "timestampMs": 19640,
+      "confidence": null
+    },
+    {
+      "text": " that",
+      "startMs": 19760,
+      "endMs": 19980,
+      "timestampMs": 19870,
+      "confidence": null
+    },
+    {
+      "text": " eighteen",
+      "startMs": 20040,
+      "endMs": 20400,
+      "timestampMs": 20220,
+      "confidence": null
+    },
+    {
+      "text": " percent",
+      "startMs": 20500,
+      "endMs": 20900,
+      "timestampMs": 20700,
+      "confidence": null
+    },
+    {
+      "text": " of",
+      "startMs": 20940,
+      "endMs": 21060,
+      "timestampMs": 21000,
+      "confidence": null
+    },
+    {
+      "text": " salaried",
+      "startMs": 21140,
+      "endMs": 21520,
+      "timestampMs": 21330,
+      "confidence": null
+    },
+    {
+      "text": " American",
+      "startMs": 21560,
+      "endMs": 21940,
+      "timestampMs": 21750,
+      "confidence": null
+    },
+    {
+      "text": " workers",
+      "startMs": 22040,
+      "endMs": 22380,
+      "timestampMs": 22210,
+      "confidence": null
+    },
+    {
+      "text": " plan",
+      "startMs": 22720,
+      "endMs": 22940,
+      "timestampMs": 22830,
+      "confidence": null
+    },
+    {
+      "text": " to",
+      "startMs": 22960,
+      "endMs": 23040,
+      "timestampMs": 23000,
+      "confidence": null
+    },
+    {
+      "text": " take",
+      "startMs": 23080,
+      "endMs": 23220,
+      "timestampMs": 23150,
+      "confidence": null
+    },
+    {
+      "text": " the",
+      "startMs": 23260,
+      "endMs": 23380,
+      "timestampMs": 23320,
+      "confidence": null
+    },
+    {
+      "text": " day",
+      "startMs": 23420,
+      "endMs": 23580,
+      "timestampMs": 23500,
+      "confidence": null
+    },
+    {
+      "text": " off",
+      "startMs": 23660,
+      "endMs": 23840,
+      "timestampMs": 23750,
+      "confidence": null
+    },
+    {
+      "text": " for",
+      "startMs": 23860,
+      "endMs": 23980,
+      "timestampMs": 23920,
+      "confidence": null
+    },
+    {
+      "text": " GTA",
+      "startMs": 24020,
+      "endMs": 24460,
+      "timestampMs": 24240,
+      "confidence": null
+    },
+    {
+      "text": " VI,",
+      "startMs": 24500,
+      "endMs": 24820,
+      "timestampMs": 24660,
+      "confidence": null
+    },
+    {
+      "text": " and",
+      "startMs": 25280,
+      "endMs": 25400,
+      "timestampMs": 25340,
+      "confidence": null
+    },
+    {
+      "text": " leave",
+      "startMs": 25460,
+      "endMs": 25640,
+      "timestampMs": 25550,
+      "confidence": null
+    },
+    {
+      "text": " requests",
+      "startMs": 25680,
+      "endMs": 26120,
+      "timestampMs": 25900,
+      "confidence": null
+    },
+    {
+      "text": " for",
+      "startMs": 26140,
+      "endMs": 26220,
+      "timestampMs": 26180,
+      "confidence": null
+    },
+    {
+      "text": " November",
+      "startMs": 26260,
+      "endMs": 26580,
+      "timestampMs": 26420,
+      "confidence": null
+    },
+    {
+      "text": " nineteenth",
+      "startMs": 26660,
+      "endMs": 27180,
+      "timestampMs": 26920,
+      "confidence": null
+    },
+    {
+      "text": " were",
+      "startMs": 27200,
+      "endMs": 27400,
+      "timestampMs": 27300,
+      "confidence": null
+    },
+    {
+      "text": " already",
+      "startMs": 27500,
+      "endMs": 27780,
+      "timestampMs": 27640,
+      "confidence": null
+    },
+    {
+      "text": " running",
+      "startMs": 27880,
+      "endMs": 28140,
+      "timestampMs": 28010,
+      "confidence": null
+    },
+    {
+      "text": " nearly",
+      "startMs": 28180,
+      "endMs": 28420,
+      "timestampMs": 28300,
+      "confidence": null
+    },
+    {
+      "text": " thirteen",
+      "startMs": 28620,
+      "endMs": 29020,
+      "timestampMs": 28820,
+      "confidence": null
+    },
+    {
+      "text": " percent",
+      "startMs": 29120,
+      "endMs": 29400,
+      "timestampMs": 29260,
+      "confidence": null
+    },
+    {
+      "text": " higher",
+      "startMs": 29520,
+      "endMs": 29840,
+      "timestampMs": 29680,
+      "confidence": null
+    },
+    {
+      "text": " than",
+      "startMs": 29860,
+      "endMs": 30000,
+      "timestampMs": 29930,
+      "confidence": null
+    },
+    {
+      "text": " comparable",
+      "startMs": 30040,
+      "endMs": 30420,
+      "timestampMs": 30230,
+      "confidence": null
+    },
+    {
+      "text": " dates.",
+      "startMs": 30500,
+      "endMs": 30860,
+      "timestampMs": 30680,
+      "confidence": null
+    },
+    {
+      "text": " Now",
+      "startMs": 31460,
+      "endMs": 31620,
+      "timestampMs": 31540,
+      "confidence": null
+    },
+    {
+      "text": " imagine",
+      "startMs": 31660,
+      "endMs": 32000,
+      "timestampMs": 31830,
+      "confidence": null
+    },
+    {
+      "text": " the",
+      "startMs": 32040,
+      "endMs": 32159,
+      "timestampMs": 32100,
+      "confidence": null
+    },
+    {
+      "text": " economic",
+      "startMs": 32220,
+      "endMs": 32780,
+      "timestampMs": 32500,
+      "confidence": null
+    },
+    {
+      "text": " impact.",
+      "startMs": 32840,
+      "endMs": 33240,
+      "timestampMs": 33040,
+      "confidence": null
+    },
+    {
+      "text": " Millions",
+      "startMs": 33820,
+      "endMs": 34220,
+      "timestampMs": 34020,
+      "confidence": null
+    },
+    {
+      "text": " of",
+      "startMs": 34260,
+      "endMs": 34360,
+      "timestampMs": 34310,
+      "confidence": null
+    },
+    {
+      "text": " working",
+      "startMs": 34400,
+      "endMs": 34680,
+      "timestampMs": 34540,
+      "confidence": null
+    },
+    {
+      "text": " hours",
+      "startMs": 34760,
+      "endMs": 34980,
+      "timestampMs": 34870,
+      "confidence": null
+    },
+    {
+      "text": " could",
+      "startMs": 35000,
+      "endMs": 35100,
+      "timestampMs": 35050,
+      "confidence": null
+    },
+    {
+      "text": " be",
+      "startMs": 35120,
+      "endMs": 35220,
+      "timestampMs": 35170,
+      "confidence": null
+    },
+    {
+      "text": " lost.",
+      "startMs": 35260,
+      "endMs": 35640,
+      "timestampMs": 35450,
+      "confidence": null
+    },
+    {
+      "text": " Businesses",
+      "startMs": 36100,
+      "endMs": 36600,
+      "timestampMs": 36350,
+      "confidence": null
+    },
+    {
+      "text": " might",
+      "startMs": 36640,
+      "endMs": 36780,
+      "timestampMs": 36710,
+      "confidence": null
+    },
+    {
+      "text": " need",
+      "startMs": 36820,
+      "endMs": 37000,
+      "timestampMs": 36910,
+      "confidence": null
+    },
+    {
+      "text": " overtime",
+      "startMs": 37080,
+      "endMs": 37480,
+      "timestampMs": 37280,
+      "confidence": null
+    },
+    {
+      "text": " staff,",
+      "startMs": 37580,
+      "endMs": 37900,
+      "timestampMs": 37740,
+      "confidence": null
+    },
+    {
+      "text": " delay",
+      "startMs": 38180,
+      "endMs": 38400,
+      "timestampMs": 38290,
+      "confidence": null
+    },
+    {
+      "text": " appointments,",
+      "startMs": 38460,
+      "endMs": 39040,
+      "timestampMs": 38750,
+      "confidence": null
+    },
+    {
+      "text": " or",
+      "startMs": 39140,
+      "endMs": 39240,
+      "timestampMs": 39190,
+      "confidence": null
+    },
+    {
+      "text": " postpone",
+      "startMs": 39400,
+      "endMs": 39780,
+      "timestampMs": 39590,
+      "confidence": null
+    },
+    {
+      "text": " projects.",
+      "startMs": 39860,
+      "endMs": 40380,
+      "timestampMs": 40120,
+      "confidence": null
+    },
+    {
+      "text": " Meanwhile,",
+      "startMs": 40980,
+      "endMs": 41420,
+      "timestampMs": 41200,
+      "confidence": null
+    },
+    {
+      "text": " gaming",
+      "startMs": 41740,
+      "endMs": 42040,
+      "timestampMs": 41890,
+      "confidence": null
+    },
+    {
+      "text": " retailers,",
+      "startMs": 42080,
+      "endMs": 42660,
+      "timestampMs": 42370,
+      "confidence": null
+    },
+    {
+      "text": " streamers,",
+      "startMs": 42900,
+      "endMs": 43320,
+      "timestampMs": 43110,
+      "confidence": null
+    },
+    {
+      "text": " and",
+      "startMs": 43400,
+      "endMs": 43460,
+      "timestampMs": 43430,
+      "confidence": null
+    },
+    {
+      "text": " content",
+      "startMs": 43580,
+      "endMs": 43940,
+      "timestampMs": 43760,
+      "confidence": null
+    },
+    {
+      "text": " creators",
+      "startMs": 44020,
+      "endMs": 44400,
+      "timestampMs": 44210,
+      "confidence": null
+    },
+    {
+      "text": " could",
+      "startMs": 44680,
+      "endMs": 44880,
+      "timestampMs": 44780,
+      "confidence": null
+    },
+    {
+      "text": " benefit",
+      "startMs": 44920,
+      "endMs": 45300,
+      "timestampMs": 45110,
+      "confidence": null
+    },
+    {
+      "text": " from",
+      "startMs": 45340,
+      "endMs": 45440,
+      "timestampMs": 45390,
+      "confidence": null
+    },
+    {
+      "text": " the",
+      "startMs": 45480,
+      "endMs": 45540,
+      "timestampMs": 45510,
+      "confidence": null
+    },
+    {
+      "text": " enormous",
+      "startMs": 45580,
+      "endMs": 46100,
+      "timestampMs": 45840,
+      "confidence": null
+    },
+    {
+      "text": " attention.",
+      "startMs": 46140,
+      "endMs": 46620,
+      "timestampMs": 46380,
+      "confidence": null
+    },
+    {
+      "text": " But",
+      "startMs": 47180,
+      "endMs": 47480,
+      "timestampMs": 47330,
+      "confidence": null
+    },
+    {
+      "text": " taking",
+      "startMs": 47540,
+      "endMs": 47780,
+      "timestampMs": 47660,
+      "confidence": null
+    },
+    {
+      "text": " a",
+      "startMs": 47840,
+      "endMs": 47900,
+      "timestampMs": 47870,
+      "confidence": null
+    },
+    {
+      "text": " day",
+      "startMs": 47940,
+      "endMs": 48080,
+      "timestampMs": 48010,
+      "confidence": null
+    },
+    {
+      "text": " off",
+      "startMs": 48160,
+      "endMs": 48320,
+      "timestampMs": 48240,
+      "confidence": null
+    },
+    {
+      "text": " doesn't",
+      "startMs": 48420,
+      "endMs": 48800,
+      "timestampMs": 48610,
+      "confidence": null
+    },
+    {
+      "text": " automatically",
+      "startMs": 48860,
+      "endMs": 49540,
+      "timestampMs": 49200,
+      "confidence": null
+    },
+    {
+      "text": " mean",
+      "startMs": 49560,
+      "endMs": 49760,
+      "timestampMs": 49660,
+      "confidence": null
+    },
+    {
+      "text": " lost",
+      "startMs": 49860,
+      "endMs": 50100,
+      "timestampMs": 49980,
+      "confidence": null
+    },
+    {
+      "text": " economic",
+      "startMs": 50200,
+      "endMs": 50640,
+      "timestampMs": 50420,
+      "confidence": null
+    },
+    {
+      "text": " output.",
+      "startMs": 50700,
+      "endMs": 51100,
+      "timestampMs": 50900,
+      "confidence": null
+    },
+    {
+      "text": " Some",
+      "startMs": 51600,
+      "endMs": 51760,
+      "timestampMs": 51680,
+      "confidence": null
+    },
+    {
+      "text": " work",
+      "startMs": 51820,
+      "endMs": 52060,
+      "timestampMs": 51940,
+      "confidence": null
+    },
+    {
+      "text": " simply",
+      "startMs": 52100,
+      "endMs": 52360,
+      "timestampMs": 52230,
+      "confidence": null
+    },
+    {
+      "text": " gets",
+      "startMs": 52400,
+      "endMs": 52560,
+      "timestampMs": 52480,
+      "confidence": null
+    },
+    {
+      "text": " done",
+      "startMs": 52600,
+      "endMs": 52740,
+      "timestampMs": 52670,
+      "confidence": null
+    },
+    {
+      "text": " later,",
+      "startMs": 52780,
+      "endMs": 53060,
+      "timestampMs": 52920,
+      "confidence": null
+    },
+    {
+      "text": " and",
+      "startMs": 53500,
+      "endMs": 53580,
+      "timestampMs": 53540,
+      "confidence": null
+    },
+    {
+      "text": " the",
+      "startMs": 53600,
+      "endMs": 53680,
+      "timestampMs": 53640,
+      "confidence": null
+    },
+    {
+      "text": " money",
+      "startMs": 53720,
+      "endMs": 53960,
+      "timestampMs": 53840,
+      "confidence": null
+    },
+    {
+      "text": " spent",
+      "startMs": 54040,
+      "endMs": 54200,
+      "timestampMs": 54120,
+      "confidence": null
+    },
+    {
+      "text": " on",
+      "startMs": 54260,
+      "endMs": 54400,
+      "timestampMs": 54330,
+      "confidence": null
+    },
+    {
+      "text": " gaming",
+      "startMs": 54440,
+      "endMs": 54760,
+      "timestampMs": 54600,
+      "confidence": null
+    },
+    {
+      "text": " still",
+      "startMs": 54980,
+      "endMs": 55160,
+      "timestampMs": 55070,
+      "confidence": null
+    },
+    {
+      "text": " circulates",
+      "startMs": 55300,
+      "endMs": 55760,
+      "timestampMs": 55530,
+      "confidence": null
+    },
+    {
+      "text": " through",
+      "startMs": 55800,
+      "endMs": 55920,
+      "timestampMs": 55860,
+      "confidence": null
+    },
+    {
+      "text": " the",
+      "startMs": 55940,
+      "endMs": 56000,
+      "timestampMs": 55970,
+      "confidence": null
+    },
+    {
+      "text": " economy.",
+      "startMs": 56040,
+      "endMs": 56520,
+      "timestampMs": 56280,
+      "confidence": null
+    },
+    {
+      "text": " So",
+      "startMs": 57040,
+      "endMs": 57240,
+      "timestampMs": 57140,
+      "confidence": null
+    },
+    {
+      "text": " GTA",
+      "startMs": 57500,
+      "endMs": 57780,
+      "timestampMs": 57640,
+      "confidence": null
+    },
+    {
+      "text": " VI",
+      "startMs": 57960,
+      "endMs": 58320,
+      "timestampMs": 58140,
+      "confidence": null
+    },
+    {
+      "text": " probably",
+      "startMs": 58380,
+      "endMs": 59020,
+      "timestampMs": 58700,
+      "confidence": null
+    },
+    {
+      "text": " won't",
+      "startMs": 59060,
+      "endMs": 59280,
+      "timestampMs": 59170,
+      "confidence": null
+    },
+    {
+      "text": " bring",
+      "startMs": 59300,
+      "endMs": 59460,
+      "timestampMs": 59380,
+      "confidence": null
+    },
+    {
+      "text": " the",
+      "startMs": 59480,
+      "endMs": 59560,
+      "timestampMs": 59520,
+      "confidence": null
+    },
+    {
+      "text": " world",
+      "startMs": 59600,
+      "endMs": 59800,
+      "timestampMs": 59700,
+      "confidence": null
+    },
+    {
+      "text": " to",
+      "startMs": 59840,
+      "endMs": 59920,
+      "timestampMs": 59880,
+      "confidence": null
+    },
+    {
+      "text": " a",
+      "startMs": 59960,
+      "endMs": 60020,
+      "timestampMs": 59990,
+      "confidence": null
+    },
+    {
+      "text": " standstill.",
+      "startMs": 60060,
+      "endMs": 60560,
+      "timestampMs": 60310,
+      "confidence": null
+    },
+    {
+      "text": " But",
+      "startMs": 61140,
+      "endMs": 61400,
+      "timestampMs": 61270,
+      "confidence": null
+    },
+    {
+      "text": " November",
+      "startMs": 61440,
+      "endMs": 61800,
+      "timestampMs": 61620,
+      "confidence": null
+    },
+    {
+      "text": " nineteenth",
+      "startMs": 61880,
+      "endMs": 62340,
+      "timestampMs": 62110,
+      "confidence": null
+    },
+    {
+      "text": " could",
+      "startMs": 62520,
+      "endMs": 62740,
+      "timestampMs": 62630,
+      "confidence": null
+    },
+    {
+      "text": " reveal",
+      "startMs": 62780,
+      "endMs": 63100,
+      "timestampMs": 62940,
+      "confidence": null
+    },
+    {
+      "text": " something",
+      "startMs": 63220,
+      "endMs": 63540,
+      "timestampMs": 63380,
+      "confidence": null
+    },
+    {
+      "text": " extraordinary,",
+      "startMs": 63580,
+      "endMs": 64440,
+      "timestampMs": 64010,
+      "confidence": null
+    },
+    {
+      "text": " just",
+      "startMs": 65000,
+      "endMs": 65220,
+      "timestampMs": 65110,
+      "confidence": null
+    },
+    {
+      "text": " how",
+      "startMs": 65280,
+      "endMs": 65459,
+      "timestampMs": 65370,
+      "confidence": null
+    },
+    {
+      "text": " much",
+      "startMs": 65480,
+      "endMs": 65700,
+      "timestampMs": 65590,
+      "confidence": null
+    },
+    {
+      "text": " influence",
+      "startMs": 65740,
+      "endMs": 66200,
+      "timestampMs": 65970,
+      "confidence": null
+    },
+    {
+      "text": " a",
+      "startMs": 66260,
+      "endMs": 66360,
+      "timestampMs": 66310,
+      "confidence": null
+    },
+    {
+      "text": " single",
+      "startMs": 66480,
+      "endMs": 66760,
+      "timestampMs": 66620,
+      "confidence": null
+    },
+    {
+      "text": " video",
+      "startMs": 66880,
+      "endMs": 67120,
+      "timestampMs": 67000,
+      "confidence": null
+    },
+    {
+      "text": " game",
+      "startMs": 67200,
+      "endMs": 67420,
+      "timestampMs": 67310,
+      "confidence": null
+    },
+    {
+      "text": " has",
+      "startMs": 67520,
+      "endMs": 67660,
+      "timestampMs": 67590,
+      "confidence": null
+    },
+    {
+      "text": " over",
+      "startMs": 67720,
+      "endMs": 67880,
+      "timestampMs": 67800,
+      "confidence": null
+    },
+    {
+      "text": " the",
+      "startMs": 67920,
+      "endMs": 67980,
+      "timestampMs": 67950,
+      "confidence": null
+    },
+    {
+      "text": " real",
+      "startMs": 68100,
+      "endMs": 68280,
+      "timestampMs": 68190,
+      "confidence": null
+    },
+    {
+      "text": " world.",
+      "startMs": 68380,
+      "endMs": 68700,
+      "timestampMs": 68540,
+      "confidence": null
+    }
+  ]
+}
