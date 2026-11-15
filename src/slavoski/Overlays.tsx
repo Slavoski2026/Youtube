@@ -76,7 +76,7 @@ export const TitleCard: React.FC<{
   );
 };
 
-export type TagKind = "REAL PHYSICS" | "DRAMATISED" | "HYPOTHESIS" | "EXPERT ESTIMATE" | "REAL SCIENCE" | "REAL PREDICTION";
+export type TagKind = "REAL PHYSICS" | "DRAMATISED" | "HYPOTHESIS" | "EXPERT ESTIMATE" | "REAL SCIENCE" | "REAL PREDICTION" | "REAL DATA";
 const TAG_DOT: Record<TagKind, string> = {
   "REAL PHYSICS": "#6FB8FF",
   DRAMATISED: P.amber,
@@ -84,6 +84,7 @@ const TAG_DOT: Record<TagKind, string> = {
   "EXPERT ESTIMATE": "#7FD6A0",
   "REAL SCIENCE": "#6FB8FF",
   "REAL PREDICTION": "#7FD6A0",
+  "REAL DATA": "#6FB8FF",
 };
 
 /** Small honesty tag under the lockup. */

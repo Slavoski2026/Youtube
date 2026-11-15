@@ -23,12 +23,12 @@ export type ShotFn = (c: ShotCtx) => React.ReactNode;
 // ---------------------------------------------------------------- room helpers
 
 /** High behind the couch: the TV sits above Slavoski's head in frame, so the live feed never covers him. */
-const TVVIEW: CameraSpec = { position: [1.0, 7.5, 9.0], target: [0.8, 1.4, -1.5] };
+export const TVVIEW: CameraSpec = { position: [1.0, 7.5, 9.0], target: [0.8, 1.4, -1.5] };
 /** From the TV side, looking at Slavoski's face (the TV is behind the camera). */
-const FACE: CameraSpec = { position: [3.0, 3.3, -4.2], target: [1.4, 2.6, 1.8] };
-const FACE_CLOSE: CameraSpec = { position: [2.4, 3.1, -2.4], target: [1.4, 2.8, 1.8] };
-const SIDE: CameraSpec = { position: [-5.4, 3.0, 0.2], target: [1.2, 2.3, 2.0] };
-const WIDE: CameraSpec = { position: [5.0, 6.5, 10.5], target: [-0.4, 2.0, -1.5] };
+export const FACE: CameraSpec = { position: [3.0, 3.3, -4.2], target: [1.4, 2.6, 1.8] };
+export const FACE_CLOSE: CameraSpec = { position: [2.4, 3.1, -2.4], target: [1.4, 2.8, 1.8] };
+export const SIDE: CameraSpec = { position: [-5.4, 3.0, 0.2], target: [1.2, 2.3, 2.0] };
+export const WIDE: CameraSpec = { position: [5.0, 6.5, 10.5], target: [-0.4, 2.0, -1.5] };
 
 const roomMood = (hours: number): Mood => {
   const clock = (12 + hours) % 24;
@@ -55,7 +55,7 @@ type RoomProps = {
 };
 
 /** A room shot: the set, Slavoski on the couch, the controller in his hands, and an optional live TV feed. */
-const RoomShot: React.FC<RoomProps> = ({ cam, hours, pose, cans = 1, waterBottle, pizza, phoneGlow, tired, controller, feed, children, overlay }) => {
+export const RoomShot: React.FC<RoomProps> = ({ cam, hours, pose, cans = 1, waterBottle, pizza, phoneGlow, tired, controller, feed, children, overlay }) => {
   const { width, height } = useVideoConfig();
   const rect = feed ? tvScreenRect(cam, width, height) : null;
   const ctrl = controller === undefined ? controllerAt(pose) : controller;
@@ -94,7 +94,7 @@ const PALMS: { p: V3; h: number; seed: string }[] = (() => {
   return out;
 })();
 
-const GameWorld: React.FC<{ palms?: boolean }> = ({ palms = true }) => (
+export const GameWorld: React.FC<{ palms?: boolean }> = ({ palms = true }) => (
   <>
     <CityGrid seed="vice" blocks={6} modify={pastel} />
     {palms ? PALMS.map((pl) => <PalmTree key={pl.seed} position={pl.p} height={pl.h} seed={pl.seed} />) : null}
@@ -102,7 +102,7 @@ const GameWorld: React.FC<{ palms?: boolean }> = ({ palms = true }) => (
 );
 
 /** A game Stage: sunset by default, neon night for the late chapters. */
-const GameStage: React.FC<{ cam: CameraSpec; night?: boolean; size?: { width: number; height: number }; shake?: number; children: React.ReactNode }> = ({
+export const GameStage: React.FC<{ cam: CameraSpec; night?: boolean; size?: { width: number; height: number }; shake?: number; children: React.ReactNode }> = ({
   cam,
   night,
   size,
@@ -119,7 +119,7 @@ const GameStage: React.FC<{ cam: CameraSpec; night?: boolean; size?: { width: nu
  * end of the map never comes into view. Palms are only built near the camera (`nearZ`) to keep it light.
  */
 const BLVD_LENGTH = 260;
-const GameBoulevard: React.FC<{ nearZ: number; night?: boolean }> = ({ nearZ, night }) => {
+export const GameBoulevard: React.FC<{ nearZ: number; night?: boolean }> = ({ nearZ, night }) => {
   const palms: { p: V3; h: number; seed: string }[] = [];
   for (let i = 0; i < BLVD_LENGTH / 11; i++) {
     for (const side of [1, -1]) {
@@ -139,10 +139,10 @@ const GameBoulevard: React.FC<{ nearZ: number; night?: boolean }> = ({ nearZ, ni
 };
 
 /** The player's pink supercar driving down the boulevard's right lane toward −Z. */
-const chaseCam = (z: number): CameraSpec => ({ position: [0.5, 4.4, z + 12], target: [1.2, 1.0, z - 6] });
+export const chaseCam = (z: number): CameraSpec => ({ position: [0.5, 4.4, z + 12], target: [1.2, 1.0, z - 6] });
 
 /** A driving feed for the TV (16:9), from the shot's own clock so the car never jumps back. */
-const driveFeed = (lt: number, night = false, speed = 14) => (size: { width: number; height: number }) => {
+export const driveFeed = (lt: number, night = false, speed = 14) => (size: { width: number; height: number }) => {
   const z = 4 - lt * speed;
   return (
     <GameStage cam={{ ...chaseCam(z), fov: 30 }} night={night} size={size}>

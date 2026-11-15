@@ -8,6 +8,7 @@ import { Ww3Episode, estimatedWw3, type Ww3Props } from "./episodes/ww3-countdow
 import { NoWork2036Episode, estimatedNoWork2036, type NoWork2036Props } from "./episodes/no-work-2036/NoWork2036Episode";
 import { SatellitesDarkEpisode, estimatedSatellitesDark, type SatellitesDarkProps } from "./episodes/satellites-dark/SatellitesDarkEpisode";
 import { ShieldDownEpisode, estimatedShieldDown, type ShieldDownProps } from "./episodes/shield-down/ShieldDownEpisode";
+import { GtaDayOffEpisode, estimatedGtaDayOff, type GtaDayOffProps } from "./episodes/gta-day-off/GtaDayOffEpisode";
 import { voiceoverMetadata } from "./lib/voiceover";
 import { withDetail } from "./slavoski/detail";
 
@@ -63,6 +64,7 @@ export const RemotionRoot: React.FC = () => (
       ["no-work-2036", "NoWork2036"],
       ["satellites-dark", "SatellitesDark"],
       ["shield-down", "ShieldDown"],
+      ["gta-day-off", "GtaDayOff"],
     ] as const).map(([ep, id]) => (
       <Still
         key={ep}
@@ -122,6 +124,16 @@ export const RemotionRoot: React.FC = () => (
       height={HEIGHT}
       defaultProps={{ voiceover: "shield-down" } as ShieldDownProps}
       calculateMetadata={voiceoverMetadata<ShieldDownProps>(FPS, { tailSeconds: 2.2, fallback: estimatedShieldDown })}
+    />
+    <Composition
+      id="GtaDayOff"
+      component={GtaDayOffEpisode}
+      durationInFrames={FPS * 72}
+      fps={FPS}
+      width={WIDTH}
+      height={HEIGHT}
+      defaultProps={{ voiceover: "gta-day-off" } as GtaDayOffProps}
+      calculateMetadata={voiceoverMetadata<GtaDayOffProps>(FPS, { tailSeconds: 2.2, fallback: estimatedGtaDayOff })}
     />
     <Composition
       id="StyleCheck"

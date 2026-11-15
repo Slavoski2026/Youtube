@@ -30,6 +30,10 @@ const EPISODES: Record<string, () => Promise<{ schedule: (w: VoiceoverManifest["
     const ep = await import("../src/episodes/satellites-dark/SatellitesDarkEpisode");
     return { schedule: ep.schedule, estimated: ep.estimatedSatellitesDark };
   },
+  "gta-day-off": async () => {
+    const ep = await import("../src/episodes/gta-day-off/GtaDayOffEpisode");
+    return { schedule: ep.schedule, estimated: ep.estimatedGtaDayOff };
+  },
   "shield-down": async () => {
     const ep = await import("../src/episodes/shield-down/ShieldDownEpisode");
     return { schedule: ep.schedule, estimated: ep.estimatedShieldDown };
