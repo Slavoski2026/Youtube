@@ -111,6 +111,86 @@ export const drawGameArt = (t = 0, opts: { car?: boolean; title?: string } = {})
   }
 };
 
+/** A car seen from behind (canvas), used by the drawn gameplay. */
+const carBack = (ctx: CanvasRenderingContext2D, cx: number, cy: number, cw: number, color: string, lights?: [string, string]) => {
+  const ch = cw * 0.28;
+  ctx.fillStyle = color;
+  ctx.beginPath();
+  ctx.moveTo(cx - cw / 2, cy);
+  ctx.lineTo(cx - cw * 0.42, cy - ch);
+  ctx.lineTo(cx - cw * 0.24, cy - ch * 1.6);
+  ctx.lineTo(cx + cw * 0.24, cy - ch * 1.6);
+  ctx.lineTo(cx + cw * 0.42, cy - ch);
+  ctx.lineTo(cx + cw / 2, cy);
+  ctx.closePath();
+  ctx.fill();
+  ctx.fillStyle = "#1A1426";
+  ctx.fillRect(cx - cw * 0.18, cy - ch * 1.45, cw * 0.36, ch * 0.4);
+  ctx.fillStyle = "#FFD0E0";
+  ctx.fillRect(cx - cw * 0.46, cy - ch * 0.75, cw * 0.16, ch * 0.2);
+  ctx.fillRect(cx + cw * 0.3, cy - ch * 0.75, cw * 0.16, ch * 0.2);
+  if (lights) {
+    ctx.fillStyle = lights[0];
+    ctx.fillRect(cx - cw * 0.2, cy - ch * 1.85, cw * 0.18, ch * 0.25);
+    ctx.fillStyle = lights[1];
+    ctx.fillRect(cx + cw * 0.02, cy - ch * 1.85, cw * 0.18, ch * 0.25);
+  }
+};
+
+/** Gameplay drawn on a canvas (for a TV seen as a real 3D screen): a night police chase with our HUD. */
+export const drawChase = (t: number) => (ctx: CanvasRenderingContext2D, W: number, H: number) => {
+  const hz = H * 0.42;
+  const sky = ctx.createLinearGradient(0, 0, 0, hz);
+  sky.addColorStop(0, "#120A2A");
+  sky.addColorStop(1, "#4A1E5A");
+  ctx.fillStyle = sky;
+  ctx.fillRect(0, 0, W, hz);
+  // towers with lit windows on both sides
+  for (let i = 0; i < 9; i++) {
+    for (const side of [-1, 1]) {
+      const x = W / 2 + side * (W * 0.08 + i * W * 0.06);
+      const h = H * (0.12 + ((i * 37) % 7) * 0.025);
+      ctx.fillStyle = side < 0 ? "#2A1E44" : "#241A3C";
+      ctx.fillRect(x - W * 0.03, hz - h, W * 0.06, h);
+      ctx.fillStyle = i % 2 ? "#FFB0E0" : "#7FE8F0";
+      for (let k = 0; k < 4; k++) ctx.fillRect(x - W * 0.02 + (k % 2) * W * 0.022, hz - h + H * 0.02 + Math.floor(k / 2) * H * 0.04, W * 0.012, H * 0.018);
+    }
+  }
+  ctx.fillStyle = "#1A1426";
+  ctx.fillRect(0, hz, W, H - hz);
+  // road with scrolling lane dashes
+  ctx.fillStyle = "#2A2238";
+  ctx.beginPath();
+  ctx.moveTo(W * 0.46, hz);
+  ctx.lineTo(W * 0.54, hz);
+  ctx.lineTo(W * 0.98, H);
+  ctx.lineTo(W * 0.02, H);
+  ctx.closePath();
+  ctx.fill();
+  ctx.fillStyle = "#E6D7A8";
+  for (let j = 0; j < 7; j++) {
+    const k = (j / 7 + t * 1.6) % 1;
+    const y = hz + (H - hz) * k * k;
+    const w = W * 0.004 + W * 0.012 * k;
+    ctx.fillRect(W / 2 - w / 2, y, w, H * 0.04 * k + 1);
+  }
+  const weave = Math.sin(t * 2.6) * W * 0.06;
+  const flash = Math.floor(t * 6) % 2 === 0;
+  carBack(ctx, W * 0.56 + weave, H * 0.72, W * 0.2, NEON_PINK);
+  carBack(ctx, W * 0.42 - weave * 0.5, H * 0.9, W * 0.26, "#E8E8F0", flash ? ["#FF2A2A", "#203060"] : ["#401010", "#3A6AFF"]);
+  carBack(ctx, W * 0.75, H * 0.98, W * 0.3, "#E8E8F0", flash ? ["#401010", "#3A6AFF"] : ["#FF2A2A", "#203060"]);
+  // HUD: stars, mission
+  ctx.textBaseline = "middle";
+  ctx.textAlign = "right";
+  ctx.font = `700 ${Math.round(H * 0.09)}px "DejaVu Sans", sans-serif`;
+  ctx.fillStyle = flash ? "#FFFFFF" : "#FFE27A";
+  ctx.fillText("★★★★★", W * 0.96, H * 0.08);
+  ctx.textAlign = "left";
+  ctx.font = `700 ${Math.round(H * 0.05)}px "DejaVu Sans", sans-serif`;
+  ctx.fillStyle = NEON_TEAL;
+  ctx.fillText("ESCAPE THE COPS", W * 0.04, H * 0.08);
+};
+
 /** A game box (our own art, no logo) standing or lying, 1.0 × 1.3 × 0.16. */
 export const GameBox: React.FC<{ position: V3; rotation?: V3; scale?: number }> = ({ position, rotation = [0, 0, 0], scale = 1 }) => (
   <group position={position} rotation={rotation} scale={scale}>

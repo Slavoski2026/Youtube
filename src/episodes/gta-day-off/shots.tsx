@@ -19,7 +19,7 @@ import { clamp01, ease, type V3 } from "../../slavoski/noise";
 import { CardLine } from "../../slavoski/Overlays";
 import { P } from "../../slavoski/palette";
 import { handPosition, headPosition, Hero, mergePose, reach, REST, type Pose } from "../../slavoski/rig/Hero";
-import { Controller, SEAT, SEAT_YAW, sittingPose } from "../../slavoski/room";
+import { Controller, SEAT, SEAT_YAW, sittingPose, TV } from "../../slavoski/room";
 import { CanvasPanel, ScreenHtml } from "../../slavoski/screens";
 import { FacetedEarth } from "../../slavoski/space";
 import { lerpCam, Stage, type CameraSpec } from "../../slavoski/Stage";
@@ -36,6 +36,7 @@ import {
   DeskPhone,
   drawAppointments,
   drawCalendar,
+  drawChase,
   drawGameArt,
   drawRota,
   drawSign,
@@ -90,6 +91,13 @@ const STORM_CLOUD = "#3E4656";
 const Drizzle: React.FC<{ t: number; at: V3; size?: [number, number, number]; count?: number; opacity?: number }> = ({ t, at, size = [40, 26, 40], count = 700, opacity = 0.4 }) => (
   <Rain center={at} size={size} t={t} count={count} thickness={0.025} opacity={opacity} speed={26} />
 );
+
+/**
+ * Over-the-shoulder TV cameras, high enough that the whole screen sits above his head in frame
+ * (the live feed is an HTML overlay, so it must never cross him: checked by projection, ≥ 120 px clear).
+ */
+const TV_HIGH: CameraSpec = { position: [1.2, 8.0, 8.0], target: [0.6, 2.2, -3] };
+const TV_HIGH_END: CameraSpec = { position: [1.15, 7.8, 7.4], target: [0.6, 2.2, -3] };
 
 /** Room clock: hours since noon for the gaming room (7:00 → 19). */
 const roomHours = (clock: number) => (clock - 12 + 24) % 24;
@@ -277,7 +285,7 @@ const coldWake: ShotFn = (c) => {
 
 /** On the couch already: the TV boots the game ("PRESS START"). */
 const coldTV: ShotFn = (c) => (
-  <RoomShot cam={lerpCam({ position: [0.5, 5.0, 7.4], target: [0.05, 3.1, -3] }, { position: [0.45, 4.9, 6.8], target: [0.05, 3.1, -3] }, c.lt / 3)} hours={roomHours(7.05)} pose={sittingPose({ lean: 0.35, expression: "smile" })} feed={gameFeed(c.lt, { stars: c.lt < 0.6 ? 0 : c.lt < 1.4 ? 2 : 3, mission: "ESCAPE THE COPS", banner: c.lt < 0.9 ? "LAUNCH DAY!" : undefined, cops: c.lt < 0.6 ? 0 : 2 })} cans={0} />
+  <RoomShot cam={lerpCam(TV_HIGH, TV_HIGH_END, c.lt / 3)} hours={roomHours(7.05)} pose={sittingPose({ lean: 0.35, expression: "smile" })} feed={gameFeed(c.lt, { stars: c.lt < 0.6 ? 0 : c.lt < 1.4 ? 2 : 3, mission: "ESCAPE THE COPS", banner: c.lt < 0.9 ? "LAUNCH DAY!" : undefined, cops: c.lt < 0.6 ? 0 : 2 })} cans={0} />
 );
 
 /** "…stay home": the fake cough down the phone to the boss. */
@@ -947,7 +955,8 @@ const c6Window: ShotFn = (c) => {
   const k = k01(c.lt, 0.2, span(c.dur));
   const cam: CameraSpec = lerpCam({ position: [1.0, 3.2, 11], target: [0.8, 2.6, -2] }, { position: [4, 8, 52], target: [0.5, 7, 0] }, k);
   return (
-    <RoomShot cam={cam} hours={roomHours(21.5)} pose={sittingPose({ lean: 0.32, expression: "smile" })} feed={gameFeed(c.lt + 3, { night: true, stars: 5, mission: "ESCAPE THE COPS" })} cans={3} pizza>
+    <RoomShot cam={cam} hours={roomHours(21.5)} pose={sittingPose({ lean: 0.32, expression: "smile" })} cans={3} pizza>
+      <CanvasPanel position={[TV.center[0], TV.center[1], TV.center[2] + 0.02]} w={TV.w} h={TV.h} px={480} draw={drawChase(c.t)} />
       <Facade t={c.t} />
       <Drizzle t={c.t} at={[1, 4, 16]} size={[24, 20, 14]} count={600} opacity={0.45} />
     </RoomShot>
@@ -967,14 +976,13 @@ const c6Earth: ShotFn = (c) => {
   );
 };
 
-/** Late night on the couch, still at it: a glance back at us with a grin. "JUST ONE MORE MISSION". */
+/** Late night on the couch, still at it, leaning into the chase: "JUST ONE MORE MISSION". */
 const c6End: ShotFn = (c) => {
-  const look = k01(c.lt, 0.5, 0.9) * (1 - k01(c.lt, 2.0, 2.4));
   return (
     <RoomShot
-      cam={lerpCam({ position: [0.9, 5.0, 7.6], target: [0.15, 3.1, -3] }, { position: [0.8, 4.9, 7.0], target: [0.15, 3.1, -3] }, c.lt / 4)}
+      cam={lerpCam(TV_HIGH, TV_HIGH_END, c.lt / 4)}
       hours={roomHours(23.6)}
-      pose={sittingPose({ lean: 0.35 - look * 0.25, expression: "smile", headYaw: -1.05 * look })}
+      pose={sittingPose({ lean: 0.38 + 0.04 * Math.sin(c.t * 5), expression: "smile", headYaw: 0.06 * Math.sin(c.t * 3) })}
       feed={gameFeed(c.lt + 6, { night: true, stars: 5, mission: "ESCAPE THE COPS", banner: c.lt > 1.0 ? "JUST ONE MORE MISSION" : undefined, bannerColor: NEON_TEAL })}
       cans={4}
       pizza
@@ -985,7 +993,7 @@ const c6End: ShotFn = (c) => {
 // ---------------------------------------------------------------- thumbnail
 
 /** Shorts cover: Slavoski on the couch, controller up, game on the TV, a "SICK" note stuck to it. */
-export const thumbShot: ShotFn = () => <RoomShot cam={{ position: [1.0, 6.4, 8.2], target: [0.8, 2.0, -1.5] }} hours={roomHours(9)} pose={sittingPose({ lean: 0.3, expression: "smile" })} feed={gameFeed(1.2, { stars: 4, mission: "ESCAPE THE COPS" })} cans={2} />;
+export const thumbShot: ShotFn = () => <RoomShot cam={{ position: [1.2, 8.0, 8.0], target: [0.6, 2.2, -3] }} hours={roomHours(9)} pose={sittingPose({ lean: 0.3, expression: "smile" })} feed={gameFeed(1.2, { stars: 4, mission: "ESCAPE THE COPS" })} cans={2} />;
 
 // ---------------------------------------------------------------- the list
 
