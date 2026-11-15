@@ -991,8 +991,16 @@ const c6End: ShotFn = (c) => {
 
 // ---------------------------------------------------------------- thumbnail
 
-/** Shorts cover: Slavoski on the couch, controller up, game on the TV, a "SICK" note stuck to it. */
-export const thumbShot: ShotFn = () => <RoomShot cam={{ position: [1.2, 8.0, 8.0], target: [0.6, 2.2, -3] }} hours={roomHours(9)} pose={sittingPose({ lean: 0.3, expression: "smile" })} feed={gameFeed(1.2, { stars: 4, mission: "ESCAPE THE COPS" })} cans={2} />;
+/** Shorts cover: Slavoski on the couch, phone to his ear, fist to his mouth: the fake sick call. */
+export const thumbShot: ShotFn = () => {
+  const { pose, phone } = coughPose(0.17);
+  return (
+    <RoomShot cam={{ position: [3.3, 4.5, -3.9], target: [1.4, 3.45, 1.8], fov: 50 }} hours={roomHours(7.1)} pose={pose} controller={null} cans={0}>
+      <Phone3D position={phone} rotation={[0, SEAT_YAW + Math.PI / 2, 0]} glow="#9FC4E8" />
+      <Controller position={[SEAT[0] - 1.4, 0.95, SEAT[2] + 0.1]} yaw={0.4} pitch={0} />
+    </RoomShot>
+  );
+};
 
 // ---------------------------------------------------------------- the list
 
