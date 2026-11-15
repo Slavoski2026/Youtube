@@ -58,7 +58,10 @@ export const GtaDayOffEpisode: React.FC<GtaDayOffProps> = ({ manifest }) => {
     const last = blocks[blocks.length - 1];
     const cues: Sfx[] = [
       // 7:00: the alarm, the jump out of bed, the game booting
-      { src: "sfx/phone-alert.mp3", at: 0.5, volume: 0.22 },
+      // a real bedside alarm (beep-beep-beep-beep), three cycles until he's on the couch
+      { src: "sfx/alarm-clock.mp3", at: 0.5, volume: 0.3 },
+      { src: "sfx/alarm-clock.mp3", at: 1.5, volume: 0.3 },
+      { src: "sfx/alarm-clock.mp3", at: 2.5, volume: 0.22, duration: 0.45, fade: 0.15 },
       { src: "sfx/moon-whoosh.mp3", at: start("cold.1"), volume: 0.18 },
       { src: "sfx/notify-chime.mp3", at: start("cold.2") + 0.25, volume: 0.28 },
       // the sick calls stacking up (soft chimes, never a buzzing phone)

@@ -24,7 +24,8 @@ import { CanvasPanel, ScreenHtml } from "../../slavoski/screens";
 import { FacetedEarth } from "../../slavoski/space";
 import { lerpCam, Stage, type CameraSpec } from "../../slavoski/Stage";
 import { type CuedShot } from "../../slavoski/timeline";
-import { driveFeed, FACE, FACE_CLOSE, RoomShot } from "../gta-24h/shots";
+import { FACE, FACE_CLOSE, GameBoulevard, GameStage, RoomShot } from "../gta-24h/shots";
+import { GAME_PINK } from "../gta-24h/props";
 import { Balance, CoinFlow, CoinPile, Crane, House, HillRing, SkyscraperSite } from "../no-work-2036/props";
 import { BED, Bedroom } from "../smart-animals/props";
 import { CITY, drawLabel, PHONE, Phone3D } from "../ww3-countdown/props";
@@ -93,29 +94,71 @@ const Drizzle: React.FC<{ t: number; at: V3; size?: [number, number, number]; co
 /** Room clock: hours since noon for the gaming room (7:00 → 19). */
 const roomHours = (clock: number) => (clock - 12 + 24) % 24;
 
-/** "PRESS START" over the game's own boulevard feed. */
-const titleFeed = (lt: number) => (size: { width: number; height: number }) => (
-  <AbsoluteFill>
-    {driveFeed(lt, false, 6)(size)}
-    <div
-      style={{
-        position: "absolute",
-        left: 0,
-        right: 0,
-        top: size.height * 0.62,
-        textAlign: "center",
-        fontFamily: FONT,
-        fontWeight: 700,
-        fontSize: size.height * 0.11,
-        letterSpacing: "0.2em",
-        color: Math.floor(lt * 2.5) % 2 ? "#FFFFFF" : "#FFE27A",
-        textShadow: `0 0 ${size.height * 0.04}px ${NEON_PINK}`,
-      }}
-    >
-      PRESS START
-    </div>
-  </AbsoluteFill>
-);
+/** The game's HUD drawn at the TV feed's own size (our own design: stars, mission, radar, banner). */
+const TvHud: React.FC<{ size: { width: number; height: number }; stars: number; mission?: string; banner?: string; bannerColor?: string; t: number }> = ({ size, stars, mission, banner, bannerColor = NEON_PINK, t }) => {
+  const H = size.height;
+  const blink = Math.floor(t * 4) % 2 === 0;
+  return (
+    <AbsoluteFill style={{ fontFamily: FONT, pointerEvents: "none" }}>
+      <AbsoluteFill style={{ background: "repeating-linear-gradient(0deg, rgba(0,0,0,0.10) 0px, rgba(0,0,0,0.10) 1px, transparent 1px, transparent 3px)" }} />
+      <div style={{ position: "absolute", right: H * 0.05, top: H * 0.05, display: "flex", gap: H * 0.012 }}>
+        {Array.from({ length: 5 }, (_, i) => (
+          <span key={i} style={{ fontSize: H * 0.085, lineHeight: 1, color: i < stars ? (blink ? "#FFFFFF" : "#FFE27A") : "rgba(255,255,255,0.22)", textShadow: i < stars ? `0 0 ${H * 0.03}px ${NEON_PINK}` : undefined }}>
+            ★
+          </span>
+        ))}
+      </div>
+      {mission ? (
+        <div style={{ position: "absolute", left: H * 0.05, top: H * 0.06, fontSize: H * 0.05, fontWeight: 700, color: NEON_TEAL, letterSpacing: "0.1em", textShadow: "0 2px 0 #000" }}>{mission}</div>
+      ) : null}
+      {/* our own radar: a rounded square with a teal grid and a pink arrow */}
+      <div style={{ position: "absolute", left: H * 0.05, bottom: H * 0.06, width: H * 0.24, height: H * 0.24, borderRadius: H * 0.04, background: "rgba(10,14,30,0.75)", border: `${Math.max(1, H * 0.008)}px solid ${NEON_TEAL}`, overflow: "hidden" }}>
+        {[0.3, 0.6].map((k) => (
+          <div key={k} style={{ position: "absolute", left: `${k * 100}%`, top: 0, bottom: 0, width: Math.max(1, H * 0.006), background: "rgba(47,224,208,0.4)" }} />
+        ))}
+        <div style={{ position: "absolute", top: `${((t * 30) % 100)}%`, left: 0, right: 0, height: Math.max(1, H * 0.006), background: "rgba(47,224,208,0.4)" }} />
+        {stars > 0
+          ? [0.25, 0.75].slice(0, Math.min(2, stars)).map((x) => (
+              <div key={x} style={{ position: "absolute", left: `${x * 100}%`, top: "72%", width: H * 0.02, height: H * 0.02, borderRadius: "50%", background: blink ? "#FF3A2A" : "#3A6AFF" }} />
+            ))
+          : null}
+        <div style={{ position: "absolute", left: "50%", top: "50%", width: 0, height: 0, transform: "translate(-50%,-60%)", borderLeft: `${H * 0.025}px solid transparent`, borderRight: `${H * 0.025}px solid transparent`, borderBottom: `${H * 0.05}px solid ${NEON_PINK}` }} />
+      </div>
+      {banner ? (
+        <div style={{ position: "absolute", top: H * 0.4, width: "100%", textAlign: "center" }}>
+          <span style={{ display: "inline-block", padding: `${H * 0.02}px ${H * 0.05}px`, background: "rgba(0,0,0,0.55)", color: bannerColor, fontSize: H * 0.1, fontWeight: 700, letterSpacing: "0.06em", textShadow: `0 0 ${H * 0.03}px ${bannerColor}`, transform: "skewX(-8deg)" }}>
+            {banner}
+          </span>
+        </div>
+      ) : null}
+    </AbsoluteFill>
+  );
+};
+
+type GameOpts = { night?: boolean; stars?: number; mission?: string; banner?: string; bannerColor?: string; cops?: number; speed?: number };
+/**
+ * Gameplay on the TV (our own game): the pink supercar weaving down the palm boulevard with police
+ * cars on its tail, lights flashing, and our HUD. Driven by the shot's own clock so it never jumps back.
+ */
+const gameFeed = (lt: number, o: GameOpts = {}) => (size: { width: number; height: number }) => {
+  const speed = o.speed ?? 18;
+  const z = 4 - lt * speed;
+  const weave = Math.sin(lt * 2.6) * 0.32;
+  // a high chase camera so the pursuing police cars sit in the lower half of the picture
+  const cam: CameraSpec = { position: [0.4 + weave * 0.5, 7.2, z + 24], target: [1.0, 0.6, z - 5], fov: 36 };
+  const cops = o.cops ?? 2;
+  return (
+    <AbsoluteFill>
+      <GameStage cam={cam} night={o.night} size={size} shake={0.04}>
+        <GameBoulevard nearZ={z} night={o.night} />
+        <Car position={[1.75 + weave, 0, z]} yaw={Math.PI - Math.cos(lt * 2.6) * 0.08} color={GAME_PINK} sporty />
+        {cops > 0 ? <Car position={[1.75 - weave * 0.6, 0, z + 7.5 + Math.sin(lt * 1.7) * 0.6]} yaw={Math.PI} color="#FFFFFF" police t={lt} /> : null}
+        {cops > 1 ? <Car position={[-1.75, 0, z + 12.5]} yaw={Math.PI + 0.05} color="#FFFFFF" police t={lt + 0.3} /> : null}
+      </GameStage>
+      <TvHud size={size} t={lt} stars={o.stars ?? 3} mission={o.mission} banner={o.banner} bannerColor={o.bannerColor} />
+    </AbsoluteFill>
+  );
+};
 
 /** A phone close-up in front of a backdrop, its screen an HTML overlay pinned to the 3D phone. */
 const PhoneCU: React.FC<{ c: ShotCtx; at: V3; glow: string; screen: (w: number, h: number) => React.ReactNode; children: React.ReactNode; stage?: Partial<React.ComponentProps<typeof Stage>> }> = ({
@@ -234,7 +277,7 @@ const coldWake: ShotFn = (c) => {
 
 /** On the couch already: the TV boots the game ("PRESS START"). */
 const coldTV: ShotFn = (c) => (
-  <RoomShot cam={lerpCam({ position: [1.0, 6.0, 9.4], target: [0.8, 3.4, -3] }, { position: [1.0, 5.8, 8.6], target: [0.8, 3.4, -3] }, c.lt / 3)} hours={roomHours(7.05)} pose={sittingPose({ lean: 0.3, expression: "smile" })} feed={titleFeed(c.lt)} cans={0} />
+  <RoomShot cam={lerpCam({ position: [0.5, 5.0, 7.4], target: [0.05, 3.1, -3] }, { position: [0.45, 4.9, 6.8], target: [0.05, 3.1, -3] }, c.lt / 3)} hours={roomHours(7.05)} pose={sittingPose({ lean: 0.35, expression: "smile" })} feed={gameFeed(c.lt, { stars: c.lt < 0.6 ? 0 : c.lt < 1.4 ? 2 : 3, mission: "ESCAPE THE COPS", banner: c.lt < 0.9 ? "LAUNCH DAY!" : undefined, cops: c.lt < 0.6 ? 0 : 2 })} cans={0} />
 );
 
 /** "…stay home": the fake cough down the phone to the boss. */
@@ -904,7 +947,7 @@ const c6Window: ShotFn = (c) => {
   const k = k01(c.lt, 0.2, span(c.dur));
   const cam: CameraSpec = lerpCam({ position: [1.0, 3.2, 11], target: [0.8, 2.6, -2] }, { position: [4, 8, 52], target: [0.5, 7, 0] }, k);
   return (
-    <RoomShot cam={cam} hours={roomHours(21.5)} pose={sittingPose({ lean: 0.32, expression: "smile" })} feed={driveFeed(c.lt + 3, true)} cans={3} pizza>
+    <RoomShot cam={cam} hours={roomHours(21.5)} pose={sittingPose({ lean: 0.32, expression: "smile" })} feed={gameFeed(c.lt + 3, { night: true, stars: 5, mission: "ESCAPE THE COPS" })} cans={3} pizza>
       <Facade t={c.t} />
       <Drizzle t={c.t} at={[1, 4, 16]} size={[24, 20, 14]} count={600} opacity={0.45} />
     </RoomShot>
@@ -924,18 +967,25 @@ const c6Earth: ShotFn = (c) => {
   );
 };
 
-/** Late night on the couch: a glance and a grin at us, then back to the game. */
+/** Late night on the couch, still at it: a glance back at us with a grin. "JUST ONE MORE MISSION". */
 const c6End: ShotFn = (c) => {
-  const look = k01(c.lt, 0.3, 0.7) * (1 - k01(c.lt, 1.8, 2.2));
+  const look = k01(c.lt, 0.5, 0.9) * (1 - k01(c.lt, 2.0, 2.4));
   return (
-    <RoomShot cam={lerpCam(FACE, FACE_CLOSE, c.lt / 4)} hours={roomHours(23.6)} pose={sittingPose({ lean: 0.3 - look * 0.2, expression: "smile", headYaw: 0.55 * look })} cans={4} pizza />
+    <RoomShot
+      cam={lerpCam({ position: [0.9, 5.0, 7.6], target: [0.15, 3.1, -3] }, { position: [0.8, 4.9, 7.0], target: [0.15, 3.1, -3] }, c.lt / 4)}
+      hours={roomHours(23.6)}
+      pose={sittingPose({ lean: 0.35 - look * 0.25, expression: "smile", headYaw: -1.05 * look })}
+      feed={gameFeed(c.lt + 6, { night: true, stars: 5, mission: "ESCAPE THE COPS", banner: c.lt > 1.0 ? "JUST ONE MORE MISSION" : undefined, bannerColor: NEON_TEAL })}
+      cans={4}
+      pizza
+    />
   );
 };
 
 // ---------------------------------------------------------------- thumbnail
 
 /** Shorts cover: Slavoski on the couch, controller up, game on the TV, a "SICK" note stuck to it. */
-export const thumbShot: ShotFn = () => <RoomShot cam={{ position: [1.0, 6.4, 8.2], target: [0.8, 2.0, -1.5] }} hours={roomHours(9)} pose={sittingPose({ lean: 0.3, expression: "smile" })} feed={driveFeed(1.2, false)} cans={2} />;
+export const thumbShot: ShotFn = () => <RoomShot cam={{ position: [1.0, 6.4, 8.2], target: [0.8, 2.0, -1.5] }} hours={roomHours(9)} pose={sittingPose({ lean: 0.3, expression: "smile" })} feed={gameFeed(1.2, { stars: 4, mission: "ESCAPE THE COPS" })} cans={2} />;
 
 // ---------------------------------------------------------------- the list
 
