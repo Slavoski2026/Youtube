@@ -7,6 +7,7 @@ import React from "react";
 import { AbsoluteFill } from "remotion";
 import { FONT, loadHouseFonts } from "../../slavoski/fonts";
 import { P } from "../../slavoski/palette";
+import { Car } from "../../slavoski/city";
 import { Hero } from "../../slavoski/rig/Hero";
 import { Avenue } from "./shots/act1";
 import { Shot, Sky, standing } from "./shots/common";
@@ -25,10 +26,14 @@ const OUTLINE = (() => {
 
 export const LastHumanThumb: React.FC = () => (
   <AbsoluteFill style={{ background: "#000" }}>
-    <Shot mood="dawn" camera={{ position: [-5.2, 4.2, -4], target: [-1.6, 3.6, -20], fov: 34 }} fog={[150, 700]} shadowSize={40} keyDir={[0.75, 0.3, -0.55]}>
-      <Avenue />
-      <Hero pose={standing({ expression: "alarm", headYaw: 0.35, headPitch: 0.05 })} position={[-1.2, 0, -20]} yaw={0.55} />
-      <Sky t={3} tint="dawn" />
+    <Shot mood="day" camera={{ position: [-4.6, 3.7, -7.5], target: [0.6, 3.5, -20], fov: 34 }} fog={[150, 700]} shadowSize={40} keyDir={[0.55, 0.8, 0.45]}>
+      <Avenue cars={false} />
+      <group scale={3.5}>
+        <Car position={[-1.8, 0, -14]} yaw={0.15} color={P.carTeal} lights={false} />
+        <Car position={[1.7, 0, -24]} yaw={Math.PI - 0.2} color="#E8E4DA" lights={false} />
+      </group>
+      <Hero pose={standing({ expression: "alarm", headYaw: 0.1, headPitch: 0.05, lShoulder: [0.2, 0.55], rShoulder: [0.2, 0.55], lElbow: 0.4, rElbow: 0.4 })} position={[1.8, 0, -19]} yaw={-0.45} />
+      <Sky t={3} tint="day" />
     </Shot>
     <AbsoluteFill style={{ background: "linear-gradient(90deg, rgba(8,10,24,0.72) 0%, rgba(8,10,24,0.35) 42%, rgba(8,10,24,0) 62%)" }} />
     <div style={{ position: "absolute", left: 56, top: 120, fontFamily: FONT, fontWeight: 700, lineHeight: 0.98, textShadow: OUTLINE }}>

@@ -9,7 +9,8 @@
  * Each chunk renders H.264 video with its audio separated to AAC (trimmed for seamless joins); then
  * combineChunks concatenates the video streams and the audio and muxes the final MP4.
  */
-import { existsSync, mkdirSync, writeFileSync } from "node:fs";
+import { execFileSync, spawnSync } from "node:child_process";
+import { existsSync, mkdirSync, renameSync, writeFileSync } from "node:fs";
 import { basename, resolve } from "node:path";
 import { combineChunks, openBrowser, renderMedia, selectComposition } from "@remotion/renderer";
 
@@ -30,13 +31,16 @@ const concurrency = Number(opt("concurrency", "4"));
 const inputProps = JSON.parse(opt("props", "{}")!);
 const dir = resolve(opt("dir", `out/chunks/${basename(out, ".mp4")}`)!);
 const serveUrl = resolve(import.meta.dirname, "..", "build");
+/** Integrated loudness target (LUFS) for a two-pass ffmpeg loudnorm of the final audio; omit to skip. */
+const loudnorm = opt("loudnorm");
 const chromiumOptions = { gl: "swangle" as const };
 
 const main = async () => {
   mkdirSync(dir, { recursive: true });
   const browser = await openBrowser("chrome", { chromiumOptions });
   const composition = await selectComposition({ serveUrl, id, inputProps, puppeteerInstance: browser, chromiumOptions });
-  const total = composition.durationInFrames;
+  // --max-frames limits the render (pipeline tests); combineChunks is told the same total.
+  const total = Math.min(composition.durationInFrames, Number(opt("max-frames", String(composition.durationInFrames))));
   const n = Math.ceil(total / chunk);
   const videoFiles: string[] = [];
   const audioFiles: string[] = [];
@@ -45,7 +49,8 @@ const main = async () => {
   for (let i = 0; i < n; i++) {
     const a = i * chunk;
     const b = Math.min(total - 1, a + chunk - 1);
-    const video = resolve(dir, `video-${String(i).padStart(3, "0")}.mp4`);
+    // Chunks are MPEG-TS H.264 so combineChunks can join them losslessly with ffmpeg's concat protocol.
+    const video = resolve(dir, `video-${String(i).padStart(3, "0")}.ts`);
     const audio = resolve(dir, `audio-${String(i).padStart(3, "0")}.aac`);
     const done = resolve(dir, `done-${String(i).padStart(3, "0")}`);
     videoFiles.push(video);
@@ -60,7 +65,7 @@ const main = async () => {
       serveUrl,
       composition,
       inputProps,
-      codec: "h264",
+      codec: "h264-ts",
       outputLocation: video,
       separateAudioTo: audio,
       forSeamlessAacConcatenation: true,
@@ -100,6 +105,19 @@ const main = async () => {
     audioBitrate: "320k",
     audioCodec: "aac",
   });
+  if (loudnorm) {
+    // Two-pass loudnorm on the audio only; the video stream is copied untouched.
+    const target = `I=${loudnorm}:TP=-1.0:LRA=11`;
+    const r = spawnSync("ffmpeg", ["-hide_banner", "-nostats", "-i", out, "-af", `loudnorm=${target}:print_format=json`, "-vn", "-f", "null", "-"], { encoding: "utf8", maxBuffer: 1 << 26 });
+    const m = String(r.stderr).match(/\{[\s\S]*\}/);
+    if (!m) throw new Error("loudnorm measurement failed");
+    const res = JSON.parse(m[0]);
+    const tmp = out.replace(/\.mp4$/, ".norm.mp4");
+    const second = `loudnorm=${target}:measured_I=${res.input_i}:measured_TP=${res.input_tp}:measured_LRA=${res.input_lra}:measured_thresh=${res.input_thresh}:offset=${res.target_offset}:linear=true`;
+    execFileSync("ffmpeg", ["-v", "error", "-y", "-i", out, "-map", "0:v", "-map", "0:a", "-c:v", "copy", "-af", second, "-ar", "48000", "-c:a", "aac", "-b:a", "320k", "-movflags", "+faststart", tmp], { stdio: "inherit" });
+    renameSync(tmp, out);
+    console.log(`Loudness: ${res.input_i} LUFS -> ${loudnorm} LUFS (true peak <= -1 dBTP)`);
+  }
   console.log(`Saved ${out} in ${((Date.now() - t0) / 60000).toFixed(1)} min`);
 };
 

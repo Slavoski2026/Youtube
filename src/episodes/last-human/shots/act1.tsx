@@ -439,7 +439,6 @@ const c1Aerial: ShotFn = (c) => {
       </group>
       <Hero pose={standing({ headPitch: 0.5, expression: "worried" })} position={[0, 0, 0]} yaw={0.4} />
       <AvenueCars />
-      <Sky t={c.t} tint="day" y={60} count={10} />
     </Shot>
   );
 };
