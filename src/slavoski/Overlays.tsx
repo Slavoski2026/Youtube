@@ -197,3 +197,63 @@ export const EndCard: React.FC<{ startFrame: number }> = ({ startFrame }) => {
     </AbsoluteFill>
   );
 };
+
+// ================================================================ long-form (16:9) overlays
+
+/**
+ * Long-form chapter label: SLAVOSKI plus "05  /  LIGHTS OUT", top-left, shown for `hold` seconds after
+ * `startFrame` and then faded out (the long-form frame stays clean between chapter starts).
+ */
+export const ChapterLabel: React.FC<{ chapter: { n: number; title: string }; startFrame: number; hold?: number; left?: number; top?: number }> = ({
+  chapter,
+  startFrame,
+  hold = 4.2,
+  left = 84,
+  top = 66,
+}) => {
+  const frame = useCurrentFrame();
+  const { fps } = useVideoConfig();
+  const lt = (frame - startFrame) / fps;
+  if (lt < 0 || lt > hold + 0.6) return null;
+  const o = Math.min(1, lt / 0.45) * (1 - Math.max(0, Math.min(1, (lt - hold) / 0.6)));
+  const slide = (1 - Math.min(1, lt / 0.45)) * 14;
+  return (
+    <div style={{ position: "absolute", left, top, fontFamily: FONT, color: P.white, opacity: o, transform: `translateX(${-slide}px)` }}>
+      <div style={{ fontWeight: 700, fontSize: 24, letterSpacing: "0.32em", lineHeight: 1, textShadow: "0 2px 10px rgba(0,0,0,0.45)" }}>SLAVOSKI</div>
+      <div style={{ marginTop: 16, fontSize: 21, letterSpacing: "0.14em", whiteSpace: "pre", textShadow: "0 2px 10px rgba(0,0,0,0.55)" }}>
+        <span style={{ color: P.amber, fontWeight: 700 }}>{String(chapter.n).padStart(2, "0")}</span>
+        <span style={{ opacity: 0.75 }}>{"  /  "}{chapter.title}</span>
+      </div>
+    </div>
+  );
+};
+
+/** A brief time stamp at a time jump ("DAY 7", "ONE YEAR LATER"), centred near the top. */
+export const TimeStamp: React.FC<{ text: string; startFrame: number; hold?: number; top?: number }> = ({ text, startFrame, hold = 2.4, top = 120 }) => {
+  const frame = useCurrentFrame();
+  const { fps } = useVideoConfig();
+  const lt = (frame - startFrame) / fps;
+  if (lt < 0 || lt > hold + 0.5) return null;
+  const inK = Math.min(1, lt / 0.3);
+  const o = inK * (1 - Math.max(0, Math.min(1, (lt - hold) / 0.5)));
+  return (
+    <div style={{ position: "absolute", left: 0, right: 0, top, textAlign: "center", fontFamily: FONT, opacity: o, pointerEvents: "none" }}>
+      <div
+        style={{
+          display: "inline-block",
+          padding: "12px 34px 13px",
+          background: "rgba(8,9,18,0.62)",
+          border: `3px solid ${P.amber}`,
+          color: P.amber,
+          fontWeight: 700,
+          fontSize: 46,
+          letterSpacing: "0.22em",
+          marginRight: "-0.22em",
+          transform: `scale(${1.08 - 0.08 * inK})`,
+        }}
+      >
+        {text}
+      </div>
+    </div>
+  );
+};

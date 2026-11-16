@@ -7,6 +7,7 @@ import { SmartAnimalsEpisode, estimatedSmartAnimals, type SmartAnimalsProps } fr
 import { Ww3Episode, estimatedWw3, type Ww3Props } from "./episodes/ww3-countdown/Ww3Episode";
 import { NoWork2036Episode, estimatedNoWork2036, type NoWork2036Props } from "./episodes/no-work-2036/NoWork2036Episode";
 import { SatellitesDarkEpisode, estimatedSatellitesDark, type SatellitesDarkProps } from "./episodes/satellites-dark/SatellitesDarkEpisode";
+import { LastHumanEpisode, estimatedLastHuman, type LastHumanProps } from "./episodes/last-human/LastHumanEpisode";
 import { voiceoverMetadata } from "./lib/voiceover";
 import { withDetail } from "./slavoski/detail";
 
@@ -20,6 +21,9 @@ import { Thumbnail, type ThumbProps } from "./Thumbnails";
 export const FPS = 30;
 export const WIDTH = 1080;
 export const HEIGHT = 1920;
+/** Long-form (YouTube landscape) episodes. */
+export const LAND_W = 1920;
+export const LAND_H = 1080;
 
 export const RemotionRoot: React.FC = () => (
   <>
@@ -110,6 +114,16 @@ export const RemotionRoot: React.FC = () => (
       height={HEIGHT}
       defaultProps={{ voiceover: "satellites-dark" } as SatellitesDarkProps}
       calculateMetadata={voiceoverMetadata<SatellitesDarkProps>(FPS, { tailSeconds: 2.2, fallback: estimatedSatellitesDark })}
+    />
+    <Composition
+      id="LastHuman"
+      component={LastHumanEpisode}
+      durationInFrames={FPS * 410}
+      fps={FPS}
+      width={LAND_W}
+      height={LAND_H}
+      defaultProps={{ voiceover: "last-human" } as LastHumanProps}
+      calculateMetadata={voiceoverMetadata<LastHumanProps>(FPS, { tailSeconds: 4.5, fallback: estimatedLastHuman })}
     />
     <Composition
       id="StyleCheck"

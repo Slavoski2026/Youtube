@@ -34,6 +34,10 @@ const EPISODES: Record<string, () => Promise<{ schedule: (w: VoiceoverManifest["
     const ep = await import("../src/episodes/no-work-2036/NoWork2036Episode");
     return { schedule: ep.schedule, estimated: ep.estimatedNoWork2036 };
   },
+  "last-human": async () => {
+    const ep = await import("../src/episodes/last-human/LastHumanEpisode");
+    return { schedule: ep.schedule, estimated: ep.estimatedLastHuman };
+  },
   "no-humans": async () => {
     const ep = await import("../src/episodes/no-humans/NoHumansEpisode");
     return { schedule: ep.schedule, estimated: ep.estimatedNoHumans };
@@ -56,6 +60,8 @@ const main = async () => {
     return;
   }
   console.log(`${m.estimated ? "ESTIMATED" : "REAL"} timing, ${m.durationInSeconds.toFixed(1)} s narration`);
-  for (const r of rows) console.log(`${r.name.padEnd(9)} ${r.start.toFixed(2).padStart(6)}–${r.end.toFixed(2).padStart(6)}  ${r.len.toFixed(2)} s  mid=${r.mid}${r.len > 4.2 ? "  ⚠ long" : ""}`);
+  const maxArg = process.argv.find((a) => a.startsWith("--max="));
+  const max = maxArg ? Number(maxArg.slice(6)) : 4.2;
+  for (const r of rows) console.log(`${r.name.padEnd(9)} ${r.start.toFixed(2).padStart(6)}–${r.end.toFixed(2).padStart(6)}  ${r.len.toFixed(2)} s  mid=${r.mid}${r.len > max ? "  ⚠ long" : ""}`);
 };
 main();

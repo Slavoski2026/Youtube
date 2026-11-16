@@ -104,8 +104,11 @@ export const shotAt = <S extends { at: number }>(shots: S[], t: number): { shot:
   return { shot, index, local: t - shot.at, next };
 };
 
-/** A shot keyed to a narration phrase: `cue` (searched from its block's start) or null for the block start. */
-export type CuedShot<F> = { cue: string | null; fn: F };
+/**
+ * A shot keyed to a narration phrase: `cue` (searched from its block's start) or null for the block start.
+ * `offset` (s) shifts the cut from the cue word (e.g. +1.4 to cut in a pause after it).
+ */
+export type CuedShot<F> = { cue: string | null; fn: F; offset?: number };
 
 /**
  * Turns per-block cued shots into one flat, time-sorted shot list.
@@ -117,7 +120,7 @@ export const scheduleShots = <F,>(words: Caption[], blocks: NarrationBlock[], sh
   times.forEach((b, bi) => {
     const sceneStart = bi === 0 ? 0 : b.start - lead;
     (shots[b.id] ?? []).forEach((s, si) => {
-      const at = s.cue ? wordAt(words, s.cue, b.start, sceneStart) - lead : sceneStart;
+      const at = (s.cue ? wordAt(words, s.cue, b.start, sceneStart) - lead : sceneStart) + (s.offset ?? 0);
       flat.push({ at: Math.max(sceneStart, at), fn: s.fn, block: bi, name: `${b.id}.${si}` });
     });
   });
