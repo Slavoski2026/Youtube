@@ -188,13 +188,8 @@ const coldWake: ShotFn = (c) => {
 
 const coldAlarm: ShotFn = (c) => {
   const cam = move({ position: [CLOCK_FACE[0] + 1.9, CLOCK_FACE[1] + 0.7, CLOCK_FACE[2] + 2.6], target: CLOCK_FACE }, { position: [CLOCK_FACE[0] + 1.5, CLOCK_FACE[1] + 0.55, CLOCK_FACE[2] + 2.0], target: CLOCK_FACE }, c);
-  const slap = k01(c.lt, 0.55, 0.85);
-  const lift = k01(c.lt, 1.0, 1.3);
   const silenced = c.lt > 0.82;
   const on = silenced || Math.floor(c.t * 2.2) % 2 === 0;
-  // A hand comes in from the bed side and taps the top of the clock (fist radius ~0.22, clock top at y + 0.5).
-  const top: V3 = [CLOCK_POS[0], CLOCK_POS[1] + 0.5 + 0.22, CLOCK_POS[2]];
-  const hand: V3 = [top[0] + 1.3 * (1 - slap) + 1.3 * lift, top[1] + 0.35 * (1 - slap) + 0.3 * lift, top[2] + 0.15];
   return (
     <Shot
       mood="day"
@@ -210,14 +205,6 @@ const coldAlarm: ShotFn = (c) => {
       }
     >
       <MorningRoom />
-      <mesh position={hand} scale={[1.15, 0.85, 1]}>
-        <IcoG args={[0.22, 2]} />
-        <Flat color={P.skin} />
-      </mesh>
-      <mesh position={[hand[0] + 0.6, hand[1] + 0.08, hand[2]]} rotation={[0, 0, 0.12]}>
-        <BoxG args={[0.9, 0.3, 0.32]} />
-        <Flat color={P.jacket} />
-      </mesh>
     </Shot>
   );
 };
@@ -608,7 +595,7 @@ const c3Tap: ShotFn = (c) => {
   const flow = k01(c.lt, 0.45, 0.75);
   const hero: V3 = [1.3, 0, -0.35];
   const handTarget: V3 = [0.32, 2.95, -2.55];
-  const pose = reach(standing({ headPitch: -0.35, expression: "neutral" }), "r", handTarget, { position: hero }).pose;
+  const pose = reach(standing({ headPitch: -0.35, expression: "neutral" }), "r", handTarget, { position: hero, yaw: Math.PI }).pose;
   const cam = move({ position: [-3.4, 3.9, 1.2], target: [0.2, 2.6, -2.2] }, { position: [-2.8, 3.6, 0.5], target: [0.2, 2.5, -2.2] }, c);
   return (
     <Shot mood="sunset" camera={{ ...cam, fov: 38 }} fog={false} stars={false} light={0.7} shadowSize={10}>
