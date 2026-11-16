@@ -167,7 +167,10 @@ const faceCam = (head: V3, off: V3, drop = 0.5, fov = 40): CameraSpec => ({ posi
 const coldDrop: ShotFn = (c) => {
   const z = -6 + c.lt * 3.2;
   const hero: V3 = [0, 0, z];
-  const pose = runPose(c.lt * 1.5, { expression: c.lt > 0.8 ? "awe" : "neutral", headPitch: -0.05 });
+  // The feet are off-screen here: swap the stepwise grounded bob for a smooth bounce (2 per stride), or the
+  // extreme close-up jerks 30+ px on every footfall.
+  const raw = runPose(c.lt * 1.5, { expression: c.lt > 0.8 ? "awe" : "neutral", headPitch: -0.05 });
+  const pose = { ...raw, bob: 0.045 * Math.cos(c.lt * 1.5 * Math.PI * 4) };
   const head = headPosition(pose, hero);
   const cam = faceCam([head[0], head[1] - (pose.bob - 0.08) * 0.7, head[2]], [0.55, 0.12, 2.9], 0.5);
   const dry = k01(c.lt, 0.38, 0.72);
