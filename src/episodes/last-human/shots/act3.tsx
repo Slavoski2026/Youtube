@@ -575,7 +575,7 @@ const c9Herd: ShotFn = (c) => {
 
 /** Wolves on a ridge above the city edge at dusk. */
 const c9Wolves: ShotFn = (c) => {
-  const cam = move({ position: [-14, 4, 20], target: [0, 12, -10] }, { position: [-11, 4.5, 17], target: [0, 12.5, -10] }, c);
+  const cam = move({ position: [-16, 10, 26], target: [0, 12, -2] }, { position: [-13, 10.5, 22], target: [0, 12.4, -2] }, c);
   return (
     <Shot mood="sunset" camera={{ ...cam, fov: 40 }} fog={[100, 900]} shadowSize={40} keyDir={[0.8, 0.25, -0.5]} dust={0.1}>
       <mesh position={[0, 0, -10]} scale={[2.2, 0.5, 1]} castShadow receiveShadow>
@@ -583,7 +583,7 @@ const c9Wolves: ShotFn = (c) => {
         <Flat color="#5A6A44" />
       </mesh>
       {[0, 1, 2].map((i) => (
-        <Animal key={i} kind="wolf" position={[-6 + i * 5, 10.3, -10 + (i - 1) * 1.5]} yaw={-0.4 + i * 0.3} scale={1.8} headPitch={i === 1 ? 0.6 : 0.1} />
+        <Animal key={i} kind="wolf" position={[-5 + i * 4.5, 10.15, -2 + (i - 1) * 1.2]} yaw={-0.4 + i * 0.3} scale={1.8} headPitch={i === 1 ? 0.6 : 0.1} />
       ))}
       <group position={[160, 0, -260]} scale={S}>
         {Array.from({ length: 10 }, (_, i) => (
