@@ -16,12 +16,10 @@
  */
 import { copyFileSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
-import type { Caption } from "@remotion/captions";
 import { parseMedia } from "@remotion/media-parser";
 import { nodeReader } from "@remotion/media-parser/node";
 import type { VoiceoverManifest } from "../src/lib/voiceover";
-
-type ScribeWord = { text: string; type?: string; start: number; end: number };
+import { extractWords, isUrl, readJson, scribeToCaptions } from "./scribe";
 
 const args = process.argv.slice(2);
 const mode = args[0];
@@ -31,8 +29,6 @@ const flag = (name: string) => {
 };
 
 const PUBLIC = resolve(import.meta.dirname, "..", "public");
-
-const isUrl = (s: string) => /^https?:\/\//.test(s);
 
 /** Downloads a URL, or copies a local file (e.g. an uploaded mp3), to `out`. */
 const download = async (src: string, out: string) => {
@@ -45,32 +41,6 @@ const download = async (src: string, out: string) => {
   if (!res.ok) throw new Error(`Download failed (${res.status}): ${src.slice(0, 80)}…`);
   writeFileSync(out, Buffer.from(await res.arrayBuffer()));
 };
-
-const readJson = async (src: string): Promise<unknown> => {
-  if (!isUrl(src)) return JSON.parse(readFileSync(src, "utf8"));
-  const res = await fetch(src);
-  if (!res.ok) throw new Error(`Words download failed (${res.status})`);
-  return res.json();
-};
-
-const extractWords = (json: unknown): ScribeWord[] => {
-  if (Array.isArray(json)) return json as ScribeWord[];
-  const o = json as { words?: ScribeWord[]; transcripts?: { words: ScribeWord[] }[] };
-  if (o.words) return o.words;
-  if (o.transcripts?.[0]?.words) return o.transcripts[0].words;
-  throw new Error("Unrecognised words file");
-};
-
-export const scribeToCaptions = (words: ScribeWord[]): Caption[] =>
-  words
-    .filter((w) => (w.type ?? "word") === "word" && w.text.trim() !== "")
-    .map((w, i) => ({
-      text: (i === 0 ? "" : " ") + w.text.trim(),
-      startMs: Math.round(w.start * 1000),
-      endMs: Math.round(w.end * 1000),
-      timestampMs: Math.round(((w.start + w.end) / 2) * 1000),
-      confidence: null,
-    }));
 
 const main = async () => {
   const audio = flag("audio");
