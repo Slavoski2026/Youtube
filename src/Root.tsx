@@ -10,11 +10,17 @@ import { SatellitesDarkEpisode, estimatedSatellitesDark, type SatellitesDarkProp
 import { NoSweatEpisode, estimatedNoSweat, type NoSweatProps } from "./episodes/no-sweat/NoSweatEpisode";
 import { voiceoverMetadata } from "./lib/voiceover";
 import { withDetail } from "./slavoski/detail";
+import { withLook } from "./slavoski/postfx";
 
 // Ep. 1–3 were published at the original "low" detail; ep. 4 onward use the "mid" default.
-const BlackHoleLow = withDetail("low", BlackHoleEpisode);
-const NoHumansLow = withDetail("low", NoHumansEpisode);
-const GtaLow = withDetail("low", GtaEpisode);
+// Ep. 1–7 were published before the cinematic look (post-processing, ep. 8 onward): keep them "classic".
+const BlackHoleLow = withLook("classic", withDetail("low", BlackHoleEpisode));
+const NoHumansLow = withLook("classic", withDetail("low", NoHumansEpisode));
+const GtaLow = withLook("classic", withDetail("low", GtaEpisode));
+const SmartAnimalsClassic = withLook("classic", SmartAnimalsEpisode);
+const Ww3Classic = withLook("classic", Ww3Episode);
+const NoWork2036Classic = withLook("classic", NoWork2036Episode);
+const SatellitesDarkClassic = withLook("classic", SatellitesDarkEpisode);
 import { StyleCheck, type StyleCheckProps } from "./StyleCheck";
 import { Thumbnail, type ThumbProps } from "./Thumbnails";
 
@@ -75,7 +81,7 @@ export const RemotionRoot: React.FC = () => (
     ))}
     <Composition
       id="SmartAnimals"
-      component={SmartAnimalsEpisode}
+      component={SmartAnimalsClassic}
       durationInFrames={FPS * 60}
       fps={FPS}
       width={WIDTH}
@@ -85,7 +91,7 @@ export const RemotionRoot: React.FC = () => (
     />
     <Composition
       id="Ww3Countdown"
-      component={Ww3Episode}
+      component={Ww3Classic}
       durationInFrames={FPS * 60}
       fps={FPS}
       width={WIDTH}
@@ -95,7 +101,7 @@ export const RemotionRoot: React.FC = () => (
     />
     <Composition
       id="NoWork2036"
-      component={NoWork2036Episode}
+      component={NoWork2036Classic}
       durationInFrames={FPS * 66}
       fps={FPS}
       width={WIDTH}
@@ -105,7 +111,7 @@ export const RemotionRoot: React.FC = () => (
     />
     <Composition
       id="SatellitesDark"
-      component={SatellitesDarkEpisode}
+      component={SatellitesDarkClassic}
       durationInFrames={FPS * 74}
       fps={FPS}
       width={WIDTH}

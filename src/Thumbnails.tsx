@@ -16,6 +16,7 @@ import { FONT, loadHouseFonts } from "./slavoski/fonts";
 import { P } from "./slavoski/palette";
 import { AccretionDisk, FacetedEarth } from "./slavoski/space";
 import { Stage } from "./slavoski/Stage";
+import { LookProvider } from "./slavoski/postfx";
 
 loadHouseFonts();
 
@@ -103,9 +104,11 @@ const fit = (text: string, max: number) => Math.min(max, Math.floor(COLUMN / (0.
 
 export const Thumbnail: React.FC<ThumbProps> = ({ episode }) => {
   const th = THUMBS[episode];
+  // Covers of episodes published before the cinematic look keep the classic render.
+  const look = episode === "no-sweat" ? "cinematic" : "classic";
   return (
     <AbsoluteFill style={{ background: "#000" }}>
-      {th.shot}
+      <LookProvider value={look}>{th.shot}</LookProvider>
       {/* darken the top so the hook reads on any shot, even as a small tile */}
       <AbsoluteFill style={{ background: "linear-gradient(180deg, rgba(5,6,18,0.78) 0%, rgba(5,6,18,0.5) 32%, rgba(5,6,18,0) 55%)" }} />
       <div style={{ position: "absolute", left: 150, right: 150, top: Math.max(300, th.top + 60), textAlign: "center", fontFamily: FONT, fontWeight: 700 }}>

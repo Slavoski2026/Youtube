@@ -15,6 +15,7 @@ import { Bush, LeafyTree } from "../../slavoski/nature";
 import { clamp01, ease, type V3 } from "../../slavoski/noise";
 import { mix, P } from "../../slavoski/palette";
 import { armJoints, DIM, groundedBob, heroParts, legJoints, mergePose, walkPose, type Pose } from "../../slavoski/rig/Hero";
+import { Mirror } from "../../slavoski/reflect";
 import { CanvasPanel, fitText } from "../../slavoski/screens";
 import { project, type CameraSpec } from "../../slavoski/Stage";
 
@@ -734,7 +735,7 @@ export const TempSign: React.FC<{ position: V3; yaw?: number; value: string; lab
         <CylG args={[0.12, 0.14, 6, 6]} />
         <Flat color={P.pole} />
       </mesh>
-      <mesh position={[0, 7.2, -0.12]} castShadow>
+      <mesh position={[0, 7.2, -0.16]} castShadow>
         <BoxG args={[4.6, 2.8, 0.2]} />
         <Flat color="#1A1C26" />
       </mesh>
@@ -772,7 +773,7 @@ export const SignBoard: React.FC<{ position: V3; yaw?: number; w?: number; h?: n
         <Flat color="#5A5A62" />
       </mesh>
     ))}
-    <mesh position={[0, post + h / 2, -0.06]} castShadow>
+    <mesh position={[0, post + h / 2, -0.1]} castShadow>
       <BoxG args={[w + 0.2, h + 0.2, 0.1]} />
       <Flat color="#2A2C36" />
     </mesh>
@@ -893,19 +894,19 @@ export const HangingShirt: React.FC<{ position: V3; color: string; stain: number
         </mesh>
       ))}
       {/* collar */}
-      <mesh position={[0, -0.05, 0.045]}>
+      <mesh position={[0, -0.05, 0.07]}>
         <BoxG args={[0.6, 0.12, 0.02]} />
         <Flat color={mix(color, "#FFFFFF", 0.3)} />
       </mesh>
       {stain > 0.01 ? (
         <>
           {[1, -1].map((s) => (
-            <mesh key={s} position={[s * 0.62, -0.62, 0.05]} scale={[0.42 * stain, 0.5 * stain, 1]}>
+            <mesh key={s} position={[s * 0.62, -0.62, 0.065]} scale={[0.42 * stain, 0.5 * stain, 1]}>
               <CircleG args={[0.5, 12]} />
               <meshLambertMaterial color={dark} transparent opacity={0.8} />
             </mesh>
           ))}
-          <mesh position={[0, -1.0, 0.05]} scale={[0.7 * stain, 0.9 * stain, 1]}>
+          <mesh position={[0, -1.0, 0.065]} scale={[0.7 * stain, 0.9 * stain, 1]}>
             <CircleG args={[0.5, 12]} />
             <meshLambertMaterial color={dark} transparent opacity={0.75} />
           </mesh>
@@ -959,6 +960,8 @@ export const Lift: React.FC<{ floor: string }> = ({ floor }) => (
       <BoxG args={[LIFT.w, 0.2, LIFT.d]} />
       <Flat color="#4A4A52" />
     </mesh>
+    {/* polished floor */}
+    <Mirror position={[0, 0.004, 0]} size={[LIFT.w - 0.1, LIFT.d - 0.1]} color="#8C8E9C" mirror={0.65} strength={1.1} blur={300} />
     <mesh position={[0, LIFT.h / 2, -LIFT.d / 2 - 0.1]} receiveShadow>
       <BoxG args={[LIFT.w, LIFT.h, 0.2]} />
       <Flat color="#9AA4B0" />
@@ -988,8 +991,12 @@ export const Lift: React.FC<{ floor: string }> = ({ floor }) => (
       <BoxG args={[LIFT.w - 1.0, 0.1, 1.6]} />
       <Flat color="#C8CCD4" />
     </mesh>
+    <mesh position={[2.9, LIFT.h - 0.75, -LIFT.d / 2 + 0.06]}>
+      <BoxG args={[1.45, 0.75, 0.06]} />
+      <Flat color="#1A1C26" />
+    </mesh>
     <CanvasPanel
-      position={[2.9, LIFT.h - 0.75, -LIFT.d / 2 + 0.02]}
+      position={[2.9, LIFT.h - 0.75, -LIFT.d / 2 + 0.1]}
       w={1.3}
       h={0.6}
       px={256}
@@ -1247,10 +1254,7 @@ export const Bottle: React.FC<{ position: V3; rotation?: V3; scale?: number }> =
 /** A calm lake (top at y = 0) with a wooden jetty along -z from the shore at z = `shore`. */
 export const Lake: React.FC<{ t: number; shore?: number }> = ({ t, shore = 6 }) => (
   <group>
-    <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -0.25, -150]} receiveShadow>
-      <planeGeometry args={[600, 300]} />
-      <Flat color="#4A6E84" />
-    </mesh>
+    <Mirror position={[0, -0.25, -150]} size={[600, 300]} color="#9CC0D6" mirror={0.95} strength={1.1} blur={180} />
     {Array.from({ length: 36 }, (_, i) => (
       <mesh key={i} rotation={[-Math.PI / 2, 0, 0]} position={[(random(`lk${i}`) - 0.5) * 120 + Math.sin(t * 0.4 + i) * 1.5, -0.2, shore - 8 - random(`lkz${i}`) * 110]}>
         <planeGeometry args={[2 + random(`lkw${i}`) * 4, 0.18]} />

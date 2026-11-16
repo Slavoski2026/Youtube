@@ -19,6 +19,8 @@
     "@remotion/media": "4.0.537",
     "@remotion/media-parser": "4.0.537",
     "@remotion/three": "4.0.537",
+    "n8ao": "2.1.0",
+    "postprocessing": "6.39.6",
     "react": "19.1.1",
     "react-dom": "19.1.1",
     "remotion": "4.0.537",

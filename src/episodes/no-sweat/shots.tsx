@@ -18,6 +18,7 @@ import { mix, P } from "../../slavoski/palette";
 import { DIM, handPosition, headPosition, Hero, lerpPose, mergePose, reach, REST, walkPose, type Pose } from "../../slavoski/rig/Hero";
 import { CanvasPanel, fitText } from "../../slavoski/screens";
 import { FacetedEarth } from "../../slavoski/space";
+import { Mirror } from "../../slavoski/reflect";
 import { lerpCam, project, Stage, type CameraSpec } from "../../slavoski/Stage";
 import { type CuedShot } from "../../slavoski/timeline";
 import { Crane, HillRing, House, SkyscraperSite, Stall } from "../no-work-2036/props";
@@ -92,6 +93,9 @@ const BigStreet: React.FC<React.ComponentProps<typeof StreetSet> & { day?: boole
   </group>
 );
 
+/** Top of the BigStreet pavements (kit curb 0.12 × 3.5): people, signs and props on them stand here. */
+const PAVE = 0.12 * CITY;
+
 /** A gradient sky dome (for the heatwave's washed-out orange sky). */
 const SkyDome: React.FC<{ top: string; horizon: string; r?: number }> = ({ top, horizon, r = 1400 }) => {
   const geom = useMemo(() => {
@@ -138,17 +142,17 @@ const reachC = (key: string, base: Pose, side: "l" | "r", target: V3, position: 
 
 /** A crowd member walking or running along a heading. */
 type Walker = { x: number; z: number; yaw: number; speed: number; run?: boolean; seed: number; phase?: number };
-const walkerAt = (w: Walker, t: number) => {
+const walkerAt = (w: Walker, t: number, y = 0) => {
   const d = w.speed * t;
-  const pos: V3 = [w.x + Math.sin(w.yaw) * d, 0, w.z + Math.cos(w.yaw) * d];
+  const pos: V3 = [w.x + Math.sin(w.yaw) * d, y, w.z + Math.cos(w.yaw) * d];
   const ph = (w.phase ?? 0) + t * (w.run ? 1.5 : 0.95);
   const pose = w.run ? runPose(ph) : grounded(walkPose(ph, 0.9));
   return { pos, pose };
 };
-const Walkers: React.FC<{ list: Walker[]; t: number; look?: (seed: number) => HeroLook }> = ({ list, t, look = crowdLook }) => (
+const Walkers: React.FC<{ list: Walker[]; t: number; look?: (seed: number) => HeroLook; y?: number }> = ({ list, t, look = crowdLook, y = 0 }) => (
   <>
     {list.map((w, i) => {
-      const { pos, pose } = walkerAt(w, t);
+      const { pos, pose } = walkerAt(w, t, y);
       return <Hero key={i} pose={pose} position={pos} yaw={w.yaw} look={look(w.seed)} />;
     })}
   </>
@@ -225,6 +229,7 @@ const coldGlands: ShotFn = (c) => {
       stars={false}
       shadows={false}
       light={1.2}
+      fx={{ dof: false }}
       overlay={
         <>
           <Pin at={pore} cam={cam} width={c.width} height={c.height} text="SWEAT: OFF" color="#FF5A4A" dx={120} dy={-130} k={k01(c.lt, offAt + 0.2, offAt + 0.5)} warn />
@@ -354,7 +359,15 @@ const c2Sun: ShotFn = (c) => {
   const pose = grounded(mergePose(REST, { headPitch: 0.45, expression: worried ? "worried" : "smile", lShoulder: [0.08, 0.14], rShoulder: [0.12, 0.16] }));
   const cam = move({ position: [-2.6, 1.1, 9.4], target: [0, 4.3, -4] }, { position: [-2.0, 1.2, 8.4], target: [0, 4.4, -4] }, c);
   return (
-    <Shot mood="day" camera={cam} fog={[70, 460]} shadowSize={14} keyDir={[0.15, 1, -0.4]} overlay={<HeatHaze t={c.t} k={0.35 + k01(c.lt, 0.8, 2.2) * 0.35} />}>
+    <Shot
+      mood="day"
+      camera={cam}
+      fog={[70, 460]}
+      shadowSize={14}
+      keyDir={[0.15, 1, -0.4]}
+      fx={{ godRays: { position: [7, 44, -78], r: 4.5 + k01(c.lt, 0.6, 2.4) * 1.5, strength: 0.6 + k01(c.lt, 0.6, 2.4) * 0.5 }, dof: { focus: [0, 3.4, 0] } }}
+      overlay={<HeatHaze t={c.t} k={0.35 + k01(c.lt, 0.8, 2.2) * 0.35} />}
+    >
       <Park seed="sun" />
       <SkyDome top="#5E9AD8" horizon={mix("#C4E0F6", "#FFE2A6", k01(c.lt, 0.6, 2.4))} />
       <Sun position={[7, 44, -78]} r={4.5 + k01(c.lt, 0.6, 2.4) * 1.5} heat={0.5 + k01(c.lt, 0.6, 2.4) * 0.4} />
@@ -399,6 +412,7 @@ const c2Glands: ShotFn = (c) => {
       stars={false}
       shadows={false}
       light={1.2}
+      fx={{ dof: false }}
       overlay={
         <>
           <Pin at={[SKIN.glands[1] + 0.05, -2.6, SKIN.d / 2]} cam={cam} width={c.width} height={c.height} text="SWEAT GLAND" color="#8FD0FF" dx={-250} dy={-40} k={k01(c.lt, 0.3, 0.7)} />
@@ -424,6 +438,7 @@ const c2Evap: ShotFn = (c) => {
       stars={false}
       shadows={false}
       light={1.2}
+      fx={{ dof: false }}
       overlay={<Pin at={[gx + 0.35, 2.2, SKIN.d / 2 - 0.2]} cam={cam} width={c.width} height={c.height} text="HEAT ESCAPES" color="#FF8A4A" dx={110} dy={-60} k={k01(c.lt, 1.9, 2.3)} />}
     >
       <SkinSection t={c.t} flow={1} drop={1} evap={evap} flush={0.85 * (1 - k01(c.lt, 1.4, 3.3))} heatDots={1 - k01(c.lt, 1.6, 3.3) * 0.6} />
@@ -443,12 +458,17 @@ const NOON_WALKERS: Walker[] = [
 const NoonStreet: React.FC<{ t: number; scorch?: number }> = ({ t, scorch = 0 }) => (
   <>
     <BigStreet seed="noon" day lamps={false} trees={false} cars={false} />
+    {/* heat mirage: the hot asphalt mirrors the sky and the street */}
+    <Mirror position={[0, 0.008, -120]} size={[24.5, 400]} color="#4E5672" mirror={0.5} strength={0.8} blur={420} />
     <SkyDome top={mix(HOT.top, SCORCH.top, scorch)} horizon={mix(HOT.horizon, SCORCH.horizon, scorch)} />
     {[-8, -50, -96].map((z, i) => (
-      <LeafyTree key={i} position={[19.2, 0, z]} scale={2.8} seed={`noon${i}`} />
+      <LeafyTree key={i} position={[19.2, PAVE, z]} scale={2.8} seed={`noon${i}`} />
     ))}
-    <Car position={[8, 0, -46]} yaw={Math.PI} color={P.carRed} />
-    <Car position={[-8, 0, -70]} color={P.carTeal} />
+    {/* kit cars at street scale (×3.5, like the BigStreet around them) */}
+    <group scale={CITY}>
+      <Car position={[1.7, 0, -46 / CITY]} yaw={Math.PI} color={P.carRed} />
+      <Car position={[-1.7, 0, -70 / CITY]} color={P.carTeal} />
+    </group>
     <HeatLight k={0.8 + scorch * 0.4} />
     <Clouds t={t} color="#FFF4E0" y={60} radius={260} count={6} seed="noon" opacity={0.7} />
   </>
@@ -457,15 +477,15 @@ const NoonStreet: React.FC<{ t: number; scorch?: number }> = ({ t, scorch = 0 })
 /** Running down a blazing street at noon. */
 const c3Run: ShotFn = (c) => {
   const z = -36 + c.lt * 3.3;
-  const hero: V3 = [15.4, 0, z];
+  const hero: V3 = [15.4, PAVE, z];
   const pose = runPose(c.lt * 1.45, { expression: c.lt > 1.6 ? "worried" : "neutral" });
   const cam = move({ position: [18.4, 3.0, z + 14.5], target: [15.4, 3.4, z] }, { position: [18.0, 2.7, z + 12.5], target: [15.4, 3.5, z] }, c);
   return (
-    <Shot mood="day" camera={cam} fog={false} shadowSize={26} keyDir={[0.2, 1, 0.3]} overlay={<HeatHaze t={c.t} k={0.55} />}>
+    <Shot mood="day" camera={cam} fog={false} shadowSize={26} keyDir={[0.2, 1, 0.3]} fx={{ godRays: { position: [2, 46, -230], r: 8 }, dof: { focus: add(hero, [0, 3, 0]) } }} overlay={<HeatHaze t={c.t} k={0.55} />}>
       <NoonStreet t={c.t} />
       <Sun position={[2, 46, -230]} r={8} heat={0.7} />
       <Hero pose={pose} position={hero} look={flushed(k01(c.lt, 0.8, 2.4) * 0.5)} />
-      <Walkers list={NOON_WALKERS} t={c.lt} />
+      <Walkers list={NOON_WALKERS} t={c.lt} y={PAVE} />
     </Shot>
   );
 };
@@ -473,12 +493,12 @@ const c3Run: ShotFn = (c) => {
 /** Close on his face: bright red, mouth open, panting… and bone dry. */
 const c3Red: ShotFn = (c) => {
   const z = -28 + c.lt * 3.2;
-  const hero: V3 = [15.4, 0, z];
+  const hero: V3 = [15.4, PAVE, z];
   const pose = runPose(c.lt * 1.4, { expression: "alarm", headPitch: 0.05 });
   const head = headPosition(pose, hero);
   const cam = faceCam([head[0], head[1] - (pose.bob - 0.08) * 0.7, head[2]], [-0.7, 0.15, 3.5], 0.55);
   return (
-    <Shot mood="day" camera={cam} fog={false} shadowSize={12} keyDir={[-0.3, 1, 0.5]} shake={0.015} overlay={<HeatHaze t={c.t} k={0.7} />}>
+    <Shot mood="day" camera={cam} fog={false} shadowSize={12} keyDir={[-0.3, 1, 0.5]} shake={0.015} fx={{ godRays: { position: [16.5, 8, -200], r: 7, strength: 1.2 } }} overlay={<HeatHaze t={c.t} k={0.7} />}>
       <NoonStreet t={c.t} />
       <Sun position={[16.5, 8, -200]} r={7} heat={0.8} />
       <Hero pose={pose} position={hero} look={flushed(0.8)} />
@@ -520,7 +540,7 @@ const c3Heart: ShotFn = (c) => {
   const heat = k01(c.lt, 1.2, 2.2);
   const cam = move({ position: [1.6, 3.0, 9.8], target: [0, 2.7, 0] }, { position: [0.8, 3.0, 8.6], target: [0, 2.75, 0] }, c);
   return (
-    <Shot mood="space" camera={cam} fog={false} stars={false} shadows={false} light={1.1} overlay={<EcgStrip t={c.t} rate={rate} />}>
+    <Shot mood="space" camera={cam} fog={false} stars={false} shadows={false} light={1.1} fx={{ dof: false, bloom: 1.1 }} overlay={<EcgStrip t={c.t} rate={rate} />}>
       <XRayFloor />
       <XRayBody pose={pose} position={hero} t={c.t} rate={rate} heat={heat} />
       <Hero pose={pose} position={hero} ghost={0.26} />
@@ -532,17 +552,14 @@ const c3Heart: ShotFn = (c) => {
 /** A faint blueprint floor for x-ray shots. */
 const XRayFloor: React.FC = () => (
   <group>
-    <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -0.01, 0]}>
-      <circleGeometry args={[9, 32]} />
-      <meshBasicMaterial color="#10264A" transparent opacity={0.8} />
-    </mesh>
+    <Mirror position={[0, -0.01, 0]} size={9} color="#2E5590" mirror={0.7} strength={1.4} blur={220} />
     {Array.from({ length: 13 }, (_, i) => (
       <React.Fragment key={i}>
-        <mesh rotation={[-Math.PI / 2, 0, 0]} position={[-6 + i, 0, 0]}>
+        <mesh rotation={[-Math.PI / 2, 0, 0]} position={[-6 + i, 0.01, 0]}>
           <planeGeometry args={[0.03, 12]} />
           <meshBasicMaterial color="#3A7ACC" transparent opacity={0.45} />
         </mesh>
-        <mesh rotation={[-Math.PI / 2, 0, Math.PI / 2]} position={[0, 0, -6 + i]}>
+        <mesh rotation={[-Math.PI / 2, 0, Math.PI / 2]} position={[0, 0.01, -6 + i]}>
           <planeGeometry args={[0.03, 12]} />
           <meshBasicMaterial color="#3A7ACC" transparent opacity={0.45} />
         </mesh>
@@ -555,15 +572,15 @@ const XRayFloor: React.FC = () => (
 
 /** The street in an extreme heatwave: 47 °C on the sign, the sun huge, Slavoski staggering. */
 const c4Heatwave: ShotFn = (c) => {
-  const hero: V3 = [13.2, 0, -16 + c.lt * 1.1];
+  const hero: V3 = [13.2, PAVE, -16 + c.lt * 1.1];
   const sway = Math.sin(c.t * 3.2);
   const pose = grounded(mergePose(walkPose(c.lt * 0.7, 0.6), { side: sway * 0.08, headRoll: sway * 0.12, lean: 0.12, expression: "worried" }));
   const cam = move({ position: [15, 9.5, 20], target: [7, 6, -40] }, { position: [14, 8.5, 17], target: [7, 6, -40] }, c);
   return (
-    <Shot mood="day" camera={cam} fog={false} shadowSize={40} keyDir={[0.15, 1, 0.2]} overlay={<HeatHaze t={c.t} k={1} />}>
+    <Shot mood="day" camera={cam} fog={false} shadowSize={40} keyDir={[0.15, 1, 0.2]} fx={{ godRays: { position: [-14, 45, -230], r: 13, strength: 1.2 }, dof: { focus: add(hero, [0, 3, 0]), range: 80, bokeh: 3 } }} overlay={<HeatHaze t={c.t} k={1} />}>
       <NoonStreet t={c.t} scorch={1} />
       <Sun position={[-14, 45, -230]} r={13} heat={1} />
-      <TempSign position={[14.6, 0, -30]} yaw={-0.1} value="47°C" scale={1.15} blink t={c.t} />
+      <TempSign position={[14.6, PAVE, -30]} yaw={-0.1} value="47°C" scale={1.15} blink t={c.t} />
       <Hero pose={pose} position={hero} look={flushed(0.9)} />
     </Shot>
   );
@@ -583,6 +600,7 @@ const c4Dizzy: ShotFn = (c) => {
       fog={false}
       shadowSize={14}
       keyDir={[0.1, 1, 0.3]}
+      fx={{ godRays: { position: [-3.4, 34 - PAVE, -218], r: 12, strength: 1.1 } }}
       overlay={
         <>
           <HeatHaze t={c.t} k={1} />
@@ -591,7 +609,7 @@ const c4Dizzy: ShotFn = (c) => {
         </>
       }
     >
-      <group position={[-15.4, 0, 12]}>
+      <group position={[-15.4, -PAVE, 12]}>
         <NoonStreet t={c.t} scorch={1} />
         <Sun position={[12, 34, -230]} r={12} heat={1} />
       </group>
@@ -616,6 +634,7 @@ const c4Brain: ShotFn = (c) => {
       stars={false}
       shadows={false}
       light={1.1}
+      fx={{ dof: false, bloom: 1.1 }}
       shake={glitch ? 0.03 : 0.006}
       overlay={
         <>
@@ -663,6 +682,7 @@ const c4Organs: ShotFn = (c) => {
       stars={false}
       shadows={false}
       light={1.1}
+      fx={{ dof: false, bloom: 1.1 }}
       overlay={
         <>
           {pins.map((p, i) => (
@@ -818,7 +838,7 @@ const c6Track: ShotFn = (c) => {
   const cam = move({ position: [3.6, 4.8, 15], target: [0.6, 3.1, -14] }, { position: [3.2, 4.6, 13], target: [0.6, 3.1, -14] }, c);
   const hero: V3 = [TRACK.lane * 0.5, 0, 2];
   return (
-    <Shot mood="day" camera={cam} fog={false} shadowSize={30} keyDir={[0.2, 1, 0.3]} overlay={<HeatHaze t={c.t} k={0.7} />}>
+    <Shot mood="day" camera={cam} fog={false} shadowSize={30} keyDir={[0.2, 1, 0.3]} fx={{ godRays: { position: [30, 60, -220], r: 9 }, dof: { focus: add(hero, [0, 2.6, 0]), range: 140, bokeh: 3 } }} overlay={<HeatHaze t={c.t} k={0.7} />}>
       <Track />
       <SkyDome top={HOT.top} horizon={HOT.horizon} />
       <Sun position={[30, 60, -220]} r={9} heat={0.8} />
@@ -858,6 +878,7 @@ const c6Aerial: ShotFn = (c) => {
       shadowSize={60}
       keyDir={[-0.4, 0.8, -0.6]}
       light={1.15}
+      fx={{ godRays: { position: [-60, 70, -420], r: 20, strength: 1.2 }, dof: { focus: [-4, 0, -10], range: 30, bokeh: 3.5 } }}
       overlay={
         <>
           <AbsoluteFill style={{ background: "rgba(255,130,40,0.16)" }} />
@@ -885,7 +906,7 @@ const workerLook = (seed: number): HeroLook => ({ ...crowdLook(seed), jacket: "#
 const c6Site: ShotFn = (c) => {
   const cam = move({ position: [7.4, 5.0, 17.5], target: [0.8, 4.3, -2] }, { position: [6.8, 4.8, 15.8], target: [0.9, 4.4, -2] }, c);
   return (
-    <Shot mood="day" camera={cam} fog={false} shadowSize={34} keyDir={[0.2, 1, 0.25]} overlay={<HeatHaze t={c.t} k={0.75} />}>
+    <Shot mood="day" camera={cam} fog={false} shadowSize={34} keyDir={[0.2, 1, 0.25]} fx={{ godRays: { position: [-40, 70, -240], r: 9 }, dof: { focus: [1.4, 3.5, 0.4] } }} overlay={<HeatHaze t={c.t} k={0.75} />}>
       <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -0.02, 0]} receiveShadow>
         <circleGeometry args={[400, 24]} />
         <Flat color="#B8A47E" />
@@ -912,7 +933,7 @@ const c6Site: ShotFn = (c) => {
         <Flat color="#1A1C26" />
       </mesh>
       <CanvasPanel
-        position={[2.9, 6.7, 4.05]}
+        position={[2.9, 6.7, 4.1]}
         rotation={[0, 0, 0]}
         w={5.4}
         h={1.45}
@@ -966,17 +987,20 @@ const NIGHT_WALKERS: Walker[] = [
 /** Living at night: joggers under the lamps, a night market open till dawn, misting fans. */
 const c6Night: ShotFn = (c) => {
   const z = -18 + c.lt * 3.1;
-  const hero: V3 = [15.2, 0, z];
+  const hero: V3 = [15.2, PAVE, z];
   const pose = runPose(c.lt * 1.45, { expression: "smile" });
   const cam = move({ position: [17.8, 3.3, z + 14], target: [15.8, 3.6, z - 6] }, { position: [17.6, 3.0, z + 12], target: [15.8, 3.6, z - 6] }, c);
   return (
-    <Shot mood="night" camera={cam} fog={[40, 260]} shadowSize={26}>
+    <Shot mood="night" camera={cam} fog={[40, 260]} shadowSize={26} fx={{ dof: { focus: add(hero, [0, 3, 0]), range: 60, bokeh: 3 }, bloom: 1.1 }}>
       <BigStreet seed="night" lampsOn trees={false} />
-      <Stall position={[19.2, 0, -44]} yaw={-Math.PI / 2} name="NIGHT MARKET" />
-      <SignBoard position={[18.2, 0, -34]} yaw={-0.2} w={5.6} h={2.2} post={3.2} bg="#101018" lines={[{ text: "OPEN 9 PM – 6 AM", color: "#FFBA58", size: 0.5 }]} />
-      <PedestalFan position={[19.8, 0, -27]} yaw={-Math.PI / 2 + 0.3} t={c.t} mist={1} reachZ={3} />
-      <PedestalFan position={[-19.8, 0, -40]} yaw={Math.PI / 2} t={c.t + 0.4} mist={1} reachZ={3} />
-      <Walkers list={NIGHT_WALKERS} t={c.lt} />
+      {/* wet from the street cleaners: lamps, windows and the stall glow in the road */}
+      <Mirror position={[0, 0.008, -110]} size={[24.5, 400]} color="#6A7294" mirror={0.78} strength={1.6} blur={260} />
+      <Mirror position={[16.8, PAVE + 0.006, -110]} size={[9.1, 400]} color="#727A98" mirror={0.6} strength={1.3} blur={300} />
+      <Stall position={[19.2, PAVE, -44]} yaw={-Math.PI / 2} name="NIGHT MARKET" />
+      <SignBoard position={[18.2, PAVE, -34]} yaw={-0.2} w={5.6} h={2.2} post={3.2} bg="#101018" lines={[{ text: "OPEN 9 PM – 6 AM", color: "#FFBA58", size: 0.5 }]} />
+      <PedestalFan position={[19.8, PAVE, -27]} yaw={-Math.PI / 2 + 0.3} t={c.t} mist={1} reachZ={3} />
+      <PedestalFan position={[-19.8, PAVE, -40]} yaw={Math.PI / 2} t={c.t + 0.4} mist={1} reachZ={3} />
+      <Walkers list={NIGHT_WALKERS} t={c.lt} y={PAVE} />
       <Hero pose={pose} position={hero} />
     </Shot>
   );
@@ -995,12 +1019,21 @@ const c7Drop: ShotFn = (c) => {
     <Shot mood="night" camera={move(cam, { ...cam, position: add(cam.position, [0.25, 0, -0.4]) }, c)} fog={[40, 300]} shadowSize={10}>
       <Rooftop t={c.t} />
       <RoofCity />
+      <RoofPuddles />
       <PedestalFan position={[3.3, 0, 2.3]} yaw={-Math.PI / 2} t={c.t} mist={1} scale={1.1} reachZ={3.2} puff={0.6} />
       <Hero pose={pose} position={ROOF_HERO} />
       <FaceSweat pose={pose} position={ROOF_HERO} amount={k01(c.lt, 0.3, 1.8) * 0.85} opacity={0.8} />
     </Shot>
   );
 };
+
+/** Puddles left by the misting fans on the roof: they mirror the string lights. */
+const RoofPuddles: React.FC = () => (
+  <>
+    <Mirror position={[-4.5, 0.006, 6.5]} size={2.6} color="#7A8098" mirror={0.92} strength={1.5} blur={0} />
+    <Mirror position={[5.8, 0.006, 7.2]} size={1.8} color="#7A8098" mirror={0.92} strength={1.5} blur={0} />
+  </>
+);
 
 /** City lights below the rooftop, a moon. */
 const RoofCity: React.FC = () => (
@@ -1041,6 +1074,7 @@ const c7Roof: ShotFn = (c) => {
     <Shot mood="night" camera={cam} fog={[60, 360]} shadowSize={20}>
       <Rooftop t={c.t} />
       <RoofCity />
+      <RoofPuddles />
       <DeckChair position={[hero[0], 0, hero[2] - 0.25]} seat={seat} />
       <Hero pose={sit} position={hero} />
       <PedestalFan position={[3.4, 0, 3.0]} yaw={-Math.PI / 2 - 0.2} t={c.t} mist={1} scale={1.1} reachZ={3.0} puff={0.7} />

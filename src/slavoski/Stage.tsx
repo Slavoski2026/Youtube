@@ -6,6 +6,7 @@ import * as THREE from "three";
 import { shake, type V3 } from "./noise";
 import { P } from "./palette";
 import { DetailProvider, useDetailLevel } from "./detail";
+import { Grain, LookProvider, PostFX, SceneSky, useLook, type Fx } from "./postfx";
 
 /**
  * Time of day and weather. Vary these across an episode and between episodes (the user noticed every
@@ -162,6 +163,11 @@ export type StageProps = {
   children: React.ReactNode;
   /** HTML overlays drawn above the canvas but under the vignette. */
   overlay?: React.ReactNode;
+  /**
+   * Cinematic post-processing for this shot (depth of field, bloom, AO, god rays, grade): overrides of the
+   * defaults in postfx.tsx, or false for none. Ignored for compositions pinned to the "classic" look.
+   */
+  fx?: Fx | false;
 };
 
 const mixHex = (a: string, b: string, t: number) => new THREE.Color(a).lerp(new THREE.Color(b), t).getStyle();
@@ -183,6 +189,7 @@ export const Stage: React.FC<StageProps> = ({
   vignette = true,
   children,
   overlay,
+  fx = {},
 }) => {
   const video = useVideoConfig();
   const { fps } = video;
@@ -200,6 +207,9 @@ export const Stage: React.FC<StageProps> = ({
   // React context doesn't reliably cross into the R3F canvas: hand the detail level over explicitly.
   const detail = useDetailLevel();
   const hq = isHq();
+  const look = useLook();
+  const cinematic = look === "cinematic" && fx !== false;
+  const focusDistance = Math.hypot(camera.position[0] - camera.target[0], camera.position[1] - camera.target[1], camera.position[2] - camera.target[2]);
 
   return (
     <AbsoluteFill
@@ -223,10 +233,15 @@ export const Stage: React.FC<StageProps> = ({
         {fog ? <fog attach="fog" args={[fogColor, fog[0], fog[1]]} /> : null}
         <Lights mood={lightMood} keyDir={keyDir} shadows={shadows} shadowSize={shadowSize} scale={light} hq={hq} />
         {stars && (starOpacity[mood] ?? 0.55) > 0 ? <Stars opacity={starOpacity[mood] ?? 0.55 * (1 - dust * 0.6)} /> : null}
-        <DetailProvider value={detail}>{children}</DetailProvider>
+        <DetailProvider value={detail}>
+          <LookProvider value={look}>{children}</LookProvider>
+        </DetailProvider>
+        {cinematic ? <SceneSky sky={sky} glow={glow} gradient={gradient} /> : null}
+        {cinematic ? <PostFX fx={fx || {}} hq={hq} focusDistance={focusDistance} /> : null}
       </ThreeCanvas>
       {overlay}
       {vignette ? <Vignette /> : null}
+      {cinematic && vignette ? <Grain /> : null}
     </AbsoluteFill>
   );
 };
