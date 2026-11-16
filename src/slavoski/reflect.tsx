@@ -24,7 +24,7 @@ export type MirrorProps = {
   mirror?: number;
   /** Strength of the reflection over the base colour (≈ 0.5–2). */
   strength?: number;
-  /** Blur of the reflection (0 = sharp mirror; 200–600 = soft, wet). Small non-zero values (< ~150) can produce invalid pixels: use 0 or ≥ 150. */
+  /** Blur of the reflection (0 = sharp mirror; 200–600 = soft, wet). Prefer 0 or ≥ 150: small blurs looked noisy. (The white flashes once blamed on blur were NaN facets, now fixed in postfx.tsx.) */
   blur?: number;
   roughness?: number;
   /** Rotation around Y (rectangles). */

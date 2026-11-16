@@ -34,6 +34,22 @@ import { getInputProps, random, useCurrentFrame } from "remotion";
 import * as THREE from "three";
 import type { V3 } from "./noise";
 
+// ---------------------------------------------------------------- NaN-safe flat shading
+/**
+ * Flat shading takes each facet's normal from screen-space derivatives: normalize(cross(dFdx, dFdy)).
+ * A facet seen exactly edge-on (common in the mirrored camera of a reflector) gives a zero cross product,
+ * and normalize(0) is NaN. One NaN pixel is invisible in the classic look, but a reflector's blur smears it
+ * into a patch and bloom spreads it over the whole frame (ep. 8's white flashes). Fall back to a
+ * camera-facing normal instead. Identical output everywhere else.
+ */
+const FLAT_NORMAL = "vec3 normal = normalize( cross( fdx, fdy ) );";
+if (THREE.ShaderChunk.normal_fragment_begin.includes(FLAT_NORMAL)) {
+  THREE.ShaderChunk.normal_fragment_begin = THREE.ShaderChunk.normal_fragment_begin.replace(
+    FLAT_NORMAL,
+    "vec3 flatN = cross( fdx, fdy ); vec3 normal = dot( flatN, flatN ) > 1e-30 ? normalize( flatN ) : vec3( 0.0, 0.0, 1.0 );",
+  );
+}
+
 // ---------------------------------------------------------------- look level
 
 export type Look = "classic" | "cinematic";
@@ -152,19 +168,34 @@ export const SceneSky: React.FC<{ sky: string; glow: string; gradient: boolean }
  * Replaces NaN/Inf pixels with black. A single bad pixel (a reflector's edge, a degenerate normal) would
  * otherwise be spread by the bloom blur into a white sheet over the frame.
  */
+/**
+ * Last-resort guard after the scene render: replaces NaN/Inf (checked on the bits, since isnan() can be
+ * compiled away) and absurd values with black, and clamps negatives. Blend SRC, not NORMAL: NORMAL mixes
+ * with the input and NaN × 0 is still NaN, so the guard did nothing. `--props='{"nanCheck":true}'` paints
+ * guarded pixels magenta to find their source.
+ */
 class SanitizeEffect extends Effect {
-  constructor() {
+  constructor(mark: boolean) {
     super(
       "SanitizeEffect",
-      `void mainImage(const in vec4 inputColor, const in vec2 uv, out vec4 outputColor) {
+      `bool badBits(float x) { return (floatBitsToUint(x) & 0x7F800000u) == 0x7F800000u; }
+      void mainImage(const in vec4 inputColor, const in vec2 uv, out vec4 outputColor) {
         vec4 c = inputColor;
-        bool bad = any(isnan(c)) || any(isinf(c)) || c.r > 64.0 || c.g > 64.0 || c.b > 64.0;
-        outputColor = bad ? vec4(0.0, 0.0, 0.0, 1.0) : c;
+        bool bad = badBits(c.r) || badBits(c.g) || badBits(c.b) || badBits(c.a) || c.r > 64.0 || c.g > 64.0 || c.b > 64.0;
+        outputColor = bad ? ${mark ? "vec4(1.0, 0.0, 1.0, 1.0)" : "vec4(0.0, 0.0, 0.0, 1.0)"} : max(c, vec4(0.0));
       }`,
-      { blendFunction: BlendFunction.NORMAL },
+      { blendFunction: BlendFunction.SRC },
     );
   }
 }
+
+const nanCheck = (): boolean => {
+  try {
+    return Boolean((getInputProps() as { nanCheck?: boolean }).nanCheck);
+  } catch {
+    return false;
+  }
+};
 
 /** Test switch: `--props='{"fxOff":["ao","dof","bloom","msaa","grade"]}'` turns parts off to time them. */
 const fxOff = (): string[] => {
@@ -212,7 +243,7 @@ export const PostFX: React.FC<{ fx: Fx; hq: boolean; focusDistance: number }> = 
       aoPass.configuration.gammaCorrection = false;
       composer.addPass(aoPass);
     }
-    composer.addPass(new EffectPass(camera, new SanitizeEffect()));
+    composer.addPass(new EffectPass(camera, new SanitizeEffect(nanCheck())));
     let dofEffect: DepthOfFieldEffect | null = null;
     if (dof) {
       dofEffect = new DepthOfFieldEffect(camera, { focusDistance: 10, focusRange: 5, bokehScale: 3, resolutionScale: hq ? 0.25 : 0.5 });

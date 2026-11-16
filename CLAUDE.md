@@ -237,6 +237,8 @@ Lessons (carry forward):
 - **BigStreet pavements are 0.42 high** (kit curb 0.12 × 3.5): people, signs, stalls, trees and fans on them stand at `y = PAVE` (ep. 8 shots), or their feet sink in (the user noticed). Kit cars placed outside `BigStreet` must be scaled ×3.5 too, or they look like toys next to Slavoski.
 - Two surfaces at the same depth flicker (z-fighting: the lift's floor display on its wall panel). Give displays, decals and sign faces a clear gap (≥ 0.04 at hero scale) from what is behind them.
 - Post-processing libraries: drive `postprocessing` (pinned 6.39.6, needs three < 0.188) directly, not `@react-three/postprocessing` (its current versions need @react-three/fiber ≥ 9.7). Avoid effects that call `Math.random` (SSAO, noise, glitch): frames are rendered in parallel tabs and must match.
+- **White-flash frames (ep. 8 preview 2): NaN pixels.** Flat shading divides by a zero normal on facets seen edge-on (common in a `Mirror`'s mirrored camera); the reflector's blur smears one NaN into a patch, and bloom spreads it over the whole frame. Fixed in `postfx.tsx` (NaN-safe flat normals patched into three's shader chunk, plus a guard pass that replaces NaN/Inf with black; it must blend with `BlendFunction.SRC`, since NORMAL mixes the NaN back in). To hunt bad pixels, render with `--props='{"nanCheck":true}'`: guarded pixels turn magenta. After every preview, scan for flashes: per-frame brightness (`ffprobe -f lavfi -i "movie=<file>,signalstats"`, YAVG) jumping on a single frame.
+- Render time here barely depends on `--scale`: a quarter-size render takes about as long as a half-size one. Check problem frames with `scripts/contact-sheet.ts` instead of a low-res full render.
 
 ## Audio and captions
 

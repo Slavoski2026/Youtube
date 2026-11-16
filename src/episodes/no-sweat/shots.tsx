@@ -172,7 +172,7 @@ const coldDrop: ShotFn = (c) => {
   const cam = faceCam([head[0], head[1] - (pose.bob - 0.08) * 0.7, head[2]], [0.55, 0.12, 2.9], 0.5);
   const dry = k01(c.lt, 0.38, 0.72);
   return (
-    <Shot mood="day" camera={cam} fog={[60, 420]} shadowSize={14} keyDir={[0.55, 0.5, 0.8]} shake={0.012}>
+    <Shot mood="day" camera={cam} fog={[60, 420]} shadowSize={14} keyDir={[0.55, 0.5, 0.8]}>
       <Park seed="hook" />
       <Clouds t={c.t} color={CLOUD.day} y={45} radius={220} count={14} seed="hook" />
       <Sun position={[-70, 95, -240]} r={7} heat={0.3} />
