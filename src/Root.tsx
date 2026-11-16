@@ -8,6 +8,7 @@ import { Ww3Episode, estimatedWw3, type Ww3Props } from "./episodes/ww3-countdow
 import { NoWork2036Episode, estimatedNoWork2036, type NoWork2036Props } from "./episodes/no-work-2036/NoWork2036Episode";
 import { SatellitesDarkEpisode, estimatedSatellitesDark, type SatellitesDarkProps } from "./episodes/satellites-dark/SatellitesDarkEpisode";
 import { LastHumanEpisode, estimatedLastHuman, type LastHumanProps } from "./episodes/last-human/LastHumanEpisode";
+import { LastHumanThumb } from "./episodes/last-human/Thumbnail";
 import { voiceoverMetadata } from "./lib/voiceover";
 import { withDetail } from "./slavoski/detail";
 
@@ -125,6 +126,7 @@ export const RemotionRoot: React.FC = () => (
       defaultProps={{ voiceover: "last-human" } as LastHumanProps}
       calculateMetadata={voiceoverMetadata<LastHumanProps>(FPS, { tailSeconds: 4.5, fallback: estimatedLastHuman })}
     />
+    <Still id="Thumb-LastHuman" component={LastHumanThumb} width={1280} height={720} />
     <Composition
       id="StyleCheck"
       component={StyleCheck}
