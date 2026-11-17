@@ -1,0 +1,1351 @@
+{
+  "slug": "internet-gone",
+  "audio": "voiceover/internet-gone.mp3",
+  "durationInSeconds": 84.53224489795919,
+  "words": [
+    {
+      "text": "Imagine",
+      "startMs": 80,
+      "endMs": 480,
+      "timestampMs": 280,
+      "confidence": null
+    },
+    {
+      "text": " waking",
+      "startMs": 600,
+      "endMs": 860,
+      "timestampMs": 730,
+      "confidence": null
+    },
+    {
+      "text": " up",
+      "startMs": 920,
+      "endMs": 1020,
+      "timestampMs": 970,
+      "confidence": null
+    },
+    {
+      "text": " tomorrow",
+      "startMs": 1060,
+      "endMs": 1500,
+      "timestampMs": 1280,
+      "confidence": null
+    },
+    {
+      "text": " and",
+      "startMs": 2060,
+      "endMs": 2180,
+      "timestampMs": 2120,
+      "confidence": null
+    },
+    {
+      "text": " the",
+      "startMs": 2220,
+      "endMs": 2300,
+      "timestampMs": 2260,
+      "confidence": null
+    },
+    {
+      "text": " entire",
+      "startMs": 2340,
+      "endMs": 2940,
+      "timestampMs": 2640,
+      "confidence": null
+    },
+    {
+      "text": " internet",
+      "startMs": 3120,
+      "endMs": 3520,
+      "timestampMs": 3320,
+      "confidence": null
+    },
+    {
+      "text": " is",
+      "startMs": 3580,
+      "endMs": 3800,
+      "timestampMs": 3690,
+      "confidence": null
+    },
+    {
+      "text": " gone.",
+      "startMs": 3860,
+      "endMs": 4220,
+      "timestampMs": 4040,
+      "confidence": null
+    },
+    {
+      "text": " No",
+      "startMs": 4860,
+      "endMs": 4940,
+      "timestampMs": 4900,
+      "confidence": null
+    },
+    {
+      "text": " YouTube,",
+      "startMs": 5100,
+      "endMs": 5540,
+      "timestampMs": 5320,
+      "confidence": null
+    },
+    {
+      "text": " no",
+      "startMs": 5860,
+      "endMs": 5940,
+      "timestampMs": 5900,
+      "confidence": null
+    },
+    {
+      "text": " TikTok,",
+      "startMs": 6060,
+      "endMs": 6560,
+      "timestampMs": 6310,
+      "confidence": null
+    },
+    {
+      "text": " no",
+      "startMs": 6960,
+      "endMs": 7060,
+      "timestampMs": 7010,
+      "confidence": null
+    },
+    {
+      "text": " Google,",
+      "startMs": 7200,
+      "endMs": 7540,
+      "timestampMs": 7370,
+      "confidence": null
+    },
+    {
+      "text": " and",
+      "startMs": 8240,
+      "endMs": 8320,
+      "timestampMs": 8280,
+      "confidence": null
+    },
+    {
+      "text": " somehow",
+      "startMs": 8460,
+      "endMs": 9080,
+      "timestampMs": 8770,
+      "confidence": null
+    },
+    {
+      "text": " it's",
+      "startMs": 9120,
+      "endMs": 9380,
+      "timestampMs": 9250,
+      "confidence": null
+    },
+    {
+      "text": " all",
+      "startMs": 9460,
+      "endMs": 9600,
+      "timestampMs": 9530,
+      "confidence": null
+    },
+    {
+      "text": " because",
+      "startMs": 9640,
+      "endMs": 9900,
+      "timestampMs": 9770,
+      "confidence": null
+    },
+    {
+      "text": " of",
+      "startMs": 9940,
+      "endMs": 10120,
+      "timestampMs": 10030,
+      "confidence": null
+    },
+    {
+      "text": " one",
+      "startMs": 10180,
+      "endMs": 10340,
+      "timestampMs": 10260,
+      "confidence": null
+    },
+    {
+      "text": " man,",
+      "startMs": 10440,
+      "endMs": 10720,
+      "timestampMs": 10580,
+      "confidence": null
+    },
+    {
+      "text": " Jensen",
+      "startMs": 11300,
+      "endMs": 11620,
+      "timestampMs": 11460,
+      "confidence": null
+    },
+    {
+      "text": " Huang.",
+      "startMs": 11720,
+      "endMs": 12040,
+      "timestampMs": 11880,
+      "confidence": null
+    },
+    {
+      "text": " In",
+      "startMs": 12620,
+      "endMs": 12680,
+      "timestampMs": 12650,
+      "confidence": null
+    },
+    {
+      "text": " this",
+      "startMs": 12720,
+      "endMs": 12920,
+      "timestampMs": 12820,
+      "confidence": null
+    },
+    {
+      "text": " fictional",
+      "startMs": 12940,
+      "endMs": 13280,
+      "timestampMs": 13110,
+      "confidence": null
+    },
+    {
+      "text": " scenario,",
+      "startMs": 13360,
+      "endMs": 13880,
+      "timestampMs": 13620,
+      "confidence": null
+    },
+    {
+      "text": " the",
+      "startMs": 14160,
+      "endMs": 14220,
+      "timestampMs": 14190,
+      "confidence": null
+    },
+    {
+      "text": " Nvidia",
+      "startMs": 14300,
+      "endMs": 14640,
+      "timestampMs": 14470,
+      "confidence": null
+    },
+    {
+      "text": " CEO",
+      "startMs": 14780,
+      "endMs": 15220,
+      "timestampMs": 15000,
+      "confidence": null
+    },
+    {
+      "text": " decides",
+      "startMs": 15280,
+      "endMs": 15720,
+      "timestampMs": 15500,
+      "confidence": null
+    },
+    {
+      "text": " he's",
+      "startMs": 15780,
+      "endMs": 15960,
+      "timestampMs": 15870,
+      "confidence": null
+    },
+    {
+      "text": " had",
+      "startMs": 16000,
+      "endMs": 16140,
+      "timestampMs": 16070,
+      "confidence": null
+    },
+    {
+      "text": " enough.",
+      "startMs": 16180,
+      "endMs": 16620,
+      "timestampMs": 16400,
+      "confidence": null
+    },
+    {
+      "text": " He",
+      "startMs": 17220,
+      "endMs": 17340,
+      "timestampMs": 17280,
+      "confidence": null
+    },
+    {
+      "text": " presses",
+      "startMs": 17380,
+      "endMs": 17640,
+      "timestampMs": 17510,
+      "confidence": null
+    },
+    {
+      "text": " a",
+      "startMs": 17700,
+      "endMs": 17840,
+      "timestampMs": 17770,
+      "confidence": null
+    },
+    {
+      "text": " giant",
+      "startMs": 17940,
+      "endMs": 18260,
+      "timestampMs": 18100,
+      "confidence": null
+    },
+    {
+      "text": " red",
+      "startMs": 18360,
+      "endMs": 18520,
+      "timestampMs": 18440,
+      "confidence": null
+    },
+    {
+      "text": " button",
+      "startMs": 18620,
+      "endMs": 18900,
+      "timestampMs": 18760,
+      "confidence": null
+    },
+    {
+      "text": " labeled",
+      "startMs": 18960,
+      "endMs": 19260,
+      "timestampMs": 19110,
+      "confidence": null
+    },
+    {
+      "text": " Turn",
+      "startMs": 19580,
+      "endMs": 19820,
+      "timestampMs": 19700,
+      "confidence": null
+    },
+    {
+      "text": " Off",
+      "startMs": 19900,
+      "endMs": 20100,
+      "timestampMs": 20000,
+      "confidence": null
+    },
+    {
+      "text": " AI.",
+      "startMs": 20280,
+      "endMs": 20680,
+      "timestampMs": 20480,
+      "confidence": null
+    },
+    {
+      "text": " At",
+      "startMs": 21340,
+      "endMs": 21460,
+      "timestampMs": 21400,
+      "confidence": null
+    },
+    {
+      "text": " first,",
+      "startMs": 21540,
+      "endMs": 21900,
+      "timestampMs": 21720,
+      "confidence": null
+    },
+    {
+      "text": " nothing",
+      "startMs": 22180,
+      "endMs": 22420,
+      "timestampMs": 22300,
+      "confidence": null
+    },
+    {
+      "text": " happens.",
+      "startMs": 22460,
+      "endMs": 22880,
+      "timestampMs": 22670,
+      "confidence": null
+    },
+    {
+      "text": " Then",
+      "startMs": 23520,
+      "endMs": 23720,
+      "timestampMs": 23620,
+      "confidence": null
+    },
+    {
+      "text": " millions",
+      "startMs": 24100,
+      "endMs": 24500,
+      "timestampMs": 24300,
+      "confidence": null
+    },
+    {
+      "text": " of",
+      "startMs": 24540,
+      "endMs": 24660,
+      "timestampMs": 24600,
+      "confidence": null
+    },
+    {
+      "text": " AI",
+      "startMs": 24740,
+      "endMs": 24980,
+      "timestampMs": 24860,
+      "confidence": null
+    },
+    {
+      "text": " servers",
+      "startMs": 25080,
+      "endMs": 25440,
+      "timestampMs": 25260,
+      "confidence": null
+    },
+    {
+      "text": " begin",
+      "startMs": 25480,
+      "endMs": 25700,
+      "timestampMs": 25590,
+      "confidence": null
+    },
+    {
+      "text": " shutting",
+      "startMs": 25840,
+      "endMs": 26140,
+      "timestampMs": 25990,
+      "confidence": null
+    },
+    {
+      "text": " down.",
+      "startMs": 26180,
+      "endMs": 26480,
+      "timestampMs": 26330,
+      "confidence": null
+    },
+    {
+      "text": " Chatbots",
+      "startMs": 27020,
+      "endMs": 27540,
+      "timestampMs": 27280,
+      "confidence": null
+    },
+    {
+      "text": " disappear.",
+      "startMs": 27580,
+      "endMs": 28060,
+      "timestampMs": 27820,
+      "confidence": null
+    },
+    {
+      "text": " AI-generated",
+      "startMs": 28660,
+      "endMs": 29360,
+      "timestampMs": 29010,
+      "confidence": null
+    },
+    {
+      "text": " videos",
+      "startMs": 29460,
+      "endMs": 29800,
+      "timestampMs": 29630,
+      "confidence": null
+    },
+    {
+      "text": " stop",
+      "startMs": 29880,
+      "endMs": 30100,
+      "timestampMs": 29990,
+      "confidence": null
+    },
+    {
+      "text": " working.",
+      "startMs": 30160,
+      "endMs": 30540,
+      "timestampMs": 30350,
+      "confidence": null
+    },
+    {
+      "text": " Companies",
+      "startMs": 31120,
+      "endMs": 31520,
+      "timestampMs": 31320,
+      "confidence": null
+    },
+    {
+      "text": " lose",
+      "startMs": 31560,
+      "endMs": 31780,
+      "timestampMs": 31670,
+      "confidence": null
+    },
+    {
+      "text": " access",
+      "startMs": 31900,
+      "endMs": 32200,
+      "timestampMs": 32050,
+      "confidence": null
+    },
+    {
+      "text": " to",
+      "startMs": 32240,
+      "endMs": 32299,
+      "timestampMs": 32270,
+      "confidence": null
+    },
+    {
+      "text": " their",
+      "startMs": 32320,
+      "endMs": 32460,
+      "timestampMs": 32390,
+      "confidence": null
+    },
+    {
+      "text": " most",
+      "startMs": 32500,
+      "endMs": 32680,
+      "timestampMs": 32590,
+      "confidence": null
+    },
+    {
+      "text": " powerful",
+      "startMs": 32840,
+      "endMs": 33320,
+      "timestampMs": 33080,
+      "confidence": null
+    },
+    {
+      "text": " computing",
+      "startMs": 33400,
+      "endMs": 33800,
+      "timestampMs": 33600,
+      "confidence": null
+    },
+    {
+      "text": " systems.",
+      "startMs": 33880,
+      "endMs": 34300,
+      "timestampMs": 34090,
+      "confidence": null
+    },
+    {
+      "text": " But",
+      "startMs": 34880,
+      "endMs": 35200,
+      "timestampMs": 35040,
+      "confidence": null
+    },
+    {
+      "text": " there's",
+      "startMs": 35220,
+      "endMs": 35360,
+      "timestampMs": 35290,
+      "confidence": null
+    },
+    {
+      "text": " a",
+      "startMs": 35400,
+      "endMs": 35440,
+      "timestampMs": 35420,
+      "confidence": null
+    },
+    {
+      "text": " problem.",
+      "startMs": 35480,
+      "endMs": 35940,
+      "timestampMs": 35710,
+      "confidence": null
+    },
+    {
+      "text": " The",
+      "startMs": 36500,
+      "endMs": 36620,
+      "timestampMs": 36560,
+      "confidence": null
+    },
+    {
+      "text": " internet",
+      "startMs": 36660,
+      "endMs": 36960,
+      "timestampMs": 36810,
+      "confidence": null
+    },
+    {
+      "text": " doesn't",
+      "startMs": 37000,
+      "endMs": 37360,
+      "timestampMs": 37180,
+      "confidence": null
+    },
+    {
+      "text": " actually",
+      "startMs": 37480,
+      "endMs": 37880,
+      "timestampMs": 37680,
+      "confidence": null
+    },
+    {
+      "text": " run",
+      "startMs": 37920,
+      "endMs": 38100,
+      "timestampMs": 38010,
+      "confidence": null
+    },
+    {
+      "text": " entirely",
+      "startMs": 38140,
+      "endMs": 38720,
+      "timestampMs": 38430,
+      "confidence": null
+    },
+    {
+      "text": " on",
+      "startMs": 38780,
+      "endMs": 38860,
+      "timestampMs": 38820,
+      "confidence": null
+    },
+    {
+      "text": " Nvidia",
+      "startMs": 38940,
+      "endMs": 39240,
+      "timestampMs": 39090,
+      "confidence": null
+    },
+    {
+      "text": " chips,",
+      "startMs": 39340,
+      "endMs": 39620,
+      "timestampMs": 39480,
+      "confidence": null
+    },
+    {
+      "text": " so",
+      "startMs": 40200,
+      "endMs": 40420,
+      "timestampMs": 40310,
+      "confidence": null
+    },
+    {
+      "text": " Jensen's",
+      "startMs": 40580,
+      "endMs": 41040,
+      "timestampMs": 40810,
+      "confidence": null
+    },
+    {
+      "text": " button",
+      "startMs": 41080,
+      "endMs": 41380,
+      "timestampMs": 41230,
+      "confidence": null
+    },
+    {
+      "text": " can't",
+      "startMs": 41460,
+      "endMs": 41700,
+      "timestampMs": 41580,
+      "confidence": null
+    },
+    {
+      "text": " switch",
+      "startMs": 41780,
+      "endMs": 42000,
+      "timestampMs": 41890,
+      "confidence": null
+    },
+    {
+      "text": " off",
+      "startMs": 42060,
+      "endMs": 42200,
+      "timestampMs": 42130,
+      "confidence": null
+    },
+    {
+      "text": " the",
+      "startMs": 42240,
+      "endMs": 42340,
+      "timestampMs": 42290,
+      "confidence": null
+    },
+    {
+      "text": " whole",
+      "startMs": 42400,
+      "endMs": 42620,
+      "timestampMs": 42510,
+      "confidence": null
+    },
+    {
+      "text": " internet",
+      "startMs": 42660,
+      "endMs": 43020,
+      "timestampMs": 42840,
+      "confidence": null
+    },
+    {
+      "text": " unless",
+      "startMs": 43620,
+      "endMs": 44320,
+      "timestampMs": 43970,
+      "confidence": null
+    },
+    {
+      "text": " every",
+      "startMs": 45000,
+      "endMs": 45240,
+      "timestampMs": 45120,
+      "confidence": null
+    },
+    {
+      "text": " major",
+      "startMs": 45360,
+      "endMs": 45700,
+      "timestampMs": 45530,
+      "confidence": null
+    },
+    {
+      "text": " internet",
+      "startMs": 45740,
+      "endMs": 46000,
+      "timestampMs": 45870,
+      "confidence": null
+    },
+    {
+      "text": " provider",
+      "startMs": 46040,
+      "endMs": 46400,
+      "timestampMs": 46220,
+      "confidence": null
+    },
+    {
+      "text": " suddenly",
+      "startMs": 46600,
+      "endMs": 46980,
+      "timestampMs": 46790,
+      "confidence": null
+    },
+    {
+      "text": " suffers",
+      "startMs": 47020,
+      "endMs": 47360,
+      "timestampMs": 47190,
+      "confidence": null
+    },
+    {
+      "text": " a",
+      "startMs": 47400,
+      "endMs": 47460,
+      "timestampMs": 47430,
+      "confidence": null
+    },
+    {
+      "text": " completely",
+      "startMs": 47480,
+      "endMs": 48260,
+      "timestampMs": 47870,
+      "confidence": null
+    },
+    {
+      "text": " separate",
+      "startMs": 48340,
+      "endMs": 48660,
+      "timestampMs": 48500,
+      "confidence": null
+    },
+    {
+      "text": " catastrophic",
+      "startMs": 49000,
+      "endMs": 49700,
+      "timestampMs": 49350,
+      "confidence": null
+    },
+    {
+      "text": " failure.",
+      "startMs": 49800,
+      "endMs": 50160,
+      "timestampMs": 49980,
+      "confidence": null
+    },
+    {
+      "text": " Now,",
+      "startMs": 50780,
+      "endMs": 51040,
+      "timestampMs": 50910,
+      "confidence": null
+    },
+    {
+      "text": " banks",
+      "startMs": 51240,
+      "endMs": 51540,
+      "timestampMs": 51390,
+      "confidence": null
+    },
+    {
+      "text": " can't",
+      "startMs": 51600,
+      "endMs": 51800,
+      "timestampMs": 51700,
+      "confidence": null
+    },
+    {
+      "text": " process",
+      "startMs": 51840,
+      "endMs": 52200,
+      "timestampMs": 52020,
+      "confidence": null
+    },
+    {
+      "text": " payments.",
+      "startMs": 52300,
+      "endMs": 52720,
+      "timestampMs": 52510,
+      "confidence": null
+    },
+    {
+      "text": " Airports",
+      "startMs": 53200,
+      "endMs": 53640,
+      "timestampMs": 53420,
+      "confidence": null
+    },
+    {
+      "text": " lose",
+      "startMs": 53680,
+      "endMs": 53900,
+      "timestampMs": 53790,
+      "confidence": null
+    },
+    {
+      "text": " access",
+      "startMs": 54000,
+      "endMs": 54300,
+      "timestampMs": 54150,
+      "confidence": null
+    },
+    {
+      "text": " to",
+      "startMs": 54340,
+      "endMs": 54440,
+      "timestampMs": 54390,
+      "confidence": null
+    },
+    {
+      "text": " online",
+      "startMs": 54500,
+      "endMs": 54800,
+      "timestampMs": 54650,
+      "confidence": null
+    },
+    {
+      "text": " systems.",
+      "startMs": 54900,
+      "endMs": 55340,
+      "timestampMs": 55120,
+      "confidence": null
+    },
+    {
+      "text": " Millions",
+      "startMs": 55960,
+      "endMs": 56320,
+      "timestampMs": 56140,
+      "confidence": null
+    },
+    {
+      "text": " of",
+      "startMs": 56380,
+      "endMs": 56500,
+      "timestampMs": 56440,
+      "confidence": null
+    },
+    {
+      "text": " businesses",
+      "startMs": 56520,
+      "endMs": 56960,
+      "timestampMs": 56740,
+      "confidence": null
+    },
+    {
+      "text": " grind",
+      "startMs": 57120,
+      "endMs": 57480,
+      "timestampMs": 57300,
+      "confidence": null
+    },
+    {
+      "text": " to",
+      "startMs": 57520,
+      "endMs": 57620,
+      "timestampMs": 57570,
+      "confidence": null
+    },
+    {
+      "text": " a",
+      "startMs": 57680,
+      "endMs": 57760,
+      "timestampMs": 57720,
+      "confidence": null
+    },
+    {
+      "text": " halt.",
+      "startMs": 57800,
+      "endMs": 58080,
+      "timestampMs": 57940,
+      "confidence": null
+    },
+    {
+      "text": " Within",
+      "startMs": 58640,
+      "endMs": 58960,
+      "timestampMs": 58800,
+      "confidence": null
+    },
+    {
+      "text": " hours,",
+      "startMs": 59060,
+      "endMs": 59380,
+      "timestampMs": 59220,
+      "confidence": null
+    },
+    {
+      "text": " people",
+      "startMs": 59500,
+      "endMs": 59700,
+      "timestampMs": 59600,
+      "confidence": null
+    },
+    {
+      "text": " are",
+      "startMs": 59720,
+      "endMs": 59840,
+      "timestampMs": 59780,
+      "confidence": null
+    },
+    {
+      "text": " queuing",
+      "startMs": 59920,
+      "endMs": 60220,
+      "timestampMs": 60070,
+      "confidence": null
+    },
+    {
+      "text": " outside",
+      "startMs": 60260,
+      "endMs": 60620,
+      "timestampMs": 60440,
+      "confidence": null
+    },
+    {
+      "text": " cash",
+      "startMs": 60680,
+      "endMs": 60920,
+      "timestampMs": 60800,
+      "confidence": null
+    },
+    {
+      "text": " machines.",
+      "startMs": 60980,
+      "endMs": 61440,
+      "timestampMs": 61210,
+      "confidence": null
+    },
+    {
+      "text": " By",
+      "startMs": 62000,
+      "endMs": 62140,
+      "timestampMs": 62070,
+      "confidence": null
+    },
+    {
+      "text": " day",
+      "startMs": 62180,
+      "endMs": 62360,
+      "timestampMs": 62270,
+      "confidence": null
+    },
+    {
+      "text": " two,",
+      "startMs": 62420,
+      "endMs": 62620,
+      "timestampMs": 62520,
+      "confidence": null
+    },
+    {
+      "text": " governments",
+      "startMs": 63060,
+      "endMs": 63420,
+      "timestampMs": 63240,
+      "confidence": null
+    },
+    {
+      "text": " are",
+      "startMs": 63460,
+      "endMs": 63600,
+      "timestampMs": 63530,
+      "confidence": null
+    },
+    {
+      "text": " scrambling",
+      "startMs": 63720,
+      "endMs": 64260,
+      "timestampMs": 63990,
+      "confidence": null
+    },
+    {
+      "text": " to",
+      "startMs": 64300,
+      "endMs": 64360,
+      "timestampMs": 64330,
+      "confidence": null
+    },
+    {
+      "text": " restore",
+      "startMs": 64400,
+      "endMs": 64739,
+      "timestampMs": 64570,
+      "confidence": null
+    },
+    {
+      "text": " communications.",
+      "startMs": 64780,
+      "endMs": 65580,
+      "timestampMs": 65180,
+      "confidence": null
+    },
+    {
+      "text": " And",
+      "startMs": 66140,
+      "endMs": 66240,
+      "timestampMs": 66190,
+      "confidence": null
+    },
+    {
+      "text": " Jensen,",
+      "startMs": 66320,
+      "endMs": 66720,
+      "timestampMs": 66520,
+      "confidence": null
+    },
+    {
+      "text": " he's",
+      "startMs": 67300,
+      "endMs": 67460,
+      "timestampMs": 67380,
+      "confidence": null
+    },
+    {
+      "text": " sitting",
+      "startMs": 67500,
+      "endMs": 67700,
+      "timestampMs": 67600,
+      "confidence": null
+    },
+    {
+      "text": " in",
+      "startMs": 67720,
+      "endMs": 67780,
+      "timestampMs": 67750,
+      "confidence": null
+    },
+    {
+      "text": " his",
+      "startMs": 67800,
+      "endMs": 67920,
+      "timestampMs": 67860,
+      "confidence": null
+    },
+    {
+      "text": " kitchen",
+      "startMs": 67960,
+      "endMs": 68280,
+      "timestampMs": 68120,
+      "confidence": null
+    },
+    {
+      "text": " eating",
+      "startMs": 68740,
+      "endMs": 68920,
+      "timestampMs": 68830,
+      "confidence": null
+    },
+    {
+      "text": " breakfast,",
+      "startMs": 68980,
+      "endMs": 69460,
+      "timestampMs": 69220,
+      "confidence": null
+    },
+    {
+      "text": " watching",
+      "startMs": 70040,
+      "endMs": 70320,
+      "timestampMs": 70180,
+      "confidence": null
+    },
+    {
+      "text": " the",
+      "startMs": 70360,
+      "endMs": 70460,
+      "timestampMs": 70410,
+      "confidence": null
+    },
+    {
+      "text": " chaos",
+      "startMs": 70520,
+      "endMs": 70960,
+      "timestampMs": 70740,
+      "confidence": null
+    },
+    {
+      "text": " on",
+      "startMs": 71000,
+      "endMs": 71060,
+      "timestampMs": 71030,
+      "confidence": null
+    },
+    {
+      "text": " a",
+      "startMs": 71100,
+      "endMs": 71160,
+      "timestampMs": 71130,
+      "confidence": null
+    },
+    {
+      "text": " television",
+      "startMs": 71200,
+      "endMs": 71700,
+      "timestampMs": 71450,
+      "confidence": null
+    },
+    {
+      "text": " that",
+      "startMs": 71740,
+      "endMs": 71920,
+      "timestampMs": 71830,
+      "confidence": null
+    },
+    {
+      "text": " somehow",
+      "startMs": 72020,
+      "endMs": 72460,
+      "timestampMs": 72240,
+      "confidence": null
+    },
+    {
+      "text": " still",
+      "startMs": 72560,
+      "endMs": 72780,
+      "timestampMs": 72670,
+      "confidence": null
+    },
+    {
+      "text": " works",
+      "startMs": 72820,
+      "endMs": 73180,
+      "timestampMs": 73000,
+      "confidence": null
+    },
+    {
+      "text": " because",
+      "startMs": 73740,
+      "endMs": 73960,
+      "timestampMs": 73850,
+      "confidence": null
+    },
+    {
+      "text": " the",
+      "startMs": 74000,
+      "endMs": 74080,
+      "timestampMs": 74040,
+      "confidence": null
+    },
+    {
+      "text": " man",
+      "startMs": 74160,
+      "endMs": 74340,
+      "timestampMs": 74250,
+      "confidence": null
+    },
+    {
+      "text": " who",
+      "startMs": 74400,
+      "endMs": 74500,
+      "timestampMs": 74450,
+      "confidence": null
+    },
+    {
+      "text": " helped",
+      "startMs": 74540,
+      "endMs": 74720,
+      "timestampMs": 74630,
+      "confidence": null
+    },
+    {
+      "text": " power",
+      "startMs": 74860,
+      "endMs": 75140,
+      "timestampMs": 75000,
+      "confidence": null
+    },
+    {
+      "text": " the",
+      "startMs": 75180,
+      "endMs": 75320,
+      "timestampMs": 75250,
+      "confidence": null
+    },
+    {
+      "text": " AI",
+      "startMs": 75400,
+      "endMs": 75640,
+      "timestampMs": 75520,
+      "confidence": null
+    },
+    {
+      "text": " revolution",
+      "startMs": 75680,
+      "endMs": 76240,
+      "timestampMs": 75960,
+      "confidence": null
+    },
+    {
+      "text": " just",
+      "startMs": 76840,
+      "endMs": 77160,
+      "timestampMs": 77000,
+      "confidence": null
+    },
+    {
+      "text": " accidentally",
+      "startMs": 77280,
+      "endMs": 77880,
+      "timestampMs": 77580,
+      "confidence": null
+    },
+    {
+      "text": " sent",
+      "startMs": 77940,
+      "endMs": 78100,
+      "timestampMs": 78020,
+      "confidence": null
+    },
+    {
+      "text": " humanity",
+      "startMs": 78160,
+      "endMs": 78600,
+      "timestampMs": 78380,
+      "confidence": null
+    },
+    {
+      "text": " back",
+      "startMs": 78800,
+      "endMs": 79000,
+      "timestampMs": 78900,
+      "confidence": null
+    },
+    {
+      "text": " to",
+      "startMs": 79040,
+      "endMs": 79100,
+      "timestampMs": 79070,
+      "confidence": null
+    },
+    {
+      "text": " the",
+      "startMs": 79140,
+      "endMs": 79260,
+      "timestampMs": 79200,
+      "confidence": null
+    },
+    {
+      "text": " offline",
+      "startMs": 79340,
+      "endMs": 79760,
+      "timestampMs": 79550,
+      "confidence": null
+    },
+    {
+      "text": " age.",
+      "startMs": 79820,
+      "endMs": 80040,
+      "timestampMs": 79930,
+      "confidence": null
+    },
+    {
+      "text": " And",
+      "startMs": 80620,
+      "endMs": 80700,
+      "timestampMs": 80660,
+      "confidence": null
+    },
+    {
+      "text": " the",
+      "startMs": 80720,
+      "endMs": 80800,
+      "timestampMs": 80760,
+      "confidence": null
+    },
+    {
+      "text": " craziest",
+      "startMs": 80840,
+      "endMs": 81260,
+      "timestampMs": 81050,
+      "confidence": null
+    },
+    {
+      "text": " part?",
+      "startMs": 81360,
+      "endMs": 81580,
+      "timestampMs": 81470,
+      "confidence": null
+    },
+    {
+      "text": " He",
+      "startMs": 82140,
+      "endMs": 82260,
+      "timestampMs": 82200,
+      "confidence": null
+    },
+    {
+      "text": " still",
+      "startMs": 82380,
+      "endMs": 82580,
+      "timestampMs": 82480,
+      "confidence": null
+    },
+    {
+      "text": " hasn't",
+      "startMs": 82620,
+      "endMs": 82860,
+      "timestampMs": 82740,
+      "confidence": null
+    },
+    {
+      "text": " taken",
+      "startMs": 82920,
+      "endMs": 83140,
+      "timestampMs": 83030,
+      "confidence": null
+    },
+    {
+      "text": " off",
+      "startMs": 83180,
+      "endMs": 83300,
+      "timestampMs": 83240,
+      "confidence": null
+    },
+    {
+      "text": " his",
+      "startMs": 83320,
+      "endMs": 83420,
+      "timestampMs": 83370,
+      "confidence": null
+    },
+    {
+      "text": " leather",
+      "startMs": 83460,
+      "endMs": 83640,
+      "timestampMs": 83550,
+      "confidence": null
+    },
+    {
+      "text": " jacket",
+      "startMs": 83740,
+      "endMs": 84100,
+      "timestampMs": 83920,
+      "confidence": null
+    }
+  ]
+}
