@@ -1,0 +1,619 @@
+1
+00:00:00,020 --> 00:00:01,680
+You wake up tomorrow morning.
+
+2
+00:00:01,700 --> 00:00:03,120
+Your alarm is ringing.
+
+3
+00:00:03,140 --> 00:00:05,400
+Sunlight is coming through your window.
+
+4
+00:00:05,420 --> 00:00:07,760
+Everything seems completely normal.
+
+5
+00:00:07,780 --> 00:00:10,040
+Until you check your phone.
+
+6
+00:00:10,060 --> 00:00:11,240
+No new messages.
+
+7
+00:00:11,260 --> 00:00:12,580
+No missed calls.
+
+8
+00:00:12,600 --> 00:00:14,720
+Nobody has posted anything.
+
+9
+00:00:14,740 --> 00:00:16,260
+You call your best friend.
+
+10
+00:00:16,280 --> 00:00:17,180
+Nothing.
+
+11
+00:00:17,200 --> 00:00:18,620
+You call your family.
+
+12
+00:00:18,640 --> 00:00:19,680
+Nothing.
+
+13
+00:00:19,700 --> 00:00:21,140
+You step outside.
+
+14
+00:00:23,120 --> 00:00:24,820
+The streets are empty.
+
+15
+00:00:24,840 --> 00:00:27,200
+Cars sit abandoned along the road.
+
+16
+00:00:27,220 --> 00:00:30,280
+The shops are open, but nobody is inside.
+
+17
+00:00:30,300 --> 00:00:34,420
+And slowly, a terrifying
+possibility enters your mind.
+
+18
+00:00:35,279 --> 00:00:37,920
+What if you're the last human being alive?
+
+19
+00:00:39,200 --> 00:00:41,100
+At first, you don't believe it.
+
+20
+00:00:41,120 --> 00:00:44,360
+You search houses,
+hospitals, police stations.
+
+21
+00:00:44,380 --> 00:00:47,780
+You drive through neighbourhoods,
+shouting for someone to answer.
+
+22
+00:00:48,220 --> 00:00:49,760
+But nobody does.
+
+23
+00:00:50,740 --> 00:00:52,160
+And the strangest part?
+
+24
+00:00:52,180 --> 00:00:53,880
+The world hasn't ended.
+
+25
+00:00:53,900 --> 00:00:55,620
+Electricity is still running.
+
+26
+00:00:55,640 --> 00:00:57,460
+Water still comes from the tap.
+
+27
+00:00:57,480 --> 00:00:59,900
+The internet might even work for a while.
+
+28
+00:00:59,920 --> 00:01:01,660
+Humanity has vanished.
+
+29
+00:01:01,680 --> 00:01:04,380
+But the machines it built
+haven't stopped yet.
+
+30
+00:01:04,400 --> 00:01:06,220
+So what happens next?
+
+31
+00:01:07,640 --> 00:01:12,460
+During your first twenty-four hours, survival
+might actually be surprisingly easy.
+
+32
+00:01:12,480 --> 00:01:14,260
+Supermarkets are full of food.
+
+33
+00:01:14,280 --> 00:01:15,960
+Petrol stations have fuel.
+
+34
+00:01:15,980 --> 00:01:18,180
+Homes are stocked with supplies.
+
+35
+00:01:18,200 --> 00:01:21,020
+You could sleep in a mansion,
+drive an expensive car,
+
+36
+00:01:21,040 --> 00:01:23,820
+or walk through a museum
+without buying a ticket.
+
+37
+00:01:23,840 --> 00:01:25,540
+But there's a problem.
+
+38
+00:01:25,560 --> 00:01:30,100
+Almost everything you rely on was designed
+to be maintained by other people.
+
+39
+00:01:30,480 --> 00:01:32,600
+And those people are gone.
+
+40
+00:01:33,720 --> 00:01:37,940
+As the hours pass, electricity
+networks begin facing problems.
+
+41
+00:01:37,960 --> 00:01:41,360
+Power plants and substations
+depend on automated controls,
+
+42
+00:01:41,380 --> 00:01:46,640
+but also on operators, fuel deliveries,
+maintenance and a functioning grid.
+
+43
+00:01:46,660 --> 00:01:49,000
+Some facilities would shut down safely.
+
+44
+00:01:49,020 --> 00:01:51,080
+Others could experience faults.
+
+45
+00:01:51,100 --> 00:01:53,980
+Different areas would lose
+power at different times.
+
+46
+00:01:54,000 --> 00:01:57,700
+There's no single moment when
+every light on Earth switches off.
+
+47
+00:01:58,160 --> 00:02:01,380
+But eventually, your
+neighbourhood could go dark.
+
+48
+00:02:01,400 --> 00:02:05,060
+And when the electricity
+fails, your problems multiply.
+
+49
+00:02:05,080 --> 00:02:06,960
+Refrigerators stop cooling.
+
+50
+00:02:06,980 --> 00:02:09,160
+Mobile networks lose backup power.
+
+51
+00:02:09,180 --> 00:02:10,740
+Water pumps may stop.
+
+52
+00:02:10,760 --> 00:02:13,040
+Wastewater systems begin failing.
+
+53
+00:02:13,060 --> 00:02:15,000
+Your phone is still in your hand.
+
+54
+00:02:15,460 --> 00:02:17,340
+But there's nobody left to call.
+
+55
+00:02:18,580 --> 00:02:21,640
+By the end of the first
+week, you need a plan.
+
+56
+00:02:21,660 --> 00:02:23,620
+Fresh food is beginning to spoil.
+
+57
+00:02:23,640 --> 00:02:27,820
+Depending on local infrastructure,
+tap water may no longer be reliable.
+
+58
+00:02:27,840 --> 00:02:31,020
+You need bottled water,
+preserved food, medicine,
+
+59
+00:02:31,040 --> 00:02:33,880
+warm clothing and a safe place to live.
+
+60
+00:02:33,900 --> 00:02:37,160
+And you need to think about
+something people rarely consider.
+
+61
+00:02:38,140 --> 00:02:39,060
+Fire.
+
+62
+00:02:39,680 --> 00:02:44,000
+Without firefighters, a small blaze could
+spread through an abandoned building.
+
+63
+00:02:44,020 --> 00:02:48,380
+Without emergency services, even a
+minor injury could become dangerous.
+
+64
+00:02:48,400 --> 00:02:53,040
+A broken ankle, an infected cut, or a
+serious illness could leave you completely
+
+65
+00:02:53,060 --> 00:02:54,100
+helpless.
+
+66
+00:02:55,380 --> 00:02:58,620
+So you stop treating the world
+like your personal playground.
+
+67
+00:02:58,640 --> 00:03:01,340
+And start treating it
+like a survival problem.
+
+68
+00:03:01,360 --> 00:03:05,500
+You find a house with a fireplace, a
+reliable water source and room to store
+
+69
+00:03:05,520 --> 00:03:06,580
+supplies.
+
+70
+00:03:06,600 --> 00:03:10,900
+You collect batteries, solar panels,
+tools and first-aid equipment.
+
+71
+00:03:10,920 --> 00:03:13,940
+You learn how to purify
+water and preserve food.
+
+72
+00:03:15,180 --> 00:03:19,000
+But while you're learning to survive,
+something else is happening.
+
+73
+00:03:19,020 --> 00:03:21,880
+Nature is beginning to reclaim the world.
+
+74
+00:03:21,900 --> 00:03:24,720
+With traffic gone, roads become silent.
+
+75
+00:03:24,740 --> 00:03:29,000
+Without constant human activity, many
+animals begin exploring places they once
+
+76
+00:03:29,020 --> 00:03:30,040
+avoided.
+
+77
+00:03:30,060 --> 00:03:32,220
+Weeds push through pavement cracks.
+
+78
+00:03:32,240 --> 00:03:34,180
+Gardens become overgrown.
+
+79
+00:03:34,200 --> 00:03:37,160
+Unmaintained buildings slowly deteriorate.
+
+80
+00:03:37,180 --> 00:03:39,960
+But cities wouldn't turn
+into forests overnight.
+
+81
+00:03:39,980 --> 00:03:42,180
+Nature works on its own timescale.
+
+82
+00:03:42,200 --> 00:03:45,680
+And some of the most dramatic
+changes would take decades.
+
+83
+00:03:46,900 --> 00:03:51,680
+Meanwhile, the animals humanity left
+behind face very different futures.
+
+84
+00:03:51,700 --> 00:03:55,080
+Some pets would struggle
+without food, water or care.
+
+85
+00:03:55,100 --> 00:03:57,200
+Others might escape and adapt.
+
+86
+00:03:57,220 --> 00:04:01,720
+Livestock trapped in buildings or fenced
+areas could be especially vulnerable.
+
+87
+00:04:01,740 --> 00:04:05,320
+Wild animals, however, might benefit
+from the disappearance of hunting,
+
+88
+00:04:05,340 --> 00:04:07,520
+traffic and habitat disturbance.
+
+89
+00:04:07,540 --> 00:04:09,900
+The planet would continue changing.
+
+90
+00:04:10,400 --> 00:04:11,720
+Even without us.
+
+91
+00:04:12,820 --> 00:04:17,020
+After one month, your biggest
+enemy might no longer be hunger.
+
+92
+00:04:17,660 --> 00:04:19,560
+It might be loneliness.
+
+93
+00:04:19,580 --> 00:04:21,960
+Humans evolved as social creatures.
+
+94
+00:04:21,980 --> 00:04:26,780
+We depend on conversation,
+cooperation, friendship and belonging.
+
+95
+00:04:26,800 --> 00:04:30,760
+Now imagine going thirty days
+without hearing another human voice.
+
+96
+00:04:30,780 --> 00:04:31,740
+No jokes.
+
+97
+00:04:31,760 --> 00:04:32,840
+No arguments.
+
+98
+00:04:32,860 --> 00:04:34,440
+No conversations.
+
+99
+00:04:34,460 --> 00:04:36,160
+Nobody to celebrate with.
+
+100
+00:04:36,180 --> 00:04:39,320
+Nobody to tell you that
+everything is going to be okay.
+
+101
+00:04:39,340 --> 00:04:41,320
+You might begin talking to yourself.
+
+102
+00:04:41,340 --> 00:04:42,720
+Recording messages.
+
+103
+00:04:42,740 --> 00:04:45,820
+Playing old videos just
+to hear somebody speak.
+
+104
+00:04:45,840 --> 00:04:50,020
+And the longer you're alone, the harder it
+could become to maintain motivation and a
+
+105
+00:04:50,040 --> 00:04:51,620
+normal daily routine.
+
+106
+00:04:51,640 --> 00:04:55,340
+Because surviving physically
+isn't the same as living well.
+
+107
+00:04:56,680 --> 00:04:58,520
+So you create a schedule.
+
+108
+00:04:58,540 --> 00:05:01,060
+You wake up at the same time every day.
+
+109
+00:05:01,080 --> 00:05:04,920
+You exercise, cook, repair
+equipment and keep a journal.
+
+110
+00:05:04,940 --> 00:05:08,980
+You search libraries for books on
+farming, medicine and engineering.
+
+111
+00:05:09,000 --> 00:05:11,800
+And you keep looking for other survivors.
+
+112
+00:05:11,820 --> 00:05:14,560
+Not because you've found
+evidence that anyone remains.
+
+113
+00:05:14,580 --> 00:05:18,920
+But because accepting that you're alone
+forever might be the hardest part.
+
+114
+00:05:20,280 --> 00:05:23,280
+One year later, the world
+looks very different.
+
+115
+00:05:23,300 --> 00:05:25,700
+Many roads are damaged or obstructed.
+
+116
+00:05:25,720 --> 00:05:29,100
+Buildings have suffered leaks,
+weather damage and neglect.
+
+117
+00:05:29,120 --> 00:05:31,900
+Some areas have experienced
+fires or flooding.
+
+118
+00:05:31,920 --> 00:05:35,480
+And the technologies that once made
+everyday life effortless are becoming
+
+119
+00:05:35,500 --> 00:05:37,720
+increasingly difficult to use.
+
+120
+00:05:37,740 --> 00:05:40,500
+You might still generate
+electricity using solar panels,
+
+121
+00:05:40,520 --> 00:05:43,140
+provided the equipment works
+and you can maintain it.
+
+122
+00:05:43,160 --> 00:05:46,640
+You might grow vegetables, collect
+rainwater and preserve food.
+
+123
+00:05:46,660 --> 00:05:48,840
+But everything takes effort.
+
+124
+00:05:48,860 --> 00:05:51,480
+Every repair is your responsibility.
+
+125
+00:05:51,500 --> 00:05:54,100
+Every mistake is yours to solve.
+
+126
+00:05:55,200 --> 00:05:58,260
+And there's one final
+reality you can't escape.
+
+127
+00:05:58,280 --> 00:06:01,400
+If you truly are the last
+human being on Earth,
+
+128
+00:06:01,420 --> 00:06:04,240
+humanity has no future generation.
+
+129
+00:06:04,700 --> 00:06:07,720
+When you die, the human story ends.
+
+130
+00:06:07,740 --> 00:06:12,800
+Our cities, our music, our inventions and
+our history would remain for a while.
+
+131
+00:06:12,820 --> 00:06:17,580
+But without people to preserve them, much
+of what we created would slowly disappear.
+
+132
+00:06:18,880 --> 00:06:21,240
+Yet Earth itself would survive.
+
+133
+00:06:21,260 --> 00:06:22,620
+Forests would grow.
+
+134
+00:06:22,640 --> 00:06:24,040
+Oceans would move.
+
+135
+00:06:24,060 --> 00:06:25,620
+Animals would evolve.
+
+136
+00:06:25,640 --> 00:06:28,520
+The planet doesn't need
+humanity to keep spinning.
+
+137
+00:06:28,540 --> 00:06:32,680
+But humanity needs something that no
+amount of technology can replace.
+
+138
+00:06:33,600 --> 00:06:34,960
+Other humans.
+
+139
+00:06:35,900 --> 00:06:40,440
+So if you woke up tomorrow and discovered
+that everyone else had vanished...
+
+140
+00:06:40,860 --> 00:06:43,080
+How long do you think you would survive?

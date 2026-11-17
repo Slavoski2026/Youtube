@@ -5,7 +5,6 @@
  */
 import React from "react";
 import { random } from "remotion";
-import { Building } from "../../../slavoski/city";
 import { BoxG, CylG, IcoG } from "../../../slavoski/detail";
 import { FONT } from "../../../slavoski/fonts";
 import { Flat, Glow, Halo } from "../../../slavoski/materials";
@@ -16,11 +15,9 @@ import { crowdLook } from "../../../slavoski/hero";
 import { handPosition, Hero, mergePose, reach, REST, type Pose } from "../../../slavoski/rig/Hero";
 import { CanvasPanel, CANVAS_FONT, ScreenHtml } from "../../../slavoski/screens";
 import type { CuedShot } from "../../../slavoski/timeline";
-import { GroundWriting } from "../../smart-animals/props";
 import { AlarmClock, CLOCK, Phone3D, PHONE } from "../../ww3-countdown/props";
 import { Candle, Laptop, laptopScreen, RecScreen } from "../props/home";
 import { Campfire, HomesteadRoom, HOUSE, Radio, ROOM, SolarPanel } from "../props/survival";
-import { S } from "../props/town";
 import { growthAt } from "../props/wild";
 import { bedPose } from "./act1";
 import { Countryside } from "./act3";
@@ -662,35 +659,68 @@ const c11Library: ShotFn = (c) => {
   );
 };
 
-/** Painting HELLO? in huge letters on a rooftop. */
-const c11Roof: ShotFn = (c) => {
-  const roofY = 30;
-  const k = k01(c.lt, 0, 2.6);
-  const cam = move({ position: [0, roofY + 46, 30], target: [0, roofY, -2] }, { position: [0, roofY + 50, 26], target: [0, roofY, -2] }, c);
+/** Stroke glyphs (x 0..1, y 0..1.4) for the field sign. */
+const SIGN_GLYPHS: Record<string, [number, number, number, number][]> = {
+  H: [[0.1, 0, 0.1, 1.4], [0.9, 0, 0.9, 1.4], [0.1, 0.72, 0.9, 0.72]],
+  E: [[0.1, 1.4, 0.1, 0], [0.1, 1.4, 0.9, 1.4], [0.1, 0.72, 0.7, 0.72], [0.1, 0, 0.9, 0]],
+  L: [[0.1, 1.4, 0.1, 0], [0.1, 0, 0.9, 0]],
+  O: [[0.15, 0.2, 0.15, 1.2], [0.15, 1.2, 0.5, 1.4], [0.5, 1.4, 0.85, 1.2], [0.85, 1.2, 0.85, 0.2], [0.85, 0.2, 0.5, 0], [0.5, 0, 0.15, 0.2]],
+  "?": [[0.12, 1.1, 0.3, 1.38], [0.3, 1.38, 0.7, 1.4], [0.7, 1.4, 0.88, 1.12], [0.88, 1.12, 0.5, 0.72], [0.5, 0.72, 0.5, 0.4], [0.5, 0.14, 0.5, 0.0]],
+};
+
+/** A message laid out in white stones on the ground (reads from +Z looking toward -Z), drawn up to `k`. */
+const FieldSign: React.FC<{ text: string; position: V3; size: number; k: number }> = ({ text, position, size, k }) => {
+  const strokes: { a: [number, number]; b: [number, number] }[] = [];
+  let cx = 0;
+  for (const ch of text) {
+    for (const [x0, y0, x1, y1] of SIGN_GLYPHS[ch] ?? []) strokes.push({ a: [cx + x0, y0], b: [cx + x1, y1] });
+    cx += 1.3;
+  }
+  const width = cx * size;
+  const shown = k * strokes.length;
   return (
-    <Shot mood="sunset" camera={{ ...cam, fov: 44 }} fog={[150, 900]} shadowSize={60} keyDir={[0.8, 0.3, -0.5]}>
-      <group scale={S}>
-        <Building position={[0, 0, 0]} w={14} d={10} h={roofY / S} seed="roofb" color="#566270" power={0} />
-      </group>
-      <group position={[0, roofY + 0.62, 0]}>
-        <GroundWriting text="HELLO?" position={[-9, 0, 0]} size={2.4} progress={k} color="#F6EBC4" />
-      </group>
-      <Hero pose={mergePose(walking(c.lt, 1.5).pose, { lean: 0.5, rShoulder: [1.3, 0.1], rElbow: 0.4 })} position={[lerp(-14, 12, k), roofY + 0.6, 7]} yaw={Math.PI / 2} />
-      <CityRingNight />
+    <group position={position}>
+      {strokes.map((st, i) => {
+        const f = clamp01(shown - i);
+        if (f <= 0) return null;
+        const ax = st.a[0] * size - width / 2;
+        const az = -st.a[1] * size;
+        const bx = ax + (st.b[0] - st.a[0]) * size * f;
+        const bz = az - (st.b[1] - st.a[1]) * size * f;
+        const len = Math.max(0.3, Math.hypot(bx - ax, bz - az));
+        return (
+          <mesh key={i} position={[(ax + bx) / 2, 0.2, (az + bz) / 2]} rotation={[0, Math.atan2(bx - ax, bz - az), 0]} castShadow receiveShadow>
+            <BoxG args={[size * 0.14, 0.4, len + size * 0.12]} />
+            <Flat color="#F4F0E6" />
+          </mesh>
+        );
+      })}
+    </group>
+  );
+};
+
+/** HELLO? laid out in white stones on the meadow, seen from above at sunset; he carries the last stones. */
+const c11Roof: ShotFn = (c) => {
+  const k = k01(c.lt, 0, 2.4);
+  const size = 5.2;
+  const signZ = 60;
+  const width = 6 * 1.3 * size;
+  const hero: V3 = [lerp(-width / 2, width / 2, k) + 2, 0, signZ + 3];
+  const { pose } = walking(c.lt, 1.5, { lShoulder: [1.2, 0.1], rShoulder: [1.2, 0.1], lElbow: 1.2, rElbow: 1.2, expression: "neutral" });
+  const cam = move({ position: [6, 56, signZ + 62], target: [0, 0, signZ - 2] }, { position: [4, 50, signZ + 54], target: [0, 0, signZ - 2] }, c);
+  return (
+    <Shot mood="sunset" camera={{ ...cam, fov: 42 }} fog={[150, 900]} shadowSize={60} keyDir={[0.8, 0.3, -0.5]}>
+      <Countryside t={c.t} growth={growthAt(90)} panels={2} />
+      <FieldSign text="HELLO?" position={[0, 0, signZ]} size={size} k={k} />
+      <Hero pose={pose} position={hero} yaw={Math.PI / 2} />
+      <mesh position={[hero[0] + 0.2, 2.6, hero[2] + 0.9]} castShadow>
+        <BoxG args={[1.2, 0.8, 0.8]} />
+        <Flat color="#F4F0E6" />
+      </mesh>
       <Sky t={c.t} tint="sunset" y={60} />
     </Shot>
   );
 };
-
-const CityRingNight: React.FC = () => (
-  <group scale={S}>
-    {Array.from({ length: 30 }, (_, i) => {
-      const a = (i / 30) * Math.PI * 2;
-      const r = 40 + random(`crn${i}`) * 30;
-      return <Building key={i} position={[Math.sin(a) * r, 0, Math.cos(a) * r]} w={6} d={6} h={6 + random(`crh${i}`) * 14} seed={`crn${i}`} power={0} decay={0.15} />;
-    })}
-  </group>
-);
 
 /** Turning the radio dial at night: only static. */
 const c11Radio: ShotFn = (c) => {
