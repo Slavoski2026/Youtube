@@ -1454,7 +1454,7 @@ export const Kitchen: React.FC<{ t: number; trophyGlow?: number }> = ({ t, troph
 export const TROPHY: V3 = [5.0, 2.12, -1.0];
 
 /** Breakfast on the table in front of CHAIR: cereal bowl, mug, plate of toast, juice. */
-export const BOWL: V3 = [0.15, KITCHEN.tableTop, 0.35];
+export const BOWL: V3 = [0.1, KITCHEN.tableTop, 0.56];
 export const MUG: V3 = [0.95, KITCHEN.tableTop, 0.55];
 export const Breakfast: React.FC<{ mugAt?: V3 | null }> = ({ mugAt = null }) => (
   <group>
