@@ -12,6 +12,7 @@ import { SHOTS as WW3 } from "./episodes/ww3-countdown/shots";
 import { thumbShot as NW } from "./episodes/no-work-2036/shots";
 import { thumbShot as SD } from "./episodes/satellites-dark/shots";
 import { thumbShot as IG } from "./episodes/internet-gone/shots";
+import { thumbShot as SG } from "./episodes/strong-girlfriend/shots";
 import { FONT, loadHouseFonts } from "./slavoski/fonts";
 import { P } from "./slavoski/palette";
 import { AccretionDisk, FacetedEarth } from "./slavoski/space";
@@ -19,7 +20,7 @@ import { Stage } from "./slavoski/Stage";
 
 loadHouseFonts();
 
-export type ThumbProps = { episode: "black-hole" | "no-humans" | "gta-24h" | "smart-animals" | "ww3-countdown" | "no-work-2036" | "satellites-dark" | "internet-gone" };
+export type ThumbProps = { episode: "black-hole" | "no-humans" | "gta-24h" | "smart-animals" | "ww3-countdown" | "no-work-2036" | "satellites-dark" | "internet-gone" | "strong-girlfriend" };
 
 type Line = { text: string; color?: string; size?: number };
 const THUMBS: Record<ThumbProps["episode"], { shot: React.ReactNode; lines: Line[]; chip: string; top: number }> = {
@@ -72,6 +73,13 @@ const THUMBS: Record<ThumbProps["episode"], { shot: React.ReactNode; lines: Line
     shot: IG({ lt: 0, dur: 2, t: 0, words: [], width: 1080, height: 1920 }),
     lines: [{ text: "ONE BUTTON" }, { text: "ENDED THE", size: 96 }, { text: "INTERNET", color: P.amber, size: 150 }],
     chip: "A FICTIONAL SCENARIO",
+    top: 230,
+  },
+  "strong-girlfriend": {
+    // In the gym: she holds the whole bench overhead, him still lying on it.
+    shot: SG({ lt: 0, dur: 2, t: 0, words: [], width: 1080, height: 1920 }),
+    lines: [{ text: "MY GIRLFRIEND" }, { text: "IS 10x", size: 96 }, { text: "STRONGER", color: P.amber, size: 150 }],
+    chip: "I'M THE PRINCESS NOW",
     top: 230,
   },
   "gta-24h": {
