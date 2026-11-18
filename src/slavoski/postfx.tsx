@@ -16,6 +16,20 @@ import React, { createContext, useContext, useLayoutEffect, useMemo } from "reac
 import * as THREE from "three";
 import type { V3 } from "./noise";
 
+// Flat shading takes the face normal from screen-space derivatives: normalize(cross(dFdx, dFdy)) is NaN on a
+// triangle that covers next to no screen area. Unnoticed without post (one pixel), but bloom's blur spreads a
+// NaN over the whole frame and renders it black. Guard it once, for every material.
+{
+  const chunk = THREE.ShaderChunk.normal_fragment_begin;
+  const naive = "vec3 normal = normalize( cross( fdx, fdy ) );";
+  if (chunk.includes(naive)) {
+    THREE.ShaderChunk.normal_fragment_begin = chunk.replace(
+      naive,
+      "vec3 faceN = cross( fdx, fdy );\n\tfloat faceL = length( faceN );\n\tvec3 normal = faceL > 1e-12 ? faceN / faceL : vec3( 0.0, 0.0, 1.0 );",
+    );
+  }
+}
+
 const PostFxContext = createContext(false);
 export const PostFxProvider = PostFxContext.Provider;
 export const usePostFx = () => useContext(PostFxContext);
