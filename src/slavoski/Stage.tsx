@@ -6,6 +6,7 @@ import * as THREE from "three";
 import { shake, type V3 } from "./noise";
 import { P } from "./palette";
 import { DetailProvider, useDetailLevel } from "./detail";
+import { PostFx, skyTexture, usePostFx } from "./postfx";
 
 /**
  * Time of day and weather. Vary these across an episode and between episodes (the user noticed every
@@ -162,6 +163,11 @@ export type StageProps = {
   children: React.ReactNode;
   /** HTML overlays drawn above the canvas but under the vignette. */
   overlay?: React.ReactNode;
+  /** Cinematic post (AO, bloom, depth of field). Defaults to the episode's PostFxProvider. */
+  post?: boolean;
+  /** Depth-of-field focus point (defaults to the camera target); `dof` 0 turns the blur off. */
+  focus?: V3;
+  dof?: number;
 };
 
 const mixHex = (a: string, b: string, t: number) => new THREE.Color(a).lerp(new THREE.Color(b), t).getStyle();
@@ -183,6 +189,9 @@ export const Stage: React.FC<StageProps> = ({
   vignette = true,
   children,
   overlay,
+  post: postProp,
+  focus,
+  dof = 1,
 }) => {
   const video = useVideoConfig();
   const { fps } = video;
@@ -200,6 +209,11 @@ export const Stage: React.FC<StageProps> = ({
   // React context doesn't reliably cross into the R3F canvas: hand the detail level over explicitly.
   const detail = useDetailLevel();
   const hq = isHq();
+  const postCtx = usePostFx();
+  const post = postProp ?? postCtx;
+  const skyTex = useMemo(() => (post ? skyTexture(sky, glow, mixHex(sky, glow, 0.55), gradient) : null), [post, sky, glow, gradient]);
+  const focusAt: V3 = focus ?? camera.target;
+  const focusDist = Math.hypot(focusAt[0] - camera.position[0], focusAt[1] - camera.position[1], focusAt[2] - camera.position[2]);
 
   return (
     <AbsoluteFill
@@ -224,6 +238,7 @@ export const Stage: React.FC<StageProps> = ({
         <Lights mood={lightMood} keyDir={keyDir} shadows={shadows} shadowSize={shadowSize} scale={light} hq={hq} />
         {stars && (starOpacity[mood] ?? 0.55) > 0 ? <Stars opacity={starOpacity[mood] ?? 0.55 * (1 - dust * 0.6)} /> : null}
         <DetailProvider value={detail}>{children}</DetailProvider>
+        {post && skyTex ? <PostFx focus={focusAt} distance={focusDist} dof={dof} sky={skyTex} /> : null}
       </ThreeCanvas>
       {overlay}
       {vignette ? <Vignette /> : null}

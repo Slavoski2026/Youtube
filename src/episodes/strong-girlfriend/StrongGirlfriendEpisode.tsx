@@ -7,6 +7,7 @@ import React, { useMemo } from "react";
 import { AbsoluteFill, useCurrentFrame, useVideoConfig } from "remotion";
 import type { VoiceoverManifest, VoiceoverProps } from "../../lib/voiceover";
 import { loadHouseFonts } from "../../slavoski/fonts";
+import { PostFxProvider } from "../../slavoski/postfx";
 import { BrandLockup, EndCard, Readout, TitleCard } from "../../slavoski/Overlays";
 import { Soundtrack, type Sfx } from "../../slavoski/Soundtrack";
 import { estimateManifest, scheduleShots, shotAt, wordAt } from "../../slavoski/timeline";
@@ -90,7 +91,7 @@ export const StrongGirlfriendEpisode: React.FC<StrongGirlfriendProps> = ({ manif
 
   return (
     <AbsoluteFill style={{ background: "#000" }}>
-      {shot.fn({ lt: local, dur: next - shot.at, t, words, width, height })}
+      <PostFxProvider value>{shot.fn({ lt: local, dur: next - shot.at, t, words, width, height })}</PostFxProvider>
       {block.id === "cold" && frame < titleOut + 10 ? <TitleCard lines={TITLE} startFrame={titleIn} outFrame={titleOut} /> : <BrandLockup chapter={block.chapter} />}
       <Readout label="YOUR DIGNITY" value={`${dignity}%`} accent={dignity > 0 ? undefined : "#FF5A4A"} />
       <Stamp label="SHE WENT VIRAL" value="DAY 3" lt={t - (tDay3 - LEAD)} hold={1.2} />

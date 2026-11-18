@@ -7,7 +7,7 @@
 import type { Caption } from "@remotion/captions";
 import React from "react";
 import { AbsoluteFill, random } from "remotion";
-import { Car, Ground, Lamp, Plane, Road, StreetSet } from "../../slavoski/city";
+import { Car, Ground, Lamp, Road, StreetSet } from "../../slavoski/city";
 import { BoxG, IcoG } from "../../slavoski/detail";
 import { crowdLook, suitLook } from "../../slavoski/hero";
 import { Flat, Glow, Halo } from "../../slavoski/materials";
@@ -41,6 +41,7 @@ import {
   Jar,
   JAR,
   LABCOAT,
+  LightAircraft,
   lie,
   OLIVE,
   Rack,
@@ -470,14 +471,19 @@ const c2Carry: ShotFn = (c) => {
 
 /** Outside the gym at dusk: Slavoski marches in. */
 const c3Front: ShotFn = (c) => {
-  const cam = move({ position: [3, 4.2, 34], target: [0, 6.0, -6] }, { position: [2.6, 4.1, 31], target: [0, 6.2, -6] }, c);
+  const cam = move({ position: [3.6, 3.8, 33], target: [4, 7.6, -6] }, { position: [3.8, 3.8, 30.5], target: [4, 7.8, -6] }, c);
   return (
-    <Shot mood="sunset" camera={cam} fog={[50, 260]} shadowSize={30}>
+    <Shot mood="sunset" camera={cam} fog={[60, 300]} shadowSize={30} focus={[4, 3, 3 - c.lt * 1.2]}>
       <Ground color="#4A4E5E" />
       <Road position={[0, 0.01, 10]} width={10} length={200} yaw={Math.PI / 2} />
       <Sky t={c.t} tint="sunset" seed="gym" y={55} />
-      <GymFront />
-      <Hero pose={mergePose(walkPose(c.lt * 1.5, 0.9), { expression: "smile", headPitch: 0.1 })} position={[0.8, 0, 3 - c.lt * 1.2]} yaw={Math.PI} />
+      <GymFront t={c.t} />
+      {[-12, 16].map((x) => (
+        <group key={x} scale={3.5} position={[x, 0, 6]}>
+          <Lamp position={[0, 0, 0]} on />
+        </group>
+      ))}
+      <Hero pose={mergePose(walkPose(c.lt * 1.5, 0.9), { expression: "smile", headPitch: 0.1 })} position={[4, 0, 6 - c.lt * 1.2]} yaw={Math.PI} />
     </Shot>
   );
 };
@@ -709,24 +715,21 @@ const c5Phone: ShotFn = (c) => {
 
 /** The crowd films her lifting a small plane over her head. */
 const PLANE_GF: V3 = [0, 0, -4];
-const CROWD: { p: V3; yaw: number; seed: number }[] = Array.from({ length: 9 }, (_, i) => ({
-  p: [-9 + (i % 5) * 4.5 + (i > 4 ? 2.2 : 0), 0, 7 + (i > 4 ? 3.5 : 0) + random(`cz${i}`)],
+const CROWD_X = [-11, -8, -5.2, 5.2, 8, 11, -9.5, -6.4, 6.6, 9.6];
+const CROWD: { p: V3; yaw: number; seed: number }[] = CROWD_X.map((x, i) => ({
+  p: [x, 0, 7 + (i > 5 ? 3.5 : 0) + random(`cz${i}`)],
   yaw: Math.PI + (random(`cy${i}`) - 0.5) * 0.4,
   seed: 200 + i,
 }));
-const PlaneLoad: React.FC<{ t: number }> = ({ t }) => (
-  <group position={[0, 1.25, 0]}>
-    <Plane position={[0, 0, 0]} rotation={[0, Math.PI / 2, 0]} scale={2.2} t={t} />
-  </group>
-);
+const PlaneLoad: React.FC<{ t: number }> = ({ t }) => <LightAircraft t={t} />;
 const c5Plane: ShotFn = (c) => {
-  const k = k01(c.lt, 0.0, 1.2);
-  const cam = move({ position: [2, 8.5, 32], target: [0, 6.2, -4] }, { position: [1.8, 8.3, 30], target: [0, 6.5, -4] }, c);
+  const k = k01(c.lt, 0.2, 2.0);
+  const cam = move({ position: [0.8, 5.2, 38], target: [0, 7.0, -4] }, { position: [0.7, 5.1, 35], target: [0, 7.4, -4] }, c);
   return (
-    <Shot mood="day" camera={cam} fog={[60, 400]} shadowSize={40}>
+    <Shot mood="day" camera={cam} fog={[80, 500]} shadowSize={40} focus={[0, 4, -4]}>
       <Airfield t={c.t} />
       <Sky t={c.t} tint="day" seed="air" y={50} />
-      <Lifting k={0.5 + k * 0.5} position={PLANE_GF}>
+      <Lifting k={0.21 + k * 0.79} position={PLANE_GF}>
         <PlaneLoad t={c.t} />
       </Lifting>
       {CROWD.map((f, i) => (

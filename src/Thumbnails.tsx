@@ -14,6 +14,7 @@ import { thumbShot as SD } from "./episodes/satellites-dark/shots";
 import { thumbShot as IG } from "./episodes/internet-gone/shots";
 import { thumbShot as SG } from "./episodes/strong-girlfriend/shots";
 import { FONT, loadHouseFonts } from "./slavoski/fonts";
+import { PostFxProvider } from "./slavoski/postfx";
 import { P } from "./slavoski/palette";
 import { AccretionDisk, FacetedEarth } from "./slavoski/space";
 import { Stage } from "./slavoski/Stage";
@@ -77,7 +78,7 @@ const THUMBS: Record<ThumbProps["episode"], { shot: React.ReactNode; lines: Line
   },
   "strong-girlfriend": {
     // In the gym: she holds the whole bench overhead, him still lying on it.
-    shot: SG({ lt: 0, dur: 2, t: 0, words: [], width: 1080, height: 1920 }),
+    shot: <PostFxProvider value>{SG({ lt: 0, dur: 2, t: 0, words: [], width: 1080, height: 1920 })}</PostFxProvider>,
     lines: [{ text: "MY GIRLFRIEND" }, { text: "IS 10x", size: 96 }, { text: "STRONGER", color: P.amber, size: 150 }],
     chip: "I'M THE PRINCESS NOW",
     top: 230,
