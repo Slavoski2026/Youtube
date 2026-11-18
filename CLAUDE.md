@@ -6,7 +6,7 @@ This repo makes **SLAVOSKI** videos: vertical (9:16) narrated shorts in the seri
 
 | Job | Tool |
 |---|---|
-| 3D scenes, models, lighting, motion | **Three.js** through React Three Fiber, rendered inside Remotion's `<ThreeCanvas>` (`@remotion/three`) |
+| 3D scenes, models, lighting, motion | **Three.js** through React Three Fiber, rendered inside Remotion's `<ThreeCanvas>` (`@remotion/three`); post-processing with `@react-three/postprocessing` 3.0.4 + `postprocessing` + `n8ao` 2.x (see "Cinematic post") |
 | Timeline, captions, audio mixing, rendering to video | **Remotion** (`remotion`, `@remotion/captions`, `@remotion/media`) |
 | Voiceover, sound effects, music, transcription | **ElevenLabs MCP**: the hosted "ElevenLabs" connector (`creative_*` tools). There is no SDK and no API key in this project. |
 
@@ -70,6 +70,12 @@ The user noticed "it's always night in my videos". **Night is no longer the defa
 - `Stage` moods: `night`, `dawn`, `day`, `sunset`, `overcast`, `storm`, `snow`, plus `dust` (disaster) and `space`. Daylight moods draw a top-to-horizon gradient sky. Stars show only at night, at dawn and faintly at sunset.
 - Weather in `nature.tsx`: `Rain` (scale its group up for big sets; place the box near the camera so streaks read), `Snow`, `Clouds` (faceted puffs on a ring: keep them low, y ≈ 20–55, or ground cameras never see them; tint white by day, peach at sunset/dawn, grey for overcast/storm) and `LightningBolt` (with a short white overlay flash).
 - By day, dim the practicals: `power` ≈ 0.3 on buildings and future towers, street lamps off (`BigStreet day` in ep. 6). Let the mood follow the story (ep. 6: sunrise rush hour → bright midday city → golden beach → a storm over the corporate HQ → an overcast queue in the rain → sunny good future vs rainy night bad future → sunset on the rooftop).
+
+### Cinematic post (standing rule since ep. 9)
+The user asked for "shaders, lights, depth of field" on ep. 9. **Every new episode wraps its shots in `<PostFxProvider value>`** (and its thumbnail shot too). `Stage` then adds `src/slavoski/postfx.tsx`: n8ao ambient occlusion (n8ao 2.1 via a small wrapper: the copy bundled in `@react-three/postprocessing` 3.0.4 is 1.x and crashes on three r187 with `mipmaps` undefined), bloom (threshold 0.78, so emissive `Glow`/`Halo` practicals and neon bloom), depth of field focused on the camera target (`focus` prop to override, `dof={0}` to disable, sharp range ≈ 0.42 × distance) and SMAA. The sky is drawn into the scene background in this mode. Episodes before ep. 9 are unchanged. Keep the camera target on the subject so it is sharp. Light every set with visible practicals (pendant lamps, ceiling panels, canopy LEDs, neon) plus a matching `pointLight`: the user noticed "no lights".
+- Interiors are **complete rooms**: floor, all four walls (one behind the cameras), ceiling. Check that every camera sits inside the room (the user saw "no ceiling, you can see over it").
+- Hero landmarks must stand out from their surroundings (the first gym "blended into a block of flats"): a distinct silhouette and material, a lit front, signage, and the neighbours pushed back and darker.
+- Big props must read as big at hero scale (the first plane "isn't really that big"): build them to real size against Slavoski (4.2 ≈ 1.75 m, so 1 m ≈ 2.4 units).
 
 ### Lighting
 - Per mood (see "Time of day and weather" above). At night: a cool hemisphere light plus a soft directional "moon" key; warm practicals (windows, lamps, headlights) as emissive materials, not real lights.
@@ -174,6 +180,7 @@ Objects must never pass into each other on screen. This applies to disaster scen
 | `room.tsx` | `GamingRoom` (couch, TV, wall clock and window sky that follow `hours` since noon, side table with cans, water bottle, phone), `SEAT`/`SEAT_YAW`, `sittingPose()`, `controllerAt()`, `Controller`, `tvScreenRect()` (projected TV screen, used to overlay a live game feed rendered by a second `Stage` with `size`) |
 | `space.tsx` | `FacetedMoon`, `FacetedEarth` (atmosphere rim, clouds, tidal `stretch`, `heat`, `cityLights` 0..1), `OrbitPath` (dotted), `BlackHole` (core plus dashed marker ring), `AccretionDisk` |
 | `fx.tsx` | `Meteor` (tapered trail plus rock), `Fireball`, `SmokeCluster`, `LavaCrack`, `Shockwave`, `Debris` (comes to rest on the ground), `FloodWater`, `Volcano` |
+| `postfx.tsx` | `PostFxProvider` / `usePostFx()`, `PostFx` (AO + bloom + depth of field + SMAA, used by `Stage`), `skyTexture()` |
 | `materials.tsx`, `noise.ts` | `Flat` (flat-shaded Lambert), `Glow` (unlit emissive) and `Halo` (a soft additive glow sprite: the house "bloom" for neon, lamps, beacons, cores and the sun; put one on every important light); seeded `noise1`/`noise3`/`fbm3`, `shake`, `ease` |
 | `Overlays.tsx` | `BrandLockup` (SLAVOSKI plus chapter label), `TitleCard`, `EndCard` (no teaser), `Tag` ("REAL PHYSICS" / "DRAMATISED" / "HYPOTHESIS" / "EXPERT ESTIMATE" / "REAL SCIENCE" / "REAL PREDICTION"), `Readout` (HUD value), `CardLine` (info card) |
 | `WordCaptions.tsx` | Captions in the house style (cream active word, amber keywords from a per-episode `KEYWORDS` list) |
