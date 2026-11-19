@@ -43,7 +43,7 @@ export const TAGS: Partial<Record<string, TagKind>> = {};
 
 /** Caption words always set in brand amber (Scribe writes numbers as digits). */
 export const KEYWORDS = [
-  "9",
+  "9:00",
   "AM",
   "pigeon",
   "pigeons",
@@ -56,7 +56,7 @@ export const KEYWORDS = [
   "thousands",
   "government",
   "staring",
-  "6",
+  "6:00",
   "PM",
   "traffic",
   "lights",
