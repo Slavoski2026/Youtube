@@ -93,8 +93,11 @@ const main = async () => {
   // With --cuts (from scripts/tighten-pauses.ts), --audio is the already-shortened local mp3 and
   // --words were transcribed from the original take: shift each word back by the pauses cut before it.
   const cutsFile = flag("cuts");
-  const cuts: { at: number; removed: number }[] = cutsFile ? JSON.parse(readFileSync(cutsFile, "utf8")) : [];
-  const remap = (t: number) => t - cuts.filter((c) => c.at < t).reduce((s, c) => s + Math.min(c.removed, t - c.at), 0);
+  type Cuts = { at: number; removed: number }[];
+  const cutsJson: Cuts | { cuts: Cuts; tempo: number } = cutsFile ? JSON.parse(readFileSync(cutsFile, "utf8")) : [];
+  const cuts = Array.isArray(cutsJson) ? cutsJson : cutsJson.cuts;
+  const tempo = Array.isArray(cutsJson) ? 1 : cutsJson.tempo;
+  const remap = (t: number) => (t - cuts.filter((c) => c.at < t).reduce((s, c) => s + Math.min(c.removed, t - c.at), 0)) / tempo;
   if (resolve(audio) !== mp3) await download(audio, mp3);
   const words = scribeToCaptions(
     extractWords(await readJson(wordsUrl)).map((w) => ({ ...w, start: remap(w.start), end: remap(w.end) })),

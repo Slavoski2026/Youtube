@@ -1,0 +1,1092 @@
+{
+  "slug": "walking-fish",
+  "audio": "voiceover/walking-fish.mp3",
+  "durationInSeconds": 57.861224489795916,
+  "words": [
+    {
+      "text": "At",
+      "startMs": 97,
+      "endMs": 174,
+      "timestampMs": 135,
+      "confidence": null
+    },
+    {
+      "text": " exactly",
+      "startMs": 213,
+      "endMs": 812,
+      "timestampMs": 512,
+      "confidence": null
+    },
+    {
+      "text": " 8:00",
+      "startMs": 947,
+      "endMs": 1024,
+      "timestampMs": 986,
+      "confidence": null
+    },
+    {
+      "text": " AM,",
+      "startMs": 1063,
+      "endMs": 1372,
+      "timestampMs": 1217,
+      "confidence": null
+    },
+    {
+      "text": " every",
+      "startMs": 1709,
+      "endMs": 1941,
+      "timestampMs": 1825,
+      "confidence": null
+    },
+    {
+      "text": " fish",
+      "startMs": 2076,
+      "endMs": 2231,
+      "timestampMs": 2154,
+      "confidence": null
+    },
+    {
+      "text": " on",
+      "startMs": 2308,
+      "endMs": 2443,
+      "timestampMs": 2376,
+      "confidence": null
+    },
+    {
+      "text": " Earth",
+      "startMs": 2501,
+      "endMs": 2675,
+      "timestampMs": 2588,
+      "confidence": null
+    },
+    {
+      "text": " suddenly",
+      "startMs": 2927,
+      "endMs": 3274,
+      "timestampMs": 3100,
+      "confidence": null
+    },
+    {
+      "text": " learns",
+      "startMs": 3313,
+      "endMs": 3545,
+      "timestampMs": 3429,
+      "confidence": null
+    },
+    {
+      "text": " how",
+      "startMs": 3584,
+      "endMs": 3661,
+      "timestampMs": 3622,
+      "confidence": null
+    },
+    {
+      "text": " to",
+      "startMs": 3680,
+      "endMs": 3738,
+      "timestampMs": 3709,
+      "confidence": null
+    },
+    {
+      "text": " walk.",
+      "startMs": 3854,
+      "endMs": 4183,
+      "timestampMs": 4018,
+      "confidence": null
+    },
+    {
+      "text": " At",
+      "startMs": 4384,
+      "endMs": 4500,
+      "timestampMs": 4442,
+      "confidence": null
+    },
+    {
+      "text": " first,",
+      "startMs": 4577,
+      "endMs": 4925,
+      "timestampMs": 4751,
+      "confidence": null
+    },
+    {
+      "text": " nobody",
+      "startMs": 5253,
+      "endMs": 5485,
+      "timestampMs": 5369,
+      "confidence": null
+    },
+    {
+      "text": " notices",
+      "startMs": 5543,
+      "endMs": 6046,
+      "timestampMs": 5794,
+      "confidence": null
+    },
+    {
+      "text": " until",
+      "startMs": 6270,
+      "endMs": 6502,
+      "timestampMs": 6386,
+      "confidence": null
+    },
+    {
+      "text": " a",
+      "startMs": 6541,
+      "endMs": 6637,
+      "timestampMs": 6589,
+      "confidence": null
+    },
+    {
+      "text": " salmon",
+      "startMs": 6734,
+      "endMs": 7043,
+      "timestampMs": 6889,
+      "confidence": null
+    },
+    {
+      "text": " climbs",
+      "startMs": 7159,
+      "endMs": 7507,
+      "timestampMs": 7333,
+      "confidence": null
+    },
+    {
+      "text": " out",
+      "startMs": 7546,
+      "endMs": 7623,
+      "timestampMs": 7584,
+      "confidence": null
+    },
+    {
+      "text": " of",
+      "startMs": 7642,
+      "endMs": 7681,
+      "timestampMs": 7661,
+      "confidence": null
+    },
+    {
+      "text": " the",
+      "startMs": 7719,
+      "endMs": 7758,
+      "timestampMs": 7739,
+      "confidence": null
+    },
+    {
+      "text": " river",
+      "startMs": 7816,
+      "endMs": 8106,
+      "timestampMs": 7961,
+      "confidence": null
+    },
+    {
+      "text": " and",
+      "startMs": 8492,
+      "endMs": 8647,
+      "timestampMs": 8570,
+      "confidence": null
+    },
+    {
+      "text": " casually",
+      "startMs": 8744,
+      "endMs": 9265,
+      "timestampMs": 9004,
+      "confidence": null
+    },
+    {
+      "text": " walks",
+      "startMs": 9304,
+      "endMs": 9536,
+      "timestampMs": 9420,
+      "confidence": null
+    },
+    {
+      "text": " into",
+      "startMs": 9574,
+      "endMs": 9748,
+      "timestampMs": 9661,
+      "confidence": null
+    },
+    {
+      "text": " a",
+      "startMs": 9787,
+      "endMs": 9884,
+      "timestampMs": 9835,
+      "confidence": null
+    },
+    {
+      "text": " supermarket.",
+      "startMs": 9961,
+      "endMs": 10599,
+      "timestampMs": 10280,
+      "confidence": null
+    },
+    {
+      "text": " Within",
+      "startMs": 10749,
+      "endMs": 11039,
+      "timestampMs": 10894,
+      "confidence": null
+    },
+    {
+      "text": " three",
+      "startMs": 11097,
+      "endMs": 11329,
+      "timestampMs": 11213,
+      "confidence": null
+    },
+    {
+      "text": " hours,",
+      "startMs": 11503,
+      "endMs": 11793,
+      "timestampMs": 11648,
+      "confidence": null
+    },
+    {
+      "text": " millions",
+      "startMs": 12215,
+      "endMs": 12602,
+      "timestampMs": 12408,
+      "confidence": null
+    },
+    {
+      "text": " of",
+      "startMs": 12640,
+      "endMs": 12775,
+      "timestampMs": 12708,
+      "confidence": null
+    },
+    {
+      "text": " fish",
+      "startMs": 12814,
+      "endMs": 12988,
+      "timestampMs": 12901,
+      "confidence": null
+    },
+    {
+      "text": " begin",
+      "startMs": 13065,
+      "endMs": 13317,
+      "timestampMs": 13191,
+      "confidence": null
+    },
+    {
+      "text": " crawling",
+      "startMs": 13374,
+      "endMs": 13742,
+      "timestampMs": 13558,
+      "confidence": null
+    },
+    {
+      "text": " out",
+      "startMs": 13780,
+      "endMs": 13858,
+      "timestampMs": 13819,
+      "confidence": null
+    },
+    {
+      "text": " of",
+      "startMs": 13877,
+      "endMs": 14031,
+      "timestampMs": 13954,
+      "confidence": null
+    },
+    {
+      "text": " oceans,",
+      "startMs": 14109,
+      "endMs": 14592,
+      "timestampMs": 14350,
+      "confidence": null
+    },
+    {
+      "text": " rivers,",
+      "startMs": 14804,
+      "endMs": 15114,
+      "timestampMs": 14959,
+      "confidence": null
+    },
+    {
+      "text": " and",
+      "startMs": 15191,
+      "endMs": 15268,
+      "timestampMs": 15230,
+      "confidence": null
+    },
+    {
+      "text": " lakes.",
+      "startMs": 15365,
+      "endMs": 15713,
+      "timestampMs": 15539,
+      "confidence": null
+    },
+    {
+      "text": " Beaches",
+      "startMs": 16044,
+      "endMs": 16450,
+      "timestampMs": 16247,
+      "confidence": null
+    },
+    {
+      "text": " are",
+      "startMs": 16469,
+      "endMs": 16566,
+      "timestampMs": 16518,
+      "confidence": null
+    },
+    {
+      "text": " completely",
+      "startMs": 16624,
+      "endMs": 17300,
+      "timestampMs": 16962,
+      "confidence": null
+    },
+    {
+      "text": " overrun.",
+      "startMs": 17378,
+      "endMs": 17841,
+      "timestampMs": 17609,
+      "confidence": null
+    },
+    {
+      "text": " Then",
+      "startMs": 18128,
+      "endMs": 18340,
+      "timestampMs": 18234,
+      "confidence": null
+    },
+    {
+      "text": " the",
+      "startMs": 18572,
+      "endMs": 18688,
+      "timestampMs": 18630,
+      "confidence": null
+    },
+    {
+      "text": " sharks",
+      "startMs": 18766,
+      "endMs": 19055,
+      "timestampMs": 18910,
+      "confidence": null
+    },
+    {
+      "text": " start",
+      "startMs": 19113,
+      "endMs": 19307,
+      "timestampMs": 19210,
+      "confidence": null
+    },
+    {
+      "text": " coming.",
+      "startMs": 19345,
+      "endMs": 19616,
+      "timestampMs": 19480,
+      "confidence": null
+    },
+    {
+      "text": " Great",
+      "startMs": 19871,
+      "endMs": 20103,
+      "timestampMs": 19987,
+      "confidence": null
+    },
+    {
+      "text": " whites",
+      "startMs": 20219,
+      "endMs": 20547,
+      "timestampMs": 20383,
+      "confidence": null
+    },
+    {
+      "text": " drag",
+      "startMs": 20605,
+      "endMs": 20914,
+      "timestampMs": 20760,
+      "confidence": null
+    },
+    {
+      "text": " themselves",
+      "startMs": 20953,
+      "endMs": 21398,
+      "timestampMs": 21175,
+      "confidence": null
+    },
+    {
+      "text": " through",
+      "startMs": 21417,
+      "endMs": 21571,
+      "timestampMs": 21494,
+      "confidence": null
+    },
+    {
+      "text": " coastal",
+      "startMs": 21629,
+      "endMs": 21939,
+      "timestampMs": 21784,
+      "confidence": null
+    },
+    {
+      "text": " towns.",
+      "startMs": 22035,
+      "endMs": 22441,
+      "timestampMs": 22238,
+      "confidence": null
+    },
+    {
+      "text": " By",
+      "startMs": 22632,
+      "endMs": 22768,
+      "timestampMs": 22700,
+      "confidence": null
+    },
+    {
+      "text": " day",
+      "startMs": 22806,
+      "endMs": 22980,
+      "timestampMs": 22893,
+      "confidence": null
+    },
+    {
+      "text": " two,",
+      "startMs": 23038,
+      "endMs": 23251,
+      "timestampMs": 23145,
+      "confidence": null
+    },
+    {
+      "text": " the",
+      "startMs": 23560,
+      "endMs": 23657,
+      "timestampMs": 23608,
+      "confidence": null
+    },
+    {
+      "text": " fishing",
+      "startMs": 23734,
+      "endMs": 24024,
+      "timestampMs": 23879,
+      "confidence": null
+    },
+    {
+      "text": " industry",
+      "startMs": 24062,
+      "endMs": 24468,
+      "timestampMs": 24265,
+      "confidence": null
+    },
+    {
+      "text": " has",
+      "startMs": 24507,
+      "endMs": 24661,
+      "timestampMs": 24584,
+      "confidence": null
+    },
+    {
+      "text": " collapsed.",
+      "startMs": 24719,
+      "endMs": 25299,
+      "timestampMs": 25009,
+      "confidence": null
+    },
+    {
+      "text": " Boats",
+      "startMs": 25583,
+      "endMs": 25834,
+      "timestampMs": 25709,
+      "confidence": null
+    },
+    {
+      "text": " return",
+      "startMs": 25873,
+      "endMs": 26260,
+      "timestampMs": 26066,
+      "confidence": null
+    },
+    {
+      "text": " to",
+      "startMs": 26298,
+      "endMs": 26434,
+      "timestampMs": 26366,
+      "confidence": null
+    },
+    {
+      "text": " empty",
+      "startMs": 26491,
+      "endMs": 26723,
+      "timestampMs": 26607,
+      "confidence": null
+    },
+    {
+      "text": " waters.",
+      "startMs": 26820,
+      "endMs": 27226,
+      "timestampMs": 27023,
+      "confidence": null
+    },
+    {
+      "text": " But",
+      "startMs": 27426,
+      "endMs": 27522,
+      "timestampMs": 27474,
+      "confidence": null
+    },
+    {
+      "text": " the",
+      "startMs": 27561,
+      "endMs": 27677,
+      "timestampMs": 27619,
+      "confidence": null
+    },
+    {
+      "text": " fish",
+      "startMs": 27716,
+      "endMs": 28006,
+      "timestampMs": 27861,
+      "confidence": null
+    },
+    {
+      "text": " aren't",
+      "startMs": 28063,
+      "endMs": 28276,
+      "timestampMs": 28170,
+      "confidence": null
+    },
+    {
+      "text": " wandering",
+      "startMs": 28315,
+      "endMs": 28682,
+      "timestampMs": 28498,
+      "confidence": null
+    },
+    {
+      "text": " randomly.",
+      "startMs": 28759,
+      "endMs": 29223,
+      "timestampMs": 28991,
+      "confidence": null
+    },
+    {
+      "text": " They're",
+      "startMs": 29412,
+      "endMs": 29586,
+      "timestampMs": 29499,
+      "confidence": null
+    },
+    {
+      "text": " heading",
+      "startMs": 29644,
+      "endMs": 29876,
+      "timestampMs": 29760,
+      "confidence": null
+    },
+    {
+      "text": " somewhere.",
+      "startMs": 29954,
+      "endMs": 30301,
+      "timestampMs": 30127,
+      "confidence": null
+    },
+    {
+      "text": " By",
+      "startMs": 30488,
+      "endMs": 30643,
+      "timestampMs": 30566,
+      "confidence": null
+    },
+    {
+      "text": " day",
+      "startMs": 30682,
+      "endMs": 30875,
+      "timestampMs": 30778,
+      "confidence": null
+    },
+    {
+      "text": " three,",
+      "startMs": 30913,
+      "endMs": 31184,
+      "timestampMs": 31049,
+      "confidence": null
+    },
+    {
+      "text": " enormous",
+      "startMs": 31460,
+      "endMs": 32040,
+      "timestampMs": 31750,
+      "confidence": null
+    },
+    {
+      "text": " lines",
+      "startMs": 32117,
+      "endMs": 32349,
+      "timestampMs": 32233,
+      "confidence": null
+    },
+    {
+      "text": " of",
+      "startMs": 32368,
+      "endMs": 32503,
+      "timestampMs": 32436,
+      "confidence": null
+    },
+    {
+      "text": " fish",
+      "startMs": 32542,
+      "endMs": 32774,
+      "timestampMs": 32658,
+      "confidence": null
+    },
+    {
+      "text": " are",
+      "startMs": 32813,
+      "endMs": 32987,
+      "timestampMs": 32900,
+      "confidence": null
+    },
+    {
+      "text": " marching",
+      "startMs": 33025,
+      "endMs": 33373,
+      "timestampMs": 33199,
+      "confidence": null
+    },
+    {
+      "text": " towards",
+      "startMs": 33412,
+      "endMs": 33721,
+      "timestampMs": 33566,
+      "confidence": null
+    },
+    {
+      "text": " the",
+      "startMs": 33740,
+      "endMs": 33856,
+      "timestampMs": 33798,
+      "confidence": null
+    },
+    {
+      "text": " world's",
+      "startMs": 33875,
+      "endMs": 34127,
+      "timestampMs": 34001,
+      "confidence": null
+    },
+    {
+      "text": " major",
+      "startMs": 34281,
+      "endMs": 34552,
+      "timestampMs": 34417,
+      "confidence": null
+    },
+    {
+      "text": " cities.",
+      "startMs": 34668,
+      "endMs": 35016,
+      "timestampMs": 34842,
+      "confidence": null
+    },
+    {
+      "text": " Swordfish",
+      "startMs": 35363,
+      "endMs": 35807,
+      "timestampMs": 35585,
+      "confidence": null
+    },
+    {
+      "text": " smash",
+      "startMs": 35981,
+      "endMs": 36329,
+      "timestampMs": 36155,
+      "confidence": null
+    },
+    {
+      "text": " through",
+      "startMs": 36387,
+      "endMs": 36561,
+      "timestampMs": 36474,
+      "confidence": null
+    },
+    {
+      "text": " shop",
+      "startMs": 36599,
+      "endMs": 36831,
+      "timestampMs": 36715,
+      "confidence": null
+    },
+    {
+      "text": " windows.",
+      "startMs": 36870,
+      "endMs": 37237,
+      "timestampMs": 37053,
+      "confidence": null
+    },
+    {
+      "text": " Sharks",
+      "startMs": 37553,
+      "endMs": 37882,
+      "timestampMs": 37718,
+      "confidence": null
+    },
+    {
+      "text": " gather",
+      "startMs": 37998,
+      "endMs": 38210,
+      "timestampMs": 38104,
+      "confidence": null
+    },
+    {
+      "text": " outside",
+      "startMs": 38268,
+      "endMs": 38655,
+      "timestampMs": 38462,
+      "confidence": null
+    },
+    {
+      "text": " government",
+      "startMs": 38693,
+      "endMs": 38964,
+      "timestampMs": 38829,
+      "confidence": null
+    },
+    {
+      "text": " buildings.",
+      "startMs": 39061,
+      "endMs": 39486,
+      "timestampMs": 39273,
+      "confidence": null
+    },
+    {
+      "text": " Humanity",
+      "startMs": 39734,
+      "endMs": 40256,
+      "timestampMs": 39995,
+      "confidence": null
+    },
+    {
+      "text": " prepares",
+      "startMs": 40410,
+      "endMs": 40913,
+      "timestampMs": 40661,
+      "confidence": null
+    },
+    {
+      "text": " for",
+      "startMs": 40951,
+      "endMs": 41009,
+      "timestampMs": 40980,
+      "confidence": null
+    },
+    {
+      "text": " the",
+      "startMs": 41048,
+      "endMs": 41106,
+      "timestampMs": 41077,
+      "confidence": null
+    },
+    {
+      "text": " worst.",
+      "startMs": 41222,
+      "endMs": 41550,
+      "timestampMs": 41386,
+      "confidence": null
+    },
+    {
+      "text": " But",
+      "startMs": 41761,
+      "endMs": 41877,
+      "timestampMs": 41819,
+      "confidence": null
+    },
+    {
+      "text": " then",
+      "startMs": 41916,
+      "endMs": 42186,
+      "timestampMs": 42051,
+      "confidence": null
+    },
+    {
+      "text": " every",
+      "startMs": 42471,
+      "endMs": 42741,
+      "timestampMs": 42606,
+      "confidence": null
+    },
+    {
+      "text": " fish",
+      "startMs": 42780,
+      "endMs": 42934,
+      "timestampMs": 42857,
+      "confidence": null
+    },
+    {
+      "text": " on",
+      "startMs": 42992,
+      "endMs": 43108,
+      "timestampMs": 43050,
+      "confidence": null
+    },
+    {
+      "text": " Earth",
+      "startMs": 43147,
+      "endMs": 43360,
+      "timestampMs": 43253,
+      "confidence": null
+    },
+    {
+      "text": " suddenly",
+      "startMs": 43591,
+      "endMs": 43959,
+      "timestampMs": 43775,
+      "confidence": null
+    },
+    {
+      "text": " stops",
+      "startMs": 44017,
+      "endMs": 44268,
+      "timestampMs": 44142,
+      "confidence": null
+    },
+    {
+      "text": " moving.",
+      "startMs": 44364,
+      "endMs": 44712,
+      "timestampMs": 44538,
+      "confidence": null
+    },
+    {
+      "text": " For",
+      "startMs": 44882,
+      "endMs": 44998,
+      "timestampMs": 44940,
+      "confidence": null
+    },
+    {
+      "text": " ten",
+      "startMs": 45056,
+      "endMs": 45230,
+      "timestampMs": 45143,
+      "confidence": null
+    },
+    {
+      "text": " seconds,",
+      "startMs": 45346,
+      "endMs": 45771,
+      "timestampMs": 45559,
+      "confidence": null
+    },
+    {
+      "text": " complete",
+      "startMs": 46006,
+      "endMs": 46489,
+      "timestampMs": 46248,
+      "confidence": null
+    },
+    {
+      "text": " silence.",
+      "startMs": 46625,
+      "endMs": 47088,
+      "timestampMs": 46856,
+      "confidence": null
+    },
+    {
+      "text": " Then",
+      "startMs": 47698,
+      "endMs": 47911,
+      "timestampMs": 47804,
+      "confidence": null
+    },
+    {
+      "text": " billions",
+      "startMs": 48353,
+      "endMs": 48720,
+      "timestampMs": 48536,
+      "confidence": null
+    },
+    {
+      "text": " of",
+      "startMs": 48759,
+      "endMs": 48894,
+      "timestampMs": 48826,
+      "confidence": null
+    },
+    {
+      "text": " fish",
+      "startMs": 48932,
+      "endMs": 49126,
+      "timestampMs": 49029,
+      "confidence": null
+    },
+    {
+      "text": " turn",
+      "startMs": 49261,
+      "endMs": 49512,
+      "timestampMs": 49387,
+      "confidence": null
+    },
+    {
+      "text": " towards",
+      "startMs": 49551,
+      "endMs": 49879,
+      "timestampMs": 49715,
+      "confidence": null
+    },
+    {
+      "text": " the",
+      "startMs": 49918,
+      "endMs": 50015,
+      "timestampMs": 49966,
+      "confidence": null
+    },
+    {
+      "text": " nearest",
+      "startMs": 50073,
+      "endMs": 50362,
+      "timestampMs": 50217,
+      "confidence": null
+    },
+    {
+      "text": " human",
+      "startMs": 50420,
+      "endMs": 50730,
+      "timestampMs": 50575,
+      "confidence": null
+    },
+    {
+      "text": " and",
+      "startMs": 50951,
+      "endMs": 51029,
+      "timestampMs": 50990,
+      "confidence": null
+    },
+    {
+      "text": " begin",
+      "startMs": 51067,
+      "endMs": 51338,
+      "timestampMs": 51203,
+      "confidence": null
+    },
+    {
+      "text": " walking",
+      "startMs": 51377,
+      "endMs": 51647,
+      "timestampMs": 51512,
+      "confidence": null
+    },
+    {
+      "text": " faster",
+      "startMs": 51821,
+      "endMs": 52246,
+      "timestampMs": 52034,
+      "confidence": null
+    },
+    {
+      "text": " because",
+      "startMs": 52614,
+      "endMs": 52807,
+      "timestampMs": 52710,
+      "confidence": null
+    },
+    {
+      "text": " apparently,",
+      "startMs": 52846,
+      "endMs": 53406,
+      "timestampMs": 53126,
+      "confidence": null
+    },
+    {
+      "text": " they",
+      "startMs": 53619,
+      "endMs": 53773,
+      "timestampMs": 53696,
+      "confidence": null
+    },
+    {
+      "text": " finally",
+      "startMs": 53947,
+      "endMs": 54334,
+      "timestampMs": 54140,
+      "confidence": null
+    },
+    {
+      "text": " figured",
+      "startMs": 54372,
+      "endMs": 54623,
+      "timestampMs": 54498,
+      "confidence": null
+    },
+    {
+      "text": " out",
+      "startMs": 54662,
+      "endMs": 54817,
+      "timestampMs": 54739,
+      "confidence": null
+    },
+    {
+      "text": " who's",
+      "startMs": 54894,
+      "endMs": 55126,
+      "timestampMs": 55010,
+      "confidence": null
+    },
+    {
+      "text": " been",
+      "startMs": 55145,
+      "endMs": 55358,
+      "timestampMs": 55251,
+      "confidence": null
+    },
+    {
+      "text": " eating",
+      "startMs": 55396,
+      "endMs": 55628,
+      "timestampMs": 55512,
+      "confidence": null
+    },
+    {
+      "text": " them",
+      "startMs": 55667,
+      "endMs": 55821,
+      "timestampMs": 55744,
+      "confidence": null
+    },
+    {
+      "text": " for",
+      "startMs": 55859,
+      "endMs": 55937,
+      "timestampMs": 55898,
+      "confidence": null
+    },
+    {
+      "text": " the",
+      "startMs": 55976,
+      "endMs": 56015,
+      "timestampMs": 55995,
+      "confidence": null
+    },
+    {
+      "text": " last",
+      "startMs": 56073,
+      "endMs": 56342,
+      "timestampMs": 56207,
+      "confidence": null
+    },
+    {
+      "text": " ten",
+      "startMs": 56400,
+      "endMs": 56613,
+      "timestampMs": 56506,
+      "confidence": null
+    },
+    {
+      "text": " thousand",
+      "startMs": 56788,
+      "endMs": 57174,
+      "timestampMs": 56981,
+      "confidence": null
+    },
+    {
+      "text": " years.",
+      "startMs": 57271,
+      "endMs": 57657,
+      "timestampMs": 57464,
+      "confidence": null
+    }
+  ]
+}
