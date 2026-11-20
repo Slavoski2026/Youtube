@@ -10,7 +10,7 @@ import { P } from "./palette";
 import { Flat, Glow } from "./materials";
 import { IcoG } from "./detail";
 
-const faceColors = (geom: THREE.BufferGeometry, colorOf: (n: THREE.Vector3, i: number) => THREE.Color) => {
+export const faceColors = (geom: THREE.BufferGeometry, colorOf: (n: THREE.Vector3, i: number) => THREE.Color) => {
   const pos = geom.getAttribute("position");
   const colors = new Float32Array(pos.count * 3);
   const a = new THREE.Vector3(), b = new THREE.Vector3(), c = new THREE.Vector3();
@@ -54,7 +54,7 @@ export const FacetedMoon: React.FC<{
 };
 
 /** Fresnel rim glow shell for atmospheres. */
-const RimMaterial: React.FC<{ color: string; power?: number; intensity?: number }> = ({ color, power = 2.6, intensity = 1.1 }) => {
+export const RimMaterial: React.FC<{ color: string; power?: number; intensity?: number }> = ({ color, power = 2.6, intensity = 1.1 }) => {
   const uniforms = useMemo(
     () => ({ uColor: { value: new THREE.Color(color) }, uPower: { value: power }, uIntensity: { value: intensity } }),
     [color, power, intensity],

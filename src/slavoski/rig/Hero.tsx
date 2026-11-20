@@ -161,6 +161,7 @@ export const heroParts = (pose: Pose, look: HeroLook = SLAVOSKI): Part[] => {
   add("zipper", "box", look.zipper, chain(torso, T(0, 0.05 + d.torsoH / 2 - 0.02, d.torsoD / 2 + 0.006), S(0.055, d.torsoH - 0.12, 0.02)));
   add("hem", "box", look.jacketShade, chain(torso, T(0, 0.1, 0), S(d.torsoW + 0.02, 0.12, d.torsoD + 0.02)));
   add("collar", "box", look.jacketShade, chain(torso, T(0, 0.05 + d.torsoH - 0.02, 0), S(0.62, 0.12, 0.5)));
+  if (look.coat) add("coatSkirt", "box", look.coat, chain(hips, T(0, -0.32, 0), S(d.torsoW + 0.08, 0.78, d.torsoD + 0.08)));
   add("neck", "neck", look.skin, chain(torso, T(0, d.torsoH + 0.12, 0)));
 
   // Arms
@@ -183,11 +184,37 @@ export const heroParts = (pose: Pose, look: HeroLook = SLAVOSKI): Part[] => {
   add("rEar", "ear", look.skin, chain(head, T(-0.66, -0.02, -0.02)));
   // Hair: cap, back, fringe, sideburns
   // Cap top sits above the head's crown (radius 0.68 × 1.06 ≈ 0.72), so no skin shows through on top.
-  add("hairCap", "box", look.hair, chain(head, T(0, 0.58, -0.04), R(-0.1, 0, 0), S(1.32, 0.36, 1.3)));
-  add("hairBack", "box", look.hair, chain(head, T(0, 0.12, -0.5), S(1.24, 0.7, 0.36)));
-  add("hairFringe", "box", look.hair, chain(head, T(0.1, 0.43, 0.5), R(0.35, 0, -0.1), S(0.9, 0.2, 0.28)));
-  add("lSideburn", "box", look.hair, chain(head, T(0.6, 0.18, 0.05), S(0.16, 0.42, 0.5)));
-  add("rSideburn", "box", look.hair, chain(head, T(-0.6, 0.18, 0.05), S(0.16, 0.42, 0.5)));
+  const style = look.hairStyle ?? "short";
+  const hatOn = look.hat && look.hat.kind !== "cap";
+  if (style !== "bald" && !hatOn) add("hairCap", "box", look.hair, chain(head, T(0, 0.58, -0.04), R(-0.1, 0, 0), S(1.32, 0.36, 1.3)));
+  if (style !== "bald") {
+    if (style === "long") {
+      add("hairBack", "box", look.hair, chain(head, T(0, -0.2, -0.46), R(0.12, 0, 0), S(1.36, 1.5, 0.42)));
+      add("lSideburn", "box", look.hair, chain(head, T(0.62, -0.12, -0.02), S(0.2, 1.0, 0.6)));
+      add("rSideburn", "box", look.hair, chain(head, T(-0.62, -0.12, -0.02), S(0.2, 1.0, 0.6)));
+    } else {
+      add("hairBack", "box", look.hair, chain(head, T(0, 0.12, -0.5), S(1.24, 0.7, 0.36)));
+      add("lSideburn", "box", look.hair, chain(head, T(0.6, 0.18, 0.05), S(0.16, 0.42, 0.5)));
+      add("rSideburn", "box", look.hair, chain(head, T(-0.6, 0.18, 0.05), S(0.16, 0.42, 0.5)));
+    }
+    if (!hatOn) add("hairFringe", "box", look.hair, chain(head, T(0.1, 0.43, 0.5), R(0.35, 0, -0.1), S(0.9, 0.2, 0.28)));
+    if (style === "bun") add("hairBun", "box", look.hair, chain(head, T(0, 0.72, -0.42), R(0.4, 0.3, 0), S(0.5, 0.42, 0.5)));
+  }
+  if (look.hat) {
+    const c = look.hat.color;
+    if (look.hat.kind === "sun") {
+      add("hatBrim", "box", c, chain(head, T(0, 0.6, 0), R(-0.06, 0, 0), S(2.2, 0.08, 2.1)));
+      add("hatCrown", "box", c, chain(head, T(0, 0.82, -0.04), S(1.28, 0.44, 1.26)));
+      add("hatBand", "box", look.jacketShade, chain(head, T(0, 0.66, -0.04), S(1.31, 0.1, 1.29)));
+    } else if (look.hat.kind === "cap") {
+      add("hatCrown", "box", c, chain(head, T(0, 0.74, -0.04), R(-0.1, 0, 0), S(1.36, 0.36, 1.34)));
+      add("hatBrim", "box", c, chain(head, T(0, 0.62, 0.78), R(-0.12, 0, 0), S(1.0, 0.07, 0.55)));
+    } else {
+      // surgical cap / beanie: a snug dome over the crown
+      add("hatCrown", "box", c, chain(head, T(0, 0.6, -0.06), R(-0.12, 0, 0), S(1.38, 0.46, 1.36)));
+      add("hatBand", "box", c, chain(head, T(0, 0.38, -0.06), S(1.42, 0.16, 1.4)));
+    }
+  }
 
   // Face
   const e = EXPR[pose.expression];
@@ -203,6 +230,10 @@ export const heroParts = (pose: Pose, look: HeroLook = SLAVOSKI): Part[] => {
         chain(head, T(sx * 0.21 + e.lookX, 0.09 + e.lookY, faceZ + 0.035), S(0.1 * e.pupil, 0.12 * e.pupil * (1 - pose.blink), 0.02)),
       );
     }
+  }
+  if (look.glasses) {
+    add("glasses", "box", look.glasses, chain(head, T(0, 0.1, faceZ + 0.06), S(0.78, 0.26, 0.06)));
+    add("glassesStrap", "box", "#2A2A30", chain(head, T(0, 0.1, -0.02), S(1.4, 0.07, 1.22)));
   }
   add("nose", "box", look.skinShade, chain(head, T(0, -0.08, faceZ + 0.06), R(0.15, 0, 0), S(0.14, 0.2, 0.16)));
   add("mouth", "box", P.mouth, chain(head, T(e.mouthX, -0.32, faceZ - 0.04), R(0, 0, e.mouthTilt), S(e.mouthW, e.mouthH, 0.08)));

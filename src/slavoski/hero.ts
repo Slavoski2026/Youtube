@@ -11,6 +11,14 @@ export type HeroLook = {
   shoe: string;
   /** Eye whites (red-tinted for tired, burning eyes). */
   eyeWhite?: string;
+  /** Hair shape (default "short", Slavoski's blocky cap). */
+  hairStyle?: "short" | "long" | "bun" | "bald";
+  /** A long coat skirt over the thighs (lab coat, trench coat). */
+  coat?: string;
+  /** Headwear. */
+  hat?: { kind: "sun" | "cap" | "surgical" | "beanie"; color: string };
+  /** A band across the eyes: sunglasses or safety goggles (colour of the lenses). */
+  glasses?: string;
 };
 
 /** Slavoski: orange zip jacket, dark jeans, light block sneakers, dark-brown blocky hair. */
