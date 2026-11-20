@@ -1015,8 +1015,8 @@ export const thumbShot: ShotFn = () => {
   return (
     <Shot mood="day" camera={cam} fog={[30, 260]} stars={false} shadowSize={24}>
       <BeachDress t={0.5} />
-      <Fish kind="shark" position={[0.4, 0, -10]} yaw={0.06} walk={0.3} amount={1} fins={0.3} face={{ brow: "angry", mouth: 0.75, look: [0.15, -0.05] }} />
-      <FishSwarm lanes={seaLanes(18, -14, 14, 6, "thumb")} t={3} gap={1.6} climb={CLIMB} seed="thumb" />
+      <Fish kind="shark" position={[0.4, 0, -9]} yaw={0.32} walk={0.3} amount={1} fins={0.3} face={{ brow: "angry", mouth: 0.75, look: [0.2, -0.05] }} />
+      <FishSwarm lanes={seaLanes(22, -24, 12, -6, "thumb", (x) => Math.abs(x + 1) < 3.2, 14)} t={3} gap={1.5} climb={CLIMB} seed="thumb" ends={0} />
     </Shot>
   );
 };
