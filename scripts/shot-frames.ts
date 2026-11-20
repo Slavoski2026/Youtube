@@ -34,6 +34,10 @@ const EPISODES: Record<string, () => Promise<{ schedule: (w: VoiceoverManifest["
     const ep = await import("../src/episodes/no-work-2036/NoWork2036Episode");
     return { schedule: ep.schedule, estimated: ep.estimatedNoWork2036 };
   },
+  "walking-fish": async () => {
+    const ep = await import("../src/episodes/walking-fish/WalkingFishEpisode");
+    return { schedule: ep.schedule, estimated: ep.estimatedWalkingFish };
+  },
   "no-humans": async () => {
     const ep = await import("../src/episodes/no-humans/NoHumansEpisode");
     return { schedule: ep.schedule, estimated: ep.estimatedNoHumans };
