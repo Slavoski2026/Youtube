@@ -1,0 +1,1785 @@
+{
+  "slug": "doors-portals",
+  "audio": "voiceover/doors-portals.mp3",
+  "durationInSeconds": 95.50367346938775,
+  "words": [
+    {
+      "text": "At",
+      "startMs": 120,
+      "endMs": 200,
+      "timestampMs": 160,
+      "confidence": null
+    },
+    {
+      "text": " exactly",
+      "startMs": 240,
+      "endMs": 740,
+      "timestampMs": 490,
+      "confidence": null
+    },
+    {
+      "text": " nine",
+      "startMs": 900,
+      "endMs": 1100,
+      "timestampMs": 1000,
+      "confidence": null
+    },
+    {
+      "text": " AM,",
+      "startMs": 1180,
+      "endMs": 1500,
+      "timestampMs": 1340,
+      "confidence": null
+    },
+    {
+      "text": " every",
+      "startMs": 1880,
+      "endMs": 2100,
+      "timestampMs": 1990,
+      "confidence": null
+    },
+    {
+      "text": " door",
+      "startMs": 2200,
+      "endMs": 2360,
+      "timestampMs": 2280,
+      "confidence": null
+    },
+    {
+      "text": " on",
+      "startMs": 2420,
+      "endMs": 2560,
+      "timestampMs": 2490,
+      "confidence": null
+    },
+    {
+      "text": " Earth",
+      "startMs": 2620,
+      "endMs": 2820,
+      "timestampMs": 2720,
+      "confidence": null
+    },
+    {
+      "text": " suddenly",
+      "startMs": 3060,
+      "endMs": 3400,
+      "timestampMs": 3230,
+      "confidence": null
+    },
+    {
+      "text": " becomes",
+      "startMs": 3420,
+      "endMs": 3740,
+      "timestampMs": 3580,
+      "confidence": null
+    },
+    {
+      "text": " a",
+      "startMs": 3780,
+      "endMs": 3860,
+      "timestampMs": 3820,
+      "confidence": null
+    },
+    {
+      "text": " portal",
+      "startMs": 3920,
+      "endMs": 4260,
+      "timestampMs": 4090,
+      "confidence": null
+    },
+    {
+      "text": " to",
+      "startMs": 4300,
+      "endMs": 4380,
+      "timestampMs": 4340,
+      "confidence": null
+    },
+    {
+      "text": " a",
+      "startMs": 4460,
+      "endMs": 4480,
+      "timestampMs": 4470,
+      "confidence": null
+    },
+    {
+      "text": " random",
+      "startMs": 4620,
+      "endMs": 4900,
+      "timestampMs": 4760,
+      "confidence": null
+    },
+    {
+      "text": " location.",
+      "startMs": 4940,
+      "endMs": 5500,
+      "timestampMs": 5220,
+      "confidence": null
+    },
+    {
+      "text": " A",
+      "startMs": 5775,
+      "endMs": 5816,
+      "timestampMs": 5796,
+      "confidence": null
+    },
+    {
+      "text": " man",
+      "startMs": 5876,
+      "endMs": 6036,
+      "timestampMs": 5956,
+      "confidence": null
+    },
+    {
+      "text": " in",
+      "startMs": 6076,
+      "endMs": 6196,
+      "timestampMs": 6136,
+      "confidence": null
+    },
+    {
+      "text": " London",
+      "startMs": 6236,
+      "endMs": 6515,
+      "timestampMs": 6376,
+      "confidence": null
+    },
+    {
+      "text": " opens",
+      "startMs": 6676,
+      "endMs": 6916,
+      "timestampMs": 6796,
+      "confidence": null
+    },
+    {
+      "text": " his",
+      "startMs": 6935,
+      "endMs": 7076,
+      "timestampMs": 7006,
+      "confidence": null
+    },
+    {
+      "text": " bathroom",
+      "startMs": 7116,
+      "endMs": 7476,
+      "timestampMs": 7296,
+      "confidence": null
+    },
+    {
+      "text": " door",
+      "startMs": 7556,
+      "endMs": 7876,
+      "timestampMs": 7716,
+      "confidence": null
+    },
+    {
+      "text": " and",
+      "startMs": 8313,
+      "endMs": 8433,
+      "timestampMs": 8373,
+      "confidence": null
+    },
+    {
+      "text": " walks",
+      "startMs": 8493,
+      "endMs": 8793,
+      "timestampMs": 8643,
+      "confidence": null
+    },
+    {
+      "text": " straight",
+      "startMs": 8933,
+      "endMs": 9293,
+      "timestampMs": 9113,
+      "confidence": null
+    },
+    {
+      "text": " into",
+      "startMs": 9333,
+      "endMs": 9493,
+      "timestampMs": 9413,
+      "confidence": null
+    },
+    {
+      "text": " the",
+      "startMs": 9513,
+      "endMs": 9613,
+      "timestampMs": 9563,
+      "confidence": null
+    },
+    {
+      "text": " Sahara",
+      "startMs": 9633,
+      "endMs": 10073,
+      "timestampMs": 9853,
+      "confidence": null
+    },
+    {
+      "text": " Desert.",
+      "startMs": 10193,
+      "endMs": 10593,
+      "timestampMs": 10393,
+      "confidence": null
+    },
+    {
+      "text": " Meanwhile,",
+      "startMs": 10856,
+      "endMs": 11316,
+      "timestampMs": 11086,
+      "confidence": null
+    },
+    {
+      "text": " a",
+      "startMs": 11536,
+      "endMs": 11596,
+      "timestampMs": 11566,
+      "confidence": null
+    },
+    {
+      "text": " woman",
+      "startMs": 11636,
+      "endMs": 11836,
+      "timestampMs": 11736,
+      "confidence": null
+    },
+    {
+      "text": " in",
+      "startMs": 11856,
+      "endMs": 11956,
+      "timestampMs": 11906,
+      "confidence": null
+    },
+    {
+      "text": " New",
+      "startMs": 11976,
+      "endMs": 12096,
+      "timestampMs": 12036,
+      "confidence": null
+    },
+    {
+      "text": " York",
+      "startMs": 12196,
+      "endMs": 12456,
+      "timestampMs": 12326,
+      "confidence": null
+    },
+    {
+      "text": " opens",
+      "startMs": 12556,
+      "endMs": 12796,
+      "timestampMs": 12676,
+      "confidence": null
+    },
+    {
+      "text": " her",
+      "startMs": 12816,
+      "endMs": 12956,
+      "timestampMs": 12886,
+      "confidence": null
+    },
+    {
+      "text": " fridge",
+      "startMs": 13036,
+      "endMs": 13416,
+      "timestampMs": 13226,
+      "confidence": null
+    },
+    {
+      "text": " and",
+      "startMs": 13776,
+      "endMs": 13836,
+      "timestampMs": 13806,
+      "confidence": null
+    },
+    {
+      "text": " finds",
+      "startMs": 13956,
+      "endMs": 14176,
+      "timestampMs": 14066,
+      "confidence": null
+    },
+    {
+      "text": " herself",
+      "startMs": 14196,
+      "endMs": 14496,
+      "timestampMs": 14346,
+      "confidence": null
+    },
+    {
+      "text": " staring",
+      "startMs": 14656,
+      "endMs": 14956,
+      "timestampMs": 14806,
+      "confidence": null
+    },
+    {
+      "text": " at",
+      "startMs": 14996,
+      "endMs": 15056,
+      "timestampMs": 15026,
+      "confidence": null
+    },
+    {
+      "text": " a",
+      "startMs": 15096,
+      "endMs": 15216,
+      "timestampMs": 15156,
+      "confidence": null
+    },
+    {
+      "text": " penguin",
+      "startMs": 15276,
+      "endMs": 15756,
+      "timestampMs": 15516,
+      "confidence": null
+    },
+    {
+      "text": " in",
+      "startMs": 15796,
+      "endMs": 15896,
+      "timestampMs": 15846,
+      "confidence": null
+    },
+    {
+      "text": " Antarctica.",
+      "startMs": 15936,
+      "endMs": 16596,
+      "timestampMs": 16266,
+      "confidence": null
+    },
+    {
+      "text": " Within",
+      "startMs": 16876,
+      "endMs": 17116,
+      "timestampMs": 16996,
+      "confidence": null
+    },
+    {
+      "text": " minutes,",
+      "startMs": 17276,
+      "endMs": 17616,
+      "timestampMs": 17446,
+      "confidence": null
+    },
+    {
+      "text": " complete",
+      "startMs": 17836,
+      "endMs": 18476,
+      "timestampMs": 18156,
+      "confidence": null
+    },
+    {
+      "text": " chaos",
+      "startMs": 18576,
+      "endMs": 18996,
+      "timestampMs": 18786,
+      "confidence": null
+    },
+    {
+      "text": " breaks",
+      "startMs": 19076,
+      "endMs": 19336,
+      "timestampMs": 19206,
+      "confidence": null
+    },
+    {
+      "text": " out.",
+      "startMs": 19416,
+      "endMs": 19576,
+      "timestampMs": 19496,
+      "confidence": null
+    },
+    {
+      "text": " People",
+      "startMs": 19811,
+      "endMs": 20011,
+      "timestampMs": 19911,
+      "confidence": null
+    },
+    {
+      "text": " are",
+      "startMs": 20051,
+      "endMs": 20191,
+      "timestampMs": 20121,
+      "confidence": null
+    },
+    {
+      "text": " opening",
+      "startMs": 20251,
+      "endMs": 20531,
+      "timestampMs": 20391,
+      "confidence": null
+    },
+    {
+      "text": " their",
+      "startMs": 20571,
+      "endMs": 20651,
+      "timestampMs": 20611,
+      "confidence": null
+    },
+    {
+      "text": " front",
+      "startMs": 20791,
+      "endMs": 21011,
+      "timestampMs": 20901,
+      "confidence": null
+    },
+    {
+      "text": " doors",
+      "startMs": 21031,
+      "endMs": 21311,
+      "timestampMs": 21171,
+      "confidence": null
+    },
+    {
+      "text": " and",
+      "startMs": 21331,
+      "endMs": 21471,
+      "timestampMs": 21401,
+      "confidence": null
+    },
+    {
+      "text": " ending",
+      "startMs": 21511,
+      "endMs": 21711,
+      "timestampMs": 21611,
+      "confidence": null
+    },
+    {
+      "text": " up",
+      "startMs": 21751,
+      "endMs": 21991,
+      "timestampMs": 21871,
+      "confidence": null
+    },
+    {
+      "text": " thousands",
+      "startMs": 22031,
+      "endMs": 22451,
+      "timestampMs": 22241,
+      "confidence": null
+    },
+    {
+      "text": " of",
+      "startMs": 22491,
+      "endMs": 22571,
+      "timestampMs": 22531,
+      "confidence": null
+    },
+    {
+      "text": " kilometers",
+      "startMs": 22591,
+      "endMs": 23091,
+      "timestampMs": 22841,
+      "confidence": null
+    },
+    {
+      "text": " away.",
+      "startMs": 23151,
+      "endMs": 23491,
+      "timestampMs": 23321,
+      "confidence": null
+    },
+    {
+      "text": " One",
+      "startMs": 23845,
+      "endMs": 23925,
+      "timestampMs": 23885,
+      "confidence": null
+    },
+    {
+      "text": " man",
+      "startMs": 24005,
+      "endMs": 24205,
+      "timestampMs": 24105,
+      "confidence": null
+    },
+    {
+      "text": " walks",
+      "startMs": 24245,
+      "endMs": 24445,
+      "timestampMs": 24345,
+      "confidence": null
+    },
+    {
+      "text": " into",
+      "startMs": 24485,
+      "endMs": 24625,
+      "timestampMs": 24555,
+      "confidence": null
+    },
+    {
+      "text": " a",
+      "startMs": 24685,
+      "endMs": 24745,
+      "timestampMs": 24715,
+      "confidence": null
+    },
+    {
+      "text": " supermarket",
+      "startMs": 24805,
+      "endMs": 25325,
+      "timestampMs": 25065,
+      "confidence": null
+    },
+    {
+      "text": " in",
+      "startMs": 25365,
+      "endMs": 25445,
+      "timestampMs": 25405,
+      "confidence": null
+    },
+    {
+      "text": " Tokyo",
+      "startMs": 25505,
+      "endMs": 25965,
+      "timestampMs": 25735,
+      "confidence": null
+    },
+    {
+      "text": " and",
+      "startMs": 26363,
+      "endMs": 26463,
+      "timestampMs": 26413,
+      "confidence": null
+    },
+    {
+      "text": " somehow",
+      "startMs": 26643,
+      "endMs": 27083,
+      "timestampMs": 26863,
+      "confidence": null
+    },
+    {
+      "text": " exits",
+      "startMs": 27163,
+      "endMs": 27543,
+      "timestampMs": 27353,
+      "confidence": null
+    },
+    {
+      "text": " inside",
+      "startMs": 27603,
+      "endMs": 28003,
+      "timestampMs": 27803,
+      "confidence": null
+    },
+    {
+      "text": " the",
+      "startMs": 28043,
+      "endMs": 28203,
+      "timestampMs": 28123,
+      "confidence": null
+    },
+    {
+      "text": " White",
+      "startMs": 28223,
+      "endMs": 28403,
+      "timestampMs": 28313,
+      "confidence": null
+    },
+    {
+      "text": " House.",
+      "startMs": 28463,
+      "endMs": 28783,
+      "timestampMs": 28623,
+      "confidence": null
+    },
+    {
+      "text": " By",
+      "startMs": 29042,
+      "endMs": 29182,
+      "timestampMs": 29112,
+      "confidence": null
+    },
+    {
+      "text": " midday,",
+      "startMs": 29242,
+      "endMs": 29661,
+      "timestampMs": 29452,
+      "confidence": null
+    },
+    {
+      "text": " governments",
+      "startMs": 29922,
+      "endMs": 30322,
+      "timestampMs": 30122,
+      "confidence": null
+    },
+    {
+      "text": " order",
+      "startMs": 30420,
+      "endMs": 30602,
+      "timestampMs": 30511,
+      "confidence": null
+    },
+    {
+      "text": " everyone",
+      "startMs": 30841,
+      "endMs": 31222,
+      "timestampMs": 31031,
+      "confidence": null
+    },
+    {
+      "text": " to",
+      "startMs": 31261,
+      "endMs": 31381,
+      "timestampMs": 31321,
+      "confidence": null
+    },
+    {
+      "text": " stop",
+      "startMs": 31502,
+      "endMs": 31741,
+      "timestampMs": 31621,
+      "confidence": null
+    },
+    {
+      "text": " opening",
+      "startMs": 31862,
+      "endMs": 32182,
+      "timestampMs": 32022,
+      "confidence": null
+    },
+    {
+      "text": " doors,",
+      "startMs": 32201,
+      "endMs": 32561,
+      "timestampMs": 32381,
+      "confidence": null
+    },
+    {
+      "text": " but",
+      "startMs": 32823,
+      "endMs": 33163,
+      "timestampMs": 32993,
+      "confidence": null
+    },
+    {
+      "text": " there's",
+      "startMs": 33183,
+      "endMs": 33323,
+      "timestampMs": 33253,
+      "confidence": null
+    },
+    {
+      "text": " a",
+      "startMs": 33363,
+      "endMs": 33423,
+      "timestampMs": 33393,
+      "confidence": null
+    },
+    {
+      "text": " problem.",
+      "startMs": 33463,
+      "endMs": 33883,
+      "timestampMs": 33673,
+      "confidence": null
+    },
+    {
+      "text": " Hospitals",
+      "startMs": 34149,
+      "endMs": 34689,
+      "timestampMs": 34419,
+      "confidence": null
+    },
+    {
+      "text": " can't",
+      "startMs": 34729,
+      "endMs": 34929,
+      "timestampMs": 34829,
+      "confidence": null
+    },
+    {
+      "text": " access",
+      "startMs": 35029,
+      "endMs": 35369,
+      "timestampMs": 35199,
+      "confidence": null
+    },
+    {
+      "text": " operating",
+      "startMs": 35449,
+      "endMs": 35849,
+      "timestampMs": 35649,
+      "confidence": null
+    },
+    {
+      "text": " rooms,",
+      "startMs": 35929,
+      "endMs": 36189,
+      "timestampMs": 36059,
+      "confidence": null
+    },
+    {
+      "text": " prisoners",
+      "startMs": 36494,
+      "endMs": 36954,
+      "timestampMs": 36724,
+      "confidence": null
+    },
+    {
+      "text": " are",
+      "startMs": 36974,
+      "endMs": 37134,
+      "timestampMs": 37054,
+      "confidence": null
+    },
+    {
+      "text": " accidentally",
+      "startMs": 37214,
+      "endMs": 37694,
+      "timestampMs": 37454,
+      "confidence": null
+    },
+    {
+      "text": " escaping,",
+      "startMs": 37734,
+      "endMs": 38314,
+      "timestampMs": 38024,
+      "confidence": null
+    },
+    {
+      "text": " and",
+      "startMs": 38548,
+      "endMs": 38668,
+      "timestampMs": 38608,
+      "confidence": null
+    },
+    {
+      "text": " millions",
+      "startMs": 38827,
+      "endMs": 39207,
+      "timestampMs": 39018,
+      "confidence": null
+    },
+    {
+      "text": " of",
+      "startMs": 39247,
+      "endMs": 39348,
+      "timestampMs": 39298,
+      "confidence": null
+    },
+    {
+      "text": " people",
+      "startMs": 39387,
+      "endMs": 39707,
+      "timestampMs": 39548,
+      "confidence": null
+    },
+    {
+      "text": " are",
+      "startMs": 39728,
+      "endMs": 39808,
+      "timestampMs": 39768,
+      "confidence": null
+    },
+    {
+      "text": " now",
+      "startMs": 39848,
+      "endMs": 40048,
+      "timestampMs": 39948,
+      "confidence": null
+    },
+    {
+      "text": " stranded",
+      "startMs": 40147,
+      "endMs": 40588,
+      "timestampMs": 40367,
+      "confidence": null
+    },
+    {
+      "text": " on",
+      "startMs": 40628,
+      "endMs": 40747,
+      "timestampMs": 40688,
+      "confidence": null
+    },
+    {
+      "text": " completely",
+      "startMs": 40787,
+      "endMs": 41467,
+      "timestampMs": 41128,
+      "confidence": null
+    },
+    {
+      "text": " different",
+      "startMs": 41508,
+      "endMs": 41728,
+      "timestampMs": 41618,
+      "confidence": null
+    },
+    {
+      "text": " continents.",
+      "startMs": 41808,
+      "endMs": 42348,
+      "timestampMs": 42078,
+      "confidence": null
+    },
+    {
+      "text": " By",
+      "startMs": 42624,
+      "endMs": 42764,
+      "timestampMs": 42694,
+      "confidence": null
+    },
+    {
+      "text": " day",
+      "startMs": 42804,
+      "endMs": 42984,
+      "timestampMs": 42894,
+      "confidence": null
+    },
+    {
+      "text": " two,",
+      "startMs": 43044,
+      "endMs": 43304,
+      "timestampMs": 43174,
+      "confidence": null
+    },
+    {
+      "text": " scientists",
+      "startMs": 43644,
+      "endMs": 44084,
+      "timestampMs": 43864,
+      "confidence": null
+    },
+    {
+      "text": " discover",
+      "startMs": 44104,
+      "endMs": 44584,
+      "timestampMs": 44344,
+      "confidence": null
+    },
+    {
+      "text": " something",
+      "startMs": 44604,
+      "endMs": 44984,
+      "timestampMs": 44794,
+      "confidence": null
+    },
+    {
+      "text": " incredible.",
+      "startMs": 45024,
+      "endMs": 45704,
+      "timestampMs": 45364,
+      "confidence": null
+    },
+    {
+      "text": " Every",
+      "startMs": 46016,
+      "endMs": 46276,
+      "timestampMs": 46146,
+      "confidence": null
+    },
+    {
+      "text": " door",
+      "startMs": 46376,
+      "endMs": 46656,
+      "timestampMs": 46516,
+      "confidence": null
+    },
+    {
+      "text": " leads",
+      "startMs": 46716,
+      "endMs": 46936,
+      "timestampMs": 46826,
+      "confidence": null
+    },
+    {
+      "text": " somewhere",
+      "startMs": 46996,
+      "endMs": 47416,
+      "timestampMs": 47206,
+      "confidence": null
+    },
+    {
+      "text": " different",
+      "startMs": 47456,
+      "endMs": 47856,
+      "timestampMs": 47656,
+      "confidence": null
+    },
+    {
+      "text": " each",
+      "startMs": 47896,
+      "endMs": 48096,
+      "timestampMs": 47996,
+      "confidence": null
+    },
+    {
+      "text": " time",
+      "startMs": 48136,
+      "endMs": 48296,
+      "timestampMs": 48216,
+      "confidence": null
+    },
+    {
+      "text": " it's",
+      "startMs": 48316,
+      "endMs": 48436,
+      "timestampMs": 48376,
+      "confidence": null
+    },
+    {
+      "text": " opened.",
+      "startMs": 48516,
+      "endMs": 48836,
+      "timestampMs": 48676,
+      "confidence": null
+    },
+    {
+      "text": " People",
+      "startMs": 49089,
+      "endMs": 49309,
+      "timestampMs": 49199,
+      "confidence": null
+    },
+    {
+      "text": " begin",
+      "startMs": 49329,
+      "endMs": 49609,
+      "timestampMs": 49469,
+      "confidence": null
+    },
+    {
+      "text": " using",
+      "startMs": 49689,
+      "endMs": 49969,
+      "timestampMs": 49829,
+      "confidence": null
+    },
+    {
+      "text": " doors",
+      "startMs": 49989,
+      "endMs": 50289,
+      "timestampMs": 50139,
+      "confidence": null
+    },
+    {
+      "text": " to",
+      "startMs": 50329,
+      "endMs": 50429,
+      "timestampMs": 50379,
+      "confidence": null
+    },
+    {
+      "text": " travel",
+      "startMs": 50489,
+      "endMs": 50829,
+      "timestampMs": 50659,
+      "confidence": null
+    },
+    {
+      "text": " the",
+      "startMs": 50869,
+      "endMs": 50989,
+      "timestampMs": 50929,
+      "confidence": null
+    },
+    {
+      "text": " world",
+      "startMs": 51029,
+      "endMs": 51289,
+      "timestampMs": 51159,
+      "confidence": null
+    },
+    {
+      "text": " for",
+      "startMs": 51329,
+      "endMs": 51389,
+      "timestampMs": 51359,
+      "confidence": null
+    },
+    {
+      "text": " free.",
+      "startMs": 51569,
+      "endMs": 51869,
+      "timestampMs": 51719,
+      "confidence": null
+    },
+    {
+      "text": " Airlines",
+      "startMs": 52155,
+      "endMs": 52615,
+      "timestampMs": 52385,
+      "confidence": null
+    },
+    {
+      "text": " lose",
+      "startMs": 52675,
+      "endMs": 52835,
+      "timestampMs": 52755,
+      "confidence": null
+    },
+    {
+      "text": " millions.",
+      "startMs": 53055,
+      "endMs": 53555,
+      "timestampMs": 53305,
+      "confidence": null
+    },
+    {
+      "text": " Tourists",
+      "startMs": 53862,
+      "endMs": 54262,
+      "timestampMs": 54061,
+      "confidence": null
+    },
+    {
+      "text": " are",
+      "startMs": 54302,
+      "endMs": 54382,
+      "timestampMs": 54342,
+      "confidence": null
+    },
+    {
+      "text": " appearing",
+      "startMs": 54422,
+      "endMs": 54802,
+      "timestampMs": 54612,
+      "confidence": null
+    },
+    {
+      "text": " inside",
+      "startMs": 54822,
+      "endMs": 55142,
+      "timestampMs": 54982,
+      "confidence": null
+    },
+    {
+      "text": " military",
+      "startMs": 55242,
+      "endMs": 55682,
+      "timestampMs": 55462,
+      "confidence": null
+    },
+    {
+      "text": " bases,",
+      "startMs": 55762,
+      "endMs": 56162,
+      "timestampMs": 55962,
+      "confidence": null
+    },
+    {
+      "text": " and",
+      "startMs": 56433,
+      "endMs": 56573,
+      "timestampMs": 56503,
+      "confidence": null
+    },
+    {
+      "text": " one",
+      "startMs": 56693,
+      "endMs": 56893,
+      "timestampMs": 56793,
+      "confidence": null
+    },
+    {
+      "text": " extremely",
+      "startMs": 56953,
+      "endMs": 57713,
+      "timestampMs": 57333,
+      "confidence": null
+    },
+    {
+      "text": " unlucky",
+      "startMs": 57773,
+      "endMs": 58133,
+      "timestampMs": 57953,
+      "confidence": null
+    },
+    {
+      "text": " man",
+      "startMs": 58253,
+      "endMs": 58453,
+      "timestampMs": 58353,
+      "confidence": null
+    },
+    {
+      "text": " has",
+      "startMs": 58513,
+      "endMs": 58693,
+      "timestampMs": 58603,
+      "confidence": null
+    },
+    {
+      "text": " opened",
+      "startMs": 58753,
+      "endMs": 58973,
+      "timestampMs": 58863,
+      "confidence": null
+    },
+    {
+      "text": " his",
+      "startMs": 58993,
+      "endMs": 59153,
+      "timestampMs": 59073,
+      "confidence": null
+    },
+    {
+      "text": " bedroom",
+      "startMs": 59173,
+      "endMs": 59533,
+      "timestampMs": 59353,
+      "confidence": null
+    },
+    {
+      "text": " door",
+      "startMs": 59553,
+      "endMs": 59733,
+      "timestampMs": 59643,
+      "confidence": null
+    },
+    {
+      "text": " seventeen",
+      "startMs": 59953,
+      "endMs": 60493,
+      "timestampMs": 60223,
+      "confidence": null
+    },
+    {
+      "text": " times,",
+      "startMs": 60593,
+      "endMs": 60993,
+      "timestampMs": 60793,
+      "confidence": null
+    },
+    {
+      "text": " only",
+      "startMs": 61430,
+      "endMs": 61631,
+      "timestampMs": 61530,
+      "confidence": null
+    },
+    {
+      "text": " to",
+      "startMs": 61691,
+      "endMs": 61771,
+      "timestampMs": 61731,
+      "confidence": null
+    },
+    {
+      "text": " end",
+      "startMs": 61811,
+      "endMs": 61930,
+      "timestampMs": 61870,
+      "confidence": null
+    },
+    {
+      "text": " up",
+      "startMs": 61971,
+      "endMs": 62071,
+      "timestampMs": 62021,
+      "confidence": null
+    },
+    {
+      "text": " in",
+      "startMs": 62091,
+      "endMs": 62151,
+      "timestampMs": 62121,
+      "confidence": null
+    },
+    {
+      "text": " the",
+      "startMs": 62191,
+      "endMs": 62351,
+      "timestampMs": 62271,
+      "confidence": null
+    },
+    {
+      "text": " ocean",
+      "startMs": 62411,
+      "endMs": 62751,
+      "timestampMs": 62581,
+      "confidence": null
+    },
+    {
+      "text": " every",
+      "startMs": 62971,
+      "endMs": 63231,
+      "timestampMs": 63101,
+      "confidence": null
+    },
+    {
+      "text": " single",
+      "startMs": 63351,
+      "endMs": 63651,
+      "timestampMs": 63501,
+      "confidence": null
+    },
+    {
+      "text": " time.",
+      "startMs": 63711,
+      "endMs": 64011,
+      "timestampMs": 63861,
+      "confidence": null
+    },
+    {
+      "text": " But",
+      "startMs": 64236,
+      "endMs": 64336,
+      "timestampMs": 64286,
+      "confidence": null
+    },
+    {
+      "text": " on",
+      "startMs": 64376,
+      "endMs": 64516,
+      "timestampMs": 64446,
+      "confidence": null
+    },
+    {
+      "text": " day",
+      "startMs": 64556,
+      "endMs": 64776,
+      "timestampMs": 64666,
+      "confidence": null
+    },
+    {
+      "text": " three,",
+      "startMs": 64816,
+      "endMs": 65116,
+      "timestampMs": 64966,
+      "confidence": null
+    },
+    {
+      "text": " something",
+      "startMs": 65516,
+      "endMs": 65776,
+      "timestampMs": 65646,
+      "confidence": null
+    },
+    {
+      "text": " strange",
+      "startMs": 65936,
+      "endMs": 66256,
+      "timestampMs": 66096,
+      "confidence": null
+    },
+    {
+      "text": " happens.",
+      "startMs": 66296,
+      "endMs": 66736,
+      "timestampMs": 66516,
+      "confidence": null
+    },
+    {
+      "text": " A",
+      "startMs": 67017,
+      "endMs": 67097,
+      "timestampMs": 67057,
+      "confidence": null
+    },
+    {
+      "text": " scientist",
+      "startMs": 67137,
+      "endMs": 67597,
+      "timestampMs": 67367,
+      "confidence": null
+    },
+    {
+      "text": " in",
+      "startMs": 67637,
+      "endMs": 67757,
+      "timestampMs": 67697,
+      "confidence": null
+    },
+    {
+      "text": " Switzerland",
+      "startMs": 67817,
+      "endMs": 68317,
+      "timestampMs": 68067,
+      "confidence": null
+    },
+    {
+      "text": " opens",
+      "startMs": 68457,
+      "endMs": 68697,
+      "timestampMs": 68577,
+      "confidence": null
+    },
+    {
+      "text": " a",
+      "startMs": 68737,
+      "endMs": 68797,
+      "timestampMs": 68767,
+      "confidence": null
+    },
+    {
+      "text": " laboratory",
+      "startMs": 68857,
+      "endMs": 69357,
+      "timestampMs": 69107,
+      "confidence": null
+    },
+    {
+      "text": " door",
+      "startMs": 69437,
+      "endMs": 69657,
+      "timestampMs": 69547,
+      "confidence": null
+    },
+    {
+      "text": " and",
+      "startMs": 69911,
+      "endMs": 69991,
+      "timestampMs": 69951,
+      "confidence": null
+    },
+    {
+      "text": " discovers",
+      "startMs": 70031,
+      "endMs": 70511,
+      "timestampMs": 70271,
+      "confidence": null
+    },
+    {
+      "text": " a",
+      "startMs": 70571,
+      "endMs": 70631,
+      "timestampMs": 70601,
+      "confidence": null
+    },
+    {
+      "text": " completely",
+      "startMs": 70671,
+      "endMs": 71451,
+      "timestampMs": 71061,
+      "confidence": null
+    },
+    {
+      "text": " black",
+      "startMs": 71491,
+      "endMs": 71771,
+      "timestampMs": 71631,
+      "confidence": null
+    },
+    {
+      "text": " room.",
+      "startMs": 71891,
+      "endMs": 72151,
+      "timestampMs": 72021,
+      "confidence": null
+    },
+    {
+      "text": " No",
+      "startMs": 72438,
+      "endMs": 72618,
+      "timestampMs": 72528,
+      "confidence": null
+    },
+    {
+      "text": " walls,",
+      "startMs": 72658,
+      "endMs": 73078,
+      "timestampMs": 72868,
+      "confidence": null
+    },
+    {
+      "text": " no",
+      "startMs": 73398,
+      "endMs": 73478,
+      "timestampMs": 73438,
+      "confidence": null
+    },
+    {
+      "text": " floor,",
+      "startMs": 73618,
+      "endMs": 73938,
+      "timestampMs": 73778,
+      "confidence": null
+    },
+    {
+      "text": " just",
+      "startMs": 74321,
+      "endMs": 74501,
+      "timestampMs": 74411,
+      "confidence": null
+    },
+    {
+      "text": " darkness.",
+      "startMs": 74541,
+      "endMs": 75041,
+      "timestampMs": 74791,
+      "confidence": null
+    },
+    {
+      "text": " He",
+      "startMs": 75312,
+      "endMs": 75412,
+      "timestampMs": 75362,
+      "confidence": null
+    },
+    {
+      "text": " sends",
+      "startMs": 75452,
+      "endMs": 75632,
+      "timestampMs": 75542,
+      "confidence": null
+    },
+    {
+      "text": " a",
+      "startMs": 75672,
+      "endMs": 75712,
+      "timestampMs": 75692,
+      "confidence": null
+    },
+    {
+      "text": " camera",
+      "startMs": 75772,
+      "endMs": 76112,
+      "timestampMs": 75942,
+      "confidence": null
+    },
+    {
+      "text": " through.",
+      "startMs": 76132,
+      "endMs": 76372,
+      "timestampMs": 76252,
+      "confidence": null
+    },
+    {
+      "text": " The",
+      "startMs": 76628,
+      "endMs": 76708,
+      "timestampMs": 76668,
+      "confidence": null
+    },
+    {
+      "text": " camera",
+      "startMs": 76788,
+      "endMs": 77068,
+      "timestampMs": 76928,
+      "confidence": null
+    },
+    {
+      "text": " records",
+      "startMs": 77108,
+      "endMs": 77548,
+      "timestampMs": 77328,
+      "confidence": null
+    },
+    {
+      "text": " something",
+      "startMs": 77608,
+      "endMs": 77948,
+      "timestampMs": 77778,
+      "confidence": null
+    },
+    {
+      "text": " impossible:",
+      "startMs": 78008,
+      "endMs": 78768,
+      "timestampMs": 78388,
+      "confidence": null
+    },
+    {
+      "text": " thousands",
+      "startMs": 78998,
+      "endMs": 79478,
+      "timestampMs": 79238,
+      "confidence": null
+    },
+    {
+      "text": " of",
+      "startMs": 79518,
+      "endMs": 79578,
+      "timestampMs": 79548,
+      "confidence": null
+    },
+    {
+      "text": " doors",
+      "startMs": 79658,
+      "endMs": 79978,
+      "timestampMs": 79818,
+      "confidence": null
+    },
+    {
+      "text": " floating",
+      "startMs": 80138,
+      "endMs": 80518,
+      "timestampMs": 80328,
+      "confidence": null
+    },
+    {
+      "text": " in",
+      "startMs": 80558,
+      "endMs": 80618,
+      "timestampMs": 80588,
+      "confidence": null
+    },
+    {
+      "text": " an",
+      "startMs": 80638,
+      "endMs": 80838,
+      "timestampMs": 80738,
+      "confidence": null
+    },
+    {
+      "text": " endless",
+      "startMs": 80898,
+      "endMs": 81218,
+      "timestampMs": 81058,
+      "confidence": null
+    },
+    {
+      "text": " void,",
+      "startMs": 81318,
+      "endMs": 81638,
+      "timestampMs": 81478,
+      "confidence": null
+    },
+    {
+      "text": " and",
+      "startMs": 81866,
+      "endMs": 81946,
+      "timestampMs": 81906,
+      "confidence": null
+    },
+    {
+      "text": " behind",
+      "startMs": 81986,
+      "endMs": 82426,
+      "timestampMs": 82206,
+      "confidence": null
+    },
+    {
+      "text": " every",
+      "startMs": 82506,
+      "endMs": 82726,
+      "timestampMs": 82616,
+      "confidence": null
+    },
+    {
+      "text": " single",
+      "startMs": 82826,
+      "endMs": 83066,
+      "timestampMs": 82946,
+      "confidence": null
+    },
+    {
+      "text": " door",
+      "startMs": 83146,
+      "endMs": 83406,
+      "timestampMs": 83276,
+      "confidence": null
+    },
+    {
+      "text": " is",
+      "startMs": 83846,
+      "endMs": 83926,
+      "timestampMs": 83886,
+      "confidence": null
+    },
+    {
+      "text": " a",
+      "startMs": 83966,
+      "endMs": 84126,
+      "timestampMs": 84046,
+      "confidence": null
+    },
+    {
+      "text": " different",
+      "startMs": 84166,
+      "endMs": 84546,
+      "timestampMs": 84356,
+      "confidence": null
+    },
+    {
+      "text": " version",
+      "startMs": 84586,
+      "endMs": 84866,
+      "timestampMs": 84726,
+      "confidence": null
+    },
+    {
+      "text": " of",
+      "startMs": 84906,
+      "endMs": 85066,
+      "timestampMs": 84986,
+      "confidence": null
+    },
+    {
+      "text": " Earth.",
+      "startMs": 85146,
+      "endMs": 85466,
+      "timestampMs": 85306,
+      "confidence": null
+    },
+    {
+      "text": " But",
+      "startMs": 85649,
+      "endMs": 85769,
+      "timestampMs": 85709,
+      "confidence": null
+    },
+    {
+      "text": " then",
+      "startMs": 85809,
+      "endMs": 86069,
+      "timestampMs": 85939,
+      "confidence": null
+    },
+    {
+      "text": " one",
+      "startMs": 86443,
+      "endMs": 86523,
+      "timestampMs": 86483,
+      "confidence": null
+    },
+    {
+      "text": " of",
+      "startMs": 86563,
+      "endMs": 86643,
+      "timestampMs": 86603,
+      "confidence": null
+    },
+    {
+      "text": " those",
+      "startMs": 86683,
+      "endMs": 86863,
+      "timestampMs": 86773,
+      "confidence": null
+    },
+    {
+      "text": " doors",
+      "startMs": 86883,
+      "endMs": 87243,
+      "timestampMs": 87063,
+      "confidence": null
+    },
+    {
+      "text": " opens",
+      "startMs": 87323,
+      "endMs": 87623,
+      "timestampMs": 87473,
+      "confidence": null
+    },
+    {
+      "text": " from",
+      "startMs": 87663,
+      "endMs": 87763,
+      "timestampMs": 87713,
+      "confidence": null
+    },
+    {
+      "text": " the",
+      "startMs": 87803,
+      "endMs": 87903,
+      "timestampMs": 87853,
+      "confidence": null
+    },
+    {
+      "text": " other",
+      "startMs": 87963,
+      "endMs": 88103,
+      "timestampMs": 88033,
+      "confidence": null
+    },
+    {
+      "text": " side,",
+      "startMs": 88223,
+      "endMs": 88543,
+      "timestampMs": 88383,
+      "confidence": null
+    },
+    {
+      "text": " and",
+      "startMs": 88774,
+      "endMs": 88954,
+      "timestampMs": 88864,
+      "confidence": null
+    },
+    {
+      "text": " something",
+      "startMs": 89034,
+      "endMs": 89394,
+      "timestampMs": 89214,
+      "confidence": null
+    },
+    {
+      "text": " begins",
+      "startMs": 89414,
+      "endMs": 89794,
+      "timestampMs": 89604,
+      "confidence": null
+    },
+    {
+      "text": " stepping",
+      "startMs": 89874,
+      "endMs": 90254,
+      "timestampMs": 90064,
+      "confidence": null
+    },
+    {
+      "text": " through,",
+      "startMs": 90274,
+      "endMs": 90594,
+      "timestampMs": 90434,
+      "confidence": null
+    },
+    {
+      "text": " because",
+      "startMs": 90842,
+      "endMs": 91062,
+      "timestampMs": 90952,
+      "confidence": null
+    },
+    {
+      "text": " apparently,",
+      "startMs": 91102,
+      "endMs": 91722,
+      "timestampMs": 91412,
+      "confidence": null
+    },
+    {
+      "text": " humanity",
+      "startMs": 92142,
+      "endMs": 92662,
+      "timestampMs": 92402,
+      "confidence": null
+    },
+    {
+      "text": " wasn't",
+      "startMs": 92762,
+      "endMs": 92982,
+      "timestampMs": 92872,
+      "confidence": null
+    },
+    {
+      "text": " the",
+      "startMs": 93022,
+      "endMs": 93202,
+      "timestampMs": 93112,
+      "confidence": null
+    },
+    {
+      "text": " only",
+      "startMs": 93302,
+      "endMs": 93522,
+      "timestampMs": 93412,
+      "confidence": null
+    },
+    {
+      "text": " civilization",
+      "startMs": 93642,
+      "endMs": 94362,
+      "timestampMs": 94002,
+      "confidence": null
+    },
+    {
+      "text": " opening",
+      "startMs": 94422,
+      "endMs": 94762,
+      "timestampMs": 94592,
+      "confidence": null
+    },
+    {
+      "text": " doors.",
+      "startMs": 94802,
+      "endMs": 95222,
+      "timestampMs": 95012,
+      "confidence": null
+    }
+  ]
+}
