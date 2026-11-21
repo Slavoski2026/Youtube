@@ -9,6 +9,7 @@ import React from "react";
 import { AbsoluteFill, random } from "remotion";
 import * as THREE from "three";
 import { FONT } from "../../slavoski/fonts";
+import { isBloom } from "../../slavoski/quality";
 import { crowdLook, POLICE_OFFICER, SLAVOSKI, suitLook, type HeroLook } from "../../slavoski/hero";
 import { Flat, Glow, Halo } from "../../slavoski/materials";
 import { Clouds, Rain, Snow } from "../../slavoski/nature";
@@ -1332,6 +1333,7 @@ const BEAM_FRAG = /* glsl */ `
   varying float vK;
   void main() {
     gl_FragColor = vec4(color, opacity * pow(vK, 2.2));
+    #include <colorspace_fragment>
   }
 `;
 /** No walls: his torch beam runs into the dark and hits nothing. */
@@ -1346,7 +1348,7 @@ const Beam: React.FC<{ from: V3; len: number; r: number; yaw?: number; pitch?: n
         <shaderMaterial
           vertexShader={BEAM_VERT}
           fragmentShader={BEAM_FRAG}
-          uniforms={{ color: { value: new THREE.Color().setStyle(color, THREE.LinearSRGBColorSpace) }, opacity: { value: o } }}
+          uniforms={{ color: { value: new THREE.Color(color) }, opacity: { value: o } }}
           transparent
           blending={THREE.AdditiveBlending}
           depthWrite={false}
@@ -1634,7 +1636,7 @@ const c8Monitor: ShotFn = (c) => {
         <BoxG args={[1.5, 1.0, 0.08]} />
         <Flat color="#1A1A22" />
       </mesh>
-      <pointLight position={[tab[0], tab[1] + 0.2, tab[2] - 0.5]} color="#C88AFF" intensity={9} distance={4} decay={2} />
+      <pointLight position={[tab[0], tab[1] + 0.2, tab[2] - 0.5]} color="#C88AFF" intensity={isBloom() ? 4 : 9} distance={4} decay={2} />
     </Shot>
   );
 };
@@ -1679,7 +1681,7 @@ const c8Final: ShotFn = (c) => {
 /** Thumbnail: Slavoski stepping out of his London hallway into the Sahara. */
 export const thumbShot: ShotFn = (c) => {
   const pose = mergePose(walkPose(0.3, 0.9), { expression: "alarm", headPitch: 0.1 });
-  const cam: CameraSpec = { position: [1.6, 2.5, 8.6], target: [0, 2.9, 0] };
+  const cam: CameraSpec = { position: [1.9, 1.5, 13.5], target: [0, 4.7, 0] };
   return (
     <Shot mood="day" camera={cam} fog={false} keyDir={SAH_SUN} shadowSize={14}>
       <SaharaDoor t={c.t} hero={{ pos: [0.15, 0, 0.3], pose }} />

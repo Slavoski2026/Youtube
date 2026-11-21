@@ -9,6 +9,7 @@
  */
 import React, { useMemo } from "react";
 import * as THREE from "three";
+import { isBloom } from "./quality";
 import type { V3 } from "./noise";
 import { project, type CameraSpec } from "./Stage";
 
@@ -117,7 +118,9 @@ export const CanvasPanel: React.FC<{
   px?: number;
   draw: (ctx: CanvasRenderingContext2D, W: number, H: number) => void;
   fog?: boolean;
-}> = ({ position, rotation = [0, 0, 0], w, h, px = 1024, draw, fog = true }) => {
+  /** Brightness multiplier when bloom is on (a lit sign or screen that should glow). */
+  glow?: number;
+}> = ({ position, rotation = [0, 0, 0], w, h, px = 1024, draw, fog = true, glow = 1 }) => {
   const W = px;
   const H = Math.max(8, Math.round((px * h) / w));
   const { canvas, tex } = useMemo(() => {
@@ -138,7 +141,7 @@ export const CanvasPanel: React.FC<{
   return (
     <mesh position={position} rotation={rotation}>
       <planeGeometry args={[w, h]} />
-      <meshBasicMaterial map={tex} toneMapped={false} fog={fog} />
+      <meshBasicMaterial map={tex} toneMapped={false} fog={fog} color={isBloom() && glow !== 1 ? new THREE.Color(glow, glow, glow) : "#ffffff"} />
     </mesh>
   );
 };

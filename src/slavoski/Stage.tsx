@@ -1,11 +1,16 @@
-import { useThree } from "@react-three/fiber";
+import { useFrame, useThree } from "@react-three/fiber";
+import { EffectComposer } from "three/examples/jsm/postprocessing/EffectComposer.js";
+import { OutputPass } from "three/examples/jsm/postprocessing/OutputPass.js";
+import { RenderPass } from "three/examples/jsm/postprocessing/RenderPass.js";
+import { UnrealBloomPass } from "three/examples/jsm/postprocessing/UnrealBloomPass.js";
 import { ThreeCanvas } from "@remotion/three";
-import React, { useLayoutEffect, useMemo } from "react";
-import { AbsoluteFill, getInputProps, useCurrentFrame, useVideoConfig } from "remotion";
+import React, { useEffect, useLayoutEffect, useMemo } from "react";
+import { AbsoluteFill, useCurrentFrame, useVideoConfig } from "remotion";
 import * as THREE from "three";
 import { shake, type V3 } from "./noise";
 import { P } from "./palette";
 import { DetailProvider, useDetailLevel } from "./detail";
+import { isBloom, isHq } from "./quality";
 
 /**
  * Time of day and weather. Vary these across an episode and between episodes (the user noticed every
@@ -81,17 +86,32 @@ export const Stars: React.FC<{ count?: number; radius?: number; seed?: string; s
   );
 };
 
+export { isHq } from "./quality";
+
 /**
- * Final-render quality switch. Render with `--props='{"hq":true}'` to supersample every canvas 2× (smoother
- * edges, steadier thin lines and distant windows) and double the shadow-map resolution. Off by default so
- * contact sheets and previews stay fast.
+ * Bloom post-processing (only with `bloom: true` input props, see quality.ts): renders the scene into an HDR,
+ * multisampled render target WITH a stencil buffer (portals need it), adds an UnrealBloom pass and converts
+ * to sRGB in the OutputPass. `useFrame` is used here only to take over rendering (priority 1), never for motion.
  */
-export const isHq = (): boolean => {
-  try {
-    return Boolean((getInputProps() as { hq?: boolean }).hq);
-  } catch {
-    return false;
-  }
+const PostFX: React.FC<{ strength?: number; radius?: number; threshold?: number }> = ({ strength = 0.5, radius = 0.42, threshold = 1.05 }) => {
+  const gl = useThree((s) => s.gl);
+  const scene = useThree((s) => s.scene);
+  const camera = useThree((s) => s.camera);
+  const size = useThree((s) => s.size);
+  const composer = useMemo(() => {
+    const dpr = gl.getPixelRatio();
+    const rt = new THREE.WebGLRenderTarget(size.width * dpr, size.height * dpr, { type: THREE.HalfFloatType, depthBuffer: true, stencilBuffer: true, samples: 4 });
+    const c = new EffectComposer(gl, rt);
+    c.setPixelRatio(dpr);
+    c.setSize(size.width, size.height);
+    c.addPass(new RenderPass(scene, camera));
+    c.addPass(new UnrealBloomPass(new THREE.Vector2(size.width * dpr, size.height * dpr), strength, radius, threshold));
+    c.addPass(new OutputPass());
+    return c;
+  }, [gl, scene, camera, size.width, size.height, strength, radius, threshold]);
+  useEffect(() => () => composer.dispose(), [composer]);
+  useFrame(() => composer.render(), 1);
+  return null;
 };
 
 const Lights: React.FC<{ mood: Mood; keyDir?: V3; shadowSize?: number; shadows: boolean; scale?: number; hq?: boolean }> = ({
@@ -200,6 +220,7 @@ export const Stage: React.FC<StageProps> = ({
   // React context doesn't reliably cross into the R3F canvas: hand the detail level over explicitly.
   const detail = useDetailLevel();
   const hq = isHq();
+  const bloom = isBloom();
 
   return (
     <AbsoluteFill
@@ -224,6 +245,7 @@ export const Stage: React.FC<StageProps> = ({
         <Lights mood={lightMood} keyDir={keyDir} shadows={shadows} shadowSize={shadowSize} scale={light} hq={hq} />
         {stars && (starOpacity[mood] ?? 0.55) > 0 ? <Stars opacity={starOpacity[mood] ?? 0.55 * (1 - dust * 0.6)} /> : null}
         <DetailProvider value={detail}>{children}</DetailProvider>
+        {bloom ? <PostFX /> : null}
       </ThreeCanvas>
       {overlay}
       {vignette ? <Vignette /> : null}

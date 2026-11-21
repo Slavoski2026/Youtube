@@ -120,6 +120,7 @@ export const DigitalClock: React.FC<{ position: V3; yaw?: number; text: string; 
       w={1.16}
       h={0.48}
       px={512}
+      glow={2.2}
       draw={(ctx, W, H) => {
         ctx.fillStyle = "#0A0A0E";
         ctx.fillRect(0, 0, W, H);
@@ -777,10 +778,10 @@ const TokyoBlock: React.FC<{ position: V3; yaw?: number; w: number; h: number; s
       {/* ground floor shop glow */}
       <mesh position={[0, 3, 0.02]}>
         <planeGeometry args={[w - 1, 5]} />
-        <Glow color={random(`${seed}g`) < 0.5 ? "#F4E6C8" : "#E8D4F0"} />
+        <Glow color={random(`${seed}g`) < 0.5 ? "#F4E6C8" : "#E8D4F0"} hdr={1.2} />
       </mesh>
       {box([0, 6.0, 0.6], [w, 0.4, 1.2], "#22242E")}
-      <CanvasPanel position={[0, 6.9, 0.9]} w={w * 0.8} h={1.3} px={512} draw={drawGlyphSign(`${seed}h`, "#14141C", neon2, false, 5)} />
+      <CanvasPanel position={[0, 6.9, 0.9]} w={w * 0.8} h={1.3} px={512} glow={2.0} draw={drawGlyphSign(`${seed}h`, "#14141C", neon2, false, 5)} />
       {/* upper windows */}
       {Array.from({ length: floors }, (_, f) =>
         Array.from({ length: Math.max(1, Math.floor(w / 4)) }, (_, k) => {
@@ -797,8 +798,8 @@ const TokyoBlock: React.FC<{ position: V3; yaw?: number; w: number; h: number; s
       {/* vertical blade sign sticking out over the street */}
       <group position={[w / 2 - 1.2, 8 + h * 0.25, 1.8]} rotation={[0, Math.PI / 2, 0]}>
         {box([0, 0, 0], [3.4, Math.min(16, h * 0.55), 0.4], "#101018")}
-        <CanvasPanel position={[0, 0, 0.21]} w={3} h={Math.min(16, h * 0.55) - 0.4} px={256} draw={drawGlyphSign(`${seed}v`, "#101018", neon, true, 4)} />
-        <CanvasPanel position={[0, 0, -0.21]} rotation={[0, Math.PI, 0]} w={3} h={Math.min(16, h * 0.55) - 0.4} px={256} draw={drawGlyphSign(`${seed}v`, "#101018", neon, true, 4)} />
+        <CanvasPanel position={[0, 0, 0.21]} w={3} h={Math.min(16, h * 0.55) - 0.4} px={256} glow={2.2} draw={drawGlyphSign(`${seed}v`, "#101018", neon, true, 4)} />
+        <CanvasPanel position={[0, 0, -0.21]} rotation={[0, Math.PI, 0]} w={3} h={Math.min(16, h * 0.55) - 0.4} px={256} glow={2.2} draw={drawGlyphSign(`${seed}v`, "#101018", neon, true, 4)} />
         <Halo position={[0, 0, 1.2]} size={9} color={neon} opacity={0.4 * flick} />
       </group>
       {/* AC units */}
@@ -818,7 +819,7 @@ export const Market: React.FC<{ position: V3; yaw?: number; slide?: number }> = 
       {/* interior: white glow behind glass with shelf silhouettes */}
       <mesh position={[0, 3, -0.3]}>
         <planeGeometry args={[w - 0.6, 6]} />
-        <Glow color="#F8FAFF" />
+        <Glow color="#F8FAFF" hdr={1.15} />
       </mesh>
       {[-5.5, -2.5, 2.5, 5.5].map((x) => box([x, 2.0, -1.0], [1.8, 3.6, 0.5], ["#E86A5A", "#5AA0E8", "#F2C43D", "#6AC87A"][Math.abs(x) % 4 > 2 ? 0 : 1], { key: x, cast: false }))}
       {/* stripes and the sign */}
@@ -1267,7 +1268,7 @@ export const Plaza: React.FC<{ t: number }> = ({ t }) => (
     ))}
     {box([0, 22, -46], [48, 44, 32], P.bldgSlate)}
     {box([BIGSCREEN.c[0], BIGSCREEN.c[1], -29.9], [BIGSCREEN.w + 1.6, BIGSCREEN.h + 1.6, 0.6], "#15161C")}
-    <CanvasPanel position={BIGSCREEN.c} w={BIGSCREEN.w} h={BIGSCREEN.h} px={1024} draw={drawStopOrder(t)} />
+    <CanvasPanel position={BIGSCREEN.c} w={BIGSCREEN.w} h={BIGSCREEN.h} px={1024} glow={1.5} draw={drawStopOrder(t)} />
     <Halo position={[BIGSCREEN.c[0], BIGSCREEN.c[1], BIGSCREEN.c[2] + 3]} size={50} color="#FF6A5A" opacity={0.18} />
     <group scale={5}>
       <Building position={[-11, 0, -6]} w={5} d={5} h={12} color={P.bldgNavy} seed="pz1" power={0.3} />
@@ -1407,7 +1408,7 @@ export const DoorLab: React.FC<{ t: number; open?: number }> = ({ t, open = 0 })
     {Array.from({ length: 6 }, (_, i) => (
       <mesh key={i} position={[-15 + i * 6, 7.2, -13.8]}>
         <planeGeometry args={[5.4, 5]} />
-        <Glow color="#CFE4F4" />
+        <Glow color="#CFE4F4" hdr={1} />
       </mesh>
     ))}
     {[-1, 1].map((s) => box([s * 20, 6, 0], [0.3, 12, 34], "#EEF0F2", { key: s, cast: false }))}
@@ -1555,7 +1556,7 @@ export const Airport: React.FC<{ t: number }> = ({ t }) => (
     ))}
     {/* the board */}
     {box([DEPBOARD.c[0], DEPBOARD.c[1], DEPBOARD.c[2] - 0.15], [DEPBOARD.w + 0.6, DEPBOARD.h + 0.6, 0.3], "#15161C")}
-    <CanvasPanel position={DEPBOARD.c} w={DEPBOARD.w} h={DEPBOARD.h} px={1024} draw={drawCancelled(t)} />
+    <CanvasPanel position={DEPBOARD.c} w={DEPBOARD.w} h={DEPBOARD.h} px={1024} glow={1.5} draw={drawCancelled(t)} />
     {[-6, 3.6].map((x) => (
       <mesh key={x} position={[x, 16.4, DEPBOARD.c[2]]}>
         <CylG args={[0.05, 0.05, 2.5, 4]} />
@@ -1774,7 +1775,7 @@ export const UnluckyBedroom: React.FC<{ tally: number; doorOpen?: number; t: num
     {/* window with morning light */}
     <mesh position={[-6.98, 3.6, 10]} rotation={[0, Math.PI / 2, 0]}>
       <planeGeometry args={[2.6, 2.2]} />
-      <Glow color="#CFE4F4" />
+      <Glow color="#CFE4F4" hdr={1} />
     </mesh>
     <pointLight position={[0, 5, 6]} color="#FFF0D8" intensity={14} distance={20} decay={1.5} />
   </group>
@@ -1790,7 +1791,7 @@ export const AlpineLab: React.FC<{ t: number }> = ({ t }) => (
     {[2.8, 7.6].map((y) => (
       <mesh key={y} position={[0, y, 1.02]}>
         <planeGeometry args={[66, 3.2]} />
-        <Glow color="#F2D49A" />
+        <Glow color="#F2D49A" hdr={1.35} />
       </mesh>
     ))}
     {Array.from({ length: 12 }, (_, i) => box([-33 + i * 6, 6, 1.1], [0.3, 12, 0.3], "#2A2E38", { key: i }))}

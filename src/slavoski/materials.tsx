@@ -1,5 +1,6 @@
 import React from "react";
 import * as THREE from "three";
+import { GLOW_HDR, isBloom } from "./quality";
 
 /** Flat-shaded Lambert: the house material for every solid object. */
 export const Flat: React.FC<{ color: string; opacity?: number; vertexColors?: boolean; side?: THREE.Side }> = ({
@@ -18,15 +19,16 @@ export const Flat: React.FC<{ color: string; opacity?: number; vertexColors?: bo
   />
 );
 
-/** Unlit glowing material for emissive practicals (windows, lamps, fire, lava). */
-export const Glow: React.FC<{ color: string; opacity?: number; fog?: boolean; additive?: boolean }> = ({
+/** Unlit glowing material for emissive practicals (windows, lamps, fire, lava). HDR-boosted when bloom is on. */
+export const Glow: React.FC<{ color: string; opacity?: number; fog?: boolean; additive?: boolean; hdr?: number }> = ({
   color,
   opacity = 1,
   fog = true,
   additive,
+  hdr = GLOW_HDR,
 }) => (
   <meshBasicMaterial
-    color={color}
+    color={isBloom() && hdr !== 1 ? new THREE.Color(color).multiplyScalar(hdr) : color}
     transparent={opacity < 1 || additive}
     opacity={opacity}
     fog={fog}

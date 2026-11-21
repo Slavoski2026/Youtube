@@ -23,6 +23,7 @@ import { useThree } from "@react-three/fiber";
 import React, { useLayoutEffect, useMemo, useRef } from "react";
 import { random } from "remotion";
 import * as THREE from "three";
+import { isBloom } from "./quality";
 import { BoxG, CylG, IcoG } from "./detail";
 import { Flat, Glow, Halo } from "./materials";
 import type { V3 } from "./noise";
@@ -31,8 +32,6 @@ const ORDER_MASK = 20;
 const ORDER_FILL = 21;
 const ORDER_INNER = 22;
 
-/** A colour given as sRGB hex, stored raw so a ShaderMaterial without colour management outputs it as-is. */
-const rawColor = (hex: string) => new THREE.Color().setStyle(hex, THREE.LinearSRGBColorSpace);
 
 const FILL_VERT = /* glsl */ `
   varying vec2 vUv;
@@ -51,6 +50,7 @@ const FILL_FRAG = /* glsl */ `
   void main() {
     vec3 c = mix(bottom, top, smoothstep(0.0, 1.0, vUv.y));
     gl_FragColor = vec4(mix(c, vec3(1.0), flash), 1.0);
+    #include <colorspace_fragment>
   }
 `;
 
@@ -141,11 +141,12 @@ export const Portal: React.FC<PortalProps> = ({
   const n = new THREE.Vector3(0, 0, -1).applyQuaternion(q);
   plane.setFromNormalAndCoplanarPoint(n, new THREE.Vector3(...position));
   const inner = useRef<THREE.Group>(null);
-  useInner(inner, id, plane, shadows, brighten, ORDER_INNER + id * 0.001);
+  // Under bloom, a strong emissive boost pushes a bright inner world over the bloom threshold: keep it subtle.
+  useInner(inner, id, plane, shadows, isBloom() ? brighten * 0.3 : brighten, ORDER_INNER + id * 0.001);
   const k = Math.max(0, Math.min(1, open));
   const sx = Math.max(0.0001, k < 1 ? 0.04 + 0.96 * (1 - (1 - k) ** 3) : 1);
   const flash = k < 1 ? Math.max(0, 1 - k * 1.25) * 0.9 : 0;
-  const uniforms = useMemo(() => ({ top: { value: rawColor(sky[0]) }, bottom: { value: rawColor(sky[1]) }, flash: { value: 0 } }), [sky[0], sky[1]]);
+  const uniforms = useMemo(() => ({ top: { value: new THREE.Color(sky[0]) }, bottom: { value: new THREE.Color(sky[1]) }, flash: { value: 0 } }), [sky[0], sky[1]]);
   uniforms.flash.value = flash;
   const side = doubleSided ? THREE.DoubleSide : THREE.FrontSide;
   if (k <= 0) return null;
@@ -221,7 +222,7 @@ export const SkyDome: React.FC<{ position?: V3; radius?: number; zenith: string;
         <>
           <mesh position={[sd.x, sd.y, sd.z]} onUpdate={(m) => m.lookAt(position[0], position[1], position[2])}>
             <circleGeometry args={[(sun.size ?? 1) * radius * 0.035, 24]} />
-            <meshBasicMaterial color={sun.color} fog={false} toneMapped={false} depthWrite={false} />
+            <meshBasicMaterial color={isBloom() ? new THREE.Color(sun.color).multiplyScalar(3) : sun.color} fog={false} toneMapped={false} depthWrite={false} />
           </mesh>
           <Halo position={[sd.x * 0.98, sd.y * 0.98, sd.z * 0.98]} size={(sun.size ?? 1) * radius * 0.5} color={sun.color} opacity={0.55} />
         </>
