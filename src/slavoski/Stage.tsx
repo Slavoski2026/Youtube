@@ -100,7 +100,8 @@ const PostFX: React.FC<{ strength?: number; radius?: number; threshold?: number 
   const size = useThree((s) => s.size);
   const composer = useMemo(() => {
     const dpr = gl.getPixelRatio();
-    const rt = new THREE.WebGLRenderTarget(size.width * dpr, size.height * dpr, { type: THREE.HalfFloatType, depthBuffer: true, stencilBuffer: true, samples: 4 });
+    // With 2× supersampling (hq) the downsample already antialiases: skip MSAA there (much faster in software GL).
+    const rt = new THREE.WebGLRenderTarget(size.width * dpr, size.height * dpr, { type: THREE.HalfFloatType, depthBuffer: true, stencilBuffer: true, samples: dpr > 1 ? 0 : 4 });
     const c = new EffectComposer(gl, rt);
     c.setPixelRatio(dpr);
     c.setSize(size.width, size.height);
