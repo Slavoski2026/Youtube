@@ -986,16 +986,17 @@ const c6Close: ShotFn = (c) => {
 
 /** Shorts cover: Slavoski on the night street looking up at two huge moons, one of them cracking. */
 export const thumbShot: ShotFn = () => {
-  const cam: CameraSpec = { position: [17.2, 1.6, 15], target: [15.6, 19, -60] };
+  // Low on the pavement, looking up over the road so the sky is open; text sits above the moons.
+  const cam: CameraSpec = { position: [18, 1.5, 20], target: [4, 30, -60] };
   return (
     <Shot mood="night" dust={0.15} camera={cam} fog={[60, 400]} shadowSize={30} light={0.85} keyDir={KEY1}>
       <BigStreet seed="hook" lamps={false} trees={false} />
-      <Hero pose={lookUp(1.05, { lShoulder: [0.15, 0.4], rShoulder: [0.15, 0.4], expression: "alarm" })} position={[16.4, 0, 4]} yaw={Math.PI + 0.2} />
+      <Hero pose={lookUp(1.05, { lShoulder: [0.15, 0.4], rShoulder: [0.15, 0.4], expression: "alarm" })} position={[15.5, 0, 6]} yaw={Math.PI + 0.25} />
       <SkyMoons
         cam={cam}
         spots={[
-          { kind: "moon", ndc: [-0.4, 0.2], size: 0.2 },
-          { kind: "moon2", ndc: [0.42, -0.02], size: 0.26, crack: 0.35 },
+          { kind: "moon", ndc: [-0.3, 0.12], size: 0.19 },
+          { kind: "moon2", ndc: [0.44, -0.08], size: 0.24, crack: 0.35 },
         ]}
       />
       <SecondKey intensity={1.1} />
