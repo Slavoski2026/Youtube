@@ -1,0 +1,1302 @@
+{
+  "slug": "second-moon",
+  "audio": "voiceover/second-moon.mp3",
+  "durationInSeconds": 69.4073469387755,
+  "words": [
+    {
+      "text": "What",
+      "startMs": 160,
+      "endMs": 260,
+      "timestampMs": 210,
+      "confidence": null
+    },
+    {
+      "text": " if",
+      "startMs": 320,
+      "endMs": 420,
+      "timestampMs": 370,
+      "confidence": null
+    },
+    {
+      "text": " Earth",
+      "startMs": 620,
+      "endMs": 880,
+      "timestampMs": 750,
+      "confidence": null
+    },
+    {
+      "text": " suddenly",
+      "startMs": 1060,
+      "endMs": 1400,
+      "timestampMs": 1230,
+      "confidence": null
+    },
+    {
+      "text": " had",
+      "startMs": 1460,
+      "endMs": 1560,
+      "timestampMs": 1510,
+      "confidence": null
+    },
+    {
+      "text": " a",
+      "startMs": 1600,
+      "endMs": 1700,
+      "timestampMs": 1650,
+      "confidence": null
+    },
+    {
+      "text": " second",
+      "startMs": 1800,
+      "endMs": 2080,
+      "timestampMs": 1940,
+      "confidence": null
+    },
+    {
+      "text": " moon?",
+      "startMs": 2180,
+      "endMs": 2520,
+      "timestampMs": 2350,
+      "confidence": null
+    },
+    {
+      "text": " At",
+      "startMs": 3140,
+      "endMs": 3300,
+      "timestampMs": 3220,
+      "confidence": null
+    },
+    {
+      "text": " first,",
+      "startMs": 3360,
+      "endMs": 3720,
+      "timestampMs": 3540,
+      "confidence": null
+    },
+    {
+      "text": " it",
+      "startMs": 3940,
+      "endMs": 4000,
+      "timestampMs": 3970,
+      "confidence": null
+    },
+    {
+      "text": " would",
+      "startMs": 4019,
+      "endMs": 4140,
+      "timestampMs": 4079,
+      "confidence": null
+    },
+    {
+      "text": " look",
+      "startMs": 4160,
+      "endMs": 4320,
+      "timestampMs": 4240,
+      "confidence": null
+    },
+    {
+      "text": " incredible.",
+      "startMs": 4380,
+      "endMs": 5140,
+      "timestampMs": 4760,
+      "confidence": null
+    },
+    {
+      "text": " Two",
+      "startMs": 5660,
+      "endMs": 5940,
+      "timestampMs": 5800,
+      "confidence": null
+    },
+    {
+      "text": " enormous",
+      "startMs": 6000,
+      "endMs": 6600,
+      "timestampMs": 6300,
+      "confidence": null
+    },
+    {
+      "text": " moons",
+      "startMs": 6720,
+      "endMs": 7040,
+      "timestampMs": 6880,
+      "confidence": null
+    },
+    {
+      "text": " lighting",
+      "startMs": 7220,
+      "endMs": 7480,
+      "timestampMs": 7350,
+      "confidence": null
+    },
+    {
+      "text": " up",
+      "startMs": 7540,
+      "endMs": 7640,
+      "timestampMs": 7590,
+      "confidence": null
+    },
+    {
+      "text": " the",
+      "startMs": 7680,
+      "endMs": 7740,
+      "timestampMs": 7710,
+      "confidence": null
+    },
+    {
+      "text": " night",
+      "startMs": 7780,
+      "endMs": 7960,
+      "timestampMs": 7870,
+      "confidence": null
+    },
+    {
+      "text": " sky.",
+      "startMs": 8039,
+      "endMs": 8420,
+      "timestampMs": 8230,
+      "confidence": null
+    },
+    {
+      "text": " But",
+      "startMs": 9060,
+      "endMs": 9160,
+      "timestampMs": 9110,
+      "confidence": null
+    },
+    {
+      "text": " within",
+      "startMs": 9180,
+      "endMs": 9460,
+      "timestampMs": 9320,
+      "confidence": null
+    },
+    {
+      "text": " hours,",
+      "startMs": 9560,
+      "endMs": 9920,
+      "timestampMs": 9740,
+      "confidence": null
+    },
+    {
+      "text": " scientists",
+      "startMs": 10340,
+      "endMs": 10940,
+      "timestampMs": 10640,
+      "confidence": null
+    },
+    {
+      "text": " would",
+      "startMs": 10980,
+      "endMs": 11080,
+      "timestampMs": 11030,
+      "confidence": null
+    },
+    {
+      "text": " begin",
+      "startMs": 11120,
+      "endMs": 11420,
+      "timestampMs": 11270,
+      "confidence": null
+    },
+    {
+      "text": " to",
+      "startMs": 11440,
+      "endMs": 11580,
+      "timestampMs": 11510,
+      "confidence": null
+    },
+    {
+      "text": " panic.",
+      "startMs": 11640,
+      "endMs": 12060,
+      "timestampMs": 11850,
+      "confidence": null
+    },
+    {
+      "text": " Because",
+      "startMs": 12680,
+      "endMs": 12900,
+      "timestampMs": 12790,
+      "confidence": null
+    },
+    {
+      "text": " the",
+      "startMs": 12940,
+      "endMs": 13020,
+      "timestampMs": 12980,
+      "confidence": null
+    },
+    {
+      "text": " moon",
+      "startMs": 13080,
+      "endMs": 13360,
+      "timestampMs": 13220,
+      "confidence": null
+    },
+    {
+      "text": " doesn't",
+      "startMs": 13400,
+      "endMs": 13680,
+      "timestampMs": 13540,
+      "confidence": null
+    },
+    {
+      "text": " just",
+      "startMs": 13740,
+      "endMs": 13900,
+      "timestampMs": 13820,
+      "confidence": null
+    },
+    {
+      "text": " light",
+      "startMs": 14020,
+      "endMs": 14180,
+      "timestampMs": 14100,
+      "confidence": null
+    },
+    {
+      "text": " up",
+      "startMs": 14240,
+      "endMs": 14340,
+      "timestampMs": 14290,
+      "confidence": null
+    },
+    {
+      "text": " our",
+      "startMs": 14380,
+      "endMs": 14540,
+      "timestampMs": 14460,
+      "confidence": null
+    },
+    {
+      "text": " sky,",
+      "startMs": 14580,
+      "endMs": 14940,
+      "timestampMs": 14760,
+      "confidence": null
+    },
+    {
+      "text": " its",
+      "startMs": 15400,
+      "endMs": 15560,
+      "timestampMs": 15480,
+      "confidence": null
+    },
+    {
+      "text": " gravity",
+      "startMs": 15600,
+      "endMs": 16040,
+      "timestampMs": 15820,
+      "confidence": null
+    },
+    {
+      "text": " helps",
+      "startMs": 16079,
+      "endMs": 16300,
+      "timestampMs": 16190,
+      "confidence": null
+    },
+    {
+      "text": " control",
+      "startMs": 16340,
+      "endMs": 16800,
+      "timestampMs": 16570,
+      "confidence": null
+    },
+    {
+      "text": " Earth's",
+      "startMs": 16840,
+      "endMs": 17120,
+      "timestampMs": 16980,
+      "confidence": null
+    },
+    {
+      "text": " tides.",
+      "startMs": 17160,
+      "endMs": 17660,
+      "timestampMs": 17410,
+      "confidence": null
+    },
+    {
+      "text": " And",
+      "startMs": 18140,
+      "endMs": 18260,
+      "timestampMs": 18200,
+      "confidence": null
+    },
+    {
+      "text": " now,",
+      "startMs": 18320,
+      "endMs": 18560,
+      "timestampMs": 18440,
+      "confidence": null
+    },
+    {
+      "text": " another",
+      "startMs": 18900,
+      "endMs": 19360,
+      "timestampMs": 19130,
+      "confidence": null
+    },
+    {
+      "text": " massive",
+      "startMs": 19540,
+      "endMs": 19960,
+      "timestampMs": 19750,
+      "confidence": null
+    },
+    {
+      "text": " object",
+      "startMs": 20040,
+      "endMs": 20380,
+      "timestampMs": 20210,
+      "confidence": null
+    },
+    {
+      "text": " is",
+      "startMs": 20420,
+      "endMs": 20580,
+      "timestampMs": 20500,
+      "confidence": null
+    },
+    {
+      "text": " pulling",
+      "startMs": 20640,
+      "endMs": 20940,
+      "timestampMs": 20790,
+      "confidence": null
+    },
+    {
+      "text": " on",
+      "startMs": 20980,
+      "endMs": 21060,
+      "timestampMs": 21020,
+      "confidence": null
+    },
+    {
+      "text": " our",
+      "startMs": 21080,
+      "endMs": 21200,
+      "timestampMs": 21140,
+      "confidence": null
+    },
+    {
+      "text": " oceans.",
+      "startMs": 21280,
+      "endMs": 21740,
+      "timestampMs": 21510,
+      "confidence": null
+    },
+    {
+      "text": " Depending",
+      "startMs": 22340,
+      "endMs": 22700,
+      "timestampMs": 22520,
+      "confidence": null
+    },
+    {
+      "text": " on",
+      "startMs": 22720,
+      "endMs": 22800,
+      "timestampMs": 22760,
+      "confidence": null
+    },
+    {
+      "text": " its",
+      "startMs": 22820,
+      "endMs": 22960,
+      "timestampMs": 22890,
+      "confidence": null
+    },
+    {
+      "text": " size",
+      "startMs": 23040,
+      "endMs": 23320,
+      "timestampMs": 23180,
+      "confidence": null
+    },
+    {
+      "text": " and",
+      "startMs": 23360,
+      "endMs": 23440,
+      "timestampMs": 23400,
+      "confidence": null
+    },
+    {
+      "text": " distance,",
+      "startMs": 23520,
+      "endMs": 23980,
+      "timestampMs": 23750,
+      "confidence": null
+    },
+    {
+      "text": " coastal",
+      "startMs": 24300,
+      "endMs": 24620,
+      "timestampMs": 24460,
+      "confidence": null
+    },
+    {
+      "text": " cities",
+      "startMs": 24740,
+      "endMs": 25040,
+      "timestampMs": 24890,
+      "confidence": null
+    },
+    {
+      "text": " could",
+      "startMs": 25060,
+      "endMs": 25140,
+      "timestampMs": 25100,
+      "confidence": null
+    },
+    {
+      "text": " experience",
+      "startMs": 25180,
+      "endMs": 25820,
+      "timestampMs": 25500,
+      "confidence": null
+    },
+    {
+      "text": " catastrophic",
+      "startMs": 25900,
+      "endMs": 26720,
+      "timestampMs": 26310,
+      "confidence": null
+    },
+    {
+      "text": " flooding.",
+      "startMs": 26820,
+      "endMs": 27160,
+      "timestampMs": 26990,
+      "confidence": null
+    },
+    {
+      "text": " But",
+      "startMs": 27720,
+      "endMs": 27800,
+      "timestampMs": 27760,
+      "confidence": null
+    },
+    {
+      "text": " that's",
+      "startMs": 27840,
+      "endMs": 28100,
+      "timestampMs": 27970,
+      "confidence": null
+    },
+    {
+      "text": " only",
+      "startMs": 28160,
+      "endMs": 28380,
+      "timestampMs": 28270,
+      "confidence": null
+    },
+    {
+      "text": " the",
+      "startMs": 28420,
+      "endMs": 28480,
+      "timestampMs": 28450,
+      "confidence": null
+    },
+    {
+      "text": " beginning.",
+      "startMs": 28520,
+      "endMs": 28980,
+      "timestampMs": 28750,
+      "confidence": null
+    },
+    {
+      "text": " The",
+      "startMs": 29560,
+      "endMs": 29660,
+      "timestampMs": 29610,
+      "confidence": null
+    },
+    {
+      "text": " two",
+      "startMs": 29720,
+      "endMs": 29840,
+      "timestampMs": 29780,
+      "confidence": null
+    },
+    {
+      "text": " moons",
+      "startMs": 29940,
+      "endMs": 30180,
+      "timestampMs": 30060,
+      "confidence": null
+    },
+    {
+      "text": " would",
+      "startMs": 30200,
+      "endMs": 30360,
+      "timestampMs": 30280,
+      "confidence": null
+    },
+    {
+      "text": " also",
+      "startMs": 30440,
+      "endMs": 30800,
+      "timestampMs": 30620,
+      "confidence": null
+    },
+    {
+      "text": " pull",
+      "startMs": 30840,
+      "endMs": 30980,
+      "timestampMs": 30910,
+      "confidence": null
+    },
+    {
+      "text": " on",
+      "startMs": 31020,
+      "endMs": 31100,
+      "timestampMs": 31060,
+      "confidence": null
+    },
+    {
+      "text": " each",
+      "startMs": 31120,
+      "endMs": 31300,
+      "timestampMs": 31210,
+      "confidence": null
+    },
+    {
+      "text": " other.",
+      "startMs": 31400,
+      "endMs": 31620,
+      "timestampMs": 31510,
+      "confidence": null
+    },
+    {
+      "text": " Their",
+      "startMs": 32119,
+      "endMs": 32299,
+      "timestampMs": 32209,
+      "confidence": null
+    },
+    {
+      "text": " orbits",
+      "startMs": 32360,
+      "endMs": 32700,
+      "timestampMs": 32530,
+      "confidence": null
+    },
+    {
+      "text": " could",
+      "startMs": 32740,
+      "endMs": 32840,
+      "timestampMs": 32790,
+      "confidence": null
+    },
+    {
+      "text": " become",
+      "startMs": 32860,
+      "endMs": 33140,
+      "timestampMs": 33000,
+      "confidence": null
+    },
+    {
+      "text": " unstable,",
+      "startMs": 33180,
+      "endMs": 33780,
+      "timestampMs": 33480,
+      "confidence": null
+    },
+    {
+      "text": " and",
+      "startMs": 34260,
+      "endMs": 34320,
+      "timestampMs": 34290,
+      "confidence": null
+    },
+    {
+      "text": " if",
+      "startMs": 34360,
+      "endMs": 34440,
+      "timestampMs": 34400,
+      "confidence": null
+    },
+    {
+      "text": " they",
+      "startMs": 34460,
+      "endMs": 34540,
+      "timestampMs": 34500,
+      "confidence": null
+    },
+    {
+      "text": " got",
+      "startMs": 34560,
+      "endMs": 34720,
+      "timestampMs": 34640,
+      "confidence": null
+    },
+    {
+      "text": " too",
+      "startMs": 34760,
+      "endMs": 34920,
+      "timestampMs": 34840,
+      "confidence": null
+    },
+    {
+      "text": " close,",
+      "startMs": 34960,
+      "endMs": 35340,
+      "timestampMs": 35150,
+      "confidence": null
+    },
+    {
+      "text": " gravity",
+      "startMs": 35740,
+      "endMs": 36160,
+      "timestampMs": 35950,
+      "confidence": null
+    },
+    {
+      "text": " could",
+      "startMs": 36200,
+      "endMs": 36380,
+      "timestampMs": 36290,
+      "confidence": null
+    },
+    {
+      "text": " tear",
+      "startMs": 36440,
+      "endMs": 36700,
+      "timestampMs": 36570,
+      "confidence": null
+    },
+    {
+      "text": " one",
+      "startMs": 36820,
+      "endMs": 36880,
+      "timestampMs": 36850,
+      "confidence": null
+    },
+    {
+      "text": " of",
+      "startMs": 36920,
+      "endMs": 36980,
+      "timestampMs": 36950,
+      "confidence": null
+    },
+    {
+      "text": " them",
+      "startMs": 37020,
+      "endMs": 37100,
+      "timestampMs": 37060,
+      "confidence": null
+    },
+    {
+      "text": " apart,",
+      "startMs": 37140,
+      "endMs": 37560,
+      "timestampMs": 37350,
+      "confidence": null
+    },
+    {
+      "text": " sending",
+      "startMs": 38040,
+      "endMs": 38300,
+      "timestampMs": 38170,
+      "confidence": null
+    },
+    {
+      "text": " enormous",
+      "startMs": 38360,
+      "endMs": 39000,
+      "timestampMs": 38680,
+      "confidence": null
+    },
+    {
+      "text": " chunks",
+      "startMs": 39060,
+      "endMs": 39300,
+      "timestampMs": 39180,
+      "confidence": null
+    },
+    {
+      "text": " of",
+      "startMs": 39360,
+      "endMs": 39460,
+      "timestampMs": 39410,
+      "confidence": null
+    },
+    {
+      "text": " rock",
+      "startMs": 39540,
+      "endMs": 39780,
+      "timestampMs": 39660,
+      "confidence": null
+    },
+    {
+      "text": " hurtling",
+      "startMs": 39980,
+      "endMs": 40400,
+      "timestampMs": 40190,
+      "confidence": null
+    },
+    {
+      "text": " through",
+      "startMs": 40420,
+      "endMs": 40600,
+      "timestampMs": 40510,
+      "confidence": null
+    },
+    {
+      "text": " space.",
+      "startMs": 40700,
+      "endMs": 41100,
+      "timestampMs": 40900,
+      "confidence": null
+    },
+    {
+      "text": " Some",
+      "startMs": 41800,
+      "endMs": 41900,
+      "timestampMs": 41850,
+      "confidence": null
+    },
+    {
+      "text": " of",
+      "startMs": 41940,
+      "endMs": 42020,
+      "timestampMs": 41980,
+      "confidence": null
+    },
+    {
+      "text": " those",
+      "startMs": 42060,
+      "endMs": 42260,
+      "timestampMs": 42160,
+      "confidence": null
+    },
+    {
+      "text": " fragments",
+      "startMs": 42280,
+      "endMs": 42700,
+      "timestampMs": 42490,
+      "confidence": null
+    },
+    {
+      "text": " could",
+      "startMs": 42720,
+      "endMs": 42820,
+      "timestampMs": 42770,
+      "confidence": null
+    },
+    {
+      "text": " eventually",
+      "startMs": 42860,
+      "endMs": 43420,
+      "timestampMs": 43140,
+      "confidence": null
+    },
+    {
+      "text": " strike",
+      "startMs": 43500,
+      "endMs": 43800,
+      "timestampMs": 43650,
+      "confidence": null
+    },
+    {
+      "text": " Earth.",
+      "startMs": 43860,
+      "endMs": 44180,
+      "timestampMs": 44020,
+      "confidence": null
+    },
+    {
+      "text": " But",
+      "startMs": 44800,
+      "endMs": 44900,
+      "timestampMs": 44850,
+      "confidence": null
+    },
+    {
+      "text": " there's",
+      "startMs": 44920,
+      "endMs": 45080,
+      "timestampMs": 45000,
+      "confidence": null
+    },
+    {
+      "text": " an",
+      "startMs": 45100,
+      "endMs": 45240,
+      "timestampMs": 45170,
+      "confidence": null
+    },
+    {
+      "text": " even",
+      "startMs": 45320,
+      "endMs": 45660,
+      "timestampMs": 45490,
+      "confidence": null
+    },
+    {
+      "text": " more",
+      "startMs": 45700,
+      "endMs": 45960,
+      "timestampMs": 45830,
+      "confidence": null
+    },
+    {
+      "text": " terrifying",
+      "startMs": 46020,
+      "endMs": 46500,
+      "timestampMs": 46260,
+      "confidence": null
+    },
+    {
+      "text": " possibility.",
+      "startMs": 46580,
+      "endMs": 47200,
+      "timestampMs": 46890,
+      "confidence": null
+    },
+    {
+      "text": " The",
+      "startMs": 47800,
+      "endMs": 47920,
+      "timestampMs": 47860,
+      "confidence": null
+    },
+    {
+      "text": " second",
+      "startMs": 48000,
+      "endMs": 48260,
+      "timestampMs": 48130,
+      "confidence": null
+    },
+    {
+      "text": " moon",
+      "startMs": 48340,
+      "endMs": 48600,
+      "timestampMs": 48470,
+      "confidence": null
+    },
+    {
+      "text": " could",
+      "startMs": 48620,
+      "endMs": 48780,
+      "timestampMs": 48700,
+      "confidence": null
+    },
+    {
+      "text": " collide",
+      "startMs": 48840,
+      "endMs": 49380,
+      "timestampMs": 49110,
+      "confidence": null
+    },
+    {
+      "text": " with",
+      "startMs": 49420,
+      "endMs": 49520,
+      "timestampMs": 49470,
+      "confidence": null
+    },
+    {
+      "text": " our",
+      "startMs": 49560,
+      "endMs": 49660,
+      "timestampMs": 49610,
+      "confidence": null
+    },
+    {
+      "text": " original",
+      "startMs": 49740,
+      "endMs": 50180,
+      "timestampMs": 49960,
+      "confidence": null
+    },
+    {
+      "text": " moon,",
+      "startMs": 50260,
+      "endMs": 50480,
+      "timestampMs": 50370,
+      "confidence": null
+    },
+    {
+      "text": " creating",
+      "startMs": 50880,
+      "endMs": 51240,
+      "timestampMs": 51060,
+      "confidence": null
+    },
+    {
+      "text": " a",
+      "startMs": 51300,
+      "endMs": 51380,
+      "timestampMs": 51340,
+      "confidence": null
+    },
+    {
+      "text": " gigantic",
+      "startMs": 51420,
+      "endMs": 52120,
+      "timestampMs": 51770,
+      "confidence": null
+    },
+    {
+      "text": " cloud",
+      "startMs": 52180,
+      "endMs": 52440,
+      "timestampMs": 52310,
+      "confidence": null
+    },
+    {
+      "text": " of",
+      "startMs": 52480,
+      "endMs": 52560,
+      "timestampMs": 52520,
+      "confidence": null
+    },
+    {
+      "text": " debris",
+      "startMs": 52600,
+      "endMs": 52960,
+      "timestampMs": 52780,
+      "confidence": null
+    },
+    {
+      "text": " around",
+      "startMs": 53020,
+      "endMs": 53260,
+      "timestampMs": 53140,
+      "confidence": null
+    },
+    {
+      "text": " our",
+      "startMs": 53280,
+      "endMs": 53400,
+      "timestampMs": 53340,
+      "confidence": null
+    },
+    {
+      "text": " planet.",
+      "startMs": 53440,
+      "endMs": 53820,
+      "timestampMs": 53630,
+      "confidence": null
+    },
+    {
+      "text": " And",
+      "startMs": 54420,
+      "endMs": 54500,
+      "timestampMs": 54460,
+      "confidence": null
+    },
+    {
+      "text": " suddenly,",
+      "startMs": 54620,
+      "endMs": 54980,
+      "timestampMs": 54800,
+      "confidence": null
+    },
+    {
+      "text": " humanity",
+      "startMs": 55360,
+      "endMs": 55820,
+      "timestampMs": 55590,
+      "confidence": null
+    },
+    {
+      "text": " wouldn't",
+      "startMs": 55900,
+      "endMs": 56100,
+      "timestampMs": 56000,
+      "confidence": null
+    },
+    {
+      "text": " be",
+      "startMs": 56120,
+      "endMs": 56220,
+      "timestampMs": 56170,
+      "confidence": null
+    },
+    {
+      "text": " looking",
+      "startMs": 56260,
+      "endMs": 56500,
+      "timestampMs": 56380,
+      "confidence": null
+    },
+    {
+      "text": " up",
+      "startMs": 56560,
+      "endMs": 56660,
+      "timestampMs": 56610,
+      "confidence": null
+    },
+    {
+      "text": " at",
+      "startMs": 56700,
+      "endMs": 56840,
+      "timestampMs": 56770,
+      "confidence": null
+    },
+    {
+      "text": " two",
+      "startMs": 56940,
+      "endMs": 57120,
+      "timestampMs": 57030,
+      "confidence": null
+    },
+    {
+      "text": " beautiful",
+      "startMs": 57240,
+      "endMs": 57620,
+      "timestampMs": 57430,
+      "confidence": null
+    },
+    {
+      "text": " moons",
+      "startMs": 57700,
+      "endMs": 57960,
+      "timestampMs": 57830,
+      "confidence": null
+    },
+    {
+      "text": " anymore.",
+      "startMs": 58000,
+      "endMs": 58380,
+      "timestampMs": 58190,
+      "confidence": null
+    },
+    {
+      "text": " We'd",
+      "startMs": 58920,
+      "endMs": 59020,
+      "timestampMs": 58970,
+      "confidence": null
+    },
+    {
+      "text": " be",
+      "startMs": 59060,
+      "endMs": 59160,
+      "timestampMs": 59110,
+      "confidence": null
+    },
+    {
+      "text": " looking",
+      "startMs": 59200,
+      "endMs": 59440,
+      "timestampMs": 59320,
+      "confidence": null
+    },
+    {
+      "text": " up",
+      "startMs": 59500,
+      "endMs": 59600,
+      "timestampMs": 59550,
+      "confidence": null
+    },
+    {
+      "text": " at",
+      "startMs": 59640,
+      "endMs": 59720,
+      "timestampMs": 59680,
+      "confidence": null
+    },
+    {
+      "text": " the",
+      "startMs": 59760,
+      "endMs": 59820,
+      "timestampMs": 59790,
+      "confidence": null
+    },
+    {
+      "text": " remains",
+      "startMs": 59860,
+      "endMs": 60420,
+      "timestampMs": 60140,
+      "confidence": null
+    },
+    {
+      "text": " of",
+      "startMs": 60460,
+      "endMs": 60520,
+      "timestampMs": 60490,
+      "confidence": null
+    },
+    {
+      "text": " a",
+      "startMs": 60560,
+      "endMs": 60640,
+      "timestampMs": 60600,
+      "confidence": null
+    },
+    {
+      "text": " cosmic",
+      "startMs": 60700,
+      "endMs": 61220,
+      "timestampMs": 60960,
+      "confidence": null
+    },
+    {
+      "text": " disaster.",
+      "startMs": 61260,
+      "endMs": 61900,
+      "timestampMs": 61580,
+      "confidence": null
+    },
+    {
+      "text": " Because",
+      "startMs": 62560,
+      "endMs": 62760,
+      "timestampMs": 62660,
+      "confidence": null
+    },
+    {
+      "text": " the",
+      "startMs": 62800,
+      "endMs": 62860,
+      "timestampMs": 62830,
+      "confidence": null
+    },
+    {
+      "text": " most",
+      "startMs": 62900,
+      "endMs": 63080,
+      "timestampMs": 62990,
+      "confidence": null
+    },
+    {
+      "text": " dangerous",
+      "startMs": 63220,
+      "endMs": 63680,
+      "timestampMs": 63450,
+      "confidence": null
+    },
+    {
+      "text": " thing",
+      "startMs": 63740,
+      "endMs": 63880,
+      "timestampMs": 63810,
+      "confidence": null
+    },
+    {
+      "text": " about",
+      "startMs": 63940,
+      "endMs": 64099,
+      "timestampMs": 64019,
+      "confidence": null
+    },
+    {
+      "text": " a",
+      "startMs": 64140,
+      "endMs": 64220,
+      "timestampMs": 64180,
+      "confidence": null
+    },
+    {
+      "text": " second",
+      "startMs": 64280,
+      "endMs": 64540,
+      "timestampMs": 64410,
+      "confidence": null
+    },
+    {
+      "text": " moon",
+      "startMs": 64599,
+      "endMs": 64980,
+      "timestampMs": 64790,
+      "confidence": null
+    },
+    {
+      "text": " isn't",
+      "startMs": 65040,
+      "endMs": 65280,
+      "timestampMs": 65160,
+      "confidence": null
+    },
+    {
+      "text": " having",
+      "startMs": 65319,
+      "endMs": 65620,
+      "timestampMs": 65470,
+      "confidence": null
+    },
+    {
+      "text": " two,",
+      "startMs": 65680,
+      "endMs": 65940,
+      "timestampMs": 65810,
+      "confidence": null
+    },
+    {
+      "text": " it's",
+      "startMs": 66460,
+      "endMs": 66560,
+      "timestampMs": 66510,
+      "confidence": null
+    },
+    {
+      "text": " what",
+      "startMs": 66600,
+      "endMs": 66740,
+      "timestampMs": 66670,
+      "confidence": null
+    },
+    {
+      "text": " happens",
+      "startMs": 66780,
+      "endMs": 67160,
+      "timestampMs": 66970,
+      "confidence": null
+    },
+    {
+      "text": " when",
+      "startMs": 67200,
+      "endMs": 67380,
+      "timestampMs": 67290,
+      "confidence": null
+    },
+    {
+      "text": " one",
+      "startMs": 67460,
+      "endMs": 67520,
+      "timestampMs": 67490,
+      "confidence": null
+    },
+    {
+      "text": " of",
+      "startMs": 67580,
+      "endMs": 67640,
+      "timestampMs": 67610,
+      "confidence": null
+    },
+    {
+      "text": " them",
+      "startMs": 67680,
+      "endMs": 67860,
+      "timestampMs": 67770,
+      "confidence": null
+    },
+    {
+      "text": " gets",
+      "startMs": 67880,
+      "endMs": 68160,
+      "timestampMs": 68020,
+      "confidence": null
+    },
+    {
+      "text": " too",
+      "startMs": 68220,
+      "endMs": 68420,
+      "timestampMs": 68320,
+      "confidence": null
+    },
+    {
+      "text": " close.",
+      "startMs": 68480,
+      "endMs": 68940,
+      "timestampMs": 68710,
+      "confidence": null
+    }
+  ]
+}
