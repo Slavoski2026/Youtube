@@ -61,6 +61,9 @@ export const P = {
   // Space
   moon: "#9AA1B0",
   moonDark: "#5D6475",
+  /** The second Moon (ep. 8): a warmer, rust-tan rock so it never reads as a copy of ours. */
+  moon2: "#B49884",
+  moon2Dark: "#7A6352",
   ocean: "#0D3F86",
   landGreen: "#2F7A5A",
   landTan: "#B39A62",
