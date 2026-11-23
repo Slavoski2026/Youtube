@@ -1,0 +1,1120 @@
+{
+  "slug": "immortal",
+  "audio": "voiceover/immortal.mp3",
+  "durationInSeconds": 65.04489795918367,
+  "words": [
+    {
+      "text": "What",
+      "startMs": 160,
+      "endMs": 260,
+      "timestampMs": 210,
+      "confidence": null
+    },
+    {
+      "text": " would",
+      "startMs": 300,
+      "endMs": 440,
+      "timestampMs": 370,
+      "confidence": null
+    },
+    {
+      "text": " happen",
+      "startMs": 500,
+      "endMs": 900,
+      "timestampMs": 700,
+      "confidence": null
+    },
+    {
+      "text": " if",
+      "startMs": 960,
+      "endMs": 1160,
+      "timestampMs": 1060,
+      "confidence": null
+    },
+    {
+      "text": " all",
+      "startMs": 1260,
+      "endMs": 1520,
+      "timestampMs": 1390,
+      "confidence": null
+    },
+    {
+      "text": " eight",
+      "startMs": 1600,
+      "endMs": 1760,
+      "timestampMs": 1680,
+      "confidence": null
+    },
+    {
+      "text": " billion",
+      "startMs": 1960,
+      "endMs": 2300,
+      "timestampMs": 2130,
+      "confidence": null
+    },
+    {
+      "text": " humans",
+      "startMs": 2420,
+      "endMs": 2800,
+      "timestampMs": 2610,
+      "confidence": null
+    },
+    {
+      "text": " suddenly",
+      "startMs": 3060,
+      "endMs": 3400,
+      "timestampMs": 3230,
+      "confidence": null
+    },
+    {
+      "text": " became",
+      "startMs": 3420,
+      "endMs": 3760,
+      "timestampMs": 3590,
+      "confidence": null
+    },
+    {
+      "text": " immortal?",
+      "startMs": 3800,
+      "endMs": 4320,
+      "timestampMs": 4060,
+      "confidence": null
+    },
+    {
+      "text": " At",
+      "startMs": 4940,
+      "endMs": 5060,
+      "timestampMs": 5000,
+      "confidence": null
+    },
+    {
+      "text": " first,",
+      "startMs": 5140,
+      "endMs": 5520,
+      "timestampMs": 5330,
+      "confidence": null
+    },
+    {
+      "text": " it",
+      "startMs": 5760,
+      "endMs": 5800,
+      "timestampMs": 5780,
+      "confidence": null
+    },
+    {
+      "text": " would",
+      "startMs": 5820,
+      "endMs": 5960,
+      "timestampMs": 5890,
+      "confidence": null
+    },
+    {
+      "text": " seem",
+      "startMs": 6000,
+      "endMs": 6160,
+      "timestampMs": 6080,
+      "confidence": null
+    },
+    {
+      "text": " like",
+      "startMs": 6200,
+      "endMs": 6340,
+      "timestampMs": 6270,
+      "confidence": null
+    },
+    {
+      "text": " humanity's",
+      "startMs": 6380,
+      "endMs": 6960,
+      "timestampMs": 6670,
+      "confidence": null
+    },
+    {
+      "text": " greatest",
+      "startMs": 7020,
+      "endMs": 7440,
+      "timestampMs": 7230,
+      "confidence": null
+    },
+    {
+      "text": " achievement.",
+      "startMs": 7480,
+      "endMs": 7980,
+      "timestampMs": 7730,
+      "confidence": null
+    },
+    {
+      "text": " No",
+      "startMs": 8500,
+      "endMs": 8560,
+      "timestampMs": 8530,
+      "confidence": null
+    },
+    {
+      "text": " more",
+      "startMs": 8640,
+      "endMs": 8840,
+      "timestampMs": 8740,
+      "confidence": null
+    },
+    {
+      "text": " death,",
+      "startMs": 8880,
+      "endMs": 9220,
+      "timestampMs": 9050,
+      "confidence": null
+    },
+    {
+      "text": " no",
+      "startMs": 9480,
+      "endMs": 9580,
+      "timestampMs": 9530,
+      "confidence": null
+    },
+    {
+      "text": " more",
+      "startMs": 9600,
+      "endMs": 9820,
+      "timestampMs": 9710,
+      "confidence": null
+    },
+    {
+      "text": " funerals,",
+      "startMs": 9860,
+      "endMs": 10440,
+      "timestampMs": 10150,
+      "confidence": null
+    },
+    {
+      "text": " no",
+      "startMs": 10740,
+      "endMs": 10800,
+      "timestampMs": 10770,
+      "confidence": null
+    },
+    {
+      "text": " more",
+      "startMs": 10880,
+      "endMs": 11120,
+      "timestampMs": 11000,
+      "confidence": null
+    },
+    {
+      "text": " fear",
+      "startMs": 11160,
+      "endMs": 11340,
+      "timestampMs": 11250,
+      "confidence": null
+    },
+    {
+      "text": " of",
+      "startMs": 11380,
+      "endMs": 11460,
+      "timestampMs": 11420,
+      "confidence": null
+    },
+    {
+      "text": " losing",
+      "startMs": 11520,
+      "endMs": 11900,
+      "timestampMs": 11710,
+      "confidence": null
+    },
+    {
+      "text": " someone.",
+      "startMs": 11940,
+      "endMs": 12280,
+      "timestampMs": 12110,
+      "confidence": null
+    },
+    {
+      "text": " But",
+      "startMs": 12860,
+      "endMs": 13220,
+      "timestampMs": 13040,
+      "confidence": null
+    },
+    {
+      "text": " there's",
+      "startMs": 13260,
+      "endMs": 13600,
+      "timestampMs": 13430,
+      "confidence": null
+    },
+    {
+      "text": " one",
+      "startMs": 13660,
+      "endMs": 13880,
+      "timestampMs": 13770,
+      "confidence": null
+    },
+    {
+      "text": " massive",
+      "startMs": 14080,
+      "endMs": 14460,
+      "timestampMs": 14270,
+      "confidence": null
+    },
+    {
+      "text": " problem:",
+      "startMs": 14560,
+      "endMs": 14980,
+      "timestampMs": 14770,
+      "confidence": null
+    },
+    {
+      "text": " people",
+      "startMs": 15500,
+      "endMs": 15740,
+      "timestampMs": 15620,
+      "confidence": null
+    },
+    {
+      "text": " would",
+      "startMs": 15760,
+      "endMs": 15920,
+      "timestampMs": 15840,
+      "confidence": null
+    },
+    {
+      "text": " keep",
+      "startMs": 15980,
+      "endMs": 16180,
+      "timestampMs": 16080,
+      "confidence": null
+    },
+    {
+      "text": " being",
+      "startMs": 16200,
+      "endMs": 16480,
+      "timestampMs": 16340,
+      "confidence": null
+    },
+    {
+      "text": " born",
+      "startMs": 16520,
+      "endMs": 16900,
+      "timestampMs": 16710,
+      "confidence": null
+    },
+    {
+      "text": " while",
+      "startMs": 17080,
+      "endMs": 17220,
+      "timestampMs": 17150,
+      "confidence": null
+    },
+    {
+      "text": " nobody",
+      "startMs": 17340,
+      "endMs": 17680,
+      "timestampMs": 17510,
+      "confidence": null
+    },
+    {
+      "text": " would",
+      "startMs": 17700,
+      "endMs": 17920,
+      "timestampMs": 17810,
+      "confidence": null
+    },
+    {
+      "text": " ever",
+      "startMs": 18000,
+      "endMs": 18260,
+      "timestampMs": 18130,
+      "confidence": null
+    },
+    {
+      "text": " die.",
+      "startMs": 18300,
+      "endMs": 18640,
+      "timestampMs": 18470,
+      "confidence": null
+    },
+    {
+      "text": " Within",
+      "startMs": 19200,
+      "endMs": 19400,
+      "timestampMs": 19300,
+      "confidence": null
+    },
+    {
+      "text": " centuries,",
+      "startMs": 19540,
+      "endMs": 20060,
+      "timestampMs": 19800,
+      "confidence": null
+    },
+    {
+      "text": " Earth's",
+      "startMs": 20240,
+      "endMs": 20500,
+      "timestampMs": 20370,
+      "confidence": null
+    },
+    {
+      "text": " population",
+      "startMs": 20540,
+      "endMs": 21140,
+      "timestampMs": 20840,
+      "confidence": null
+    },
+    {
+      "text": " could",
+      "startMs": 21160,
+      "endMs": 21280,
+      "timestampMs": 21220,
+      "confidence": null
+    },
+    {
+      "text": " grow",
+      "startMs": 21340,
+      "endMs": 21540,
+      "timestampMs": 21440,
+      "confidence": null
+    },
+    {
+      "text": " to",
+      "startMs": 21600,
+      "endMs": 21780,
+      "timestampMs": 21690,
+      "confidence": null
+    },
+    {
+      "text": " unimaginable",
+      "startMs": 21840,
+      "endMs": 22620,
+      "timestampMs": 22230,
+      "confidence": null
+    },
+    {
+      "text": " numbers.",
+      "startMs": 22700,
+      "endMs": 23120,
+      "timestampMs": 22910,
+      "confidence": null
+    },
+    {
+      "text": " Food",
+      "startMs": 23660,
+      "endMs": 23860,
+      "timestampMs": 23760,
+      "confidence": null
+    },
+    {
+      "text": " would",
+      "startMs": 23880,
+      "endMs": 23980,
+      "timestampMs": 23930,
+      "confidence": null
+    },
+    {
+      "text": " become",
+      "startMs": 24020,
+      "endMs": 24240,
+      "timestampMs": 24130,
+      "confidence": null
+    },
+    {
+      "text": " scarce,",
+      "startMs": 24380,
+      "endMs": 24800,
+      "timestampMs": 24590,
+      "confidence": null
+    },
+    {
+      "text": " cities",
+      "startMs": 25280,
+      "endMs": 25580,
+      "timestampMs": 25430,
+      "confidence": null
+    },
+    {
+      "text": " would",
+      "startMs": 25600,
+      "endMs": 25700,
+      "timestampMs": 25650,
+      "confidence": null
+    },
+    {
+      "text": " become",
+      "startMs": 25720,
+      "endMs": 26020,
+      "timestampMs": 25870,
+      "confidence": null
+    },
+    {
+      "text": " overcrowded,",
+      "startMs": 26080,
+      "endMs": 26740,
+      "timestampMs": 26410,
+      "confidence": null
+    },
+    {
+      "text": " and",
+      "startMs": 27080,
+      "endMs": 27160,
+      "timestampMs": 27120,
+      "confidence": null
+    },
+    {
+      "text": " entire",
+      "startMs": 27200,
+      "endMs": 27700,
+      "timestampMs": 27450,
+      "confidence": null
+    },
+    {
+      "text": " countries",
+      "startMs": 27780,
+      "endMs": 28280,
+      "timestampMs": 28030,
+      "confidence": null
+    },
+    {
+      "text": " could",
+      "startMs": 28300,
+      "endMs": 28440,
+      "timestampMs": 28370,
+      "confidence": null
+    },
+    {
+      "text": " collapse.",
+      "startMs": 28480,
+      "endMs": 29040,
+      "timestampMs": 28760,
+      "confidence": null
+    },
+    {
+      "text": " But",
+      "startMs": 29680,
+      "endMs": 29920,
+      "timestampMs": 29800,
+      "confidence": null
+    },
+    {
+      "text": " overpopulation",
+      "startMs": 30000,
+      "endMs": 30960,
+      "timestampMs": 30480,
+      "confidence": null
+    },
+    {
+      "text": " wouldn't",
+      "startMs": 31000,
+      "endMs": 31220,
+      "timestampMs": 31110,
+      "confidence": null
+    },
+    {
+      "text": " even",
+      "startMs": 31260,
+      "endMs": 31440,
+      "timestampMs": 31350,
+      "confidence": null
+    },
+    {
+      "text": " be",
+      "startMs": 31460,
+      "endMs": 31540,
+      "timestampMs": 31500,
+      "confidence": null
+    },
+    {
+      "text": " the",
+      "startMs": 31580,
+      "endMs": 31720,
+      "timestampMs": 31650,
+      "confidence": null
+    },
+    {
+      "text": " worst",
+      "startMs": 31760,
+      "endMs": 31980,
+      "timestampMs": 31870,
+      "confidence": null
+    },
+    {
+      "text": " part.",
+      "startMs": 32080,
+      "endMs": 32380,
+      "timestampMs": 32230,
+      "confidence": null
+    },
+    {
+      "text": " Imagine",
+      "startMs": 32900,
+      "endMs": 33300,
+      "timestampMs": 33100,
+      "confidence": null
+    },
+    {
+      "text": " being",
+      "startMs": 33320,
+      "endMs": 33520,
+      "timestampMs": 33420,
+      "confidence": null
+    },
+    {
+      "text": " trapped",
+      "startMs": 33580,
+      "endMs": 33940,
+      "timestampMs": 33760,
+      "confidence": null
+    },
+    {
+      "text": " beneath",
+      "startMs": 33960,
+      "endMs": 34160,
+      "timestampMs": 34060,
+      "confidence": null
+    },
+    {
+      "text": " a",
+      "startMs": 34220,
+      "endMs": 34260,
+      "timestampMs": 34240,
+      "confidence": null
+    },
+    {
+      "text": " collapsed",
+      "startMs": 34300,
+      "endMs": 34720,
+      "timestampMs": 34510,
+      "confidence": null
+    },
+    {
+      "text": " building.",
+      "startMs": 34820,
+      "endMs": 35180,
+      "timestampMs": 35000,
+      "confidence": null
+    },
+    {
+      "text": " You",
+      "startMs": 35680,
+      "endMs": 35740,
+      "timestampMs": 35710,
+      "confidence": null
+    },
+    {
+      "text": " can't",
+      "startMs": 35800,
+      "endMs": 36020,
+      "timestampMs": 35910,
+      "confidence": null
+    },
+    {
+      "text": " move,",
+      "startMs": 36080,
+      "endMs": 36400,
+      "timestampMs": 36240,
+      "confidence": null
+    },
+    {
+      "text": " you",
+      "startMs": 36680,
+      "endMs": 36740,
+      "timestampMs": 36710,
+      "confidence": null
+    },
+    {
+      "text": " can't",
+      "startMs": 36800,
+      "endMs": 36940,
+      "timestampMs": 36870,
+      "confidence": null
+    },
+    {
+      "text": " escape,",
+      "startMs": 36980,
+      "endMs": 37460,
+      "timestampMs": 37220,
+      "confidence": null
+    },
+    {
+      "text": " and",
+      "startMs": 37900,
+      "endMs": 37980,
+      "timestampMs": 37940,
+      "confidence": null
+    },
+    {
+      "text": " you",
+      "startMs": 38020,
+      "endMs": 38100,
+      "timestampMs": 38060,
+      "confidence": null
+    },
+    {
+      "text": " can't",
+      "startMs": 38180,
+      "endMs": 38480,
+      "timestampMs": 38330,
+      "confidence": null
+    },
+    {
+      "text": " die.",
+      "startMs": 38520,
+      "endMs": 38880,
+      "timestampMs": 38700,
+      "confidence": null
+    },
+    {
+      "text": " You",
+      "startMs": 39480,
+      "endMs": 39540,
+      "timestampMs": 39510,
+      "confidence": null
+    },
+    {
+      "text": " could",
+      "startMs": 39580,
+      "endMs": 39700,
+      "timestampMs": 39640,
+      "confidence": null
+    },
+    {
+      "text": " remain",
+      "startMs": 39720,
+      "endMs": 40040,
+      "timestampMs": 39880,
+      "confidence": null
+    },
+    {
+      "text": " there",
+      "startMs": 40100,
+      "endMs": 40280,
+      "timestampMs": 40190,
+      "confidence": null
+    },
+    {
+      "text": " for",
+      "startMs": 40320,
+      "endMs": 40400,
+      "timestampMs": 40360,
+      "confidence": null
+    },
+    {
+      "text": " thousands",
+      "startMs": 40640,
+      "endMs": 41080,
+      "timestampMs": 40860,
+      "confidence": null
+    },
+    {
+      "text": " of",
+      "startMs": 41120,
+      "endMs": 41200,
+      "timestampMs": 41160,
+      "confidence": null
+    },
+    {
+      "text": " years.",
+      "startMs": 41300,
+      "endMs": 41680,
+      "timestampMs": 41490,
+      "confidence": null
+    },
+    {
+      "text": " And",
+      "startMs": 42300,
+      "endMs": 42500,
+      "timestampMs": 42400,
+      "confidence": null
+    },
+    {
+      "text": " even",
+      "startMs": 42560,
+      "endMs": 42740,
+      "timestampMs": 42650,
+      "confidence": null
+    },
+    {
+      "text": " if",
+      "startMs": 42780,
+      "endMs": 42860,
+      "timestampMs": 42820,
+      "confidence": null
+    },
+    {
+      "text": " humanity",
+      "startMs": 42900,
+      "endMs": 43340,
+      "timestampMs": 43120,
+      "confidence": null
+    },
+    {
+      "text": " somehow",
+      "startMs": 43540,
+      "endMs": 43940,
+      "timestampMs": 43740,
+      "confidence": null
+    },
+    {
+      "text": " survived",
+      "startMs": 43980,
+      "endMs": 44540,
+      "timestampMs": 44260,
+      "confidence": null
+    },
+    {
+      "text": " for",
+      "startMs": 44560,
+      "endMs": 44800,
+      "timestampMs": 44680,
+      "confidence": null
+    },
+    {
+      "text": " billions",
+      "startMs": 44840,
+      "endMs": 45240,
+      "timestampMs": 45040,
+      "confidence": null
+    },
+    {
+      "text": " of",
+      "startMs": 45280,
+      "endMs": 45360,
+      "timestampMs": 45320,
+      "confidence": null
+    },
+    {
+      "text": " years,",
+      "startMs": 45400,
+      "endMs": 45680,
+      "timestampMs": 45540,
+      "confidence": null
+    },
+    {
+      "text": " the",
+      "startMs": 46080,
+      "endMs": 46200,
+      "timestampMs": 46140,
+      "confidence": null
+    },
+    {
+      "text": " sun",
+      "startMs": 46300,
+      "endMs": 46540,
+      "timestampMs": 46420,
+      "confidence": null
+    },
+    {
+      "text": " would",
+      "startMs": 46560,
+      "endMs": 46640,
+      "timestampMs": 46600,
+      "confidence": null
+    },
+    {
+      "text": " eventually",
+      "startMs": 46680,
+      "endMs": 47240,
+      "timestampMs": 46960,
+      "confidence": null
+    },
+    {
+      "text": " make",
+      "startMs": 47280,
+      "endMs": 47480,
+      "timestampMs": 47380,
+      "confidence": null
+    },
+    {
+      "text": " Earth",
+      "startMs": 47520,
+      "endMs": 47700,
+      "timestampMs": 47610,
+      "confidence": null
+    },
+    {
+      "text": " uninhabitable,",
+      "startMs": 47820,
+      "endMs": 48500,
+      "timestampMs": 48160,
+      "confidence": null
+    },
+    {
+      "text": " but",
+      "startMs": 49020,
+      "endMs": 49320,
+      "timestampMs": 49170,
+      "confidence": null
+    },
+    {
+      "text": " you'd",
+      "startMs": 49380,
+      "endMs": 49520,
+      "timestampMs": 49450,
+      "confidence": null
+    },
+    {
+      "text": " still",
+      "startMs": 49580,
+      "endMs": 49780,
+      "timestampMs": 49680,
+      "confidence": null
+    },
+    {
+      "text": " be",
+      "startMs": 49800,
+      "endMs": 49880,
+      "timestampMs": 49840,
+      "confidence": null
+    },
+    {
+      "text": " alive.",
+      "startMs": 49940,
+      "endMs": 50340,
+      "timestampMs": 50140,
+      "confidence": null
+    },
+    {
+      "text": " And",
+      "startMs": 50940,
+      "endMs": 51000,
+      "timestampMs": 50970,
+      "confidence": null
+    },
+    {
+      "text": " as",
+      "startMs": 51060,
+      "endMs": 51160,
+      "timestampMs": 51110,
+      "confidence": null
+    },
+    {
+      "text": " the",
+      "startMs": 51200,
+      "endMs": 51280,
+      "timestampMs": 51240,
+      "confidence": null
+    },
+    {
+      "text": " universe",
+      "startMs": 51340,
+      "endMs": 51640,
+      "timestampMs": 51490,
+      "confidence": null
+    },
+    {
+      "text": " slowly",
+      "startMs": 51880,
+      "endMs": 52360,
+      "timestampMs": 52120,
+      "confidence": null
+    },
+    {
+      "text": " grows",
+      "startMs": 52400,
+      "endMs": 52700,
+      "timestampMs": 52550,
+      "confidence": null
+    },
+    {
+      "text": " colder",
+      "startMs": 52780,
+      "endMs": 53320,
+      "timestampMs": 53050,
+      "confidence": null
+    },
+    {
+      "text": " and",
+      "startMs": 53340,
+      "endMs": 53440,
+      "timestampMs": 53390,
+      "confidence": null
+    },
+    {
+      "text": " darker,",
+      "startMs": 53540,
+      "endMs": 53900,
+      "timestampMs": 53720,
+      "confidence": null
+    },
+    {
+      "text": " you'd",
+      "startMs": 54340,
+      "endMs": 54480,
+      "timestampMs": 54410,
+      "confidence": null
+    },
+    {
+      "text": " face",
+      "startMs": 54520,
+      "endMs": 54720,
+      "timestampMs": 54620,
+      "confidence": null
+    },
+    {
+      "text": " something",
+      "startMs": 54760,
+      "endMs": 55040,
+      "timestampMs": 54900,
+      "confidence": null
+    },
+    {
+      "text": " far",
+      "startMs": 55280,
+      "endMs": 55460,
+      "timestampMs": 55370,
+      "confidence": null
+    },
+    {
+      "text": " worse",
+      "startMs": 55600,
+      "endMs": 55860,
+      "timestampMs": 55730,
+      "confidence": null
+    },
+    {
+      "text": " than",
+      "startMs": 55880,
+      "endMs": 56060,
+      "timestampMs": 55970,
+      "confidence": null
+    },
+    {
+      "text": " death,",
+      "startMs": 56080,
+      "endMs": 56380,
+      "timestampMs": 56230,
+      "confidence": null
+    },
+    {
+      "text": " an",
+      "startMs": 56880,
+      "endMs": 56940,
+      "timestampMs": 56910,
+      "confidence": null
+    },
+    {
+      "text": " eternity",
+      "startMs": 57000,
+      "endMs": 57700,
+      "timestampMs": 57350,
+      "confidence": null
+    },
+    {
+      "text": " with",
+      "startMs": 57740,
+      "endMs": 57940,
+      "timestampMs": 57840,
+      "confidence": null
+    },
+    {
+      "text": " no",
+      "startMs": 58040,
+      "endMs": 58180,
+      "timestampMs": 58110,
+      "confidence": null
+    },
+    {
+      "text": " escape.",
+      "startMs": 58220,
+      "endMs": 58680,
+      "timestampMs": 58450,
+      "confidence": null
+    },
+    {
+      "text": " Because",
+      "startMs": 59260,
+      "endMs": 59540,
+      "timestampMs": 59400,
+      "confidence": null
+    },
+    {
+      "text": " immortality",
+      "startMs": 59600,
+      "endMs": 60200,
+      "timestampMs": 59900,
+      "confidence": null
+    },
+    {
+      "text": " might",
+      "startMs": 60380,
+      "endMs": 60600,
+      "timestampMs": 60490,
+      "confidence": null
+    },
+    {
+      "text": " not",
+      "startMs": 60620,
+      "endMs": 60840,
+      "timestampMs": 60730,
+      "confidence": null
+    },
+    {
+      "text": " be",
+      "startMs": 60860,
+      "endMs": 61000,
+      "timestampMs": 60930,
+      "confidence": null
+    },
+    {
+      "text": " humanity's",
+      "startMs": 61060,
+      "endMs": 61580,
+      "timestampMs": 61320,
+      "confidence": null
+    },
+    {
+      "text": " greatest",
+      "startMs": 61620,
+      "endMs": 61940,
+      "timestampMs": 61780,
+      "confidence": null
+    },
+    {
+      "text": " gift,",
+      "startMs": 62040,
+      "endMs": 62340,
+      "timestampMs": 62190,
+      "confidence": null
+    },
+    {
+      "text": " it",
+      "startMs": 62880,
+      "endMs": 63000,
+      "timestampMs": 62940,
+      "confidence": null
+    },
+    {
+      "text": " might",
+      "startMs": 63060,
+      "endMs": 63280,
+      "timestampMs": 63170,
+      "confidence": null
+    },
+    {
+      "text": " be",
+      "startMs": 63320,
+      "endMs": 63520,
+      "timestampMs": 63420,
+      "confidence": null
+    },
+    {
+      "text": " its",
+      "startMs": 63560,
+      "endMs": 63720,
+      "timestampMs": 63640,
+      "confidence": null
+    },
+    {
+      "text": " greatest",
+      "startMs": 63760,
+      "endMs": 64120,
+      "timestampMs": 63940,
+      "confidence": null
+    },
+    {
+      "text": " curse.",
+      "startMs": 64239,
+      "endMs": 64660,
+      "timestampMs": 64450,
+      "confidence": null
+    }
+  ]
+}
