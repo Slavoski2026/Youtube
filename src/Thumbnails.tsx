@@ -71,7 +71,7 @@ const THUMBS: Record<ThumbProps["episode"], { shot: React.ReactNode; lines: Line
     // Slavoski on the scorched Earth, shading his eyes under the swollen red sun.
     shot: IM({ lt: 0, dur: 2, t: 0, words: [], width: 1080, height: 1920 }),
     lines: [{ text: "NOBODY" }, { text: "CAN DIE", color: P.amber, size: 150 }],
-    chip: "NOT EVEN NOW",
+    chip: "5 BILLION YEARS LATER",
     top: 230,
   },
   "gta-24h": {

@@ -1056,13 +1056,13 @@ export const thumbShot: ShotFn = () => {
   const base = mergePose(REST, { expression: "alarm", headPitch: 0.25 });
   const head = headPosition(base, SLAV_SUN, 0.15);
   const pose = reach(base, "r", [head[0] - 0.1, head[1] + 0.55, head[2] + 0.75], { position: SLAV_SUN, yaw: 0.15 }).pose;
-  const cam: CameraSpec = { position: [1.4, 1.6, 13], target: [0, 7.5, -2] };
+  const cam: CameraSpec = { position: [1.6, 2.0, 15], target: [0, 4.8, -2] };
   return (
     <Shot mood="dust" camera={cam} fog={[80, 520]} shadowSize={20} dust={1} keyDir={[0, 0.3, -1]} light={0.85}>
       <ScorchedGround />
       <LavaCrack points={[[-12, 0, 6], [-3, 0, -6], [4, 0, -30]]} width={0.5} glow={1} />
       <Hero pose={pose} position={SLAV_SUN} yaw={0.15} look={dusty(0.5, "#8A5A48")} />
-      <pointLight position={[0, 6, 8]} color="#FF8A5A" intensity={40} distance={20} decay={2} />
+      <pointLight position={[0.5, 5, 9]} color="#FFA070" intensity={90} distance={22} decay={2} />
       <RedGiant position={SUN_POS} radius={125} k={1} t={2} />
     </Shot>
   );
