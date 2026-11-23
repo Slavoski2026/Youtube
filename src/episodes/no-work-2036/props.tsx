@@ -1147,7 +1147,7 @@ export const ScanHoop: React.FC<{ position: V3; r: number; color?: string; opaci
 );
 
 /**
- * A golden balance: post (pivot at y = 12), beam ±7 tilted by `tilt` (+ lowers the left pan), pans hanging
+ * A golden balance: post (pivot at y = 12), beam ±7 tilted by `tilt` (− lowers the left pan, + the right), pans hanging
  * 5 below the beam ends. `left` and `right` render on top of each pan (pan top is y = 0 in their space).
  */
 export const BALANCE = { pivot: 11, arm: 5.6, drop: 4.4, panR: 2.4 };
