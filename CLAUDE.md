@@ -121,7 +121,7 @@ Store chapters in the episode's `timeline.ts` as `{ n, title, at }` keyed to nar
    - `npx remotion bundle src/index.ts --out-dir=build`
    - `npx tsx scripts/shot-frames.ts <slug>` lists every shot with its length (flags shots over ~4 s); `--frames` prints mid-shot frames.
    - `npx tsx scripts/contact-sheet.ts <Id> "<frames>" 0.3 out/sheet.png` renders them in one browser session and tiles them with frame numbers.
-6. Render the video: `npm run render -- <Id> out/<name>.mp4`. The user can preview interactively with `npm run dev` (Remotion Studio). **Finals always use the HQ mode** (the user asked for "better graphics" on ep. 6): `npm run render -- <Id> out/<name>-final.mp4 --gl=swangle --props='{"hq":true}' --concurrency=4 --crf=15 --jpeg-quality=95` (2× supersampled canvases, 4096 px shadows, ≈ 2 s per frame here; render the thumbnail with the same `--props`). Previews and contact sheets stay at normal quality.
+6. Render the video: `npm run render -- <Id> out/<name>.mp4`. The user can preview interactively with `npm run dev` (Remotion Studio). **Finals always use the HQ mode** (the user asked for "better graphics" on ep. 6): `npm run render -- <Id> out/<name>-final.mp4 --gl=swangle --props='{"hq":true}' --concurrency=4 --crf=15 --jpeg-quality=95 --timeout=300000` (2× supersampled canvases, 4096 px shadows, ≈ 2 s per frame here; render the thumbnail with the same `--props`). Previews and contact sheets stay at normal quality.
 7. Export subtitles: `npx tsx scripts/export-srt.ts <slug>`.
 
 ## Pacing (standing rules)
@@ -218,6 +218,7 @@ Lessons (carry forward):
 - Hero arms up: raise them with the shoulder **roll** (second value, ~2.3–2.5) for a V or a wave. A big **pitch** (first value, ~2.6) swings the fists in front of the face and reads as "hands on head". The same holds for `Robot` arms.
 - `Rain` streaks stay thin (`thickness` ≈ 0.03–0.1 even inside a ×3.5 `BigStreet`): at 0.5+ the chamfered boxes render as big translucent blobs. Leave rain out of straight-down shots (the streaks are seen end-on).
 - `Balance` tilt: a **negative** `tilt` lowers the left pan.
+- HQ finals need `--timeout=300000`: a crowd of ~150 heroes at 2× supersampling took over Remotion's default 30 s per frame (ep. 8 failed at frame 756), and a failed render can't be resumed.
 - A hero lying on his back: put the hip joint ≈ 0.9 above the surface under his head (the head radius 0.68 is bigger than the torso half-depth 0.36), and hide the gap under the torso with props.
 - When a hand or prop passes in front of a display (a fist slamming an alarm clock), draw the display with `CanvasPanel`, not an HTML overlay.
 

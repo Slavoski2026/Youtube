@@ -645,7 +645,7 @@ export const Rubble: React.FC<{ moss?: number; seed?: string; spread?: number; c
 
 /** A unit icosphere with a grey jitter per face (multiplied by the material colour): the faceted sun surface. */
 const GIANT = (() => {
-  const g = new THREE.IcosahedronGeometry(1, 3).toNonIndexed();
+  const g = new THREE.IcosahedronGeometry(1, 3); // already non-indexed (one vertex per face corner)
   const n = g.getAttribute("position").count;
   const col = new Float32Array(n * 3);
   for (let f = 0; f < n / 3; f++) {
