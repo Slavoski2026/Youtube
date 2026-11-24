@@ -56,7 +56,7 @@ export const DeathCountdownEpisode: React.FC<DeathCountdownProps> = ({ manifest 
       { src: "sfx/notify-chime.mp3", at: start("c4.2") + 0.2 + 1.7 * 0.45, volume: 0.3 },
       // 05 the anomaly, the bus, the glitch, the hourglass
       { src: "sfx/tv-static.mp3", at: w("terrifying", 40, 43.34) - 0.2, volume: 0.1, duration: 0.5, fade: 0.2 },
-      { src: "sfx/jet-flyover.mp3", at: start("c5.2") + 0.3, volume: 0.3, duration: 1.8, fade: 0.6 },
+      { src: "sfx/jet-flyover.mp3", at: start("c5.2") + 0.45, volume: 0.3, duration: 1.6, fade: 0.5 },
       { src: "sfx/tv-static.mp3", at: start("c5.3") + 0.35, volume: 0.14, duration: 0.75, fade: 0.2 },
       { src: "sfx/quake-rumble.mp3", at: start("c5.4"), volume: 0.2, duration: 3.8, fade: 1.0 },
       // 06 the drop, the flicker, the shatter

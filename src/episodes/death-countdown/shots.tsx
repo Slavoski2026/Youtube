@@ -584,7 +584,7 @@ const KID = 0.68;
 
 /** …with loved ones: a sunset picnic, grandpa (4 days) between his grandkids (80 years). */
 const c3Picnic: ShotFn = (c) => {
-  const cam = move({ position: [1.4, 4.0, 13.5], target: [0, 3.4, -12] }, { position: [0.9, 3.9, 12.2], target: [0, 3.45, -12] }, c);
+  const cam = move({ position: [0.5, 4.0, 13.5], target: [0, 3.4, -12] }, { position: [0.2, 3.9, 12.2], target: [0, 3.45, -12] }, c);
   const g = groundSit({ headYaw: 0.15, expression: "smile", lShoulder: [0.2, 0.9], lElbow: 0.2 });
   const kid = (yaw: number) => groundSit({ headYaw: yaw, expression: "smile" });
   return (
@@ -760,19 +760,20 @@ const c5Board: ShotFn = (c) => {
 const YOU: V3 = [15.6, 0, -2];
 const youLeft = (t: number) => Math.max(0.4, 4.6 - (t - 47.1));
 const c5Bus: ShotFn = (c) => {
-  const step = c.lt < 0.55 ? k01(c.lt, 0, 0.55) : 1 - k01(c.lt, 0.62, 0.9);
+  const step = c.lt < 0.6 ? k01(c.lt, 0, 0.6) : 1 - k01(c.lt, 0.66, 0.95);
   const P0: V3 = [YOU[0] - step * 2.3, 0, YOU[2]];
-  const { pose, phone, rotation } = phoneStance(P0, -Math.PI / 2, { expression: c.lt > 0.62 ? "alarm" : "neutral", headPitch: c.lt > 0.62 ? 0.05 : -0.35 });
-  const busZ = 90 - (c.lt - 0.35) * 150;
-  const cam = move({ position: [0.5, 3.9, 8.5], target: [14, 3.7, -2] }, { position: [1.2, 3.9, 7.8], target: [14, 3.7, -2] }, c);
+  const { pose, phone, rotation } = phoneStance(P0, -Math.PI / 2, { expression: c.lt > 0.66 ? "alarm" : "neutral", headPitch: c.lt > 0.66 ? 0.05 : -0.35, headYaw: c.lt > 0.66 ? 0.5 : 0 });
+  const busZ = -75 + c.lt * 70;
+  // Over the shoulder, looking across the road: the bus comes up the near lane and sweeps past in front of him.
+  const cam = move({ position: [20, 5.2, 14], target: [10, 3.9, -12] }, { position: [19.6, 5.1, 12.8], target: [10, 3.9, -12] }, c);
   return (
-    <Shot mood="night" camera={cam} fog={[30, 200]} shadowSize={30} light={0.85} shake={Math.abs(busZ + 2) < 25 ? 0.05 : 0}>
+    <Shot mood="night" camera={cam} fog={[30, 200]} shadowSize={30} light={0.85} shake={Math.abs(busZ + 2) < 18 ? 0.05 : 0}>
       <BigStreet seed="night" cars={false} />
       <Person c={c} cam={cam} position={P0} yaw={-Math.PI / 2} pose={pose} look={crowdLook(50)} seconds={youLeft(c.t)} seed="you" />
       <group position={phone} rotation={rotation}>
         <Phone3D position={[0, 0, 0]} glow="#C9D2DE" />
       </group>
-      {c.lt > 0.3 && busZ > -110 ? <Bus position={[5.5, 0, busZ]} yaw={Math.PI} t={c.t} /> : null}
+      {busZ < 60 ? <Bus position={[5.5, 0, busZ]} yaw={0} t={c.t} /> : null}
     </Shot>
   );
 };
