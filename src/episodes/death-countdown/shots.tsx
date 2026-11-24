@@ -961,7 +961,7 @@ export const thumbShot: ShotFn = () => {
   return (
     <Shot mood="day" camera={cam} keyDir={MORNING_KEY} fog={[40, 300]} shadowSize={20}>
       <BigStreet seed="yours" day lamps={false} />
-      <Sky t={0} tint="day" seed="yours" y={50} />
+      <Clouds t={0} color="#F4F6FA" y={30} radius={220} count={8} seed="thumb" arc={[Math.PI * 0.55, Math.PI * 0.75]} />
       <Person c={c} cam={cam} position={SL} pose={mergePose(REST, { headPitch: 0.5, expression: "alarm", lShoulder: [0.15, 0.35], rShoulder: [0.15, 0.35] })} seconds={47} seed="slav" timerScale={1.15} />
       <pointLight position={[SL[0], 5.3, SL[2] + 0.8]} color={TONE.short} intensity={8} distance={6} decay={2} />
     </Shot>
