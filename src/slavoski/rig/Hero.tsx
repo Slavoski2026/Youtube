@@ -15,7 +15,7 @@ import { Flat } from "../materials";
 import { SLAVOSKI, type HeroLook } from "../hero";
 import { chamferBox, useDetail } from "../detail";
 
-export type Expression = "neutral" | "alarm" | "smile" | "worried" | "awe" | "relief";
+export type Expression = "neutral" | "alarm" | "smile" | "worried" | "awe" | "relief" | "deadpan" | "sealed";
 
 export type Pose = {
   /** Extra vertical offset of the whole body (use groundedBob for crouches). */
@@ -43,6 +43,8 @@ export type Pose = {
   expression: Expression;
   /** 0 open … 1 closed. */
   blink: number;
+  /** 0..1 extra mouth opening while speaking (drive it from the word timings). */
+  talk?: number;
 };
 
 export const REST: Pose = {
@@ -205,7 +207,8 @@ export const heroParts = (pose: Pose, look: HeroLook = SLAVOSKI): Part[] => {
     }
   }
   add("nose", "box", look.skinShade, chain(head, T(0, -0.08, faceZ + 0.06), R(0.15, 0, 0), S(0.14, 0.2, 0.16)));
-  add("mouth", "box", P.mouth, chain(head, T(e.mouthX, -0.32, faceZ - 0.04), R(0, 0, e.mouthTilt), S(e.mouthW, e.mouthH, 0.08)));
+  const talk = Math.max(0, Math.min(1, pose.talk ?? 0));
+  add("mouth", "box", P.mouth, chain(head, T(e.mouthX, -0.32 - talk * 0.04, faceZ - 0.04), R(0, 0, e.mouthTilt * (1 - talk)), S(e.mouthW * (1 - talk * 0.15), e.mouthH + talk * 0.13, 0.08)));
   return parts;
 };
 
@@ -219,6 +222,10 @@ const EXPR: Record<
   worried: { eyeH: 1.05, pupil: 0.9, lookX: 0.01, lookY: 0, mouthW: 0.14, mouthH: 0.05, mouthX: 0.03, mouthTilt: 0.18 },
   awe: { eyeH: 1.15, pupil: 0.85, lookX: 0, lookY: 0.02, mouthW: 0.12, mouthH: 0.13, mouthX: 0, mouthTilt: 0 },
   relief: { eyeH: 0.55, pupil: 1, lookX: 0, lookY: -0.02, mouthW: 0.24, mouthH: 0.05, mouthX: 0, mouthTilt: 0 },
+  /** Half-lidded and flat: "I don't like you" (ep. 8). */
+  deadpan: { eyeH: 0.5, pupil: 1.05, lookX: 0, lookY: -0.03, mouthW: 0.22, mouthH: 0.035, mouthX: 0, mouthTilt: 0 },
+  /** Lips pressed shut, eyes wide: someone who won't say it (ep. 8). */
+  sealed: { eyeH: 1.08, pupil: 0.85, lookX: 0, lookY: 0, mouthW: 0.26, mouthH: 0.022, mouthX: 0, mouthTilt: 0 },
 };
 
 // ---------- Queries ----------
