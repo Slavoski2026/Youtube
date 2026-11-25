@@ -10,7 +10,7 @@ import React from "react";
 import { AbsoluteFill, random } from "remotion";
 import { Building, Car, CityGrid, Ground, Lamp, StreetSet } from "../../slavoski/city";
 import { BoxG, CylG, IcoG } from "../../slavoski/detail";
-import { crowdLook, suitLook, type HeroLook } from "../../slavoski/hero";
+import { girlLook, manLook, personLook, suitFor, womanLook, type HeroLook } from "../../slavoski/hero";
 import { Flat, Glow, Halo } from "../../slavoski/materials";
 import { Clouds, Rain, Snow } from "../../slavoski/nature";
 import { clamp01, ease, type V3 } from "../../slavoski/noise";
@@ -226,7 +226,7 @@ const coldMotel: ShotFn = (c) => {
   const cam = move({ position: [2.8, 5.4, 23], target: [0.4, 4.7, 0.5] }, { position: [2.5, 5.3, 20.5], target: [0.4, 4.7, 0.5] }, c);
   const on = k01(c.lt, 0.12, 0.22);
   const caught = c.lt > 0.25;
-  const look = (seed: number): HeroLook => ({ ...crowdLook(seed), hair: seed === 11 ? "#3A2A1E" : "#1A1410" });
+  const look = (seed: number): HeroLook => (seed === 11 ? womanLook(11, { hairStyle: "long", skirt: "#C8372D", jeans: "#2A2A30" }) : manLook(24, { hair: "#1A1410", beard: "stubble" }));
   const pa = mergePose(walkPose(0.15, caught ? 0 : 0.5), { expression: caught ? "alarm" : "smile", headYaw: caught ? -0.1 : 0.6, lShoulder: caught ? [0.4, 0.7] : [0.1, 0.12], rShoulder: caught ? [0.4, 0.7] : [0.1, 0.12], lElbow: caught ? 1.3 : 0.3, rElbow: caught ? 1.3 : 0.3 });
   const pb = mergePose(walkPose(0.4, caught ? 0 : 0.5), { expression: caught ? "alarm" : "smile", headYaw: caught ? 0.15 : -0.6, headPitch: caught ? 0.15 : 0 });
   return (
@@ -268,8 +268,8 @@ const coldHug: ShotFn = (c) => {
     <Shot mood="sunset" camera={cam} fog={[40, 260]} shadowSize={16} light={0.85}>
       <BigStreet seed="sunset" />
       <Sky t={c.t} tint="sunset" seed="hug" />
-      <Hero pose={mergePose(a, caught ? { expression: "alarm", headYaw: -0.05 } : {})} position={HUG_A} look={crowdLook(5)} />
-      <Hero pose={b} position={HUG_B} yaw={Math.PI} scale={0.92} look={crowdLook(18)} />
+      <Hero pose={mergePose(a, caught ? { expression: "alarm", headYaw: -0.05 } : {})} position={HUG_A} look={womanLook(5, { hairStyle: "bob" })} />
+      <Hero pose={b} position={HUG_B} yaw={Math.PI} scale={0.92} look={womanLook(18, { hairStyle: "ponytail" })} />
       <Spotlight from={[4, 44, 12]} to={[16.6, PAVE, 4.6]} r={3.2} on={on} strength={1.3} />
     </Shot>
   );
@@ -319,10 +319,10 @@ const PEOPLE: { p: V3; yaw: number; seed: number }[] = [
   { p: [14.0, PAVE, -2], yaw: 0.3, seed: 3 },
   { p: [18.2, PAVE, -7], yaw: -0.4, seed: 8 },
   { p: [15.4, PAVE, -14], yaw: 0.2, seed: 13 },
-  { p: [19.4, PAVE, -21], yaw: -0.2, seed: 21 },
+  { p: [19.4, PAVE, -21], yaw: -0.2, seed: 22 },
   { p: [13.8, PAVE, -28], yaw: 0, seed: 34 },
   { p: [17.4, PAVE, -36], yaw: 0.3, seed: 41 },
-  { p: [9.0, 0, -18], yaw: 0.6, seed: 47 },
+  { p: [9.0, 0, -18], yaw: 0.6, seed: 48 },
 ];
 const SLAV_ST: V3 = [16.6, PAVE, 6];
 const throatGrab = (base: Pose, pos: V3, yaw = 0): Pose => {
@@ -341,7 +341,7 @@ const coldPulse: ShotFn = (c) => {
       <Sun position={[0, 20, -480]} />
       {PEOPLE.map(({ p, yaw, seed }, i) => {
         const base = mergePose(walkPose(c.lt * (hit(p) ? 0 : 1.3) + i * 0.3, hit(p) ? 0 : 0.8), { expression: hit(p) ? "alarm" : "neutral" });
-        return <Hero key={i} pose={hit(p) ? throatGrab(base, p, yaw) : base} position={p} yaw={yaw} look={crowdLook(seed)} />;
+        return <Hero key={i} pose={hit(p) ? throatGrab(base, p, yaw) : base} position={p} yaw={yaw} look={personLook(seed)} />;
       })}
       {r > 0 && r < 220 ? (
         <group position={WAVE_O}>
@@ -400,7 +400,7 @@ const c1Walk: ShotFn = (c) => {
         [-18, -22, 12],
         [14.2, -26, 16],
       ].map(([x, z0, s], i) => (
-        <Hero key={i} pose={mergePose(walkPose(c.lt * 1.2 + i * 0.4, 0.9), { expression: "smile" })} position={[x, PAVE, z0 + c.lt * (i === 2 ? 1.6 : -1.6)]} yaw={i === 2 ? 0 : Math.PI} look={crowdLook(s)} />
+        <Hero key={i} pose={mergePose(walkPose(c.lt * 1.2 + i * 0.4, 0.9), { expression: "smile" })} position={[x, PAVE, z0 + c.lt * (i === 2 ? 1.6 : -1.6)]} yaw={i === 2 ? 0 : Math.PI} look={personLook(s)} />
       ))}
     </Shot>
   );
@@ -444,7 +444,7 @@ const c1Salesman: ShotFn = (c) => {
     >
       <NeonStreet seed="neon" trees={false} />
       <Stall position={STALL_AT} name="BEST DEALS" />
-      <Hero pose={sp} position={SALES} look={suitLook(7)} />
+      <Hero pose={sp} position={SALES} look={suitFor(8, "m")} />
       <Hero pose={mergePose(REST, { expression: swap > 0.55 ? "deadpan" : "neutral", headYaw: 0.2 })} position={SLAV_STALL} yaw={SLAV_STALL_YAW} />
     </Shot>
   );
@@ -530,8 +530,8 @@ const c2Couch: ShotFn = (c) => {
       overlay={<TruthBubble at={up(headPosition(pa, COUPLE_A, 0.2), 0.85)} cam={cam} width={c.width} height={c.height} truth={"I NEVER LIKED\nYOUR MOTHER."} appear={k01(c.lt, 0.0, 0.18)} offset={[30, -130]} />}
     >
       <Apartment />
-      <Hero pose={pa} position={COUPLE_A} yaw={0.2} look={crowdLook(44)} />
-      <Hero pose={pb} position={COUPLE_B} yaw={-0.2} look={crowdLook(52)} />
+      <Hero pose={pa} position={COUPLE_A} yaw={0.2} look={womanLook(45, { hairStyle: "long" })} />
+      <Hero pose={pb} position={COUPLE_B} yaw={-0.2} look={manLook(52, { beard: "full" })} />
     </Shot>
   );
 };
@@ -558,8 +558,8 @@ const c2Dinner: ShotFn = (c) => {
       <Chair position={[FR1[0], 0, FR1[2]]} />
       <Chair position={[FR2[0], 0, FR2[2]]} />
       <Chair position={[SL_DIN[0], 0, SL_DIN[2]]} yaw={Math.PI} />
-      <Hero pose={f(1)} position={FR1} look={crowdLook(61)} />
-      <Hero pose={f(2)} position={FR2} look={crowdLook(70)} />
+      <Hero pose={f(1)} position={FR1} look={manLook(62, { beard: "moustache" })} />
+      <Hero pose={f(2)} position={FR2} look={womanLook(71, { hairStyle: "bun" })} />
       <Hero pose={sl} position={SL_DIN} yaw={Math.PI} />
     </Shot>
   );
@@ -567,6 +567,7 @@ const c2Dinner: ShotFn = (c) => {
 
 /** The night shift at the burger bar. */
 const WORKER: V3 = [0.2, 0, -1.3];
+const WORKER_LOOK: HeroLook = womanLook(81, { jacket: "#C8372D", jacketShade: "#A02A22", zipper: "#F2EEE6", hairStyle: "ponytail", skirt: undefined, jeans: "#2A2A30" });
 const SL_BAR: V3 = [1.9, 0, 1.75];
 const workerPose = (lt: number, swap: number) => mergePose(REST, { expression: swap > 0.55 ? "deadpan" : "smile", talk: talkIf(lt, 0.1, 1.6, 7), lShoulder: [0.5, 0.1], lElbow: 1.2 });
 const c2Counter: ShotFn = (c) => {
@@ -584,7 +585,7 @@ const c2Counter: ShotFn = (c) => {
       overlay={<TruthBubble at={up(head, 1.2)} cam={cam} width={c.width} height={c.height} lie="HAPPY TO HELP!" truth={"I HATE\nTHIS JOB."} swap={swap} appear={k01(c.lt, 0.05, 0.25)} offset={[-20, -130]} />}
     >
       <BurgerBar t={c.t} />
-      <Hero pose={wp} position={WORKER} look={{ ...crowdLook(80), jacket: "#C8372D", jacketShade: "#A02A22" }} />
+      <Hero pose={wp} position={WORKER} look={WORKER_LOOK} />
       <Cap head={head} />
       <Hero pose={mergePose(REST, { headYaw: 0.1 })} position={SL_BAR} yaw={Math.PI - 0.35} />
     </Shot>
@@ -597,7 +598,7 @@ const c2Worker: ShotFn = (c) => {
   return (
     <Shot mood="night" camera={cam} fog={false} shadowSize={10} light={0.6}>
       <BurgerBar t={c.t} />
-      <Hero pose={wp} position={WORKER} look={{ ...crowdLook(80), jacket: "#C8372D", jacketShade: "#A02A22" }} />
+      <Hero pose={wp} position={WORKER} look={WORKER_LOOK} />
       <Cap head={head} />
       {/* the burger, dropped flat on the tray */}
       <mesh position={[0.4, 1.75 + 0.2, 0.1]}>
@@ -610,6 +611,7 @@ const c2Worker: ShotFn = (c) => {
 
 /** The press briefing: a question the politician can't answer truthfully. */
 const POL: V3 = [0, 0.4, -0.95];
+const POL_LOOK: HeroLook = suitFor(12, "m");
 const REPORTERS: { p: V3; seed: number; cam?: boolean }[] = [
   { p: [-3.6, 0, 5.2], seed: 90, cam: true },
   { p: [-2.3, 0, 7.8], seed: 91 },
@@ -629,7 +631,7 @@ const Press: React.FC<{ t: number; asking?: number }> = ({ t, asking = 0 }) => (
       const head = headPosition(pose, p, Math.PI);
       return (
         <React.Fragment key={i}>
-          <Hero pose={pose} position={p} yaw={Math.PI} look={crowdLook(seed)} />
+          <Hero pose={pose} position={p} yaw={Math.PI} look={personLook(seed)} />
           {cam ? <PressCamera position={[head[0] + 0.1, head[1] + 0.1, head[2] - 1.15]} /> : null}
         </React.Fragment>
       );
@@ -650,7 +652,7 @@ const c2Podium: ShotFn = (c) => {
       overlay={<TruthBubble at={up(headPosition(REST, asker, Math.PI), 0.9)} cam={cam} width={c.width} height={c.height} truth={"WILL YOU\nLOWER TAXES?"} appear={k01(c.lt, 0.25, 0.45)} offset={[90, -30]} size={40} />}
     >
       <Press t={c.t} asking={talkIf(c.lt, 0.25, 1.3, 9)} />
-      <Hero pose={pp} position={POL} look={suitLook(12)} />
+      <Hero pose={pp} position={POL} look={POL_LOOK} />
     </Shot>
   );
 };
@@ -669,7 +671,7 @@ const c2Sweat: ShotFn = (c) => {
       overlay={<TruthBubble at={up(head, 0.85)} cam={cam} width={c.width} height={c.height} truth="NO COMMENT." appear={k01(c.lt, 1.0, 1.2)} offset={[0, -120]} />}
     >
       <PressRoom t={c.t} />
-      <Hero pose={pp} position={POL} look={suitLook(12)} />
+      <Hero pose={pp} position={POL} look={POL_LOOK} />
       {[0, 1].map((i) => {
         const fall = ((c.lt * 0.6 + i * 0.5) % 1) * 0.5;
         return <Sweat key={i} position={[head[0] + (i ? -0.42 : 0.45), head[1] + 0.32 - fall, head[2] + 0.55]} />;
@@ -683,7 +685,7 @@ const c2Sweat: ShotFn = (c) => {
 const SUSPECT: V3 = [0, 0, -1.6];
 const DETECTIVE: V3 = [2.5, 0, 0.5];
 const DET_YAW = -2.2;
-const SUSPECT_LOOK: HeroLook = { ...crowdLook(101), hair: "#2A1E18" };
+const SUSPECT_LOOK: HeroLook = manLook(102, { hair: "#2A1E18", beard: "stubble", hairStyle: "buzz" });
 const detectivePose = (lt: number) => {
   let p = mergePose(REST, { lean: 0.35, expression: "neutral", talk: talkIf(lt, 0.25, 1.4, 11), headPitch: -0.2 });
   p = reach(p, "l", [1.25, ITABLE.top + 0.25, 0.15], { position: DETECTIVE, yaw: DET_YAW }).pose;
@@ -706,7 +708,7 @@ const c3Interro: ShotFn = (c) => {
       <Interrogation />
       <Chair position={[SUSPECT[0], 0, SUSPECT[2]]} color="#2B2F3E" />
       <Hero pose={suspectPose()} position={SUSPECT} look={SUSPECT_LOOK} />
-      <Hero pose={dp} position={DETECTIVE} yaw={DET_YAW} look={{ ...suitLook(13), jacket: "#566270", jacketShade: "#46505C" }} />
+      <Hero pose={dp} position={DETECTIVE} yaw={DET_YAW} look={womanLook(13, { jacket: "#566270", jacketShade: "#46505C", zipper: "#E8E4DA", hairStyle: "bun", skirt: undefined, jeans: "#2A2A30", earrings: undefined })} />
     </Shot>
   );
 };
@@ -745,7 +747,7 @@ const RainStreet: React.FC<{ t: number; honest: number; walkers?: boolean }> = (
           const pose = mergePose(walkPose(t * 1.1 + i * 0.37, 0.7), { rShoulder: [0.75, 0.1], rElbow: 1.5 });
           return (
             <React.Fragment key={i}>
-              <Hero pose={pose} position={p} yaw={yaw} look={crowdLook(seed)} />
+              <Hero pose={pose} position={p} yaw={yaw} look={personLook(seed)} />
               <Umbrella hand={handPosition(pose, "r", p, yaw)} color={col} />
             </React.Fragment>
           );
@@ -799,7 +801,7 @@ const c3Haircut: ShotFn = (c) => {
     >
       <BigStreet seed="rain" day lampsOn={false} />
       <Sky t={c.t} tint="overcast" seed="hair" y={50} />
-      <Hero pose={fp} position={FRIEND} yaw={FRIEND_YAW} look={crowdLook(130)} />
+      <Hero pose={fp} position={FRIEND} yaw={FRIEND_YAW} look={manLook(130, { beard: undefined, hairStyle: "buzz" })} />
       <BadHair head={fh} yaw={FRIEND_YAW} />
       <Hero pose={pose} position={SL_RAIN} yaw={SL_RAIN_YAW} />
       <Umbrella hand={hand} color="#24748F" />
@@ -853,7 +855,7 @@ const c4Snow: ShotFn = (c) => {
     <Shot mood="dawn" camera={cam} fog={[30, 220]} shadowSize={40} light={0.65}>
       <SnowStreet t={c.t} />
       {WALKERS.map(({ x, z0, dir, seed }, i) => (
-        <Hero key={i} pose={mergePose(walkPose(c.lt * 1.1 + i * 0.3, 0.75), { expression: "sealed", headPitch: -0.2 })} position={[x, PAVE + 0.08, z0 + dir * c.lt * 1.5]} yaw={dir > 0 ? 0 : Math.PI} look={crowdLook(seed)} />
+        <Hero key={i} pose={mergePose(walkPose(c.lt * 1.1 + i * 0.3, 0.75), { expression: "sealed", headPitch: -0.2 })} position={[x, PAVE + 0.08, z0 + dir * c.lt * 1.5]} yaw={dir > 0 ? 0 : Math.PI} look={personLook(seed)} />
       ))}
       <Snow center={[10, 10, -10]} size={[30, 20, 30]} t={c.t} count={800} />
     </Shot>
@@ -901,7 +903,7 @@ const c4Faces: ShotFn = (c) => {
       <SnowStreet t={c.t} seed="stop" lamps={false} />
       <BusShelter />
       {STOP.map(({ p, seed }, i) => (
-        <Hero key={i} pose={mergePose(REST, { expression: "sealed", headYaw: (i - 1) * 0.15, blink: Math.sin(c.lt * 3 + i) > 0.97 ? 1 : 0 })} position={p} yaw={STOP_YAW} look={crowdLook(seed)} />
+        <Hero key={i} pose={mergePose(REST, { expression: "sealed", headYaw: (i - 1) * 0.15, blink: Math.sin(c.lt * 3 + i) > 0.97 ? 1 : 0 })} position={p} yaw={STOP_YAW} look={personLook(seed)} />
       ))}
       <Snow center={[17, 7, -9]} size={[12, 14, 8]} t={c.t} count={220} />
     </Shot>
@@ -955,7 +957,7 @@ const c4Cafe: ShotFn = (c) => {
       {SITTERS.map(({ p, yaw, seed }, i) => (
         <React.Fragment key={i}>
           <Chair position={p} yaw={yaw} color="#5A3E2E" />
-          <Hero pose={sittingPose({ expression: "sealed", headPitch: -0.1, lShoulder: [0.5, 0.05], rShoulder: [0.5, 0.05], lElbow: 1.2, rElbow: 1.2 })} position={p} yaw={yaw} look={crowdLook(seed)} />
+          <Hero pose={sittingPose({ expression: "sealed", headPitch: -0.1, lShoulder: [0.5, 0.05], rShoulder: [0.5, 0.05], lElbow: 1.2, rElbow: 1.2 })} position={p} yaw={yaw} look={personLook(seed)} />
         </React.Fragment>
       ))}
       <Snow center={[0, 8, 4]} size={[22, 16, 6]} t={c.t} count={300} />
@@ -994,6 +996,7 @@ const c5Face: ShotFn = (c) => {
 /** The child shows Slavoski a drawing. Over his shoulder. */
 const KID: V3 = [7.2, 0, -2.4];
 const KID_S = 0.62;
+const KID_LOOK: HeroLook = girlLook(170, { hairStyle: "pigtails" });
 const SL_K: V3 = [4.7, 0, -1.2];
 const KID_YAW = Math.atan2(SL_K[0] - KID[0], SL_K[2] - KID[2]);
 const SL_K_YAW = Math.atan2(KID[0] - SL_K[0], KID[2] - SL_K[2]);
@@ -1023,7 +1026,7 @@ const c5Drawing: ShotFn = (c) => {
       overlay={<TruthBubble at={up(headPosition(kp, KID, KID_YAW, KID_S), 0.7)} cam={cam} width={c.width} height={c.height} truth={"I MADE THIS\nFOR YOU!"} appear={k01(c.lt, 0.15, 0.35)} offset={[40, -120]} size={40} />}
     >
       <Apartment warm snow t={c.t} table={false} />
-      <Hero pose={kp} position={KID} yaw={KID_YAW} scale={KID_S} look={crowdLook(170)} />
+      <Hero pose={kp} position={KID} yaw={KID_YAW} scale={KID_S} look={KID_LOOK} />
       <KidDrawing pose={kp} />
       <Hero pose={mergePose(REST, { headPitch: -0.45, expression: "neutral" })} position={SL_K} yaw={SL_K_YAW} />
     </Shot>
@@ -1058,7 +1061,7 @@ const c5Sad: ShotFn = (c) => {
   return (
     <Shot mood="night" camera={cam} fog={false} shadowSize={12} light={0.65}>
       <Apartment warm snow t={c.t} table={false} />
-      <Hero pose={kp} position={KID} yaw={KID_YAW} scale={KID_S} look={crowdLook(170)} />
+      <Hero pose={kp} position={KID} yaw={KID_YAW} scale={KID_S} look={KID_LOOK} />
       <KidDrawing pose={kp} />
     </Shot>
   );
@@ -1071,7 +1074,7 @@ const c5Fridge: ShotFn = (c) => {
   return (
     <Shot mood="night" camera={cam} fog={false} shadowSize={14} light={0.7}>
       <Apartment warm snow t={c.t} table={false} art />
-      <Hero pose={mergePose(REST, { expression: "smile", headPitch: 0.35, headYaw: -0.1 })} position={kidAt} yaw={-1.3} scale={KID_S} look={crowdLook(170)} />
+      <Hero pose={mergePose(REST, { expression: "smile", headPitch: 0.35, headYaw: -0.1 })} position={kidAt} yaw={-1.3} scale={KID_S} look={KID_LOOK} />
       <Hero pose={mergePose(REST, { expression: "relief", headPitch: -0.25, headYaw: 0.1 })} position={slAt} yaw={1.15} />
     </Shot>
   );
@@ -1106,7 +1109,7 @@ const c6Street: ShotFn = (c) => {
       <Sky t={c.t} tint="dawn" seed="dst" y={55} />
       <Sun position={[0, 22, -520]} size={14} />
       {people.map(({ x, z, dir, seed }, i) => (
-        <Hero key={i} pose={mergePose(walkPose(c.lt * 1.1 + i * 0.3, 0.8), { expression: i % 2 ? "neutral" : "relief" })} position={[x, PAVE, z + dir * c.lt * 1.6]} yaw={dir > 0 ? 0 : Math.PI} look={crowdLook(seed)} />
+        <Hero key={i} pose={mergePose(walkPose(c.lt * 1.1 + i * 0.3, 0.8), { expression: i % 2 ? "neutral" : "relief" })} position={[x, PAVE, z + dir * c.lt * 1.6]} yaw={dir > 0 ? 0 : Math.PI} look={personLook(seed)} />
       ))}
     </Shot>
   );

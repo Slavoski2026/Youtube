@@ -130,7 +130,7 @@ const R = (x: number, y: number, z: number, order: THREE.EulerOrder = "ZYX") =>
 const S = (x: number, y: number, z: number) => M().makeScale(x, y, z);
 const chain = (...ms: THREE.Matrix4[]) => ms.reduce((acc, m) => acc.multiply(m), M());
 
-export type PartKind = "box" | "head" | "fist" | "ear" | "neck";
+export type PartKind = "box" | "head" | "fist" | "ear" | "neck" | "skirt" | "stud";
 export type Part = { name: string; kind: PartKind; color: string; matrix: THREE.Matrix4 };
 
 /** All body parts in hero-root space (feet at y=0, facing +Z). */
@@ -155,6 +155,12 @@ export const heroParts = (pose: Pose, look: HeroLook = SLAVOSKI): Part[] => {
     add(`${side}Shin`, "box", look.jeans, chain(kneeM, T(0, -d.shin / 2, 0), S(d.legW * 0.96, d.shin + 0.04, d.legD * 0.96)));
     const ankle = chain(kneeM, T(0, -d.shin, 0), R(-knee + pitch, 0, -sx * roll));
     add(`${side}Shoe`, "box", look.shoe, chain(ankle, T(0, -0.015, 0.1), S(0.5, 0.27, 0.78)));
+  }
+
+  // Skirt: flares from the hips to the knees; folds forward over the lap as both thighs lift (seated).
+  if (look.skirt) {
+    const lap = Math.max(0, (pose.lHip[0] + pose.rHip[0]) / 2);
+    add("skirt", "skirt", look.skirt, chain(hips, T(0, 0.1, 0), R(-lap * 0.92, 0, 0), T(0, -0.42, 0), S(1, 0.84, 0.62)));
   }
 
   // Torso
@@ -183,13 +189,57 @@ export const heroParts = (pose: Pose, look: HeroLook = SLAVOSKI): Part[] => {
   add("head", "head", look.skin, head);
   add("lEar", "ear", look.skin, chain(head, T(0.66, -0.02, -0.02)));
   add("rEar", "ear", look.skin, chain(head, T(-0.66, -0.02, -0.02)));
-  // Hair: cap, back, fringe, sideburns
+  // Hair: cap, back, fringe, sideburns ("short", Slavoski's), or one of the other cuts.
   // Cap top sits above the head's crown (radius 0.68 × 1.06 ≈ 0.72), so no skin shows through on top.
-  add("hairCap", "box", look.hair, chain(head, T(0, 0.58, -0.04), R(-0.1, 0, 0), S(1.32, 0.36, 1.3)));
-  add("hairBack", "box", look.hair, chain(head, T(0, 0.12, -0.5), S(1.24, 0.7, 0.36)));
-  add("hairFringe", "box", look.hair, chain(head, T(0.1, 0.43, 0.5), R(0.35, 0, -0.1), S(0.9, 0.2, 0.28)));
-  add("lSideburn", "box", look.hair, chain(head, T(0.6, 0.18, 0.05), S(0.16, 0.42, 0.5)));
-  add("rSideburn", "box", look.hair, chain(head, T(-0.6, 0.18, 0.05), S(0.16, 0.42, 0.5)));
+  const hs = look.hairStyle ?? "short";
+  const hair = (name: string, m: THREE.Matrix4) => add(name, "box", look.hair, chain(head, m));
+  if (hs === "buzz") {
+    hair("hairCap", chain(T(0, 0.56, -0.04), R(-0.1, 0, 0), S(1.3, 0.28, 1.28)));
+    hair("hairBack", chain(T(0, 0.18, -0.5), S(1.2, 0.55, 0.3)));
+  } else {
+    hair("hairCap", chain(T(0, 0.58, -0.04), R(-0.1, 0, 0), S(1.32, 0.36, 1.3)));
+  }
+  if (hs === "short") {
+    hair("hairBack", chain(T(0, 0.12, -0.5), S(1.24, 0.7, 0.36)));
+    hair("hairFringe", chain(T(0.1, 0.43, 0.5), R(0.35, 0, -0.1), S(0.9, 0.2, 0.28)));
+    hair("lSideburn", chain(T(0.6, 0.18, 0.05), S(0.16, 0.42, 0.5)));
+    hair("rSideburn", chain(T(-0.6, 0.18, 0.05), S(0.16, 0.42, 0.5)));
+  } else if (hs === "buzz") {
+    hair("lSideburn", chain(T(0.6, 0.22, 0.02), S(0.14, 0.3, 0.42)));
+    hair("rSideburn", chain(T(-0.6, 0.22, 0.02), S(0.14, 0.3, 0.42)));
+  } else {
+    // longer cuts: a side-swept fringe (straight bangs for bob and pigtails)
+    if (hs === "bob" || hs === "pigtails") hair("hairFringe", chain(T(0, 0.42, 0.5), R(0.28, 0, 0), S(1.08, 0.24, 0.26)));
+    else hair("hairFringe", chain(T(0.16, 0.43, 0.5), R(0.32, 0, -0.28), S(0.98, 0.22, 0.28)));
+    if (hs === "long") {
+      // falls past the shoulders behind (clear of the torso's back) and in curtains beside the face
+      hair("hairBack", chain(T(0, -0.34, -0.54), S(1.32, 1.62, 0.32)));
+      hair("lHairSide", chain(T(0.63, -0.12, -0.02), S(0.2, 1.1, 0.9)));
+      hair("rHairSide", chain(T(-0.63, -0.12, -0.02), S(0.2, 1.1, 0.9)));
+    } else if (hs === "bob") {
+      hair("hairBack", chain(T(0, -0.02, -0.5), S(1.32, 0.98, 0.34)));
+      hair("lHairSide", chain(T(0.63, -0.02, 0.0), S(0.2, 0.82, 0.94)));
+      hair("rHairSide", chain(T(-0.63, -0.02, 0.0), S(0.2, 0.82, 0.94)));
+    } else {
+      hair("hairBack", chain(T(0, 0.14, -0.5), S(1.26, 0.66, 0.36)));
+      hair("lSideburn", chain(T(0.6, 0.16, 0.04), S(0.18, 0.5, 0.56)));
+      hair("rSideburn", chain(T(-0.6, 0.16, 0.04), S(0.18, 0.5, 0.56)));
+      if (hs === "ponytail") {
+        hair("ponyBand", chain(T(0, 0.3, -0.74), S(0.3, 0.16, 0.2)));
+        hair("ponytail", chain(T(0, -0.1, -0.88), R(0.32, 0, 0), S(0.34, 0.95, 0.3)));
+      } else if (hs === "bun") {
+        hair("bun", chain(T(0, 0.6, -0.56), R(-0.4, 0, 0), S(0.6, 0.52, 0.56)));
+      } else if (hs === "pigtails") {
+        for (const sx of [1, -1]) {
+          hair(sx > 0 ? "lPigtail" : "rPigtail", chain(T(sx * 0.8, -0.18, -0.22), R(0, 0, sx * 0.22), S(0.3, 0.86, 0.3)));
+          hair(sx > 0 ? "lPigBand" : "rPigBand", chain(T(sx * 0.72, 0.22, -0.22), S(0.2, 0.14, 0.24)));
+        }
+      }
+    }
+  }
+  if (look.earrings) {
+    for (const sx of [1, -1]) add(sx > 0 ? "lEarring" : "rEarring", "stud", look.earrings, chain(head, T(sx * 0.75, -0.2, 0.02)));
+  }
 
   // Face
   const e = EXPR[pose.expression];
@@ -206,9 +256,34 @@ export const heroParts = (pose: Pose, look: HeroLook = SLAVOSKI): Part[] => {
       );
     }
   }
+  if (look.lashes) {
+    for (const sx of [1, -1]) {
+      const top = 0.1 + eyeH / 2;
+      add(sx > 0 ? "lLash1" : "rLash1", "box", P.pupil, chain(head, T(sx * 0.33, top + 0.0, faceZ + 0.02), R(0, 0, sx * 0.7), S(0.1, 0.035, 0.04)));
+      add(sx > 0 ? "lLash2" : "rLash2", "box", P.pupil, chain(head, T(sx * 0.26, top + 0.035, faceZ + 0.02), R(0, 0, sx * 0.35), S(0.09, 0.035, 0.04)));
+    }
+  }
   add("nose", "box", look.skinShade, chain(head, T(0, -0.08, faceZ + 0.06), R(0.15, 0, 0), S(0.14, 0.2, 0.16)));
   const talk = Math.max(0, Math.min(1, pose.talk ?? 0));
-  add("mouth", "box", P.mouth, chain(head, T(e.mouthX, -0.32 - talk * 0.04, faceZ - 0.04), R(0, 0, e.mouthTilt * (1 - talk)), S(e.mouthW * (1 - talk * 0.15), e.mouthH + talk * 0.13, 0.08)));
+  // lipstick also makes the lips a little fuller, plus a light blush on the cheeks
+  const full = look.lips ? 1 : 0;
+  add("mouth", "box", look.lips ?? P.mouth, chain(head, T(e.mouthX, -0.32 - talk * 0.04, faceZ - 0.04), R(0, 0, e.mouthTilt * (1 - talk)), S((e.mouthW + full * 0.03) * (1 - talk * 0.15), e.mouthH * (1 + full * 0.4) + full * 0.012 + talk * 0.13, 0.08)));
+  if (look.lips) {
+    const blush = new THREE.Color(look.skin).lerp(new THREE.Color(look.lips), 0.3).getStyle();
+    for (const sx of [1, -1]) add(sx > 0 ? "lBlush" : "rBlush", "box", blush, chain(head, T(sx * 0.36, -0.13, faceZ - 0.065), R(0, sx * 0.5, 0), S(0.17, 0.08, 0.04)));
+  }
+  if (look.beard) {
+    const stub = look.beard === "stubble";
+    // stubble: a faint shadow close to the skin colour, barely proud of the face
+    const col = stub ? new THREE.Color(look.skinShade).lerp(new THREE.Color(look.hair), 0.35).getStyle() : look.hair;
+    const out = stub ? -0.11 : 0;
+    if (look.beard !== "moustache") {
+      add("beardChin", "box", col, chain(head, T(0, -0.53, 0.3 + out), S(0.98, 0.34, 0.56)));
+      add("lBeardJaw", "box", col, chain(head, T(0.5, -0.3, 0.2 + out), S(0.24, 0.6, 0.62)));
+      add("rBeardJaw", "box", col, chain(head, T(-0.5, -0.3, 0.2 + out), S(0.24, 0.6, 0.62)));
+    }
+    if (!stub) add("moustache", "box", look.hair, chain(head, T(0, -0.215, faceZ - 0.01), S(look.beard === "moustache" ? 0.5 : 0.44, 0.1, 0.1)));
+  }
   return parts;
 };
 
@@ -362,6 +437,8 @@ const geoms = {
   fist: new THREE.IcosahedronGeometry(DIM.fistR, 1),
   ear: new THREE.IcosahedronGeometry(0.13, 0),
   neck: new THREE.CylinderGeometry(0.22, 0.24, 0.3, 7),
+  skirt: new THREE.CylinderGeometry(0.62, 0.95, 1, 8, 1),
+  stud: new THREE.IcosahedronGeometry(0.07, 0),
 };
 
 // "mid" detail: rounder head, fists and ears, and every box part chamfered at its real size.
@@ -374,6 +451,8 @@ const midGeoms = {
   fist: new THREE.IcosahedronGeometry(DIM.fistR, 3),
   ear: new THREE.IcosahedronGeometry(0.13, 2),
   neck: new THREE.CylinderGeometry(0.22, 0.24, 0.3, 14),
+  skirt: new THREE.CylinderGeometry(0.62, 0.95, 1, 14, 1),
+  stud: new THREE.IcosahedronGeometry(0.07, 1),
 };
 
 const scaleOf = new THREE.Vector3();

@@ -11,6 +11,19 @@ export type HeroLook = {
   shoe: string;
   /** Eye whites (red-tinted for tired, burning eyes). */
   eyeWhite?: string;
+  // ---- identity (ep. 8 on; all optional, so older looks render exactly as before) ----
+  /** Haircut: "short" is Slavoski's (the default). */
+  hairStyle?: "short" | "buzz" | "long" | "bob" | "ponytail" | "bun" | "pigtails";
+  /** Facial hair, in the hair colour (stubble is a skin/hair mix). */
+  beard?: "full" | "stubble" | "moustache";
+  /** Dark lash ticks at the outer top corner of each eye. */
+  lashes?: boolean;
+  /** Mouth colour (lipstick); the house mouth colour otherwise. */
+  lips?: string;
+  /** Small round earrings under the ears. */
+  earrings?: string;
+  /** A knee-length skirt (or a dress's lower half) flaring from the hips; it folds over the lap when seated. */
+  skirt?: string;
 };
 
 /** Slavoski: orange zip jacket, dark jeans, light block sneakers, dark-brown blocky hair. */
@@ -73,3 +86,65 @@ export const crowdLook = (seed: number): HeroLook => {
 
 /** A dark suit for officials and world leaders (generic: no flags, no badges). */
 export const suitLook = (seed: number): HeroLook => ({ ...crowdLook(seed), jacket: "#22283A", jacketShade: "#1A1F2E", zipper: "#E8E4DA", jeans: "#22283A", shoe: "#141418" });
+
+// ---- men and women (ep. 8 on): clearly male or female townsfolk on the same rig ----
+// `crowdLook` stays as it was so published episodes re-render identically; new episodes cast with these.
+
+const pickBy = <T,>(arr: T[], seed: number, k: number) => arr[Math.abs(Math.floor(seed * 7919 + k * 104729)) % arr.length];
+const W_HAIRS = ["#1A1410", "#3A2A1E", "#6A2E1E", "#C9A46A", "#2A1E18", "#8A5A34"];
+const LIPS = ["#B83A4A", "#9A3040", "#C8505A", "#A8485A"];
+const SKIRTS = ["#5A4A78", "#2E5A6A", "#8A3A3A", "#24748F", "#3A6A4A", "#C8A040", "#1D274B"];
+const TIGHTS = ["#2A2A30", "#3A3040"];
+
+/** A man: short or buzzed hair, often a beard or moustache. `over` wins (e.g. a suit). */
+export const manLook = (seed: number, over: Partial<HeroLook> = {}): HeroLook => ({
+  ...crowdLook(seed),
+  hairStyle: pickBy<HeroLook["hairStyle"]>(["short", "short", "buzz"], seed, 11),
+  beard: pickBy<HeroLook["beard"]>([undefined, "stubble", "full", "moustache", undefined], seed, 12),
+  ...over,
+});
+
+/** A woman: long, bob, ponytail or bun hair, lashes, lipstick, often earrings and a skirt or dress. */
+export const womanLook = (seed: number, over: Partial<HeroLook> = {}): HeroLook => {
+  const base = crowdLook(seed);
+  const outfit = pickBy(["pants", "skirt", "dress"], seed, 13);
+  const skirt = pickBy(SKIRTS, seed, 14);
+  return {
+    ...base,
+    hair: pickBy(W_HAIRS, seed, 15),
+    hairStyle: pickBy<HeroLook["hairStyle"]>(["long", "long", "bob", "ponytail", "bun"], seed, 16),
+    lashes: true,
+    lips: pickBy(LIPS, seed, 17),
+    earrings: pickBy([undefined, "#F2C94C", "#E8E4DA"], seed, 18),
+    ...(outfit === "pants" ? {} : { skirt, jeans: pickBy(TIGHTS, seed, 19) }),
+    ...(outfit === "dress" ? { jacket: skirt, jacketShade: skirt, zipper: skirt } : {}),
+    ...over,
+  };
+};
+
+/** A girl (for a child, scaled ~0.62): pigtails or a ponytail, lashes, a dress. */
+export const girlLook = (seed: number, over: Partial<HeroLook> = {}): HeroLook => {
+  const dress = pickBy(["#24748F", "#C8505A", "#3A6A4A", "#5A4A78"], seed, 21);
+  return {
+    ...crowdLook(seed),
+    hair: pickBy(["#3A2A1E", "#6A2E1E", "#1A1410"], seed, 22),
+    hairStyle: pickBy<HeroLook["hairStyle"]>(["pigtails", "ponytail"], seed, 23),
+    lashes: true,
+    jacket: dress,
+    jacketShade: dress,
+    zipper: dress,
+    skirt: dress,
+    jeans: "#E8E4DA",
+    ...over,
+  };
+};
+
+/** Alternates by seed: odd seeds are women, even seeds men. */
+export const personLook = (seed: number, over: Partial<HeroLook> = {}): HeroLook => (seed % 2 ? womanLook(seed, over) : manLook(seed, over));
+
+/** A dark suit for a man or a woman (skirt suit), generic: no flags, no badges. */
+export const suitFor = (seed: number, gender: "m" | "f"): HeroLook => {
+  const suit = { jacket: "#22283A", jacketShade: "#1A1F2E", zipper: "#E8E4DA", shoe: "#141418" };
+  return gender === "m" ? manLook(seed, { ...suit, jeans: "#22283A" }) : womanLook(seed, { ...suit, skirt: "#22283A", jeans: "#2A2A30" });
+};
+

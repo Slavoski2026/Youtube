@@ -16,6 +16,7 @@ const BlackHoleLow = withDetail("low", BlackHoleEpisode);
 const NoHumansLow = withDetail("low", NoHumansEpisode);
 const GtaLow = withDetail("low", GtaEpisode);
 import { StyleCheck, type StyleCheckProps } from "./StyleCheck";
+import { CastLineup, type CastLineupProps } from "./CastLineup";
 import { Thumbnail, type ThumbProps } from "./Thumbnails";
 
 export const FPS = 30;
@@ -123,6 +124,7 @@ export const RemotionRoot: React.FC = () => (
       defaultProps={{ voiceover: "no-lies" } as NoLiesProps}
       calculateMetadata={voiceoverMetadata<NoLiesProps>(FPS, { tailSeconds: 2.2, fallback: estimatedNoLies })}
     />
+    <Still id="CastLineup" component={CastLineup} width={WIDTH} height={HEIGHT} defaultProps={{ seed: 0 } as CastLineupProps} />
     <Composition
       id="StyleCheck"
       component={StyleCheck}
