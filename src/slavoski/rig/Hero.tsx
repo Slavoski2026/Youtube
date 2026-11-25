@@ -15,7 +15,7 @@ import { Flat } from "../materials";
 import { SLAVOSKI, type HeroLook } from "../hero";
 import { chamferBox, useDetail } from "../detail";
 
-export type Expression = "neutral" | "alarm" | "smile" | "worried" | "awe" | "relief";
+export type Expression = "neutral" | "alarm" | "smile" | "worried" | "awe" | "relief" | "curious";
 
 export type Pose = {
   /** Extra vertical offset of the whole body (use groundedBob for crouches). */
@@ -219,6 +219,8 @@ const EXPR: Record<
   worried: { eyeH: 1.05, pupil: 0.9, lookX: 0.01, lookY: 0, mouthW: 0.14, mouthH: 0.05, mouthX: 0.03, mouthTilt: 0.18 },
   awe: { eyeH: 1.15, pupil: 0.85, lookX: 0, lookY: 0.02, mouthW: 0.12, mouthH: 0.13, mouthX: 0, mouthTilt: 0 },
   relief: { eyeH: 0.55, pupil: 1, lookX: 0, lookY: -0.02, mouthW: 0.24, mouthH: 0.05, mouthX: 0, mouthTilt: 0 },
+  /** Knowing half-smirk, eyes a touch narrowed and on the viewer (channel branding). */
+  curious: { eyeH: 0.9, pupil: 1, lookX: 0, lookY: 0.012, mouthW: 0.15, mouthH: 0.05, mouthX: 0.035, mouthTilt: 0.16 },
 };
 
 // ---------- Queries ----------

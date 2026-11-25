@@ -16,6 +16,7 @@ const NoHumansLow = withDetail("low", NoHumansEpisode);
 const GtaLow = withDetail("low", GtaEpisode);
 import { StyleCheck, type StyleCheckProps } from "./StyleCheck";
 import { Thumbnail, type ThumbProps } from "./Thumbnails";
+import { BANNER, BrandBanner, BrandProfile, PROFILE, type BrandProps } from "./Brand";
 
 export const FPS = 30;
 export const WIDTH = 1080;
@@ -111,6 +112,9 @@ export const RemotionRoot: React.FC = () => (
       defaultProps={{ voiceover: "satellites-dark" } as SatellitesDarkProps}
       calculateMetadata={voiceoverMetadata<SatellitesDarkProps>(FPS, { tailSeconds: 2.2, fallback: estimatedSatellitesDark })}
     />
+    {/* Channel branding: profile picture and banner (render with --props='{"guides":true}' to see the crops). */}
+    <Still id="Brand-Profile" component={BrandProfile} width={PROFILE.width} height={PROFILE.height} defaultProps={{ guides: false } as BrandProps} />
+    <Still id="Brand-Banner" component={BrandBanner} width={BANNER.width} height={BANNER.height} defaultProps={{ guides: false } as BrandProps} />
     <Composition
       id="StyleCheck"
       component={StyleCheck}

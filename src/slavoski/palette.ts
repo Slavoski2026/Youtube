@@ -92,6 +92,10 @@ export const P = {
 
   // Brand / type
   amber: "#FFBA58",
+  /** Channel brand kit (profile picture, banner): navy ground, golden type, warm orange light. */
+  brandNavy: "#0B1224",
+  brandGold: "#FFBD49",
+  brandOrange: "#E89524",
   cream: "#F6EBC4",
   white: "#FFFFFF",
   ink: "#0B0B14",

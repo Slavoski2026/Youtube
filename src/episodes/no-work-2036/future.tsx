@@ -16,14 +16,16 @@ import { P } from "../../slavoski/palette";
 import { CanvasPanel } from "../../slavoski/screens";
 import { CORP_RED, drawLogo, R_VISOR } from "./props";
 
-export type CityStyle = "bright" | "corp";
+/** "dusk" (channel banner): dark navy silhouettes, sparse amber windows, gold and orange accents. */
+export type CityStyle = "bright" | "corp" | "dusk";
 export type TowerKind = "glass" | "stepped" | "twist" | "round" | "spire";
 
 const BODY: Record<CityStyle, string[]> = {
   bright: [P.bldgNavy, P.bldgSlate, P.bldgPurple, P.bldgTeal, P.bldgIndigo, "#8E9CB2", "#C9D2DE"],
   corp: ["#1A1F33", "#232842", "#2A2F48", "#1D274B", "#262236"],
+  dusk: ["#141A30", "#1A2040", "#1E1A36", "#16223A", "#20203C"],
 };
-const ACCENT: Record<CityStyle, string[]> = { bright: [R_VISOR, P.amber, "#B58CFF"], corp: [CORP_RED, "#FF5A6A"] };
+const ACCENT: Record<CityStyle, string[]> = { bright: [R_VISOR, P.amber, "#B58CFF"], corp: [CORP_RED, "#FF5A6A"], dusk: [P.brandGold, P.brandOrange, "#FF8A3A"] };
 
 // ---------------------------------------------------------------- ribbon-window texture
 
@@ -56,16 +58,16 @@ const facade = (body: string, style: CityStyle, variant: number) => {
   const cols = 8;
   const fh = H / floors;
   const cw = W / cols;
-  const litP = style === "bright" ? 0.42 : 0.14;
+  const litP = style === "bright" ? 0.42 : style === "dusk" ? 0.2 : 0.14;
   for (let f = 0; f < floors; f++) {
     for (let k = 0; k < cols; k++) {
       const r = random(`fac${key}${f}:${k}`);
       const lit = r < litP;
-      const glass = style === "bright" ? (r < 0.75 ? P.windowUnlit : "#5D7BA0") : "#2A3550";
-      ca.fillStyle = lit ? (style === "bright" ? P.windowLit : "#E8C8C8") : glass;
+      const glass = style === "bright" ? (r < 0.75 ? P.windowUnlit : "#5D7BA0") : style === "dusk" ? "#1C2440" : "#2A3550";
+      ca.fillStyle = lit ? (style === "corp" ? "#E8C8C8" : P.windowLit) : glass;
       ca.fillRect(k * cw + 1, f * fh + fh * 0.22, cw - 2, fh * 0.56);
       if (lit) {
-        cg.fillStyle = style === "bright" ? P.windowLit : "#C84A5A";
+        cg.fillStyle = style === "corp" ? "#C84A5A" : P.windowLit;
         cg.fillRect(k * cw + 1, f * fh + fh * 0.22, cw - 2, fh * 0.56);
       }
     }
@@ -180,7 +182,7 @@ export const FutureTower: React.FC<TowerSpec & { style: CityStyle; t: number; po
                   ) : null;
                 })
               : null}
-            {tr.k > 0 && style === "corp" ? (
+            {tr.k > 0 && style !== "bright" ? (
               <mesh position={[0, tr.y0 + 0.05, tiers[tr.k - 1].d / 2 + 0.03]}>
                 <planeGeometry args={[tiers[tr.k - 1].w, 0.25]} />
                 <Glow color={accent} />
