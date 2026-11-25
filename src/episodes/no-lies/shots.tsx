@@ -1153,8 +1153,28 @@ const c6Ask: ShotFn = (c) => {
   );
 };
 
-/** For the thumbnail: the couch confession. */
-export const thumbShot: ShotFn = (c) => c2Couch({ ...c, lt: 0.6 });
+/** For the thumbnail: Slavoski at sunset, hand over his mouth, the lie being struck out (kept below the hook text). */
+export const thumbShot: ShotFn = (c) => {
+  const cam: CameraSpec = { position: [19.6, 5.5, 15.2], target: [16.6, 4.95, 6] };
+  let pose = mergePose(REST, { expression: "alarm", headYaw: 0.05 });
+  const head = headPosition(pose, SLAV_ST, 0.15);
+  pose = reach(pose, "r", [head[0] + 0.05, head[1] - 0.3, head[2] + 0.95], { position: SLAV_ST, yaw: 0.15 }).pose;
+  return (
+    <Shot
+      mood="sunset"
+      camera={cam}
+      fog={[40, 260]}
+      shadowSize={14}
+      light={0.9}
+      overlay={<TruthBubble at={up(head, 0.85)} cam={cam} width={c.width} height={c.height} lie={"I LOVE\nMONDAYS!"} truth="" swap={0.48} offset={[0, -60]} size={50} />}
+    >
+      <BigStreet seed="sunset" />
+      <Sky t={c.t} tint="sunset" seed="mon" />
+      <Sun position={[-150, 30, -480]} size={18} />
+      <Hero pose={pose} position={SLAV_ST} yaw={0.15} />
+    </Shot>
+  );
+};
 
 // ---------------------------------------------------------------- the cue list
 

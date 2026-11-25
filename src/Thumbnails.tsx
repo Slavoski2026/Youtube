@@ -68,8 +68,8 @@ const THUMBS: Record<ThumbProps["episode"], { shot: React.ReactNode; lines: Line
     top: 230,
   },
   "no-lies": {
-    // The couch: "I NEVER LIKED YOUR MOTHER." — the truth slips out.
-    shot: NL({ lt: 0.6, dur: 1.4, t: 21.7, words: [], width: 1080, height: 1920 }),
+    // Slavoski at sunset, hand over his mouth, as his lie gets struck out.
+    shot: NL({ lt: 0, dur: 2, t: 8.5, words: [], width: 1080, height: 1920 }),
     lines: [{ text: "NOBODY" }, { text: "CAN LIE", color: P.amber, size: 150 }],
     chip: "NOT EVEN YOU",
     top: 230,
