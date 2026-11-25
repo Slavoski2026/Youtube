@@ -76,9 +76,7 @@ export const TruthBubble: React.FC<{
         <span style={{ position: "relative", display: "inline-block" }}>
           {showLie ? lie : truth}
           {showLie && swap > 0 ? (
-            <svg viewBox="0 0 100 100" preserveAspectRatio="none" style={{ position: "absolute", left: -8, top: -4, width: "calc(100% + 16px)", height: "calc(100% + 8px)", overflow: "visible" }}>
-              <line x1={0} y1={78} x2={strike * 100} y2={78 - strike * 56} stroke="#D8352A" strokeWidth={7} strokeLinecap="round" vectorEffect="non-scaling-stroke" />
-            </svg>
+            <span style={{ position: "absolute", left: -6, top: "48%", height: 7, width: `calc(${strike * 100}% + 12px)`, background: "#D8352A", borderRadius: 4 }} />
           ) : null}
         </span>
       </div>
