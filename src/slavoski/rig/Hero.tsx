@@ -153,6 +153,7 @@ export const heroParts = (pose: Pose, look: HeroLook = SLAVOSKI): Part[] => {
     add(`${side}Shin`, "box", look.jeans, chain(kneeM, T(0, -d.shin / 2, 0), S(d.legW * 0.96, d.shin + 0.04, d.legD * 0.96)));
     const ankle = chain(kneeM, T(0, -d.shin, 0), R(-knee + pitch, 0, -sx * roll));
     add(`${side}Shoe`, "box", look.shoe, chain(ankle, T(0, -0.015, 0.1), S(0.5, 0.27, 0.78)));
+    if (look.sock) add(`${side}Sock`, "box", look.sock, chain(ankle, T(0, 0.19, 0), S(d.legW * 1.05, 0.2, d.legD * 1.05)));
   }
 
   // Torso

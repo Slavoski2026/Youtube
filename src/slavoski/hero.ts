@@ -11,6 +11,8 @@ export type HeroLook = {
   shoe: string;
   /** Eye whites (red-tinted for tired, burning eyes). */
   eyeWhite?: string;
+  /** Visible socks: a band between the jeans and the sneakers (ep. 8's sock-colour power). Off by default. */
+  sock?: string;
 };
 
 /** Slavoski: orange zip jacket, dark jeans, light block sneakers, dark-brown blocky hair. */
