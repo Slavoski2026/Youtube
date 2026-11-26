@@ -248,7 +248,8 @@ export const drawAtm = (t: number, flicker = 0) => (ctx: CanvasRenderingContext2
 export const drawExchange = (k: number, t: number) => (ctx: CanvasRenderingContext2D, W: number, H: number) => {
   ctx.fillStyle = "#0A0F22";
   ctx.fillRect(0, 0, W, H);
-  fitText(ctx, "WORLD EXCHANGE", W / 2, H * 0.07, W * 0.8, H * 0.045, "rgba(255,255,255,0.65)");
+  if (k > 0.95) fitText(ctx, "MOST VALUABLE ASSET ON EARTH", W / 2, H * 0.07, W * 0.9, H * 0.04, SAND);
+  else fitText(ctx, "WORLD EXCHANGE", W / 2, H * 0.07, W * 0.8, H * 0.045, "rgba(255,255,255,0.65)");
   const rows: { name: string; price: string }[] = [
     { name: "GOLD  ·  1 KG", price: "£61,240" },
     { name: "HOUSE", price: "£289,000" },
@@ -286,7 +287,6 @@ export const drawExchange = (k: number, t: number) => (ctx: CanvasRenderingConte
   ctx.lineWidth = 6;
   ctx.strokeRect(W * 0.03, yy + 4, W * 0.94, rowH - 8);
   row(yy, "1 YEAR OF LIFE", `£${Math.round(100000 + Math.sin(t * 3) * 900).toLocaleString("en-GB")}`, OK_GREEN, "▲", SAND, true);
-  if (k > 0.95) fitText(ctx, "MOST VALUABLE ASSET ON EARTH", W / 2, H * 0.93, W * 0.9, H * 0.04, SAND);
 };
 
 /** A debt letter on a table, stamped PAID when `stamp` > 0. */

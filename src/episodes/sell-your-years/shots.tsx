@@ -253,7 +253,7 @@ const c1Board: ShotFn = (c) => {
         <BoxG args={[12.8, 16.4, 0.6]} />
         <Flat color="#1A1C26" />
       </mesh>
-      <CanvasPanel position={[0, 11.5, -22.05]} w={12} h={15.6} px={900} draw={drawExchange(k01(c.lt, 0.3, 1.6), c.t)} />
+      <CanvasPanel position={[0, 11.5, -22.05]} w={12} h={15.6} px={900} draw={drawExchange(k01(c.lt, 0.45, 1.05), c.t)} />
       {Array.from({ length: 12 }, (_, i) => {
         const x = -9 + (i % 6) * 3.5 + (random(`bx${i}`) - 0.5);
         const z = -6 + Math.floor(i / 6) * 4 + (random(`bz${i}`) - 0.5) * 1.5;
@@ -883,7 +883,7 @@ const endAsk: ShotFn = (c) => {
   const pose = mergePose(REST, { expression: turn > 0.6 ? "worried" : "awe", headYaw: lerp(0, -0.1, turn), headRoll: 0.08 * turn, headPitch: 0.02, blink: c.lt > 1.2 && c.lt < 1.28 ? 1 : 0 });
   return (
     <Shot mood="dawn" camera={cam} fog={[40, 260]} shadowSize={12} light={0.9}>
-      {endStreet(c, { mode: "offer", years: 10, amount: 1000000, k: 1, t: c.t, buttons: true, hover: 1 }, <Hero pose={pose} position={HERO_PAD} yaw={lerp(Math.PI, 0.75, turn)} />)}
+      {endStreet(c, { mode: "offer", years: 10, amount: 1000000, k: 1, t: c.t, buttons: true, hover: 1 }, <Hero pose={pose} position={HERO_PAD} yaw={lerp(2.1, 0.75, turn)} />)}
     </Shot>
   );
 };

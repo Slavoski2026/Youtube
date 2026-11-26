@@ -76,7 +76,7 @@ export const SellYourYearsEpisode: React.FC<SellYourYearsProps> = ({ manifest })
   const down0 = wordAt(words, "sacrifice", 30, 35.5);
   const back0 = last.start;
   const level =
-    100000 + 140000 * ramp(t, up0, up0 + 1.4) - 180000 * ramp(t, down0, down0 + 1.6) - 0 + 140000 * ramp(t, back0, back0 + 1.2) - 0;
+    100000 + 140000 * ramp(t, up0, up0 + 1.4) - 180000 * ramp(t, down0, down0 + 1.6) + 40000 * ramp(t, back0, back0 + 1.2);
   const price = Math.round((level * (1 + 0.012 * noise1("price", t * 1.7))) / 10) * 10;
   const rising = t > up0 && t < up0 + 3;
   const falling = t > down0 && t < down0 + 4;
