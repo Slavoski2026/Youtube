@@ -892,12 +892,15 @@ const endAsk: ShotFn = (c) => {
 
 export const thumbShot = () => {
   const c: ShotCtx = { lt: 1.0, dur: 2, t: 9.0, words: [], width: 1080, height: 1920 };
-  const head = headPosition(REST, HERO_PAD, Math.PI);
-  const cam: CameraSpec = { position: [head[0] + 3.4, head[1] + 0.6, head[2] + 4.6], target: [head[0] - 0.3, head[1] - 0.6, head[2] - 1.0] };
+  // Slavoski facing us, wide-eyed, the kiosk offer (£500,000) glowing over his shoulder
+  const hero: V3 = [3.75, 0, 3.6];
+  const pose = mergePose(REST, { expression: "awe", headYaw: 0.1, headPitch: 0.04, lShoulder: [0.55, 0.35], lElbow: 0.9 });
+  const cam: CameraSpec = { position: [4.5, 3.5, 13.2], target: [4.35, 2.9, 1.5] };
   return (
-    <Stage mood="overcast" camera={cam} fog={[30, 170]} shadowSize={14} light={0.8}>
+    <Stage mood="overcast" camera={cam} fog={[30, 170]} shadowSize={14} light={1.0}>
       <CashStreet t={c.t} kioskOn={1} kiosk={{ mode: "offer", years: 5, amount: 500000, k: 1, t: c.t }} />
-      <Hero pose={mergePose(REST, { expression: "awe", headYaw: 0.25, headPitch: 0.05 })} position={HERO_PAD} yaw={Math.PI - 0.5} />
+      <Hero pose={pose} position={hero} yaw={0.12} />
+      <pointLight position={[5.2, 3.8, 3.4]} color="#9FD8FF" intensity={14} distance={8} decay={2} />
     </Stage>
   );
 };
