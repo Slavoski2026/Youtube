@@ -11,6 +11,7 @@ import { SHOTS as SA } from "./episodes/smart-animals/shots";
 import { SHOTS as WW3 } from "./episodes/ww3-countdown/shots";
 import { thumbShot as NW } from "./episodes/no-work-2036/shots";
 import { thumbShot as SD } from "./episodes/satellites-dark/shots";
+import { thumbShot as SY } from "./episodes/sell-your-years/shots";
 import { FONT, loadHouseFonts } from "./slavoski/fonts";
 import { P } from "./slavoski/palette";
 import { AccretionDisk, FacetedEarth } from "./slavoski/space";
@@ -18,7 +19,7 @@ import { Stage } from "./slavoski/Stage";
 
 loadHouseFonts();
 
-export type ThumbProps = { episode: "black-hole" | "no-humans" | "gta-24h" | "smart-animals" | "ww3-countdown" | "no-work-2036" | "satellites-dark" };
+export type ThumbProps = { episode: "black-hole" | "no-humans" | "gta-24h" | "smart-animals" | "ww3-countdown" | "no-work-2036" | "satellites-dark" | "sell-your-years" };
 
 type Line = { text: string; color?: string; size?: number };
 const THUMBS: Record<ThumbProps["episode"], { shot: React.ReactNode; lines: Line[]; chip: string; top: number }> = {
@@ -64,6 +65,13 @@ const THUMBS: Record<ThumbProps["episode"], { shot: React.ReactNode; lines: Line
     shot: SD({ lt: 0, dur: 2, t: 0, words: [], width: 1080, height: 1920 }),
     lines: [{ text: "EVERY SATELLITE" }, { text: "JUST DIED", color: P.amber, size: 150 }],
     chip: "WHAT HAPPENS NEXT?",
+    top: 230,
+  },
+  "sell-your-years": {
+    // Slavoski in the drizzle, lit by the LIFEBANK kiosk offering £500,000 for five years.
+    shot: SY(),
+    lines: [{ text: "SELL 5 YEARS" }, { text: "OF YOUR LIFE?", color: P.amber, size: 150 }],
+    chip: "FOR £500,000",
     top: 230,
   },
   "gta-24h": {
