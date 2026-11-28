@@ -78,6 +78,10 @@ export const P = {
   smokeDark: "#4C3F3E",
   water: "#2C6FB0",
   waterFoam: "#BFE3FF",
+  /** Cartoon gas (ep. 8): a sickly yellow-green puff, never brown. */
+  gas: "#A9C85A",
+  gasDark: "#7FA040",
+  vapour: "#F2F6FA",
 
   // Hero
   skin: "#C58B62",
