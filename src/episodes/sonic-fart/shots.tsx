@@ -255,7 +255,7 @@ const coldFace: ShotFn = (c) => {
 
 /** The quiet library. Slavoski trembles; the librarian shushes; the title comes in. */
 const coldWide: ShotFn = (c) => {
-  const cam = move({ position: [3.2, 4.4, 17.5], target: [0.2, 3.1, -2] }, { position: [2.2, 4.0, 14.2], target: [0.1, 3.0, -2] }, c);
+  const cam = move({ position: [3.9, 4.4, 17.5], target: [1.0, 3.1, -2] }, { position: [3.0, 4.0, 14.6], target: [0.9, 3.0, -2] }, c);
   const pose = seatedAt({ expression: c.lt > 1.8 ? "alarm" : "worried", headPitch: -0.1 });
   return (
     <Shot mood="day" camera={cam} fog={false} stars={false} shadowSize={22}>
@@ -281,7 +281,7 @@ const coldLibrarian: ShotFn = (c) => {
   const blastAt = cueLt(c, "hour", 3.5, -1) + 0.26;
   const libPose = grounded(mergePose(REST, { expression: "alarm", lShoulder: [0.3, 1.2], rShoulder: [0.3, 1.2], lElbow: 1.3, rElbow: 1.3, headPitch: 0.1, lean: -0.05 }));
   const head = headPosition(libPose, LIBRARIAN_AT);
-  const cam = move({ position: [head[0] - 1.6, head[1] - 0.2, head[2] + 5.6], target: [head[0] - 0.1, head[1] - 0.7, head[2]] }, { position: [head[0] - 1.4, head[1] - 0.15, head[2] + 4.8], target: [head[0] - 0.1, head[1] - 0.65, head[2]] }, c);
+  const cam = move({ position: [head[0] - 2.0, head[1] + 0.2, head[2] + 8.4], target: [head[0] - 0.1, head[1] + 0.05, head[2]] }, { position: [head[0] - 1.8, head[1] + 0.2, head[2] + 7.4], target: [head[0] - 0.1, head[1] + 0.05, head[2]] }, c);
   return (
     <Shot mood="day" camera={cam} fog={false} stars={false} shadowSize={16}>
       <LibraryScene lt={c.lt - blastAt} c={c} blastAt={0} />
@@ -384,7 +384,7 @@ const c1Vapour: ShotFn = (c) => {
   const seat: V3 = [0, 1.42, -0.5];
   return (
     <Shot mood="day" camera={cam} shake={tb > 0 ? 0.05 * Math.exp(-tb * 5) : 0} fog={[80, 600]} stars={false} shadowSize={16}
-      overlay={<Pinned at={[0.9, 2.3, -1.6]} cam={cam} c={c} text="boom." size={38} show={tb > 0 ? Math.min(1, tb * 2) : 0} />}
+      overlay={<Pinned at={[-0.9, 1.7, -1.5]} cam={cam} c={c} text="boom." size={38} show={tb > 0 ? Math.min(1, tb * 2) : 0} />}
     >
       <SaltFlat />
       <Clouds t={c.t} color="#F4F6FA" y={45} radius={260} count={14} seed="c1v" />
